@@ -1,0 +1,39 @@
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { auth } from "@/lib/auth";
+import { redirect } from "next/navigation";
+import { AdminSidebar } from "@/components/admin/admin-sidebar";
+import { db } from "@/lib/db";
+import { eq } from "drizzle-orm";
+import { users } from "@/schema/users";
+
+export default async function Layout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const session = await auth();
+
+  if (session?.user?.role !== "admin") {
+    redirect("/admin-login");
+  }
+
+  const user = await db.query.users.findFirst({
+    where: eq(users.id, session.user.id),
+  });
+
+  if (!user) {
+    redirect("/admin-login");
+  }
+
+  return (
+    <div>
+      <SidebarProvider>
+        <AdminSidebar user={user} />
+        <main className="p-5 w-full">
+          <SidebarTrigger />
+          {children}
+        </main>
+      </SidebarProvider>
+    </div>
+  );
+}

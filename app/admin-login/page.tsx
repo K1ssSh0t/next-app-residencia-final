@@ -1,0 +1,61 @@
+import { signIn } from "@/lib/auth";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { AuthError } from "next-auth";
+import { redirect } from "next/navigation";
+
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>
+
+export default async function Page(props: {
+  searchParams: SearchParams;
+}) {
+  const searchParams = await props.searchParams;
+
+  return (
+    <div className="flex min-h-screen justify-center items-center">
+      <Card>
+        <CardHeader>
+          <CardTitle>Admin Login</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form
+            key={"credentials"}
+            className="flex flex-col gap-2 items-center w-full"
+            action={async (formData: FormData) => {
+              "use server";
+              try {
+                await signIn("credentials", {
+                  redirectTo: "/admin",
+                  email: formData.get("email"),
+                  password: formData.get("password"),
+                });
+              } catch (error) {
+                if (error instanceof AuthError) {
+                  return redirect(`/admin-login/?error=${error.type}`);
+                }
+                throw error;
+              }
+            }}
+          >
+            <div className="w-full">
+              <Label>Email</Label>
+              <Input type="text" name="email" placeholder="user@example.com" />
+            </div>
+            <div className="w-full">
+              <Label>Password</Label>
+              <Input type="password" name="password" placeholder="password" />
+            </div>
+            <Button className="w-full" type="submit">
+              <span>Sign in</span>
+            </Button>
+          </form>
+          {searchParams.error && (
+            <div className="text-red-500">Login failed</div>
+          )}
+        </CardContent>
+      </Card>
+    </div>
+  );
+}

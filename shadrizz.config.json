@@ -1,0 +1,15 @@
+{
+  "version": "0.0.1",
+  "packageManager": "bun",
+  "latest": true,
+  "dbDialect": "postgresql",
+  "dbPackage": "pg",
+  "pkStrategy": "cuid2",
+  "authEnabled": true,
+  "authSolution": "authjs",
+  "authProviders": [
+    "credentials"
+  ],
+  "adminEnabled": true,
+  "install": true
+}
