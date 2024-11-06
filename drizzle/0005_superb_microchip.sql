@@ -1,0 +1,1 @@
+ALTER TABLE "instituciones" ADD CONSTRAINT "instituciones_usersId_unique" UNIQUE("users_id");

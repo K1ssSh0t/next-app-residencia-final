@@ -34,6 +34,7 @@ const items = [
   { title: "Dashboard", "url": "/dashboard", icon: LayoutDashboardIcon },
   { title: "Instituciones", url: "/instituciones", icon: Table2Icon },
   { title: "Cuestionarios", url: "/cuestionarios", icon: Table2Icon },
+  { title: "Preguntas", url: "/preguntas", icon: Table2Icon },
 // [CODE_MARK private-sidebar-items]
 ];
 

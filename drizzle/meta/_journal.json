@@ -22,6 +22,27 @@
       "when": 1730850944015,
       "tag": "0002_elite_warbound",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1730851289925,
+      "tag": "0003_ambitious_warlock",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1730851712182,
+      "tag": "0004_premium_mongu",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1730852306557,
+      "tag": "0005_superb_microchip",
+      "breakpoints": true
     }
   ]
 }
