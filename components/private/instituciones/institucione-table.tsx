@@ -28,33 +28,33 @@ export function InstitucioneTable({ institucioneList }: { institucioneList: Inst
         </TableRow>
       </TableHeader>
       <TableBody>
-        { institucioneList.map((institucione) => (
-          <TableRow key={ institucione.id }>
-            <TableCell>{ institucione.id }</TableCell>
-            <TableCell>{ institucione.nombre }</TableCell>
-            <TableCell>{ institucione.region }</TableCell>
-            <TableCell>{ institucione.municipio }</TableCell>
-            <TableCell>{ institucione.tipoInstitucionesId }</TableCell>
-            <TableCell>{ institucione.tipoBachilleresId }</TableCell>
-            <TableCell>{ institucione.usersId }</TableCell>
-            <TableCell>{ institucione.nivelEducativo ? "true" : "false" }</TableCell>
+        {institucioneList.map((institucione: any) => (
+          <TableRow key={institucione.id}>
+            <TableCell>{institucione.id}</TableCell>
+            <TableCell>{institucione.nombre}</TableCell>
+            <TableCell>{institucione.region}</TableCell>
+            <TableCell>{institucione.municipio}</TableCell>
+            <TableCell>{institucione.tipoInstituciones.descripcion}</TableCell>
+            <TableCell>{institucione.tipoBachilleres.descripcion}</TableCell>
+            <TableCell>{institucione.usersId}</TableCell>
+            <TableCell>{institucione.nivelEducativo ? "true" : "false"}</TableCell>
             <TableCell className="justify-end flex gap-2">
               {/* [CODE_MARK table-actions] */}
-              <Link href={`/instituciones/${ institucione.id }`}>
+              <Link href={`/admin/instituciones/${institucione.id}`}>
                 <Button size="icon" variant="outline">
                   <EyeIcon />
                 </Button>
               </Link>
-              <Link href={`/instituciones/${ institucione.id }/edit`}>
+              {/* <Link href={`/instituciones/${institucione.id}/edit`}>
                 <Button size="icon" variant="outline">
                   <PencilIcon />
                 </Button>
               </Link>
-              <Link href={`/instituciones/${ institucione.id }/delete`}>
+              <Link href={`/instituciones/${institucione.id}/delete`}>
                 <Button size="icon" variant="outline">
                   <TrashIcon />
                 </Button>
-              </Link>
+              </Link> */}
             </TableCell>
           </TableRow>
         ))}

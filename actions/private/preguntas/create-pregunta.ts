@@ -31,8 +31,6 @@ export async function createPregunta(
       throw new Error("unauthenticated");
     }
 
-
-
     const validatedFields = insertPreguntaSchema.safeParse({
       categoriaPersonasId: formData.get("categoriaPersonasId") as string,
       cuestionariosId: formData.get("cuestionariosId") as string,
@@ -48,14 +46,14 @@ export async function createPregunta(
     }
 
     await db.insert(preguntas).values(validatedFields.data);
-    
-    revalidatePath("/preguntas");
+
+    revalidatePath("/cuestionarios");
   } catch (error) {
     console.error(error);
     return {
       status: "error",
-    }
+    };
   }
 
-  redirect("/preguntas");
+  redirect("/cuestionarios");
 }

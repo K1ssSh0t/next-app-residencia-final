@@ -31,11 +31,11 @@ export const instituciones = pgTable("instituciones", {
 export const institucionesRelations = relations(
   instituciones,
   ({ one, many }) => ({
-    tipoInstitucione: one(tipoInstituciones, {
+    tipoInstituciones: one(tipoInstituciones, {
       fields: [instituciones.tipoInstitucionesId],
       references: [tipoInstituciones.id],
     }),
-    tipoBachillere: one(tipoBachilleres, {
+    tipoBachilleres: one(tipoBachilleres, {
       fields: [instituciones.tipoBachilleresId],
       references: [tipoBachilleres.id],
     }),

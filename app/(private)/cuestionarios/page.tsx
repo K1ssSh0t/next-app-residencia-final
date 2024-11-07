@@ -8,20 +8,38 @@ import { parseSearchParams } from "@/lib/search-params-utils";
 import { cuestionarios } from "@/schema/cuestionarios";
 import { CuestionarioTable } from "@/components/private/cuestionarios/cuestionario-table";
 import { getCuestionariosWithRelations } from "@/repositories/cuestionario-repository";
+import { eq } from "drizzle-orm";
+import { instituciones } from "@/schema/instituciones";
+import { auth } from "@/lib/auth";
 
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
 export default async function Page(props: {
   searchParams: SearchParams;
 }) {
+
+  const session = await auth();
+
+
   const searchParams = await props.searchParams;
   const { page, pageIndex, pageSize, search } = parseSearchParams(searchParams);
   const count = await db.$count(cuestionarios);
   const totalPages = Math.ceil(count / pageSize);
-  const cuestionarioList = await getCuestionariosWithRelations({
+  /*const cuestionarioList = await getCuestionariosWithRelations({
     limit: pageSize,
     offset: pageIndex * pageSize,
     search: search,
+  });
+*/
+
+
+  const misCuestionarios = await db.query.cuestionarios.findMany({
+    with: {
+      carrera: true,
+    },
+    limit: pageSize,
+    offset: pageIndex * pageSize,
+    where: eq(cuestionarios.usersId, `${session?.user?.id}`),
   });
 
   return (
@@ -40,7 +58,7 @@ export default async function Page(props: {
         </div>
       </div>
       <div>
-        <CuestionarioTable cuestionarioList={ cuestionarioList } />
+        <CuestionarioTable cuestionarioList={misCuestionarios} />
       </div>
       <div>
         <Pagination page={page} pageSize={pageSize} totalPages={totalPages} />

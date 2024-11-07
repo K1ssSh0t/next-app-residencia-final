@@ -18,7 +18,7 @@ export interface CreateInstitucioneState extends BaseActionState {
     municipio?: string[];
     tipoInstitucionesId?: string[];
     tipoBachilleresId?: string[];
-    usersId?: string[];
+    //usersId?: string[];
     nivelEducativo?: string[];
   };
 }
@@ -34,15 +34,13 @@ export async function createInstitucione(
       throw new Error("unauthenticated");
     }
 
-
-
     const validatedFields = insertInstitucioneSchema.safeParse({
       nombre: formData.get("nombre") as string,
       region: formData.get("region") as string,
       municipio: formData.get("municipio") as string,
       tipoInstitucionesId: formData.get("tipoInstitucionesId") as string,
       tipoBachilleresId: formData.get("tipoBachilleresId") as string,
-      usersId: formData.get("usersId") as string,
+      usersId: session?.user?.id as string,
       nivelEducativo: !!formData.get("nivelEducativo"),
     });
 
@@ -54,13 +52,13 @@ export async function createInstitucione(
     }
 
     await db.insert(instituciones).values(validatedFields.data);
-    
+
     revalidatePath("/instituciones");
   } catch (error) {
     console.error(error);
     return {
       status: "error",
-    }
+    };
   }
 
   redirect("/instituciones");

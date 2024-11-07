@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX IF NOT EXISTS "user_carrera_unique" ON "cuestionarios" USING btree ("users_id","carreras_id");

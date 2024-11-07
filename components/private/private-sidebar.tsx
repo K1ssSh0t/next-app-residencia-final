@@ -5,6 +5,7 @@ import {
   LogOutIcon,
   Table2Icon,
   LayoutDashboardIcon,
+  ArrowLeftIcon,
 } from "lucide-react";
 
 import {
@@ -14,6 +15,7 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
+  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -28,19 +30,32 @@ import {
 } from "../ui/dropdown-menu";
 import { User } from "@/schema/users";
 import Link from "next/link";
+import GoBackButton from "../go-back-button";
+import { ModeToggle } from "../mode-toggle";
 
 const items = [
   { title: "Home", url: "/", icon: HomeIcon },
   { title: "Dashboard", "url": "/dashboard", icon: LayoutDashboardIcon },
   { title: "Instituciones", url: "/instituciones", icon: Table2Icon },
   { title: "Cuestionarios", url: "/cuestionarios", icon: Table2Icon },
-  { title: "Preguntas", url: "/preguntas", icon: Table2Icon },
-// [CODE_MARK private-sidebar-items]
+  // { title: "Preguntas", url: "/preguntas", icon: Table2Icon },
+  // [CODE_MARK private-sidebar-items]
 ];
 
 export function PrivateSidebar({ user }: { user: User }) {
   return (
     <Sidebar>
+      <SidebarHeader>
+        <SidebarMenu>
+          <SidebarMenuItem>
+
+
+            <GoBackButton />
+
+
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Dashboard</SidebarGroupLabel>
@@ -61,6 +76,12 @@ export function PrivateSidebar({ user }: { user: User }) {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
+        <SidebarMenu>
+          <SidebarMenuItem>
+
+            <ModeToggle />
+          </SidebarMenuItem>
+        </SidebarMenu>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton>
@@ -87,7 +108,7 @@ export function PrivateSidebar({ user }: { user: User }) {
             <Link href="/signout">
               <DropdownMenuItem>
                 <LogOutIcon />
-                Sign out
+                Cerrar Sesion
               </DropdownMenuItem>
             </Link>
           </DropdownMenuContent>

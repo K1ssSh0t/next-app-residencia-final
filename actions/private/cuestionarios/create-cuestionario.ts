@@ -15,7 +15,7 @@ export interface CreateCuestionarioState extends BaseActionState {
     id?: string[];
     año?: string[];
     carrerasId?: string[];
-    usersId?: string[];
+    //usersId?: string[];
   };
 }
 
@@ -30,12 +30,10 @@ export async function createCuestionario(
       throw new Error("unauthenticated");
     }
 
-
-
     const validatedFields = insertCuestionarioSchema.safeParse({
       año: parseInt(formData.get("año") as string),
       carrerasId: formData.get("carrerasId") as string,
-      usersId: formData.get("usersId") as string,
+      usersId: session?.user?.id as string,
     });
 
     if (!validatedFields.success) {
@@ -46,13 +44,13 @@ export async function createCuestionario(
     }
 
     await db.insert(cuestionarios).values(validatedFields.data);
-    
+
     revalidatePath("/cuestionarios");
   } catch (error) {
     console.error(error);
     return {
       status: "error",
-    }
+    };
   }
 
   redirect("/cuestionarios");

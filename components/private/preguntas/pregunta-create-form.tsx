@@ -12,8 +12,10 @@ import { CategoriaPersona } from "@/schema/categoria-personas";
 
 export function PreguntaCreateForm({
   categoriaPersonaList,
+  cuestionario
 }: {
   categoriaPersonaList: CategoriaPersona[];
+  cuestionario: string;
 }) {
   const initialState: CreatePreguntaState = {};
   const [state, dispatch] = useActionState(createPregunta, initialState);
@@ -24,20 +26,22 @@ export function PreguntaCreateForm({
     startTransition(() => dispatch(formData));
   }
 
+  //TODO:AGREGAR QUE REDIRIGA A LA RUTA DE CUESTIONARIOS
+
   return (
     <div>
       <form action={dispatch} onSubmit={handleSubmit} className="flex flex-col gap-2">
         <div className="flex flex-col gap-2">
           <Label>Categoria Personas Id</Label>
           <GenericCombobox
-            list={ categoriaPersonaList }
+            list={categoriaPersonaList}
             name="categoriaPersonasId"
             valueField="id"
             searchPlaceholder="Search Categoria Personas..."
             selectPlaceholder="Select Categoria Persona..."
             emptyText="No categoriaPersona found"
-            keywordFields={["id"]}
-            template={(item) => <div>{item.id}</div>}
+            keywordFields={["id", "descripcion"]}
+            template={(item) => <div>{item.descripcion}</div>}
           />
           {state.errors?.categoriaPersonasId?.map((error) => (
             <p className="text-red-500" key={error}>
@@ -45,9 +49,9 @@ export function PreguntaCreateForm({
             </p>
           ))}
         </div>
-        <div>
-          <Label>Cuestionarios Id</Label>
-          <Input name="cuestionariosId" />
+        <div className="hidden">
+          <Label>{cuestionario}</Label>
+          <Input name="cuestionariosId" defaultValue={cuestionario} />
           {state.errors?.cuestionariosId?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}

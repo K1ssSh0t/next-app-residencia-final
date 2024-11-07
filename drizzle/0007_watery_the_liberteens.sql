@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX IF NOT EXISTS "categoria_cuestionario_unique" ON "preguntas" USING btree ("cuestionarios_id","categoria_personas_id");

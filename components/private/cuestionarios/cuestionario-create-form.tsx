@@ -37,14 +37,14 @@ export function CuestionarioCreateForm({
         <div className="flex flex-col gap-2">
           <Label>Carreras Id</Label>
           <GenericCombobox
-            list={ carreraList }
+            list={carreraList}
             name="carrerasId"
             valueField="id"
             searchPlaceholder="Search Carreras..."
             selectPlaceholder="Select Carrera..."
             emptyText="No carrera found"
-            keywordFields={["id"]}
-            template={(item) => <div>{item.id}</div>}
+            keywordFields={["id", "descripcion"]}
+            template={(item) => <div>{item.descripcion}</div>}
           />
           {state.errors?.carrerasId?.map((error) => (
             <p className="text-red-500" key={error}>
@@ -52,13 +52,13 @@ export function CuestionarioCreateForm({
             </p>
           ))}
         </div>
-        <div>
+        {/* {<div>
           <Label>Users Id</Label>
           <Input name="usersId" />
           {state.errors?.usersId?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}
-        </div>
+        </div>} */}
         <div>
           <Button type="submit">Submit</Button>
         </div>

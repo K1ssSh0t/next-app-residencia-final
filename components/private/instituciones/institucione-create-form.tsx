@@ -55,14 +55,14 @@ export function InstitucioneCreateForm({
         <div className="flex flex-col gap-2">
           <Label>Tipo Instituciones Id</Label>
           <GenericCombobox
-            list={ tipoInstitucioneList }
+            list={tipoInstitucioneList}
             name="tipoInstitucionesId"
             valueField="id"
             searchPlaceholder="Search Tipo Instituciones..."
             selectPlaceholder="Select Tipo Institucione..."
             emptyText="No tipoInstitucione found"
-            keywordFields={["id"]}
-            template={(item) => <div>{item.id}</div>}
+            keywordFields={["id", "descripcion"]}
+            template={(item) => <div>{item.descripcion}</div>}
           />
           {state.errors?.tipoInstitucionesId?.map((error) => (
             <p className="text-red-500" key={error}>
@@ -73,14 +73,14 @@ export function InstitucioneCreateForm({
         <div className="flex flex-col gap-2">
           <Label>Tipo Bachilleres Id</Label>
           <GenericCombobox
-            list={ tipoBachillereList }
+            list={tipoBachillereList}
             name="tipoBachilleresId"
             valueField="id"
             searchPlaceholder="Search Tipo Bachilleres..."
             selectPlaceholder="Select Tipo Bachillere..."
             emptyText="No tipoBachillere found"
-            keywordFields={["id"]}
-            template={(item) => <div>{item.id}</div>}
+            keywordFields={["id", "descripcion"]}
+            template={(item) => <div>{item.descripcion}</div>}
           />
           {state.errors?.tipoBachilleresId?.map((error) => (
             <p className="text-red-500" key={error}>
@@ -88,13 +88,13 @@ export function InstitucioneCreateForm({
             </p>
           ))}
         </div>
-        <div>
+        {/* <div>
           <Label>Users Id</Label>
           <Input name="usersId" />
           {state.errors?.usersId?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}
-        </div>
+        </div> */}
         <div>
           <Label className="mr-2">Nivel Educativo</Label>
           <Checkbox name="nivelEducativo" />

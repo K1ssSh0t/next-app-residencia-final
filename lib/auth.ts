@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import NextAuth from "next-auth"
+import NextAuth from "next-auth";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import type { Provider } from "next-auth/providers";
 import { eq } from "drizzle-orm";
@@ -8,15 +8,16 @@ import { accounts, sessions, verificationTokens } from "@/schema/auth-tables";
 import { createId } from "@paralleldrive/cuid2";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
-
+import { Adapter } from "next-auth/adapters";
+import { authConfig } from "./auth.config";
 
 const adapter = {
-  ...DrizzleAdapter(db, {
+  ...(DrizzleAdapter(db, {
     usersTable: users,
     accountsTable: accounts,
     sessionsTable: sessions,
     verificationTokensTable: verificationTokens,
-  }),
+  }) as Adapter),
   createUser: async (data: any) => {
     const newUser = {
       id: createId(),
@@ -24,7 +25,7 @@ const adapter = {
       name: data.name,
       image: data.image,
       emailVerified: data.emailVerified,
-      role: "user"
+      role: "user",
     };
 
     await db.insert(users).values(newUser);
@@ -33,34 +34,34 @@ const adapter = {
 };
 
 const providers: Provider[] = [
-    Credentials({
-      credentials: {
-        email: {},
-        password: { type: "password" },
-      },
-      authorize: async (credentials) => {
-        const email = credentials.email as string;
-        const password = credentials.password as string;
-        const user = await db.query.users.findFirst({
-          where: eq(users.email, email),
-        });
-        if (!user) {
-          throw new Error("User not found.");
-        }
-        if (!user.password) {
-          throw new Error("Password not found.");
-        }
-        const valid = bcrypt.compareSync(password, user.password);
-        if (!valid) {
-          throw new Error("Invalid password.");
-        }
-        return user;
-      },
-    }),
-
-]
+  Credentials({
+    credentials: {
+      email: {},
+      password: { type: "password" },
+    },
+    authorize: async (credentials) => {
+      const email = credentials.email as string;
+      const password = credentials.password as string;
+      const user = await db.query.users.findFirst({
+        where: eq(users.email, email),
+      });
+      if (!user) {
+        throw new Error("User not found.");
+      }
+      if (!user.password) {
+        throw new Error("Password not found.");
+      }
+      const valid = bcrypt.compareSync(password, user.password);
+      if (!valid) {
+        throw new Error("Invalid password.");
+      }
+      return user;
+    },
+  }),
+];
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  ...authConfig,
   adapter: adapter,
   session: {
     strategy: "jwt",
@@ -83,4 +84,4 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       return session;
     },
   },
-})
+});
