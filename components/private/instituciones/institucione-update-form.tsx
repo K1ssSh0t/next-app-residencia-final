@@ -12,12 +12,13 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Institucione } from "@/schema/instituciones";
 import { TipoInstitucione } from "@/schema/tipo-instituciones";
 import { TipoBachillere } from "@/schema/tipo-bachilleres";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-export function InstitucioneUpdateForm({ 
+export function InstitucioneUpdateForm({
   institucione,
   tipoInstitucioneList,
   tipoBachillereList,
-}: { 
+}: {
   institucione: Institucione;
   tipoInstitucioneList: TipoInstitucione[];
   tipoBachillereList: TipoBachillere[];
@@ -28,33 +29,40 @@ export function InstitucioneUpdateForm({
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
+
+
+    // Convert 'nivelEducativo' to boolean before dispatching
+    const nivelEducativo = formData.get('nivelEducativo');
+    formData.set('nivelEducativo', nivelEducativo === 'true' ? 'true' : 'false');
+
+
     startTransition(() => dispatch(formData));
   }
 
   return (
     <div>
       <form action={dispatch} onSubmit={handleSubmit} className="flex flex-col gap-2">
-        <input type="hidden" name="id" value={ institucione.id } />
+        <input type="hidden" name="id" value={institucione.id} />
         <div>
-          <p><strong>Id:</strong> { institucione.id }</p>
+          <p><strong>Id:</strong> {institucione.id}</p>
         </div>
         <div>
           <Label>Nombre</Label>
-          <Input name="nombre" defaultValue={ institucione.nombre ?? "" } />
+          <Input name="nombre" defaultValue={institucione.nombre ?? ""} />
           {state.errors?.nombre?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}
         </div>
         <div>
           <Label>Region</Label>
-          <Input name="region" defaultValue={ institucione.region ?? "" } />
+          <Input name="region" defaultValue={institucione.region ?? ""} />
           {state.errors?.region?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}
         </div>
         <div>
           <Label>Municipio</Label>
-          <Input name="municipio" defaultValue={ institucione.municipio ?? "" } />
+          <Input name="municipio" defaultValue={institucione.municipio ?? ""} />
           {state.errors?.municipio?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}
@@ -62,15 +70,15 @@ export function InstitucioneUpdateForm({
         <div className="flex flex-col gap-2">
           <Label>Tipo Instituciones Id</Label>
           <GenericCombobox
-            list={ tipoInstitucioneList }
+            list={tipoInstitucioneList}
             name="tipoInstitucionesId"
             valueField="id"
-            defaultValue={ institucione.tipoInstitucionesId }
+            defaultValue={institucione.tipoInstitucionesId}
             searchPlaceholder="Search Tipo Instituciones..."
             selectPlaceholder="Select Tipo Institucione..."
             emptyText="No tipoInstitucione found"
-            keywordFields={["id"]}
-            template={(item) => <div>{item.id}</div>}
+            keywordFields={["id", "descripcion"]}
+            template={(item) => <div>{item.descripcion}</div>}
           />
           {state.errors?.tipoInstitucionesId?.map((error) => (
             <p className="text-red-500" key={error}>
@@ -81,15 +89,15 @@ export function InstitucioneUpdateForm({
         <div className="flex flex-col gap-2">
           <Label>Tipo Bachilleres Id</Label>
           <GenericCombobox
-            list={ tipoBachillereList }
+            list={tipoBachillereList}
             name="tipoBachilleresId"
             valueField="id"
-            defaultValue={ institucione.tipoBachilleresId }
+            defaultValue={institucione.tipoBachilleresId}
             searchPlaceholder="Search Tipo Bachilleres..."
             selectPlaceholder="Select Tipo Bachillere..."
             emptyText="No tipoBachillere found"
-            keywordFields={["id"]}
-            template={(item) => <div>{item.id}</div>}
+            keywordFields={["id", "descripcion"]}
+            template={(item) => <div>{item.descripcion}</div>}
           />
           {state.errors?.tipoBachilleresId?.map((error) => (
             <p className="text-red-500" key={error}>
@@ -98,16 +106,24 @@ export function InstitucioneUpdateForm({
           ))}
         </div>
         <div>
-          <Label>Users Id</Label>
-          <Input name="usersId" defaultValue={ institucione.usersId ?? "" } />
-          {state.errors?.usersId?.map((error) => (
+          <Label>Nivel Educativo</Label>
+          <Select name="nivelEducativo" defaultValue={institucione.nivelEducativo ? "true" : "false"}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Selecciona el nivel educativo" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="true">Superior</SelectItem>
+              <SelectItem value="false">Medio Superior</SelectItem>
+            </SelectContent>
+          </Select>
+          {state.errors?.nivelEducativo?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}
         </div>
-        <div>
-          <Label className="mr-2">Nivel Educativo</Label>
-          <Checkbox name="nivelEducativo" defaultChecked={  institucione.nivelEducativo ?? false } />
-          {state.errors?.nivelEducativo?.map((error) => (
+        <div className="hidden">
+          <Label>Users Id</Label>
+          <Input name="usersId" defaultValue={institucione.usersId ?? ""} />
+          {state.errors?.usersId?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}
         </div>

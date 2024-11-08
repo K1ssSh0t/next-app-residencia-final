@@ -12,28 +12,17 @@ export default function Page() {
       <section>
         <div className="container flex flex-col gap-8 mx-auto px-6 py-16 text-center p-5 rounded">
           <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-            Full Stack TypeScript Scaffolding Framework
+            Sistema de Informacion Integral
           </h1>
           <p className="text-3xl">
-            Build Next.js Apps Easier and Faster With:
+            Creado con...
           </p>
           <div className="flex flex-col gap-2 m-auto items-center w-full text-xl">
             <ul className="text-left">
-              <li>✅ Automated Scaffolding</li>
-              <li>✅ Customizable Full Stack Components</li>
-              <li>✅ Authentication and Authorization</li>
-              <li>✅ Admin Dashboard</li>
-              <li>✅ Type Safety</li>
+
             </ul>
           </div>
-          <div className="p-5">
-            <a
-              href="https://www.shadrizz.com/docs"
-              className="bg-black text-white dark:bg-white dark:text-black rounded py-4 px-6 text-xl"
-            >
-              Get Started
-            </a>
-          </div>
+
         </div>
       </section>
 

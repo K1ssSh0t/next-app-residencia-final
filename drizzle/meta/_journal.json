@@ -57,6 +57,13 @@
       "when": 1730933558718,
       "tag": "0007_watery_the_liberteens",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1731099575158,
+      "tag": "0008_bizarre_valeria_richards",
+      "breakpoints": true
     }
   ]
 }

@@ -54,7 +54,7 @@ export default function Page() {
   return (
     <div className="flex min-h-screen justify-center items-center">
       <div className="flex flex-col gap-2 items-center border rounded p-5 max-w-xs">
-        <div>Iniciar sesion</div>
+        <div className='text-xl font-bold text-center'>Iniciar sesion</div>
         <form
           className="flex flex-col gap-2 items-center w-full"
           onSubmit={handleSubmit}

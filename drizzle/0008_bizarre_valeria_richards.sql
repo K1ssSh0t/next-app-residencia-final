@@ -1,0 +1,1 @@
+ALTER TABLE "users" ADD COLUMN "nivel_educativo" boolean;

@@ -23,13 +23,15 @@ export async function getCuestionariosWithRelations({
     limit: limit,
     offset: offset,
     where: search ? like(cuestionarios.id, `%${search}%`) : undefined,
-    with: undefined
+    with: undefined,
   });
 }
 
 export async function getCuestionarioWithRelations(id: string) {
   return await db.query.cuestionarios.findFirst({
     where: eq(cuestionarios.id, id),
-    with: undefined,
+    with: {
+      carrera: true,
+    },
   });
 }

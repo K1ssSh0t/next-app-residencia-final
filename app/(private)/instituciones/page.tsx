@@ -12,6 +12,8 @@ export default async function Page(props: {
   searchParams: SearchParams;
 }) {
 
+  //TODO: HACER QUE SEGUN EL TIPO DE NIVEL RESTRINGIR QUE CAMPOS PUEDE LLENAR
+
   const session = await auth();
 
   const miInstitucion = await db.query.instituciones.findFirst(
@@ -61,7 +63,7 @@ export default async function Page(props: {
 
   return (
     <div className="flex flex-col gap-5">
-      <h1 className="text-xl font-bold">Institucions</h1>
+      <h1 className="text-xl font-bold">Instituciones</h1>
       <div className="flex justify-between">
         <div>
 
@@ -89,7 +91,7 @@ export default async function Page(props: {
             <p><strong>Municipio:</strong> {miInstitucion.municipio?.toString()}</p>
             <p><strong>Tipo Institucion:</strong> {miInstitucion.tipoInstituciones?.descripcion?.toString()}</p>
             <p><strong>Tipo Bachiller:</strong> {miInstitucion.tipoBachilleres?.descripcion?.toString()}</p>
-            <p><strong>Nivel Educativo:</strong> {miInstitucion.nivelEducativo?.toString()}</p>
+            <p><strong>Nivel Educativo:</strong> {miInstitucion.nivelEducativo ? "Superior" : "Medio Superior"}</p>
             <div> <Link href={`/instituciones/${miInstitucion.id}/edit`} >
               <Button>
                 <PlusIcon className="mr-2" /> Editar

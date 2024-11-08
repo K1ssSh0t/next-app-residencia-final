@@ -7,18 +7,23 @@ import { revalidatePath } from "next/cache";
 import { createInsertSchema } from "drizzle-zod";
 import { BaseActionState } from "@/lib/types";
 import { auth } from "@/lib/auth";
+import bcrypt from "bcrypt";
+import { z } from "zod";
 
-const insertUserSchema = createInsertSchema(users);
+const insertUserSchema = createInsertSchema(users).extend({
+  nivelEducativo: z.boolean(),
+});
 
 export interface CreateUserState extends BaseActionState {
   errors?: {
     id?: string[];
     name?: string[];
     email?: string[];
-    emailVerified?: string[];
+    // emailVerified?: string[];
     image?: string[];
     role?: string[];
     password?: string[];
+    nivelEducativo?: string[];
   };
 }
 
@@ -37,14 +42,14 @@ export async function createUser(
       throw new Error("unauthorized");
     }
 
-
     const validatedFields = insertUserSchema.safeParse({
       name: formData.get("name") as string,
       email: formData.get("email") as string,
-      emailVerified: new Date(formData.get("emailVerified") as string),
+      //emailVerified: new Date(formData.get("emailVerified") as string),
       image: formData.get("image") as string,
       role: formData.get("role") as string,
       password: formData.get("password") as string,
+      nivelEducativo: formData.get("nivelEducativo") === "true",
     });
 
     if (!validatedFields.success) {
@@ -54,14 +59,17 @@ export async function createUser(
       };
     }
 
+    const hash = bcrypt.hashSync(validatedFields.data.password as string, 10);
+    validatedFields.data.password = hash;
+
     await db.insert(users).values(validatedFields.data);
-    
+
     revalidatePath("/admin/users");
   } catch (error) {
     console.error(error);
     return {
       status: "error",
-    }
+    };
   }
 
   redirect("/admin/users");

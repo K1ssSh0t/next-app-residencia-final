@@ -36,7 +36,7 @@ export default async function Page(props: { params: Params }) {
             <div>
                 <p><strong>Id:</strong> {cuestionario.id}</p>
                 <p><strong>Año:</strong> {cuestionario.año}</p>
-                <p><strong>Carreras Id:</strong> {cuestionario.carrerasId}</p>
+                <p><strong>Carreras Id:</strong> {cuestionario.carrera?.descripcion}</p>
                 <p><strong>Users Id:</strong> {cuestionario.usersId}</p>
             </div>
             <div>

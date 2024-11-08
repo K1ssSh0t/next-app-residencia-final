@@ -26,7 +26,7 @@ export function PreguntaCreateForm({
     startTransition(() => dispatch(formData));
   }
 
-  //TODO:AGREGAR QUE REDIRIGA A LA RUTA DE CUESTIONARIOS
+
 
   return (
     <div>

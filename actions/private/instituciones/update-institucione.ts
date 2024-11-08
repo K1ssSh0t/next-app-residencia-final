@@ -7,8 +7,14 @@ import { revalidatePath } from "next/cache";
 import { createSelectSchema } from "drizzle-zod";
 import { BaseActionState } from "@/lib/types";
 import { auth } from "@/lib/auth";
+import { z } from "zod";
 
-const updateInstitucioneSchema = createSelectSchema(instituciones).partial().required({ id: true });
+const updateInstitucioneSchema = createSelectSchema(instituciones)
+  .partial()
+  .required({ id: true })
+  .extend({
+    nivelEducativo: z.boolean(),
+  });
 
 export interface UpdateInstitucioneState extends BaseActionState {
   errors?: {
@@ -34,8 +40,6 @@ export async function updateInstitucione(
       throw new Error("unauthenticated");
     }
 
-
-
     const validatedFields = updateInstitucioneSchema.safeParse({
       id: formData.get("id") as string,
       nombre: formData.get("nombre") as string,
@@ -44,7 +48,7 @@ export async function updateInstitucione(
       tipoInstitucionesId: formData.get("tipoInstitucionesId") as string,
       tipoBachilleresId: formData.get("tipoBachilleresId") as string,
       usersId: formData.get("usersId") as string,
-      nivelEducativo: !!formData.get("nivelEducativo"),
+      nivelEducativo: formData.get("nivelEducativo") === "true",
     });
 
     if (!validatedFields.success) {
@@ -70,6 +74,6 @@ export async function updateInstitucione(
     console.error(error);
     return {
       status: "error",
-    }
+    };
   }
 }

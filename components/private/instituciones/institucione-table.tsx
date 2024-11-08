@@ -37,7 +37,7 @@ export function InstitucioneTable({ institucioneList }: { institucioneList: Inst
             <TableCell>{institucione.tipoInstituciones.descripcion}</TableCell>
             <TableCell>{institucione.tipoBachilleres.descripcion}</TableCell>
             <TableCell>{institucione.usersId}</TableCell>
-            <TableCell>{institucione.nivelEducativo ? "true" : "false"}</TableCell>
+            <TableCell>{institucione.nivelEducativo ? "Superior" : "Media Superior"}</TableCell>
             <TableCell className="justify-end flex gap-2">
               {/* [CODE_MARK table-actions] */}
               <Link href={`/admin/instituciones/${institucione.id}`}>

@@ -23,13 +23,16 @@ export async function getInstitucionesWithRelations({
     limit: limit,
     offset: offset,
     where: search ? like(instituciones.id, `%${search}%`) : undefined,
-    with: undefined
+    with: undefined,
   });
 }
 
 export async function getInstitucioneWithRelations(id: string) {
   return await db.query.instituciones.findFirst({
     where: eq(instituciones.id, id),
-    with: undefined,
+    with: {
+      tipoBachilleres: true,
+      tipoInstituciones: true,
+    },
   });
 }

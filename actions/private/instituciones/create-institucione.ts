@@ -7,8 +7,11 @@ import { revalidatePath } from "next/cache";
 import { createInsertSchema } from "drizzle-zod";
 import { BaseActionState } from "@/lib/types";
 import { auth } from "@/lib/auth";
+import { z } from "zod";
 
-const insertInstitucioneSchema = createInsertSchema(instituciones);
+const insertInstitucioneSchema = createInsertSchema(instituciones).extend({
+  nivelEducativo: z.boolean(),
+});
 
 export interface CreateInstitucioneState extends BaseActionState {
   errors?: {
@@ -41,7 +44,7 @@ export async function createInstitucione(
       tipoInstitucionesId: formData.get("tipoInstitucionesId") as string,
       tipoBachilleresId: formData.get("tipoBachilleresId") as string,
       usersId: session?.user?.id as string,
-      nivelEducativo: !!formData.get("nivelEducativo"),
+      nivelEducativo: formData.get("nivelEducativo") === "true",
     });
 
     if (!validatedFields.success) {

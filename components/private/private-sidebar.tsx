@@ -48,11 +48,10 @@ export function PrivateSidebar({ user }: { user: User }) {
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-
-
-            <GoBackButton />
-
-
+            <div className=" flex justify-between m-2">
+              <GoBackButton />
+              <ModeToggle />
+            </div>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
@@ -76,12 +75,6 @@ export function PrivateSidebar({ user }: { user: User }) {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
-        <SidebarMenu>
-          <SidebarMenuItem>
-
-            <ModeToggle />
-          </SidebarMenuItem>
-        </SidebarMenu>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton>

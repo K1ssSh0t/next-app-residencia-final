@@ -11,6 +11,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 
 import { TipoInstitucione } from "@/schema/tipo-instituciones";
 import { TipoBachillere } from "@/schema/tipo-bachilleres";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export function InstitucioneCreateForm({
   tipoInstitucioneList,
@@ -25,6 +26,13 @@ export function InstitucioneCreateForm({
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
+
+
+    // Convert 'nivelEducativo' to boolean before dispatching
+    const nivelEducativo = formData.get('nivelEducativo');
+    formData.set('nivelEducativo', nivelEducativo === 'true' ? 'true' : 'false');
+
+
     startTransition(() => dispatch(formData));
   }
 
@@ -97,7 +105,15 @@ export function InstitucioneCreateForm({
         </div> */}
         <div>
           <Label className="mr-2">Nivel Educativo</Label>
-          <Checkbox name="nivelEducativo" />
+          <Select name="nivelEducativo">
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Selecciona el nivel educativo" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="true">Superior</SelectItem>
+              <SelectItem value="false">Medio Superior</SelectItem>
+            </SelectContent>
+          </Select>
           {state.errors?.nivelEducativo?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}

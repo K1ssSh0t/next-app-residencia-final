@@ -15,6 +15,7 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
+  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -29,6 +30,8 @@ import {
 } from "../ui/dropdown-menu";
 import { User } from "@/schema/users";
 import Link from "next/link";
+import GoBackButton from "../go-back-button";
+import { ModeToggle } from "../mode-toggle";
 
 const items = [
   { title: "Home", url: "/", icon: HomeIcon },
@@ -46,6 +49,16 @@ const items = [
 export function AdminSidebar({ user }: { user: User }) {
   return (
     <Sidebar>
+      <SidebarHeader>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <div className=" flex justify-between m-2">
+              <GoBackButton />
+              <ModeToggle />
+            </div>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Admin</SidebarGroupLabel>
