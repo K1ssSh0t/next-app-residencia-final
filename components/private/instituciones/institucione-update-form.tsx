@@ -18,10 +18,12 @@ export function InstitucioneUpdateForm({
   institucione,
   tipoInstitucioneList,
   tipoBachillereList,
+  nivelEducativo,
 }: {
   institucione: Institucione;
   tipoInstitucioneList: TipoInstitucione[];
   tipoBachillereList: TipoBachillere[];
+  nivelEducativo: boolean;
 }) {
   const initialState: UpdateInstitucioneState = {};
   const [state, dispatch] = useActionState(updateInstitucione, initialState);
@@ -32,8 +34,14 @@ export function InstitucioneUpdateForm({
 
 
     // Convert 'nivelEducativo' to boolean before dispatching
-    const nivelEducativo = formData.get('nivelEducativo');
-    formData.set('nivelEducativo', nivelEducativo === 'true' ? 'true' : 'false');
+    const nivelEducativoForm = formData.get('nivelEducativo');
+    formData.set('nivelEducativo', nivelEducativoForm === 'true' ? 'true' : 'false');
+
+
+    // Si es nivel superior, eliminamos el campo tipoBachilleresId
+    if (nivelEducativo) {
+      formData.delete('tipoBachilleresId');
+    }
 
 
     startTransition(() => dispatch(formData));
@@ -68,7 +76,7 @@ export function InstitucioneUpdateForm({
           ))}
         </div>
         <div className="flex flex-col gap-2">
-          <Label>Tipo Instituciones Id</Label>
+          <Label>Tipo de Institucion</Label>
           <GenericCombobox
             list={tipoInstitucioneList}
             name="tipoInstitucionesId"
@@ -86,8 +94,8 @@ export function InstitucioneUpdateForm({
             </p>
           ))}
         </div>
-        <div className="flex flex-col gap-2">
-          <Label>Tipo Bachilleres Id</Label>
+        {!nivelEducativo && (<div className="flex flex-col gap-2">
+          <Label>Tipo de Bachiller</Label>
           <GenericCombobox
             list={tipoBachillereList}
             name="tipoBachilleresId"
@@ -104,10 +112,10 @@ export function InstitucioneUpdateForm({
               {error}
             </p>
           ))}
-        </div>
+        </div>)}
         <div>
           <Label>Nivel Educativo</Label>
-          <Select name="nivelEducativo" defaultValue={institucione.nivelEducativo ? "true" : "false"}>
+          <Select name="nivelEducativo" defaultValue={institucione.nivelEducativo ? "true" : "false"} disabled={true}>
             <SelectTrigger className="w-full">
               <SelectValue placeholder="Selecciona el nivel educativo" />
             </SelectTrigger>

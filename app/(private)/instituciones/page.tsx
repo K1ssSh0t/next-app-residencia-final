@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { instituciones } from "@/schema/instituciones";
 import { auth } from "@/lib/auth";
 import { eq } from "drizzle-orm";
+import { getUserWithRelations } from "@/repositories/user-repository";
 
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
@@ -25,6 +26,8 @@ export default async function Page(props: {
       where: eq(instituciones.usersId, `${session?.user?.id}`)
     }
   )
+
+  const usuario = await getUserWithRelations(session?.user?.id)
 
   /*
   const searchParams = await props.searchParams;
@@ -90,7 +93,7 @@ export default async function Page(props: {
             <p><strong>Region:</strong> {miInstitucion.region?.toString()}</p>
             <p><strong>Municipio:</strong> {miInstitucion.municipio?.toString()}</p>
             <p><strong>Tipo Institucion:</strong> {miInstitucion.tipoInstituciones?.descripcion?.toString()}</p>
-            <p><strong>Tipo Bachiller:</strong> {miInstitucion.tipoBachilleres?.descripcion?.toString()}</p>
+            {!usuario?.nivelEducativo && (<p><strong>Tipo Bachiller:</strong> {miInstitucion.tipoBachilleres?.descripcion?.toString()}</p>)}
             <p><strong>Nivel Educativo:</strong> {miInstitucion.nivelEducativo ? "Superior" : "Medio Superior"}</p>
             <div> <Link href={`/instituciones/${miInstitucion.id}/edit`} >
               <Button>

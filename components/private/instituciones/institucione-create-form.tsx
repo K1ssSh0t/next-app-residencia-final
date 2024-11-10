@@ -16,9 +16,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 export function InstitucioneCreateForm({
   tipoInstitucioneList,
   tipoBachillereList,
+  nivelEducativo,
 }: {
   tipoInstitucioneList: TipoInstitucione[];
   tipoBachillereList: TipoBachillere[];
+  nivelEducativo: boolean;
 }) {
   const initialState: CreateInstitucioneState = {};
   const [state, dispatch] = useActionState(createInstitucione, initialState);
@@ -29,8 +31,14 @@ export function InstitucioneCreateForm({
 
 
     // Convert 'nivelEducativo' to boolean before dispatching
-    const nivelEducativo = formData.get('nivelEducativo');
-    formData.set('nivelEducativo', nivelEducativo === 'true' ? 'true' : 'false');
+    const nivelEducativoForm = formData.get('nivelEducativo');
+    formData.set('nivelEducativo', nivelEducativoForm === 'true' ? 'true' : 'false');
+
+
+    // Si es nivel superior, eliminamos el campo tipoBachilleresId
+    if (nivelEducativo) {
+      formData.delete('tipoBachilleresId');
+    }
 
 
     startTransition(() => dispatch(formData));
@@ -78,7 +86,7 @@ export function InstitucioneCreateForm({
             </p>
           ))}
         </div>
-        <div className="flex flex-col gap-2">
+        {!nivelEducativo && (<div className="flex flex-col gap-2">
           <Label>Tipo Bachilleres Id</Label>
           <GenericCombobox
             list={tipoBachillereList}
@@ -95,7 +103,7 @@ export function InstitucioneCreateForm({
               {error}
             </p>
           ))}
-        </div>
+        </div>)}
         {/* <div>
           <Label>Users Id</Label>
           <Input name="usersId" />
@@ -105,7 +113,7 @@ export function InstitucioneCreateForm({
         </div> */}
         <div>
           <Label className="mr-2">Nivel Educativo</Label>
-          <Select name="nivelEducativo">
+          <Select name="nivelEducativo" defaultValue={nivelEducativo ? "true" : "false"} disabled={true}>
             <SelectTrigger className="w-full">
               <SelectValue placeholder="Selecciona el nivel educativo" />
             </SelectTrigger>

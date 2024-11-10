@@ -34,8 +34,8 @@ export function InstitucioneTable({ institucioneList }: { institucioneList: Inst
             <TableCell>{institucione.nombre}</TableCell>
             <TableCell>{institucione.region}</TableCell>
             <TableCell>{institucione.municipio}</TableCell>
-            <TableCell>{institucione.tipoInstituciones.descripcion}</TableCell>
-            <TableCell>{institucione.tipoBachilleres.descripcion}</TableCell>
+            <TableCell>{institucione.tipoInstituciones?.descripcion}</TableCell>
+            <TableCell>{institucione.tipoBachilleres?.descripcion}</TableCell>
             <TableCell>{institucione.usersId}</TableCell>
             <TableCell>{institucione.nivelEducativo ? "Superior" : "Media Superior"}</TableCell>
             <TableCell className="justify-end flex gap-2">
