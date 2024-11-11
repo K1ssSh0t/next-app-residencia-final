@@ -1,3 +1,4 @@
+import { DownloadCSVButton } from "@/components/admin/descargar-datos-csv";
 import { HelperUpdateForm } from "@/components/admin/helpers/helper-update-form";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -17,7 +18,7 @@ export default async function Page() {
       <Card className="mb-8">
         <CardHeader>
           <CardTitle className="text-3xl font-bold">Panel de Administración</CardTitle>
-          <CardDescription>Gestiona el estado del cuestionario para los helpers</CardDescription>
+          <CardDescription>Gestiona el estado del cuestionario</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex items-center justify-left mb-6 gap-2">
@@ -29,6 +30,8 @@ export default async function Page() {
           {estadoCuestionario && (
             <HelperUpdateForm helper={estadoCuestionario} />
           )}
+
+          <DownloadCSVButton />
         </CardContent>
       </Card>
     </div>

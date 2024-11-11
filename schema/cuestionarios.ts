@@ -13,6 +13,8 @@ import { users } from "./users";
 
 export type Cuestionario = typeof cuestionarios.$inferSelect;
 
+//TODO: MODIFICAR EL NOMBRE DE LA COLUMNA AÑO
+
 export const cuestionarios = pgTable(
   "cuestionarios",
   {
