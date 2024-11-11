@@ -29,6 +29,9 @@ export default async function Page(props: {
 
   const usuario = await getUserWithRelations(session?.user?.id)
 
+  const estadoCuestionario = await db.query.helpers.findFirst();
+
+
   /*
   const searchParams = await props.searchParams;
   const { page, pageIndex, pageSize, search } = parseSearchParams(searchParams);
@@ -63,6 +66,11 @@ export default async function Page(props: {
       </div>
     </div>
   );*/
+  if (estadoCuestionario?.estadoCuestionario == false) {
+    return (<div className="flex flex-col gap-5">
+      <p className="text-xl font-bold">El cuestionario no esta activo</p>
+    </div>)
+  }
 
   return (
     <div className="flex flex-col gap-5">

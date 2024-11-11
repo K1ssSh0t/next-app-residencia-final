@@ -1,3 +1,4 @@
+import * as helpers from "@/schema/helpers";
 import * as preguntas from "@/schema/preguntas";
 import * as cuestionarios from "@/schema/cuestionarios";
 import * as instituciones from "@/schema/instituciones";
@@ -9,6 +10,7 @@ import * as users from "@/schema/users";
 import * as authTables from "@/schema/auth-tables";
 
 export const schema = {
+  ...helpers,
   ...preguntas,
   ...cuestionarios,
   ...instituciones,

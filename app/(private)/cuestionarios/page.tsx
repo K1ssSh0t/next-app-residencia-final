@@ -42,6 +42,15 @@ export default async function Page(props: {
     where: eq(cuestionarios.usersId, `${session?.user?.id}`),
   });
 
+  const estadoCuestionario = await db.query.helpers.findFirst();
+
+  if (estadoCuestionario?.estadoCuestionario == false) {
+    return (<div className="flex flex-col gap-5">
+      <p className="text-xl font-bold">El cuestionario no esta activo</p>
+    </div>)
+  }
+
+
   return (
     <div className="flex flex-col gap-5">
       <h1 className="text-xl font-bold">Cuestionarios</h1>

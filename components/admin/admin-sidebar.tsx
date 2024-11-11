@@ -43,7 +43,8 @@ const items = [
   { title: "Tipo Instituciones", url: "/admin/tipo-instituciones", icon: Table2Icon },
   { title: "Instituciones", url: "/admin/instituciones", icon: Table2Icon },
   { title: "Cuestionarios", url: "/admin/cuestionarios", icon: Table2Icon },
-  // [CODE_MARK admin-sidebar-items]
+    { title: "Helpers", url: "/admin/helpers", icon: Table2Icon },
+// [CODE_MARK admin-sidebar-items]
 ];
 
 export function AdminSidebar({ user }: { user: User }) {
