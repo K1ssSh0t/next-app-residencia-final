@@ -48,6 +48,9 @@ export async function createPregunta(
     await db.insert(preguntas).values(validatedFields.data);
 
     revalidatePath("/cuestionarios");
+    return {
+      status: "success",
+    };
   } catch (error) {
     console.error(error);
     return {
@@ -55,5 +58,5 @@ export async function createPregunta(
     };
   }
 
-  redirect("/cuestionarios");
+  // redirect("/cuestionarios");
 }

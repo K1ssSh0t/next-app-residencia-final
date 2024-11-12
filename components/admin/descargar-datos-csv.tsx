@@ -102,7 +102,7 @@ export function DownloadCSVButton() {
                 ]
             });
 
-            const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+            const blob = new Blob([csv], { type: "text/csv;charset=utf-32;" });
             const link = document.createElement("a");
             if (link.download !== undefined) {
                 const url = URL.createObjectURL(blob);

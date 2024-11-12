@@ -7,6 +7,8 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
 import { PreguntaTable } from "@/components/private/preguntas/pregunta-user-table";
+import PreguntaForm from "./nueva-tabla";
+import { categoriaPersonas } from "@/schema/categoria-personas";
 
 type Params = Promise<{ id: string }>;
 
@@ -20,6 +22,10 @@ export default async function Page(props: { params: Params }) {
     notFound();
   }
 
+  // Obtener todas las categorías
+  const categoriasList = await db.select().from(categoriaPersonas);
+
+  // Obtener las preguntas del cuestionario
   const preguntasList = await db.query.preguntas.findMany({
     with: {
       categoriaPersona: true,
@@ -44,8 +50,11 @@ export default async function Page(props: { params: Params }) {
           </Button>
         </Link>
       </div>
-      <div>
-        <PreguntaTable preguntaList={preguntasList} />
+      <div className=" flex flex-1 justify-center items-center justify-items-center">
+        {/* <PreguntaTable preguntaList={preguntasList} /> */}
+        <PreguntaForm preguntaList={preguntasList}
+          categoriasList={categoriasList}
+          cuestionarioId={id} />
       </div>
     </div>
   );
