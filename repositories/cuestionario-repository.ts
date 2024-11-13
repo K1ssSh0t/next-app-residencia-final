@@ -32,6 +32,7 @@ export async function getCuestionarioWithRelations(id: string) {
     where: eq(cuestionarios.id, id),
     with: {
       carrera: true,
+      user: true,
     },
   });
 }

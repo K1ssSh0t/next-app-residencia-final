@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { FormAlert } from "@/components/form-alert";
 import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 
 export function CategoriaPersonaCreateForm() {
@@ -25,6 +26,22 @@ export function CategoriaPersonaCreateForm() {
           <Label>Descripcion</Label>
           <Input name="descripcion" />
           {state.errors?.descripcion?.map((error) => (
+            <p className="text-red-500" key={error}>{error}</p>
+          ))}
+        </div>
+        <div>
+          <Label>Nivel aplicable</Label>
+          <Select name="nivelAplicado" >
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Selecciona el nivel aplicable" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="superior">Superior</SelectItem>
+              <SelectItem value="medioSuperior">Medio Superior</SelectItem>
+              <SelectItem value="ambos">Ambos</SelectItem>
+            </SelectContent>
+          </Select>
+          {state.errors?.nivelAplicado?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}
         </div>

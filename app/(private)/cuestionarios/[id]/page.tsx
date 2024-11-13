@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { getCuestionarioWithRelations } from "@/repositories/cuestionario-repository";
 import { db } from "@/lib/db";
-import { eq } from "drizzle-orm";
+import { eq, or } from "drizzle-orm";
 import { preguntas } from "@/schema/preguntas";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -21,9 +21,15 @@ export default async function Page(props: { params: Params }) {
   if (!cuestionario) {
     notFound();
   }
+  const user = cuestionario.user;
 
+  const applicableNivel = user?.nivelEducativo ? "superior" : "medioSuperior";
   // Obtener todas las categorías
-  const categoriasList = await db.select().from(categoriaPersonas);
+  const categoriasList = await db.select().from(categoriaPersonas).where(
+    or(
+      eq(categoriaPersonas.nivelAplicado, applicableNivel),
+      eq(categoriaPersonas.nivelAplicado, "ambos")
+    ));
 
   // Obtener las preguntas del cuestionario
   const preguntasList = await db.query.preguntas.findMany({

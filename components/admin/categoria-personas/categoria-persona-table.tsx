@@ -18,27 +18,29 @@ export function CategoriaPersonaTable({ categoriaPersonaList }: { categoriaPerso
         <TableRow>
           <TableHead>Id</TableHead>
           <TableHead>Descripcion</TableHead>
+          <TableHead>Nivel Acplicable</TableHead>
           <TableHead></TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        { categoriaPersonaList.map((categoriaPersona) => (
-          <TableRow key={ categoriaPersona.id }>
-            <TableCell>{ categoriaPersona.id }</TableCell>
-            <TableCell>{ categoriaPersona.descripcion }</TableCell>
+        {categoriaPersonaList.map((categoriaPersona) => (
+          <TableRow key={categoriaPersona.id}>
+            <TableCell>{categoriaPersona.id}</TableCell>
+            <TableCell>{categoriaPersona.descripcion}</TableCell>
+            <TableCell className="capitalize">{categoriaPersona.nivelAplicado}</TableCell>
             <TableCell className="justify-end flex gap-2">
               {/* [CODE_MARK table-actions] */}
-              <Link href={`/admin/categoria-personas/${ categoriaPersona.id }`}>
+              <Link href={`/admin/categoria-personas/${categoriaPersona.id}`}>
                 <Button size="icon" variant="outline">
                   <EyeIcon />
                 </Button>
               </Link>
-              <Link href={`/admin/categoria-personas/${ categoriaPersona.id }/edit`}>
+              <Link href={`/admin/categoria-personas/${categoriaPersona.id}/edit`}>
                 <Button size="icon" variant="outline">
                   <PencilIcon />
                 </Button>
               </Link>
-              <Link href={`/admin/categoria-personas/${ categoriaPersona.id }/delete`}>
+              <Link href={`/admin/categoria-personas/${categoriaPersona.id}/delete`}>
                 <Button size="icon" variant="outline">
                   <TrashIcon />
                 </Button>

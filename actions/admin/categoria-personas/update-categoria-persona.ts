@@ -8,12 +8,15 @@ import { createSelectSchema } from "drizzle-zod";
 import { BaseActionState } from "@/lib/types";
 import { auth } from "@/lib/auth";
 
-const updateCategoriaPersonaSchema = createSelectSchema(categoriaPersonas).partial().required({ id: true });
+const updateCategoriaPersonaSchema = createSelectSchema(categoriaPersonas)
+  .partial()
+  .required({ id: true });
 
 export interface UpdateCategoriaPersonaState extends BaseActionState {
   errors?: {
     id?: string[];
     descripcion?: string[];
+    nivelAplicado?: string[];
   };
 }
 
@@ -32,10 +35,10 @@ export async function updateCategoriaPersona(
       throw new Error("unauthorized");
     }
 
-
     const validatedFields = updateCategoriaPersonaSchema.safeParse({
       id: formData.get("id") as string,
       descripcion: formData.get("descripcion") as string,
+      nivelAplicado: formData.get("nivelAplicado") as string,
     });
 
     if (!validatedFields.success) {
@@ -52,7 +55,9 @@ export async function updateCategoriaPersona(
 
     revalidatePath("/admin/categoria-personas");
     revalidatePath("/admin/categoria-personas/" + validatedFields.data.id);
-    revalidatePath("/admin/categoria-personas/" + validatedFields.data.id + "/edit");
+    revalidatePath(
+      "/admin/categoria-personas/" + validatedFields.data.id + "/edit"
+    );
 
     return {
       status: "success",
@@ -61,6 +66,6 @@ export async function updateCategoriaPersona(
     console.error(error);
     return {
       status: "error",
-    }
+    };
   }
 }

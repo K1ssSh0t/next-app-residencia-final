@@ -14,6 +14,7 @@ export interface CreateCategoriaPersonaState extends BaseActionState {
   errors?: {
     id?: string[];
     descripcion?: string[];
+    nivelAplicado?: string[];
   };
 }
 
@@ -32,9 +33,9 @@ export async function createCategoriaPersona(
       throw new Error("unauthorized");
     }
 
-
     const validatedFields = insertCategoriaPersonaSchema.safeParse({
       descripcion: formData.get("descripcion") as string,
+      nivelAplicado: formData.get("nivelAplicado") as string,
     });
 
     if (!validatedFields.success) {
@@ -45,13 +46,13 @@ export async function createCategoriaPersona(
     }
 
     await db.insert(categoriaPersonas).values(validatedFields.data);
-    
+
     revalidatePath("/admin/categoria-personas");
   } catch (error) {
     console.error(error);
     return {
       status: "error",
-    }
+    };
   }
 
   redirect("/admin/categoria-personas");

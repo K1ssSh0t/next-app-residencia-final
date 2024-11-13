@@ -71,6 +71,13 @@
       "when": 1731290052210,
       "tag": "0009_familiar_zodiak",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1731432953963,
+      "tag": "0010_curved_iron_fist",
+      "breakpoints": true
     }
   ]
 }
