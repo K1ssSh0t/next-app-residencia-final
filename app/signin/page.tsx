@@ -8,19 +8,34 @@ import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
 import { authenticate } from '@/actions/auth'
 import { useToast } from '@/hooks/use-toast'
+import { z } from 'zod'
+
+
+const loginSchema = z.object({
+  email: z.string().email({ message: "Correo electrónico inválido" }),
+  password: z.string().min(5, { message: "La contraseña debe tener al menos 5 caracteres" })
+})
 
 export default function Page() {
   const router = useRouter()
   const { toast } = useToast()
   const [isLoading, setIsLoading] = useState(false)
+  const [errors, setErrors] = useState<{ [key: string]: string }>({})
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setIsLoading(true)
+    setErrors({})
 
     const formData = new FormData(event.currentTarget)
 
+    const formValues = Object.fromEntries(formData.entries())
+
     try {
+      // Validate form data
+      loginSchema.parse(formValues)
+
+
       const result = await authenticate(formData)
 
       if (result.success) {
@@ -40,12 +55,23 @@ export default function Page() {
         })
       }
     } catch (error) {
-      toast({
-        title: 'Error',
-        description: 'An unexpected error occurred.',
-        variant: 'destructive',
-        duration: 3000,
-      })
+      if (error instanceof z.ZodError) {
+        // Handle Zod validation errors
+        const fieldErrors: { [key: string]: string } = {}
+        error.errors.forEach((err) => {
+          if (err.path) {
+            fieldErrors[err.path[0]] = err.message
+          }
+        })
+        setErrors(fieldErrors)
+      } else {
+        toast({
+          title: 'Error',
+          description: 'An unexpected error occurred.',
+          variant: 'destructive',
+          duration: 3000,
+        })
+      }
     } finally {
       setIsLoading(false)
     }
@@ -68,6 +94,7 @@ export default function Page() {
               placeholder="user@example.com"
               required
             />
+            {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
           </div>
           <div className="w-full">
             <Label htmlFor="password">Contraseña</Label>
@@ -78,6 +105,7 @@ export default function Page() {
               placeholder="password"
               required
             />
+            {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
           </div>
           <Button className="w-full" type="submit" disabled={isLoading}>
             {isLoading ? 'Iniciando sesion...' : 'Iniciar sesion con Credenciales'}

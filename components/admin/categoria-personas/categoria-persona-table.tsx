@@ -18,7 +18,7 @@ export function CategoriaPersonaTable({ categoriaPersonaList }: { categoriaPerso
         <TableRow>
           <TableHead>Id</TableHead>
           <TableHead>Descripcion</TableHead>
-          <TableHead>Nivel Acplicable</TableHead>
+          <TableHead>Nivel Aplicable</TableHead>
           <TableHead></TableHead>
         </TableRow>
       </TableHeader>

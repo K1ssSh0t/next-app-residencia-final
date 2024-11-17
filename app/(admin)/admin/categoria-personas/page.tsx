@@ -26,7 +26,7 @@ export default async function Page(props: {
 
   return (
     <div className="flex flex-col gap-5">
-      <h1 className="text-xl font-bold">Categoria Personas</h1>
+      <h1 className="text-xl font-bold">Indicadores</h1>
       <div className="flex justify-between">
         <div>
           <SearchInput placeholder="Search Categoria Personas" />
@@ -40,7 +40,7 @@ export default async function Page(props: {
         </div>
       </div>
       <div>
-        <CategoriaPersonaTable categoriaPersonaList={ categoriaPersonaList } />
+        <CategoriaPersonaTable categoriaPersonaList={categoriaPersonaList} />
       </div>
       <div>
         <Pagination page={page} pageSize={pageSize} totalPages={totalPages} />

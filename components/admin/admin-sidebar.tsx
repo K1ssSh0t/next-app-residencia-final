@@ -38,13 +38,13 @@ const items = [
   { title: "Admin", url: "/admin", icon: GaugeIcon },
   { title: "Usuarios", url: "/admin/users", icon: Table2Icon },
   { title: "Carreras", url: "/admin/carreras", icon: Table2Icon },
-  { title: "Categoria Personas", url: "/admin/categoria-personas", icon: Table2Icon },
+  { title: "Indicadores", url: "/admin/categoria-personas", icon: Table2Icon },
   { title: "Tipo Bachilleres", url: "/admin/tipo-bachilleres", icon: Table2Icon },
   { title: "Tipo Instituciones", url: "/admin/tipo-instituciones", icon: Table2Icon },
   { title: "Instituciones", url: "/admin/instituciones", icon: Table2Icon },
   { title: "Cuestionarios", url: "/admin/cuestionarios", icon: Table2Icon },
-    { title: "Helpers", url: "/admin/helpers", icon: Table2Icon },
-// [CODE_MARK admin-sidebar-items]
+  { title: "Helpers", url: "/admin/helpers", icon: Table2Icon },
+  // [CODE_MARK admin-sidebar-items]
 ];
 
 export function AdminSidebar({ user }: { user: User }) {

@@ -36,7 +36,8 @@ export function UserTable({ userList }: { userList: UsersWithRelations }) {
             <TableCell>{user.emailVerified?.toLocaleString()}</TableCell>
             {/* <TableCell>{user.image}</TableCell> */}
             <TableCell>{user.role}</TableCell>
-            <TableCell>{user.nivelEducativo ? "Superior" : "Media Superior"}</TableCell>
+            <TableCell>{user.role == "admin" ? "No aplica" :
+              user.nivelEducativo ? "Superior" : "Media Superior"}</TableCell>
             <TableCell>{user.password}</TableCell>
             <TableCell className="justify-end flex gap-2">
               {/* [CODE_MARK table-actions] */}
