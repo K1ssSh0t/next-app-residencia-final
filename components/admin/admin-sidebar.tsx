@@ -46,6 +46,7 @@ const items = [
   // { title: "Helpers", url: "/admin/helpers", icon: Table2Icon },
     { title: "Modalidads", url: "/admin/modalidads", icon: Table2Icon },
   { title: "Regions", url: "/admin/regions", icon: Table2Icon },
+  { title: "Municipios", url: "/admin/municipios", icon: Table2Icon },
 // [CODE_MARK admin-sidebar-items]
 ];
 

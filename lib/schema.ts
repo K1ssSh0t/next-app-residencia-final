@@ -1,3 +1,4 @@
+import * as municipios from "@/schema/municipios";
 import * as regions from "@/schema/regions";
 import * as modalidads from "@/schema/modalidads";
 import * as helpers from "@/schema/helpers";
@@ -12,6 +13,7 @@ import * as users from "@/schema/users";
 import * as authTables from "@/schema/auth-tables";
 
 export const schema = {
+  ...municipios,
   ...regions,
   ...modalidads,
   ...helpers,
