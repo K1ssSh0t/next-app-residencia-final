@@ -42,8 +42,8 @@ const items = [
   { title: "Tipo Bachilleres", url: "/admin/tipo-bachilleres", icon: Table2Icon },
   { title: "Tipo Instituciones", url: "/admin/tipo-instituciones", icon: Table2Icon },
   { title: "Instituciones", url: "/admin/instituciones", icon: Table2Icon },
-  { title: "Cuestionarios", url: "/admin/cuestionarios", icon: Table2Icon },
-  { title: "Helpers", url: "/admin/helpers", icon: Table2Icon },
+  // { title: "Cuestionarios", url: "/admin/cuestionarios", icon: Table2Icon },
+  // { title: "Helpers", url: "/admin/helpers", icon: Table2Icon },
   // [CODE_MARK admin-sidebar-items]
 ];
 

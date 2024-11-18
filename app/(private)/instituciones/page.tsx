@@ -6,6 +6,12 @@ import { instituciones } from "@/schema/instituciones";
 import { auth } from "@/lib/auth";
 import { eq } from "drizzle-orm";
 import { getUserWithRelations } from "@/repositories/user-repository";
+import { parseSearchParams } from "@/lib/search-params-utils";
+import { cuestionarios } from "@/schema/cuestionarios";
+import { CuestionarioTable } from "@/components/private/cuestionarios/cuestionario-table";
+import { Pagination } from "@/components/pagination";
+import { SearchInput } from "@/components/search-input";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
@@ -13,6 +19,10 @@ export default async function Page(props: {
   searchParams: SearchParams;
 }) {
 
+  const searchParams = await props.searchParams;
+  const { page, pageIndex, pageSize, search } = parseSearchParams(searchParams);
+  const count = await db.$count(cuestionarios);
+  const totalPages = Math.ceil(count / pageSize);
   //TODO: HACER QUE SEGUN EL TIPO DE NIVEL RESTRINGIR QUE CAMPOS PUEDE LLENAR
 
   const session = await auth();
@@ -72,9 +82,19 @@ export default async function Page(props: {
     </div>)
   }
 
+  const misCuestionarios = await db.query.cuestionarios.findMany({
+    with: {
+      carrera: true,
+    },
+    limit: pageSize,
+    offset: pageIndex * pageSize,
+    where: eq(cuestionarios.usersId, `${session?.user?.id}`),
+  });
+
+
   return (
     <div className="flex flex-col gap-5">
-      <h1 className="text-xl font-bold">Instituciones</h1>
+      <h1 className="text-xl font-bold">Datos de Institución</h1>
       <div className="flex justify-between">
         <div>
 
@@ -92,29 +112,66 @@ export default async function Page(props: {
         </div>
       </div>
       <div>
-        <div>
-          <h1 className="text-3xl font-bold mb-6">Institucion</h1>
-
-          {!miInstitucion ? <div>No tienes datos</div> : <div>
-            <p><strong>Id:</strong> {miInstitucion.id}</p>
-            <p><strong>Nombre:</strong> {miInstitucion.nombre?.toString()}</p>
-            <p><strong>Region:</strong> {miInstitucion.region?.toString()}</p>
-            <p><strong>Municipio:</strong> {miInstitucion.municipio?.toString()}</p>
-            <p><strong>Tipo Institucion:</strong> {miInstitucion.tipoInstituciones?.descripcion?.toString()}</p>
-            {!usuario?.nivelEducativo && (<p><strong>Tipo Bachiller:</strong> {miInstitucion.tipoBachilleres?.descripcion?.toString()}</p>)}
-            <p><strong>Nivel Educativo:</strong> {miInstitucion.nivelEducativo ? "Superior" : "Medio Superior"}</p>
-            <div> <Link href={`/instituciones/${miInstitucion.id}/edit`} >
-              <Button>
-                <PlusIcon className="mr-2" /> Editar
-              </Button>
-            </Link></div>
-          </div>}
-
-        </div>
+        <Card className="w-full max-w-2xl mx-auto">
+          <CardHeader>
+            <CardTitle className="text-3xl">Institución</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {!miInstitucion ? (
+              <div className="text-center text-muted-foreground">No tienes datos</div>
+            ) : (
+              <div className="grid grid-cols-2 gap-4">
+                <div className="col-span-2">
+                  <h2 className="text-xl font-semibold mb-2">{miInstitucion.nombre?.toString()}</h2>
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-muted-foreground">Región</p>
+                  <p>{miInstitucion.region?.toString()}</p>
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-muted-foreground">Municipio</p>
+                  <p>{miInstitucion.municipio?.toString()}</p>
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-muted-foreground">Tipo Institución</p>
+                  <p>{miInstitucion.tipoInstituciones?.descripcion?.toString()}</p>
+                </div>
+                {!usuario?.nivelEducativo && (
+                  <div>
+                    <p className="text-sm font-medium text-muted-foreground">Tipo Bachiller</p>
+                    <p>{miInstitucion.tipoBachilleres?.descripcion?.toString()}</p>
+                  </div>
+                )}
+                <div>
+                  <p className="text-sm font-medium text-muted-foreground">Nivel Educativo</p>
+                  <p>{miInstitucion.nivelEducativo ? "Superior" : "Medio Superior"}</p>
+                </div>
+              </div>
+            )}
+          </CardContent>
+          {miInstitucion && (
+            <CardFooter className="flex justify-end">
+              <Link href={`/instituciones/${miInstitucion.id}/edit`}>
+                <Button>
+                  <PlusIcon className="mr-2 h-4 w-4" /> Editar Datos de la Institución
+                </Button>
+              </Link>
+            </CardFooter>
+          )}
+        </Card>
       </div>
       <div>
 
       </div>
-    </div>
+      <div>
+        {misCuestionarios ? <CuestionarioTable cuestionarioList={misCuestionarios} /> : <div>No tienes cuestionarios</div>}
+
+
+      </div>
+      <div>
+        <Pagination page={page} pageSize={pageSize} totalPages={totalPages} />
+
+      </div>
+    </div >
   );
 }

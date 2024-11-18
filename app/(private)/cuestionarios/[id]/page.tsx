@@ -44,17 +44,17 @@ export default async function Page(props: { params: Params }) {
     <div>
       <h1 className="text-xl font-bold mb-6">Cuestionario</h1>
       <div>
-        <p><strong>Id:</strong> {cuestionario.id}</p>
+        <p className="hidden"><strong>Id:</strong> {cuestionario.id}</p>
         <p><strong>Año:</strong> {cuestionario.año}</p>
         <p><strong>Carreras Id:</strong> {cuestionario.carrerasId}</p>
         <p><strong>Users Id:</strong> {cuestionario.usersId}</p>
       </div>
-      <div>
-        <Link href={{ pathname: "/preguntas/new", query: { cuestionario: id } }}>
+      <div className="text-right mr-2">
+        {/* <Link href={{ pathname: "/preguntas/new", query: { cuestionario: id } }}>
           <Button>
             <PlusIcon className="mr-2" /> New
           </Button>
-        </Link>
+        </Link> */}
       </div>
       <div className=" flex flex-1 justify-center items-center justify-items-center">
         {/* <PreguntaTable preguntaList={preguntasList} /> */}

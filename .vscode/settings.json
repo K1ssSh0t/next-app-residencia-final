@@ -3,7 +3,18 @@
         {
             "previewLimit": 50,
             "server": "localhost",
-            "port": 5433,
+            "port": 5432,
+            "askForPassword": true,
+            "driver": "PostgreSQL",
+            "name": "postgres2",
+            "database": "postgres",
+            "username": "postgres"
+        },
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "askForPassword": true,
             "driver": "PostgreSQL",
             "name": "postgres",
             "database": "postgres",
