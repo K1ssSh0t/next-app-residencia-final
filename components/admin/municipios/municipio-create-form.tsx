@@ -37,14 +37,14 @@ export function MunicipioCreateForm({
         <div className="flex flex-col gap-2">
           <Label>Region Id</Label>
           <GenericCombobox
-            list={ regionList }
+            list={regionList}
             name="regionId"
             valueField="id"
             searchPlaceholder="Search Regions..."
             selectPlaceholder="Select Region..."
             emptyText="No region found"
-            keywordFields={["id"]}
-            template={(item) => <div>{item.id}</div>}
+            keywordFields={["id", "nombre"]}
+            template={(item) => <div>{item.nombre}</div>}
           />
           {state.errors?.regionId?.map((error) => (
             <p className="text-red-500" key={error}>

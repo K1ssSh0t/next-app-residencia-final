@@ -16,7 +16,7 @@ export default async function Page() {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/admin/modalidads">Modalidads</BreadcrumbLink>
+              <BreadcrumbLink href="/admin/modalidades">Modalidades</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
@@ -26,7 +26,7 @@ export default async function Page() {
         </Breadcrumb>
       </div>
       <div className="pt-5">
-        <ModalidadCreateForm 
+        <ModalidadCreateForm
         />
       </div>
     </div>

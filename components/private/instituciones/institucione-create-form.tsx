@@ -12,15 +12,24 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { TipoInstitucione } from "@/schema/tipo-instituciones";
 import { TipoBachillere } from "@/schema/tipo-bachilleres";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Region } from "@/schema/regions";
+import { Municipio } from "@/schema/municipios";
+import { Modalidad } from "@/schema/modalidads";
 
 export function InstitucioneCreateForm({
   tipoInstitucioneList,
   tipoBachillereList,
   nivelEducativo,
+  regionList,
+  municipioList,
+  modalidadList,
 }: {
   tipoInstitucioneList: TipoInstitucione[];
   tipoBachillereList: TipoBachillere[];
   nivelEducativo: boolean;
+  regionList: Region[];
+  municipioList: Municipio[];
+  modalidadList: Modalidad[];
 }) {
   const initialState: CreateInstitucioneState = {};
   const [state, dispatch] = useActionState(createInstitucione, initialState);
@@ -56,15 +65,49 @@ export function InstitucioneCreateForm({
         </div>
         <div>
           <Label>Region</Label>
-          <Input name="region" />
+          <GenericCombobox
+            list={regionList}
+            name="region"
+            valueField="id"
+            searchPlaceholder="Search Tipo Instituciones..."
+            selectPlaceholder="Select Tipo Institucione..."
+            emptyText="No tipoInstitucione found"
+            keywordFields={["id", "nombre"]}
+            template={(item) => <div>{item.nombre}</div>}
+          />
           {state.errors?.region?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}
         </div>
         <div>
           <Label>Municipio</Label>
-          <Input name="municipio" />
+          <GenericCombobox
+            list={municipioList}
+            name="municipio"
+            valueField="id"
+            searchPlaceholder="Search Tipo Instituciones..."
+            selectPlaceholder="Select Tipo Institucione..."
+            emptyText="No tipoInstitucione found"
+            keywordFields={["id", "nombre"]}
+            template={(item) => <div>{item.nombre}</div>}
+          />
           {state.errors?.municipio?.map((error) => (
+            <p className="text-red-500" key={error}>{error}</p>
+          ))}
+        </div>
+        <div>
+          <Label>Modalidad</Label>
+          <GenericCombobox
+            list={modalidadList}
+            name="modalidad"
+            valueField="id"
+            searchPlaceholder="Search Tipo Instituciones..."
+            selectPlaceholder="Select Tipo Institucione..."
+            emptyText="No tipoInstitucione found"
+            keywordFields={["id", "descripcion"]}
+            template={(item) => <div>{item.descripcion}</div>}
+          />
+          {state.errors?.modalidad?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}
         </div>

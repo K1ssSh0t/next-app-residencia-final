@@ -11,10 +11,10 @@ import { GenericCombobox } from "@/components/generic-combobox";
 import { Municipio } from "@/schema/municipios";
 import { Region } from "@/schema/regions";
 
-export function MunicipioUpdateForm({ 
+export function MunicipioUpdateForm({
   municipio,
   regionList,
-}: { 
+}: {
   municipio: Municipio;
   regionList: Region[];
 }) {
@@ -30,10 +30,10 @@ export function MunicipioUpdateForm({
   return (
     <div>
       <form action={dispatch} onSubmit={handleSubmit} className="flex flex-col gap-2">
-        <input type="hidden" name="id" value={ municipio.id } />
+        <input type="hidden" name="id" value={municipio.id} />
         <div>
           <Label>Nombre</Label>
-          <Input name="nombre" defaultValue={ municipio.nombre ?? "" } />
+          <Input name="nombre" defaultValue={municipio.nombre ?? ""} />
           {state.errors?.nombre?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}
@@ -41,15 +41,15 @@ export function MunicipioUpdateForm({
         <div className="flex flex-col gap-2">
           <Label>Region Id</Label>
           <GenericCombobox
-            list={ regionList }
+            list={regionList}
             name="regionId"
             valueField="id"
-            defaultValue={ municipio.regionId }
+            defaultValue={municipio.regionId}
             searchPlaceholder="Search Regions..."
             selectPlaceholder="Select Region..."
             emptyText="No region found"
-            keywordFields={["id"]}
-            template={(item) => <div>{item.id}</div>}
+            keywordFields={["id", "nombre"]}
+            template={(item) => <div>{item.nombre}</div>}
           />
           {state.errors?.regionId?.map((error) => (
             <p className="text-red-500" key={error}>

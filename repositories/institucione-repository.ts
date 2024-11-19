@@ -23,7 +23,13 @@ export async function getInstitucionesWithRelations({
     limit: limit,
     offset: offset,
     where: search ? like(instituciones.id, `%${search}%`) : undefined,
-    with: undefined,
+    with: {
+      tipoBachilleres: true,
+      tipoInstituciones: true,
+      municipio: true,
+      modalidad: true,
+      region: true,
+    },
   });
 }
 
@@ -33,6 +39,9 @@ export async function getInstitucioneWithRelations(id: string) {
     with: {
       tipoBachilleres: true,
       tipoInstituciones: true,
+      municipio: true,
+      modalidad: true,
+      region: true,
     },
   });
 }

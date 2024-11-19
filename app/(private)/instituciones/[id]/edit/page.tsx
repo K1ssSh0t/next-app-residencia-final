@@ -23,6 +23,12 @@ export default async function Page(props: { params: Params }) {
 
   const usuario = await getUserWithRelations(session?.user.id)
 
+  const modalidadList = await db.query.modalidads.findMany();
+  const regionList = await db.query.regions.findMany();
+  const municipioList = await db.query.municipios.findMany();
+
+
+
   return (
     <div>
       <h1 className="text-xl font-bold mb-6">Edita los Datos de la Institucion</h1>
@@ -31,6 +37,9 @@ export default async function Page(props: { params: Params }) {
         tipoInstitucioneList={tipoInstitucioneList}
         tipoBachillereList={tipoBachillereList}
         nivelEducativo={usuario?.nivelEducativo as boolean}
+        modalidadList={modalidadList}
+        regionList={regionList}
+        municipioList={municipioList}
       />
     </div>
   );

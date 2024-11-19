@@ -33,7 +33,6 @@ export async function createModalidad(
       throw new Error("unauthorized");
     }
 
-
     const validatedFields = insertModalidadSchema.safeParse({
       descripcion: formData.get("descripcion") as string,
     });
@@ -46,14 +45,14 @@ export async function createModalidad(
     }
 
     await db.insert(modalidads).values(validatedFields.data);
-    
-    revalidatePath("/admin/modalidads");
+
+    revalidatePath("/admin/modalidades");
   } catch (error) {
     console.error(error);
     return {
       status: "error",
-    }
+    };
   }
 
-  redirect("/admin/modalidads");
+  redirect("/admin/modalidades");
 }

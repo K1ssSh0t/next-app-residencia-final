@@ -23,24 +23,24 @@ export function MunicipioTable({ municipioList }: { municipioList: MunicipiosWit
         </TableRow>
       </TableHeader>
       <TableBody>
-        { municipioList.map((municipio) => (
-          <TableRow key={ municipio.id }>
-            <TableCell>{ municipio.id }</TableCell>
-            <TableCell>{ municipio.nombre }</TableCell>
-            <TableCell>{ municipio.regionId }</TableCell>
+        {municipioList.map((municipio) => (
+          <TableRow key={municipio.id}>
+            <TableCell>{municipio.id}</TableCell>
+            <TableCell>{municipio.nombre}</TableCell>
+            <TableCell>{municipio.region?.nombre}</TableCell>
             <TableCell className="justify-end flex gap-2">
               {/* [CODE_MARK table-actions] */}
-              <Link href={`/admin/municipios/${ municipio.id }`}>
+              <Link href={`/admin/municipios/${municipio.id}`}>
                 <Button size="icon" variant="outline">
                   <EyeIcon />
                 </Button>
               </Link>
-              <Link href={`/admin/municipios/${ municipio.id }/edit`}>
+              <Link href={`/admin/municipios/${municipio.id}/edit`}>
                 <Button size="icon" variant="outline">
                   <PencilIcon />
                 </Button>
               </Link>
-              <Link href={`/admin/municipios/${ municipio.id }/delete`}>
+              <Link href={`/admin/municipios/${municipio.id}/delete`}>
                 <Button size="icon" variant="outline">
                   <TrashIcon />
                 </Button>

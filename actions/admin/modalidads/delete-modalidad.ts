@@ -44,15 +44,17 @@ export async function deleteModalidad(
       };
     }
 
-    await db.delete(modalidads).where(eq(modalidads.id, validatedFields.data.id));
-    
-    revalidatePath("/admin/modalidads");
+    await db
+      .delete(modalidads)
+      .where(eq(modalidads.id, validatedFields.data.id));
+
+    revalidatePath("/admin/modalidades");
   } catch (error) {
     console.log(error);
     return {
       status: "error",
-    }
+    };
   }
 
-  redirect("/admin/modalidads");
+  redirect("/admin/modalidades");
 }

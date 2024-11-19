@@ -1,7 +1,4 @@
 import { notFound } from "next/navigation";
-import { eq } from "drizzle-orm";
-import { ModalidadDeleteForm } from "@/components/admin/modalidads/modalidad-delete-form";
-import { db } from "@/lib/db";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -10,14 +7,15 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { modalidads } from "@/schema/modalidads";
+import { getModalidadWithRelations } from "@/repositories/modalidad-repository";
 
 type Params = Promise<{ id: string }>;
 
 export default async function Page(props: { params: Params }) {
   const params = await props.params;
   const { id } = params;
-  const modalidad = await db.query.modalidads.findFirst({ where: eq(modalidads.id, id) });
+
+  const modalidad = await getModalidadWithRelations(id);
 
   if (!modalidad) {
     notFound();
@@ -29,23 +27,17 @@ export default async function Page(props: { params: Params }) {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/admin/modalidads">Modalidads</BreadcrumbLink>
+              <BreadcrumbLink href="/admin/modalidades">Modalidads</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink href={`/admin/modalidads/${ modalidad.id }`}>
-                { modalidad.id }
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>Delete</BreadcrumbPage>
+              <BreadcrumbPage>{modalidad.id}</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
       </div>
       <div className="pt-5">
-        <ModalidadDeleteForm modalidad={ modalidad } />
+        <p><strong>Descripcion:</strong> {modalidad.descripcion}</p>
       </div>
     </div>
   );

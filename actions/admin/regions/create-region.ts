@@ -33,7 +33,6 @@ export async function createRegion(
       throw new Error("unauthorized");
     }
 
-
     const validatedFields = insertRegionSchema.safeParse({
       nombre: formData.get("nombre") as string,
     });
@@ -46,14 +45,14 @@ export async function createRegion(
     }
 
     await db.insert(regions).values(validatedFields.data);
-    
-    revalidatePath("/admin/regions");
+
+    revalidatePath("/admin/regiones");
   } catch (error) {
     console.error(error);
     return {
       status: "error",
-    }
+    };
   }
 
-  redirect("/admin/regions");
+  redirect("/admin/regiones");
 }

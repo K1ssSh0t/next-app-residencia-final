@@ -9,7 +9,9 @@ import { BaseActionState } from "@/lib/types";
 import { auth } from "@/lib/auth";
 import { isAdmin } from "@/services/authorization-service";
 
-const updateRegionSchema = createSelectSchema(regions).partial().required({ id: true });
+const updateRegionSchema = createSelectSchema(regions)
+  .partial()
+  .required({ id: true });
 
 export interface UpdateRegionState extends BaseActionState {
   errors?: {
@@ -33,7 +35,6 @@ export async function updateRegion(
       throw new Error("unauthorized");
     }
 
-
     const validatedFields = updateRegionSchema.safeParse({
       id: formData.get("id") as string,
       nombre: formData.get("nombre") as string,
@@ -51,9 +52,9 @@ export async function updateRegion(
       .set(validatedFields.data)
       .where(eq(regions.id, validatedFields.data.id));
 
-    revalidatePath("/admin/regions");
-    revalidatePath("/admin/regions/" + validatedFields.data.id);
-    revalidatePath("/admin/regions/" + validatedFields.data.id + "/edit");
+    revalidatePath("/admin/regiones");
+    revalidatePath("/admin/regiones/" + validatedFields.data.id);
+    revalidatePath("/admin/regiones/" + validatedFields.data.id + "/edit");
 
     return {
       status: "success",
@@ -62,6 +63,6 @@ export async function updateRegion(
     console.error(error);
     return {
       status: "error",
-    }
+    };
   }
 }

@@ -9,7 +9,9 @@ import { BaseActionState } from "@/lib/types";
 import { auth } from "@/lib/auth";
 import { isAdmin } from "@/services/authorization-service";
 
-const updateModalidadSchema = createSelectSchema(modalidads).partial().required({ id: true });
+const updateModalidadSchema = createSelectSchema(modalidads)
+  .partial()
+  .required({ id: true });
 
 export interface UpdateModalidadState extends BaseActionState {
   errors?: {
@@ -33,7 +35,6 @@ export async function updateModalidad(
       throw new Error("unauthorized");
     }
 
-
     const validatedFields = updateModalidadSchema.safeParse({
       id: formData.get("id") as string,
       descripcion: formData.get("descripcion") as string,
@@ -51,9 +52,9 @@ export async function updateModalidad(
       .set(validatedFields.data)
       .where(eq(modalidads.id, validatedFields.data.id));
 
-    revalidatePath("/admin/modalidads");
-    revalidatePath("/admin/modalidads/" + validatedFields.data.id);
-    revalidatePath("/admin/modalidads/" + validatedFields.data.id + "/edit");
+    revalidatePath("/admin/modalidades");
+    revalidatePath("/admin/modalidades/" + validatedFields.data.id);
+    revalidatePath("/admin/modalidades/" + validatedFields.data.id + "/edit");
 
     return {
       status: "success",
@@ -62,6 +63,6 @@ export async function updateModalidad(
     console.error(error);
     return {
       status: "error",
-    }
+    };
   }
 }

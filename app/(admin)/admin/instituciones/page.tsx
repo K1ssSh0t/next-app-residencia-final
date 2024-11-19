@@ -42,6 +42,9 @@ export default async function Page(props: {
         with: {
             tipoBachilleres: true,
             tipoInstituciones: true,
+            region: true,
+            municipio: true,
+            modalidad: true,
         },
     });
 

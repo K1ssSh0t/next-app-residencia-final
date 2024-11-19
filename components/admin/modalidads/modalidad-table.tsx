@@ -22,23 +22,23 @@ export function ModalidadTable({ modalidadList }: { modalidadList: ModalidadsWit
         </TableRow>
       </TableHeader>
       <TableBody>
-        { modalidadList.map((modalidad) => (
-          <TableRow key={ modalidad.id }>
-            <TableCell>{ modalidad.id }</TableCell>
-            <TableCell>{ modalidad.descripcion }</TableCell>
+        {modalidadList.map((modalidad) => (
+          <TableRow key={modalidad.id}>
+            <TableCell>{modalidad.id}</TableCell>
+            <TableCell>{modalidad.descripcion}</TableCell>
             <TableCell className="justify-end flex gap-2">
               {/* [CODE_MARK table-actions] */}
-              <Link href={`/admin/modalidads/${ modalidad.id }`}>
+              <Link href={`/admin/modalidades/${modalidad.id}`}>
                 <Button size="icon" variant="outline">
                   <EyeIcon />
                 </Button>
               </Link>
-              <Link href={`/admin/modalidads/${ modalidad.id }/edit`}>
+              <Link href={`/admin/modalidades/${modalidad.id}/edit`}>
                 <Button size="icon" variant="outline">
                   <PencilIcon />
                 </Button>
               </Link>
-              <Link href={`/admin/modalidads/${ modalidad.id }/delete`}>
+              <Link href={`/admin/modalidades/${modalidad.id}/delete`}>
                 <Button size="icon" variant="outline">
                   <TrashIcon />
                 </Button>

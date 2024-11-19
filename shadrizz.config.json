@@ -1,5 +1,5 @@
 {
-  "version": "0.0.1",
+  "version": "0.1.5",
   "packageManager": "bun",
   "latest": true,
   "dbDialect": "postgresql",
@@ -7,9 +7,7 @@
   "pkStrategy": "cuid2",
   "authEnabled": true,
   "authSolution": "authjs",
-  "authProviders": [
-    "credentials"
-  ],
+  "authProviders": ["credentials"],
   "adminEnabled": true,
   "install": true
 }

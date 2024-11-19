@@ -31,7 +31,11 @@ export default async function Page(props: {
     {
       with: {
         tipoBachilleres: true,
-        tipoInstituciones: true
+        tipoInstituciones: true,
+        municipio: true,
+        region: true,
+        modalidad: true,
+
       },
       where: eq(instituciones.usersId, `${session?.user?.id}`)
     }
@@ -126,11 +130,15 @@ export default async function Page(props: {
                 </div>
                 <div>
                   <p className="text-sm font-medium text-muted-foreground">Región</p>
-                  <p>{miInstitucion.region?.toString()}</p>
+                  <p>{miInstitucion.region?.nombre?.toString()}</p>
                 </div>
                 <div>
                   <p className="text-sm font-medium text-muted-foreground">Municipio</p>
-                  <p>{miInstitucion.municipio?.toString()}</p>
+                  <p>{miInstitucion.municipio?.nombre?.toString()}</p>
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-muted-foreground">Modalidad</p>
+                  <p>{miInstitucion.modalidad?.descripcion?.toString()}</p>
                 </div>
                 <div>
                   <p className="text-sm font-medium text-muted-foreground">Tipo Institución</p>

@@ -22,23 +22,23 @@ export function RegionTable({ regionList }: { regionList: RegionsWithRelations }
         </TableRow>
       </TableHeader>
       <TableBody>
-        { regionList.map((region) => (
-          <TableRow key={ region.id }>
-            <TableCell>{ region.id }</TableCell>
-            <TableCell>{ region.nombre }</TableCell>
+        {regionList.map((region) => (
+          <TableRow key={region.id}>
+            <TableCell>{region.id}</TableCell>
+            <TableCell>{region.nombre}</TableCell>
             <TableCell className="justify-end flex gap-2">
               {/* [CODE_MARK table-actions] */}
-              <Link href={`/admin/regions/${ region.id }`}>
+              <Link href={`/admin/regiones/${region.id}`}>
                 <Button size="icon" variant="outline">
                   <EyeIcon />
                 </Button>
               </Link>
-              <Link href={`/admin/regions/${ region.id }/edit`}>
+              <Link href={`/admin/regiones/${region.id}/edit`}>
                 <Button size="icon" variant="outline">
                   <PencilIcon />
                 </Button>
               </Link>
-              <Link href={`/admin/regions/${ region.id }/delete`}>
+              <Link href={`/admin/regiones/${region.id}/delete`}>
                 <Button size="icon" variant="outline">
                   <TrashIcon />
                 </Button>

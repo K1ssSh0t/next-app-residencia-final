@@ -23,13 +23,17 @@ export async function getMunicipiosWithRelations({
     limit: limit,
     offset: offset,
     where: search ? like(municipios.id, `%${search}%`) : undefined,
-    with: undefined
+    with: {
+      region: true,
+    },
   });
 }
 
 export async function getMunicipioWithRelations(id: string) {
   return await db.query.municipios.findFirst({
     where: eq(municipios.id, id),
-    with: undefined,
+    with: {
+      region: true,
+    },
   });
 }

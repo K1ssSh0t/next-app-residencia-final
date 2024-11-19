@@ -45,14 +45,14 @@ export async function deleteRegion(
     }
 
     await db.delete(regions).where(eq(regions.id, validatedFields.data.id));
-    
-    revalidatePath("/admin/regions");
+
+    revalidatePath("/admin/regiones");
   } catch (error) {
     console.log(error);
     return {
       status: "error",
-    }
+    };
   }
 
-  redirect("/admin/regions");
+  redirect("/admin/regiones");
 }

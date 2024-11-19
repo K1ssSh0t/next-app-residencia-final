@@ -1,4 +1,7 @@
 import { notFound } from "next/navigation";
+import { eq } from "drizzle-orm";
+import { ModalidadDeleteForm } from "@/components/admin/modalidads/modalidad-delete-form";
+import { db } from "@/lib/db";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -7,20 +10,18 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { ModalidadUpdateForm } from "@/components/admin/modalidads/modalidad-update-form";
-import { getModalidadWithRelations } from "@/repositories/modalidad-repository";
+import { modalidads } from "@/schema/modalidads";
 
 type Params = Promise<{ id: string }>;
 
 export default async function Page(props: { params: Params }) {
   const params = await props.params;
   const { id } = params;
-  const modalidad = await getModalidadWithRelations(id);
+  const modalidad = await db.query.modalidads.findFirst({ where: eq(modalidads.id, id) });
 
   if (!modalidad) {
     notFound();
   }
-
 
   return (
     <div className="relative">
@@ -28,25 +29,23 @@ export default async function Page(props: { params: Params }) {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/admin/modalidads">Modalidads</BreadcrumbLink>
+              <BreadcrumbLink href="/admin/modalidades">Modalidades</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink href={`/admin/modalidads/${ modalidad.id }`}>
-                { modalidad.id }
+              <BreadcrumbLink href={`/admin/modalidades/${modalidad.id}`}>
+                {modalidad.id}
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>Edit</BreadcrumbPage>
+              <BreadcrumbPage>Delete</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
       </div>
       <div className="pt-5">
-        <ModalidadUpdateForm 
-          modalidad={ modalidad }
-        />
+        <ModalidadDeleteForm modalidad={modalidad} />
       </div>
     </div>
   );

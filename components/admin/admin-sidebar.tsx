@@ -44,10 +44,10 @@ const items = [
   { title: "Instituciones", url: "/admin/instituciones", icon: Table2Icon },
   // { title: "Cuestionarios", url: "/admin/cuestionarios", icon: Table2Icon },
   // { title: "Helpers", url: "/admin/helpers", icon: Table2Icon },
-    { title: "Modalidads", url: "/admin/modalidads", icon: Table2Icon },
-  { title: "Regions", url: "/admin/regions", icon: Table2Icon },
+  { title: "Modalidades", url: "/admin/modalidades", icon: Table2Icon },
+  { title: "Regiones", url: "/admin/regiones", icon: Table2Icon },
   { title: "Municipios", url: "/admin/municipios", icon: Table2Icon },
-// [CODE_MARK admin-sidebar-items]
+  // [CODE_MARK admin-sidebar-items]
 ];
 
 export function AdminSidebar({ user }: { user: User }) {

@@ -36,7 +36,7 @@ export default async function Page(props: {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbPage>Regions</BreadcrumbPage>
+              <BreadcrumbPage>Regiones</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
@@ -46,7 +46,7 @@ export default async function Page(props: {
           <SearchInput placeholder="Search Regions" />
         </div>
         <div className="text-right mr-2">
-          <Link href="/admin/regions/new">
+          <Link href="/admin/regiones/new">
             <Button>
               <PlusIcon className="mr-2" /> New
             </Button>
@@ -54,7 +54,7 @@ export default async function Page(props: {
         </div>
       </div>
       <div className="mb-5">
-        <RegionTable regionList={ regionList } />
+        <RegionTable regionList={regionList} />
       </div>
       <div>
         <Pagination page={page} pageSize={pageSize} totalPages={totalPages} />

@@ -36,7 +36,7 @@ export default async function Page(props: {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbPage>Modalidads</BreadcrumbPage>
+              <BreadcrumbPage>Modalidades</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
@@ -46,7 +46,7 @@ export default async function Page(props: {
           <SearchInput placeholder="Search Modalidads" />
         </div>
         <div className="text-right mr-2">
-          <Link href="/admin/modalidads/new">
+          <Link href="/admin/modalidades/new">
             <Button>
               <PlusIcon className="mr-2" /> New
             </Button>
@@ -54,7 +54,7 @@ export default async function Page(props: {
         </div>
       </div>
       <div className="mb-5">
-        <ModalidadTable modalidadList={ modalidadList } />
+        <ModalidadTable modalidadList={modalidadList} />
       </div>
       <div>
         <Pagination page={page} pageSize={pageSize} totalPages={totalPages} />
