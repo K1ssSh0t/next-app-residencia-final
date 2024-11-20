@@ -46,8 +46,8 @@ export function CarreraInstitucionCreateForm({
             searchPlaceholder="Search Carreras..."
             selectPlaceholder="Select Carrera..."
             emptyText="No carrera found"
-            keywordFields={["id"]}
-            template={(item) => <div>{item.id}</div>}
+            keywordFields={["id", "descripcion"]}
+            template={(item) => <div>{item.descripcion}</div>}
           />
           {state.errors?.carrerasId?.map((error) => (
             <p className="text-red-500" key={error}>
@@ -78,8 +78,8 @@ export function CarreraInstitucionCreateForm({
             searchPlaceholder="Search Modalidades..."
             selectPlaceholder="Select Modalidade..."
             emptyText="No modalidade found"
-            keywordFields={["id"]}
-            template={(item) => <div>{item.id}</div>}
+            keywordFields={["id", "descripcion"]}
+            template={(item) => <div>{item.descripcion}</div>}
           />
           {state.errors?.modalidadesId?.map((error) => (
             <p className="text-red-500" key={error}>

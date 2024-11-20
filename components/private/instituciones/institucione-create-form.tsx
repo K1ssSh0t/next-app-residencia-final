@@ -22,14 +22,14 @@ export function InstitucioneCreateForm({
   nivelEducativo,
   regionList,
   municipioList,
-  modalidadList,
+
 }: {
   tipoInstitucioneList: TipoInstitucione[];
   tipoBachillereList: TipoBachillere[];
   nivelEducativo: boolean;
   regionList: Region[];
   municipioList: Municipio[];
-  modalidadList: Modalidad[];
+
 }) {
   const initialState: CreateInstitucioneState = {};
   const [state, dispatch] = useActionState(createInstitucione, initialState);
@@ -95,22 +95,7 @@ export function InstitucioneCreateForm({
             <p className="text-red-500" key={error}>{error}</p>
           ))}
         </div>
-        <div>
-          <Label>Modalidad</Label>
-          <GenericCombobox
-            list={modalidadList}
-            name="modalidad"
-            valueField="id"
-            searchPlaceholder="Search Tipo Instituciones..."
-            selectPlaceholder="Select Tipo Institucione..."
-            emptyText="No tipoInstitucione found"
-            keywordFields={["id", "descripcion"]}
-            template={(item) => <div>{item.descripcion}</div>}
-          />
-          {state.errors?.modalidad?.map((error) => (
-            <p className="text-red-500" key={error}>{error}</p>
-          ))}
-        </div>
+
         <div className="flex flex-col gap-2">
           <Label>Tipo Instituciones Id</Label>
           <GenericCombobox

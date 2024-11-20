@@ -25,7 +25,6 @@ export default async function Page(props: { params: Params }) {
 
             municipio: true,
             region: true,
-            modalidad: true,
 
         },
     });
@@ -66,10 +65,7 @@ export default async function Page(props: { params: Params }) {
                                 <p className="text-sm font-medium text-muted-foreground">Municipio</p>
                                 <p>{institucion.municipio?.nombre?.toString()}</p>
                             </div>
-                            <div>
-                                <p className="text-sm font-medium text-muted-foreground">Modalidad</p>
-                                <p>{institucion.modalidad?.descripcion?.toString()}</p>
-                            </div>
+
                             <div>
                                 <p className="text-sm font-medium text-muted-foreground">Tipo Institución</p>
                                 <p>{institucion.tipoInstituciones?.descripcion?.toString()}</p>

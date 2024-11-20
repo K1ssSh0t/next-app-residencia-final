@@ -19,13 +19,13 @@ export default async function Page(props: { params: Params }) {
       <div>
         <p><strong>Id:</strong> {institucione.id}</p>
         <p><strong>Nombre:</strong> {institucione.nombre}</p>
-        <p><strong>Region:</strong> {institucione.region}</p>
-        <p><strong>Municipio:</strong> {institucione.municipio}</p>
+        <p><strong>Region:</strong> {institucione.region?.nombre}</p>
+        <p><strong>Municipio:</strong> {institucione.municipio?.nombre}</p>
         <p><strong>Tipo Instituciones Id:</strong> {institucione.tipoInstitucionesId}</p>
         <p><strong>Tipo Bachilleres Id:</strong> {institucione.tipoBachilleresId}</p>
         <p><strong>Users Id:</strong> {institucione.usersId}</p>
         <p><strong>Nivel Educativo:</strong> {institucione.nivelEducativo ? "true" : "false"}</p>
-        <p><strong>Modalidad:</strong> {institucione.modalidad}</p>
+
       </div>
     </div>
   );

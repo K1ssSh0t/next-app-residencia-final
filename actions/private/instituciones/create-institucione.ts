@@ -23,7 +23,6 @@ export interface CreateInstitucioneState extends BaseActionState {
     tipoBachilleresId?: string[];
     //usersId?: string[];
     nivelEducativo?: string[];
-    modalidad?: string[];
   };
 }
 
@@ -46,7 +45,6 @@ export async function createInstitucione(
       tipoBachilleresId: formData.get("tipoBachilleresId") as string,
       usersId: session?.user?.id as string,
       nivelEducativo: formData.get("nivelEducativo") === "true",
-      modalidad: formData.get("modalidad") as string,
     });
 
     if (!validatedFields.success) {

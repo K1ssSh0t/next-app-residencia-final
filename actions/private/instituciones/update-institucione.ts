@@ -26,7 +26,6 @@ export interface UpdateInstitucioneState extends BaseActionState {
     tipoBachilleresId?: string[];
     usersId?: string[];
     nivelEducativo?: string[];
-    modalidad?: string[];
   };
 }
 
@@ -50,7 +49,6 @@ export async function updateInstitucione(
       tipoBachilleresId: formData.get("tipoBachilleresId") as string,
       usersId: formData.get("usersId") as string,
       nivelEducativo: formData.get("nivelEducativo") === "true",
-      modalidad: formData.get("modalidad") as string,
     });
 
     if (!validatedFields.success) {

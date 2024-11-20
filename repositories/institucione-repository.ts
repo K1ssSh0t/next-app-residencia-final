@@ -27,7 +27,6 @@ export async function getInstitucionesWithRelations({
       tipoBachilleres: true,
       tipoInstituciones: true,
       municipio: true,
-      modalidad: true,
       region: true,
     },
   });
@@ -40,7 +39,6 @@ export async function getInstitucioneWithRelations(id: string) {
       tipoBachilleres: true,
       tipoInstituciones: true,
       municipio: true,
-      modalidad: true,
       region: true,
     },
   });

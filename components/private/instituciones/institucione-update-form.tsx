@@ -24,7 +24,7 @@ export function InstitucioneUpdateForm({
   nivelEducativo,
   regionList,
   municipioList,
-  modalidadList,
+
 }: {
   institucione: Institucione;
   tipoInstitucioneList: TipoInstitucione[];
@@ -32,7 +32,7 @@ export function InstitucioneUpdateForm({
   nivelEducativo: boolean;
   regionList: Region[];
   municipioList: Municipio[];
-  modalidadList: Modalidad[];
+
 }) {
   const initialState: UpdateInstitucioneState = {};
   const [state, dispatch] = useActionState(updateInstitucione, initialState);
@@ -106,24 +106,7 @@ export function InstitucioneUpdateForm({
             <p className="text-red-500" key={error}>{error}</p>
           ))}
         </div>
-        <div>
-          <Label>Modalidad</Label>
-          <GenericCombobox
-            list={modalidadList}
-            name="modalidad"
-            valueField="id"
-            defaultValue={institucione.modalidadId}
-            searchPlaceholder="Search Tipo Instituciones..."
-            selectPlaceholder="Select Tipo Institucione..."
 
-            emptyText="No tipoInstitucione found"
-            keywordFields={["id", "descripcion"]}
-            template={(item) => <div>{item.descripcion}</div>}
-          />
-          {state.errors?.modalidad?.map((error) => (
-            <p className="text-red-500" key={error}>{error}</p>
-          ))}
-        </div>
         <div className="flex flex-col gap-2">
           <Label>Tipo de Institucion</Label>
           <GenericCombobox

@@ -22,7 +22,7 @@ export const instituciones = pgTable("instituciones", {
   municipioId: text().references(() => municipios.id),
   tipoInstitucionesId: text().references(() => tipoInstituciones.id),
   tipoBachilleresId: text().references(() => tipoBachilleres.id),
-  modalidadId: text().references(() => modalidads.id),
+
   usersId: text()
     .references(() => users.id)
     .unique(),
@@ -48,10 +48,6 @@ export const institucionesRelations = relations(
     user: one(users, {
       fields: [instituciones.usersId],
       references: [users.id],
-    }),
-    modalidad: one(modalidads, {
-      fields: [instituciones.modalidadId],
-      references: [modalidads.id],
     }),
     region: one(regions, {
       fields: [instituciones.regionId],

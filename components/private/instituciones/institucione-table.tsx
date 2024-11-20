@@ -20,7 +20,7 @@ export function InstitucioneTable({ institucioneList }: { institucioneList: Inst
           <TableHead>Nombre</TableHead>
           <TableHead>Region</TableHead>
           <TableHead>Municipio</TableHead>
-          <TableHead>Modalidad</TableHead>
+
           <TableHead>Tipo Instituciones</TableHead>
           <TableHead>Tipo Bachilleres</TableHead>
           <TableHead>Users</TableHead>
@@ -35,7 +35,6 @@ export function InstitucioneTable({ institucioneList }: { institucioneList: Inst
             <TableCell>{institucione.nombre}</TableCell>
             <TableCell>{institucione.region?.nombre}</TableCell>
             <TableCell>{institucione.municipio?.nombre}</TableCell>
-            <TableCell>{institucione.modalidad?.descripcion}</TableCell>
             <TableCell>{institucione.tipoInstituciones?.descripcion}</TableCell>
             <TableCell>{institucione.tipoBachilleres?.descripcion}</TableCell>
             <TableCell>{institucione.usersId}</TableCell>

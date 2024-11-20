@@ -46,7 +46,7 @@ export default async function Page(props: {
           <SearchInput placeholder="Search Carrera Institucions" />
         </div>
         <div className="text-right mr-2">
-          <Link href="/carrera-institucions/new">
+          <Link href="/carrera-instituciones/new">
             <Button>
               <PlusIcon className="mr-2" /> New
             </Button>
