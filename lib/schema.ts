@@ -1,3 +1,4 @@
+import * as carreraInstitucions from "@/schema/carrera-institucions";
 import * as municipios from "@/schema/municipios";
 import * as regions from "@/schema/regions";
 import * as modalidads from "@/schema/modalidads";
@@ -13,6 +14,7 @@ import * as users from "@/schema/users";
 import * as authTables from "@/schema/auth-tables";
 
 export const schema = {
+  ...carreraInstitucions,
   ...municipios,
   ...regions,
   ...modalidads,
