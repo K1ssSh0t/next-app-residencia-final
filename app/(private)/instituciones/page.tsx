@@ -137,6 +137,14 @@ export default async function Page(props: {
                 <div className="col-span-2">
                   <h2 className="text-xl font-semibold mb-2">{miInstitucion.nombre?.toString()}</h2>
                 </div>
+                <div className="col-span-2">
+                  <p className="text-sm font-medium text-muted-foreground">Clave Institución</p>
+                  <h2 className="text-xl font-semibold mb-2">{miInstitucion.claveInstitucion?.toString()}</h2>
+                </div>
+                <div className="col-span-2">
+                  <p className="text-sm font-medium text-muted-foreground">Clave Centro Trabajo</p>
+                  <h2 className="text-xl font-semibold mb-2">{miInstitucion.claveCentroTrabajo?.toString()}</h2>
+                </div>
                 <div>
                   <p className="text-sm font-medium text-muted-foreground">Región</p>
                   <p>{miInstitucion.region?.nombre?.toString()}</p>
@@ -159,6 +167,10 @@ export default async function Page(props: {
                 <div>
                   <p className="text-sm font-medium text-muted-foreground">Nivel Educativo</p>
                   <p>{miInstitucion.nivelEducativo ? "Superior" : "Medio Superior"}</p>
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-muted-foreground">Numero de Carreras</p>
+                  <p>{miInstitucion.numeroCarreras?.toString()}</p>
                 </div>
               </div>
             )}

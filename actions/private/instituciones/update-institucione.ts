@@ -26,6 +26,9 @@ export interface UpdateInstitucioneState extends BaseActionState {
     tipoBachilleresId?: string[];
     usersId?: string[];
     nivelEducativo?: string[];
+    claveInstitucion?: string[];
+    claveCentroTrabajo?: string[];
+    numeroCarreras?: string[];
   };
 }
 
@@ -49,6 +52,9 @@ export async function updateInstitucione(
       tipoBachilleresId: formData.get("tipoBachilleresId") as string,
       usersId: formData.get("usersId") as string,
       nivelEducativo: formData.get("nivelEducativo") === "true",
+      claveInstitucion: formData.get("claveInstitucion") as string,
+      claveCentroTrabajo: formData.get("claveCentroTrabajo") as string,
+      numeroCarreras: parseInt(formData.get("numeroCarreras") as string),
     });
 
     if (!validatedFields.success) {

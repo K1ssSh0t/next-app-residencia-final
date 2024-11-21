@@ -71,6 +71,20 @@ export function InstitucioneUpdateForm({
           ))}
         </div>
         <div>
+          <Label>Clave de Insitucion</Label>
+          <Input name="claveInstitucion" defaultValue={institucione.claveInstitucion ?? ""} />
+          {state.errors?.nombre?.map((error) => (
+            <p className="text-red-500" key={error}>{error}</p>
+          ))}
+        </div>
+        <div>
+          <Label>Clave de Centro de Trabajo</Label>
+          <Input name="claveCentroTrabajo" defaultValue={institucione.claveCentroTrabajo ?? ""} />
+          {state.errors?.nombre?.map((error) => (
+            <p className="text-red-500" key={error}>{error}</p>
+          ))}
+        </div>
+        <div>
           <Label>Region</Label>
           <GenericCombobox
             list={regionList}
@@ -164,6 +178,13 @@ export function InstitucioneUpdateForm({
           <Label>Users Id</Label>
           <Input name="usersId" defaultValue={institucione.usersId ?? ""} />
           {state.errors?.usersId?.map((error) => (
+            <p className="text-red-500" key={error}>{error}</p>
+          ))}
+        </div>
+        <div>
+          <Label>Numero de Carreras</Label>
+          <Input name="numeroCarreras" type="number" defaultValue={institucione.numeroCarreras ?? ""} />
+          {state.errors?.numeroCarreras?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}
         </div>

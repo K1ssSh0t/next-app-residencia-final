@@ -1,5 +1,11 @@
 import { relations } from "drizzle-orm";
-import { pgTable, text, boolean, timestamp } from "drizzle-orm/pg-core";
+import {
+  pgTable,
+  text,
+  boolean,
+  timestamp,
+  integer,
+} from "drizzle-orm/pg-core";
 import { createId } from "@paralleldrive/cuid2";
 
 import { tipoInstituciones } from "./tipo-instituciones";
@@ -20,7 +26,9 @@ export const instituciones = pgTable("instituciones", {
   municipioId: text().references(() => municipios.id),
   tipoInstitucionesId: text().references(() => tipoInstituciones.id),
   tipoBachilleresId: text().references(() => tipoBachilleres.id),
-
+  claveInstitucion: text(),
+  claveCentroTrabajo: text(),
+  numeroCarreras: integer(),
   usersId: text()
     .references(() => users.id)
     .unique(),

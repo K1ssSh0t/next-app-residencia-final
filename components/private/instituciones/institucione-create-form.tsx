@@ -64,6 +64,20 @@ export function InstitucioneCreateForm({
           ))}
         </div>
         <div>
+          <Label>Clave Institucion</Label>
+          <Input name="claveInstitucion" />
+          {state.errors?.claveInstitucion?.map((error) => (
+            <p className="text-red-500" key={error}>{error}</p>
+          ))}
+        </div>
+        <div>
+          <Label>Clave Centro de Trabajo</Label>
+          <Input name="claveCentroTrabajo" />
+          {state.errors?.claveCentroTrabajo?.map((error) => (
+            <p className="text-red-500" key={error}>{error}</p>
+          ))}
+        </div>
+        <div>
           <Label>Region</Label>
           <GenericCombobox
             list={regionList}
@@ -151,6 +165,13 @@ export function InstitucioneCreateForm({
             </SelectContent>
           </Select>
           {state.errors?.nivelEducativo?.map((error) => (
+            <p className="text-red-500" key={error}>{error}</p>
+          ))}
+        </div>
+        <div>
+          <Label>Numero de Carreras</Label>
+          <Input name="numeroCarreras" type="number" />
+          {state.errors?.numeroCarreras?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}
         </div>

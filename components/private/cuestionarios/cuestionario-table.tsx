@@ -21,7 +21,7 @@ export function CuestionarioTable({ cuestionarioList }: { cuestionarioList: Cues
           <TableHead>Carrera</TableHead>
           <TableHead>Nombre Revoe</TableHead>
           <TableHead>Plan de Estudio</TableHead>
-          <TableHead>Modalidade</TableHead>
+          <TableHead>Modalidad</TableHead>
           <TableHead>Numero Revoe</TableHead>
           {/* <TableHead>Users</TableHead> */}
           <TableHead></TableHead>

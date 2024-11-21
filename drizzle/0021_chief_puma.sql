@@ -1,0 +1,1 @@
+ALTER TABLE "instituciones" ADD COLUMN "numero_carreras" integer;

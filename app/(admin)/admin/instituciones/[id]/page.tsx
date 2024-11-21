@@ -36,7 +36,12 @@ export default async function Page(props: { params: Params }) {
 
     const cuestionario = await db.query.cuestionarios.findMany({
         with: {
-            carrera: true,
+            carrera: {
+                with: {
+                    modalidade: true,
+                    carrera: true,
+                }
+            }
         },
 
         where: eq(cuestionarios.usersId, `${institucion.usersId}`),
@@ -56,6 +61,16 @@ export default async function Page(props: { params: Params }) {
                         <div className="grid grid-cols-2 gap-4">
                             <div className="col-span-2">
                                 <h2 className="text-xl font-semibold mb-2">{institucion.nombre?.toString()}</h2>
+                            </div>
+                            <div className="col-span-2">
+                                <p className="text-sm font-medium text-muted-foreground">Clave Institución</p>
+
+                                <h2 className="text-xl font-semibold mb-2">{institucion.claveInstitucion?.toString()}</h2>
+                            </div>
+                            <div className="col-span-2">
+                                <p className="text-sm font-medium text-muted-foreground">Clave Centro Trabajo</p>
+
+                                <h2 className="text-xl font-semibold mb-2">{institucion.claveCentroTrabajo?.toString()}</h2>
                             </div>
                             <div>
                                 <p className="text-sm font-medium text-muted-foreground">Región</p>
@@ -79,6 +94,10 @@ export default async function Page(props: { params: Params }) {
                             <div>
                                 <p className="text-sm font-medium text-muted-foreground">Nivel Educativo</p>
                                 <p>{institucion.nivelEducativo ? "Superior" : "Medio Superior"}</p>
+                            </div>
+                            <div>
+                                <p className="text-sm font-medium text-muted-foreground">Numero de Carreras</p>
+                                <p>{institucion.numeroCarreras?.toString()}</p>
                             </div>
                         </div>
                     )}
