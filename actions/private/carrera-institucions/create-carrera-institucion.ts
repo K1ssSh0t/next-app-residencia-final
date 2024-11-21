@@ -7,6 +7,7 @@ import { revalidatePath } from "next/cache";
 import { createInsertSchema } from "drizzle-zod";
 import { BaseActionState } from "@/lib/types";
 import { auth } from "@/lib/auth";
+import { cuestionarios } from "@/schema/cuestionarios";
 
 const insertCarreraInstitucionSchema = createInsertSchema(carreraInstituciones);
 
@@ -49,9 +50,19 @@ export async function createCarreraInstitucion(
       };
     }
 
-    await db.insert(carreraInstituciones).values(validatedFields.data);
+    const insertCarreraInstitucion = await db
+      .insert(carreraInstituciones)
+      .values(validatedFields.data)
+      .returning({ id: carreraInstituciones.id });
 
-    revalidatePath("/carrera-institucions");
+    await db
+      .insert(cuestionarios)
+      .values({
+        carrerasId: insertCarreraInstitucion.pop()?.id,
+        usersId: session.user.id,
+      });
+
+    revalidatePath("/carrera-instituciones");
   } catch (error) {
     console.error(error);
     return {
@@ -59,5 +70,5 @@ export async function createCarreraInstitucion(
     };
   }
 
-  redirect("/carrera-institucions");
+  redirect("/carrera-instituciones");
 }

@@ -45,7 +45,7 @@ export async function deleteCarreraInstitucion(
       .delete(carreraInstituciones)
       .where(eq(carreraInstituciones.id, validatedFields.data.id));
 
-    revalidatePath("/carrera-institucions");
+    revalidatePath("/carrera-instituciones");
   } catch (error) {
     console.log(error);
     return {
@@ -53,5 +53,5 @@ export async function deleteCarreraInstitucion(
     };
   }
 
-  redirect("/carrera-institucions");
+  redirect("/carrera-instituciones");
 }

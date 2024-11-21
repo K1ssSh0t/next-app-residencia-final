@@ -14,9 +14,11 @@ import { Modalidad } from "@/schema/modalidads";
 export function CarreraInstitucionCreateForm({
   carreraList,
   modalidadeList,
+  idInstitucion,
 }: {
   carreraList: Carrera[];
   modalidadeList: Modalidad[];
+  idInstitucion: string;
 }) {
   const initialState: CreateCarreraInstitucionState = {};
   const [state, dispatch] = useActionState(createCarreraInstitucion, initialState);
@@ -30,9 +32,9 @@ export function CarreraInstitucionCreateForm({
   return (
     <div>
       <form action={dispatch} onSubmit={handleSubmit} className="flex flex-col gap-2">
-        <div>
+        <div className="hidden">
           <Label>Instituciones Id</Label>
-          <Input name="institucionesId" />
+          <Input name="institucionesId" defaultValue={idInstitucion} />
           {state.errors?.institucionesId?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}

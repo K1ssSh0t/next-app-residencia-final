@@ -43,8 +43,8 @@ export async function updateInstitucione(
     const validatedFields = updateInstitucioneSchema.safeParse({
       id: formData.get("id") as string,
       nombre: formData.get("nombre") as string,
-      region: formData.get("region") as string,
-      municipio: formData.get("municipio") as string,
+      regionId: formData.get("region") as string,
+      municipioId: formData.get("municipio") as string,
       tipoInstitucionesId: formData.get("tipoInstitucionesId") as string,
       tipoBachilleresId: formData.get("tipoBachilleresId") as string,
       usersId: formData.get("usersId") as string,

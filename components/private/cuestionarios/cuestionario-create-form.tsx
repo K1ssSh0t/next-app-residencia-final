@@ -8,12 +8,13 @@ import { FormAlert } from "@/components/form-alert";
 import { Input } from "@/components/ui/input";
 import { GenericCombobox } from "@/components/generic-combobox";
 
-import { Carrera } from "@/schema/carreras";
+
+import { CarreraInstitucion } from "@/schema/carrera-institucions";
 
 export function CuestionarioCreateForm({
   carreraList,
 }: {
-  carreraList: Carrera[];
+  carreraList: CarreraInstitucion[];
 }) {
   const initialState: CreateCuestionarioState = {};
   const [state, dispatch] = useActionState(createCuestionario, initialState);
@@ -43,8 +44,8 @@ export function CuestionarioCreateForm({
             searchPlaceholder="Search Carreras..."
             selectPlaceholder="Select Carrera..."
             emptyText="No carrera found"
-            keywordFields={["id", "descripcion"]}
-            template={(item) => <div>{item.descripcion}</div>}
+            keywordFields={["id", "nombreRevoe"]}
+            template={(item) => <div>{item.nombreRevoe}</div>}
           />
           {state.errors?.carrerasId?.map((error) => (
             <p className="text-red-500" key={error}>

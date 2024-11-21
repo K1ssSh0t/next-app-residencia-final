@@ -7,9 +7,8 @@ import {
   uniqueIndex,
 } from "drizzle-orm/pg-core";
 import { createId } from "@paralleldrive/cuid2";
-
-import { carreras } from "./carreras";
 import { users } from "./users";
+import { carreraInstituciones } from "./carrera-institucions";
 
 export type Cuestionario = typeof cuestionarios.$inferSelect;
 
@@ -22,7 +21,7 @@ export const cuestionarios = pgTable(
       .primaryKey()
       .$defaultFn(() => createId()),
     año: integer(),
-    carrerasId: text().references(() => carreras.id),
+    carrerasId: text().references(() => carreraInstituciones.id),
     usersId: text().references(() => users.id),
     createdAt: timestamp().notNull().defaultNow(),
     updatedAt: timestamp()
@@ -41,9 +40,9 @@ export const cuestionarios = pgTable(
 export const cuestionariosRelations = relations(
   cuestionarios,
   ({ one, many }) => ({
-    carrera: one(carreras, {
+    carrera: one(carreraInstituciones, {
       fields: [cuestionarios.carrerasId],
-      references: [carreras.id],
+      references: [carreraInstituciones.id],
     }),
     user: one(users, {
       fields: [cuestionarios.usersId],

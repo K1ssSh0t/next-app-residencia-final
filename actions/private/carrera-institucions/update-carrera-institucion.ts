@@ -57,10 +57,10 @@ export async function updateCarreraInstitucion(
       .set(validatedFields.data)
       .where(eq(carreraInstituciones.id, validatedFields.data.id));
 
-    revalidatePath("/carrera-institucions");
-    revalidatePath("/carrera-institucions/" + validatedFields.data.id);
+    revalidatePath("/carrera-instituciones");
+    revalidatePath("/carrera-instituciones/" + validatedFields.data.id);
     revalidatePath(
-      "/carrera-institucions/" + validatedFields.data.id + "/edit"
+      "/carrera-instituciones/" + validatedFields.data.id + "/edit"
     );
 
     return {

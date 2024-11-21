@@ -88,7 +88,12 @@ export default async function Page(props: {
 
   const misCuestionarios = await db.query.cuestionarios.findMany({
     with: {
-      carrera: true,
+      carrera: {
+        with: {
+          modalidade: true,
+          carrera: true,
+        }
+      },
     },
     limit: pageSize,
     offset: pageIndex * pageSize,
@@ -122,7 +127,11 @@ export default async function Page(props: {
           </CardHeader>
           <CardContent>
             {!miInstitucion ? (
-              <div className="text-center text-muted-foreground">No tienes datos</div>
+              <><div className="text-center text-muted-foreground">No tienes datos</div><Link href="/instituciones/new">
+                <Button>
+                  <PlusIcon className="mr-2" /> Rellenar Datos
+                </Button>
+              </Link></>
             ) : (
               <div className="grid grid-cols-2 gap-4">
                 <div className="col-span-2">
@@ -169,9 +178,17 @@ export default async function Page(props: {
 
       </div>
       <div>
-        {misCuestionarios ? <CuestionarioTable cuestionarioList={misCuestionarios} /> : <div>No tienes cuestionarios</div>}
+        {/* {misCuestionarios.length > 0 ? <CuestionarioTable cuestionarioList={misCuestionarios} /> : <div>No tienes cuestionarios</div>} */}
+        {
 
-
+          // TODO:MODIFICAR PARA QUE TE DEJER ACREAGAR NUVEAS CARRERAS SEGUN UN NUMERO ESPECIFICADO
+          // TALVEZ DE LA TABLAD DE INSITUCION PONER SU CANTIDAD DE CARRERAS QUE TIENE ????
+          misCuestionarios.length > 0 && miInstitucion ? <CuestionarioTable cuestionarioList={misCuestionarios} /> : misCuestionarios.length == 0 && miInstitucion ? <><div>No tienes cuestionarios. Rellena los datos</div><Link href={{ pathname: "/carrera-instituciones/new", query: { idInstitucion: miInstitucion.id } }}>
+            <Button>
+              <PlusIcon className="mr-2" /> Agrega tus Carreras
+            </Button>
+          </Link></> : <div>No tienes datos.</div>
+        }
       </div>
       <div>
         <Pagination page={page} pageSize={pageSize} totalPages={totalPages} />

@@ -11,8 +11,6 @@ import { municipios } from "./municipios";
 
 export type Institucione = typeof instituciones.$inferSelect;
 
-//TODO:AGREGAR RELACION CON MODALIDAD, MUNICIPIO Y REGION
-
 export const instituciones = pgTable("instituciones", {
   id: text()
     .primaryKey()

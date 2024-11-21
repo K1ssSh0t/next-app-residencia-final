@@ -14,14 +14,14 @@ export default async function Page(props: { params: Params }) {
     notFound();
   }
 
-  const carreraList = await db.query.carreras.findMany();
+  const carreraList = await db.query.carreraInstituciones.findMany();
 
   return (
     <div>
       <h1 className="text-xl font-bold mb-6">Edit Cuestionario</h1>
-      <CuestionarioUpdateForm 
-        cuestionario={ cuestionario }
-        carreraList={ carreraList }
+      <CuestionarioUpdateForm
+        cuestionario={cuestionario}
+        carreraList={carreraList}
       />
     </div>
   );

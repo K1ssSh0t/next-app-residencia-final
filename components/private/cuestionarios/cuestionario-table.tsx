@@ -16,20 +16,28 @@ export function CuestionarioTable({ cuestionarioList }: { cuestionarioList: Cues
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>Id</TableHead>
+          {/* <TableHead>Id</TableHead> */}
           <TableHead>Año</TableHead>
-          <TableHead>Carreras</TableHead>
-          <TableHead>Users</TableHead>
+          <TableHead>Carrera</TableHead>
+          <TableHead>Nombre Revoe</TableHead>
+          <TableHead>Plan de Estudio</TableHead>
+          <TableHead>Modalidade</TableHead>
+          <TableHead>Numero Revoe</TableHead>
+          {/* <TableHead>Users</TableHead> */}
           <TableHead></TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {cuestionarioList.map((cuestionario: any) => (
           <TableRow key={cuestionario.id}>
-            <TableCell>{cuestionario.id}</TableCell>
+            {/* <TableCell>{cuestionario.id}</TableCell> */}
             <TableCell>{cuestionario.año}</TableCell>
-            <TableCell>{cuestionario.carrera.descripcion}</TableCell>
-            <TableCell>{cuestionario.usersId}</TableCell>
+            <TableCell>{cuestionario.carrera?.carrera?.descripcion}</TableCell>
+            <TableCell>{cuestionario.carrera?.nombreRevoe}</TableCell>
+            <TableCell>{cuestionario.carrera.planDeEstudio}</TableCell>
+            <TableCell>{cuestionario.carrera.modalidade.descripcion}</TableCell>
+            <TableCell>{cuestionario.carrera.numeroRevoe}</TableCell>
+            {/* <TableCell>{cuestionario.usersId}</TableCell> */}
             <TableCell className="justify-end flex gap-2">
               {/* [CODE_MARK table-actions] */}
               <Link href={`/cuestionarios/${cuestionario.id}`}>

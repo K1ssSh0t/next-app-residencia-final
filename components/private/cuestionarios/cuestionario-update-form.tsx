@@ -9,14 +9,15 @@ import { Input } from "@/components/ui/input";
 import { GenericCombobox } from "@/components/generic-combobox";
 
 import { Cuestionario } from "@/schema/cuestionarios";
-import { Carrera } from "@/schema/carreras";
+import { CarreraInstitucion } from "@/schema/carrera-institucions";
 
-export function CuestionarioUpdateForm({ 
+
+export function CuestionarioUpdateForm({
   cuestionario,
   carreraList,
-}: { 
+}: {
   cuestionario: Cuestionario;
-  carreraList: Carrera[];
+  carreraList: CarreraInstitucion[];
 }) {
   const initialState: UpdateCuestionarioState = {};
   const [state, dispatch] = useActionState(updateCuestionario, initialState);
@@ -30,13 +31,13 @@ export function CuestionarioUpdateForm({
   return (
     <div>
       <form action={dispatch} onSubmit={handleSubmit} className="flex flex-col gap-2">
-        <input type="hidden" name="id" value={ cuestionario.id } />
+        <input type="hidden" name="id" value={cuestionario.id} />
         <div>
-          <p><strong>Id:</strong> { cuestionario.id }</p>
+          <p><strong>Id:</strong> {cuestionario.id}</p>
         </div>
         <div>
           <Label>Año</Label>
-          <Input name="año" defaultValue={ cuestionario.año ?? "" } />
+          <Input name="año" defaultValue={cuestionario.año ?? ""} />
           {state.errors?.año?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}
@@ -44,15 +45,15 @@ export function CuestionarioUpdateForm({
         <div className="flex flex-col gap-2">
           <Label>Carreras Id</Label>
           <GenericCombobox
-            list={ carreraList }
+            list={carreraList}
             name="carrerasId"
             valueField="id"
-            defaultValue={ cuestionario.carrerasId }
+            defaultValue={cuestionario.carrerasId}
             searchPlaceholder="Search Carreras..."
             selectPlaceholder="Select Carrera..."
             emptyText="No carrera found"
             keywordFields={["id"]}
-            template={(item) => <div>{item.id}</div>}
+            template={(item) => <div>{item.nombreRevoe}</div>}
           />
           {state.errors?.carrerasId?.map((error) => (
             <p className="text-red-500" key={error}>
@@ -62,7 +63,7 @@ export function CuestionarioUpdateForm({
         </div>
         <div>
           <Label>Users Id</Label>
-          <Input name="usersId" defaultValue={ cuestionario.usersId ?? "" } />
+          <Input name="usersId" defaultValue={cuestionario.usersId ?? ""} />
           {state.errors?.usersId?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}

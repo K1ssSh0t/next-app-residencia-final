@@ -9,7 +9,15 @@ import {
 } from "@/components/ui/breadcrumb";
 import { CarreraInstitucionCreateForm } from "@/components/private/carrera-institucions/carrera-institucion-create-form";
 
-export default async function Page() {
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+
+
+export default async function Page(props: {
+  searchParams: SearchParams;
+}) {
+  const searchParams = await props.searchParams;
+
+  const { idInstitucion } = searchParams
   const carreraList = await db.query.carreras.findMany();
   const modalidadeList = await db.query.modalidads.findMany();
 
@@ -32,6 +40,7 @@ export default async function Page() {
         <CarreraInstitucionCreateForm
           carreraList={carreraList}
           modalidadeList={modalidadeList}
+          idInstitucion={idInstitucion as string}
         />
       </div>
     </div>
