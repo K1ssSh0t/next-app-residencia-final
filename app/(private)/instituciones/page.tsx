@@ -189,18 +189,35 @@ export default async function Page(props: {
       <div>
 
       </div>
-      <div>
+      <div >
         {/* {misCuestionarios.length > 0 ? <CuestionarioTable cuestionarioList={misCuestionarios} /> : <div>No tienes cuestionarios</div>} */}
-        {
-
-          // TODO:MODIFICAR PARA QUE TE DEJER ACREAGAR NUVEAS CARRERAS SEGUN UN NUMERO ESPECIFICADO
-          // TALVEZ DE LA TABLAD DE INSITUCION PONER SU CANTIDAD DE CARRERAS QUE TIENE ????
-          misCuestionarios.length > 0 && miInstitucion ? <CuestionarioTable cuestionarioList={misCuestionarios} /> : misCuestionarios.length == 0 && miInstitucion ? <><div>No tienes cuestionarios. Rellena los datos</div><Link href={{ pathname: "/carrera-instituciones/new", query: { idInstitucion: miInstitucion.id } }}>
-            <Button>
-              <PlusIcon className="mr-2" /> Agrega tus Carreras
-            </Button>
-          </Link></> : <div>No tienes datos.</div>
-        }
+        {miInstitucion ? (
+          <>
+            {misCuestionarios.length > 0 && (
+              <CuestionarioTable cuestionarioList={misCuestionarios} />
+            )}
+            {misCuestionarios.length < (miInstitucion.numeroCarreras || 0) && (
+              <div className="mt-4 flex flex-col items-center ">
+                <div className="mb-2 text-lg font-semibold">
+                  {misCuestionarios.length === 0
+                    ? "Rellena los datos necesarios de las carreras"
+                    : "Agrega las carreras faltantes"}
+                </div>
+                <div className="space-y-2 w-full sm:w-64">
+                  {Array.from({ length: (miInstitucion.numeroCarreras || 0) - misCuestionarios.length }).map((_, index) => (
+                    <Link key={index} href={{ pathname: "/carrera-instituciones/new", query: { idInstitucion: miInstitucion.id } }} className="w-full">
+                      <Button className="w-full justify-start my-2" variant="outline">
+                        <PlusIcon className="mr-2 h-4 w-4" /> Agrega Carrera {misCuestionarios.length + index + 1}
+                      </Button>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+          </>
+        ) : (
+          <div className="text-center text-lg text-muted-foreground">No tienes datos de la institución.</div>
+        )}
       </div>
       <div>
         <Pagination page={page} pageSize={pageSize} totalPages={totalPages} />
