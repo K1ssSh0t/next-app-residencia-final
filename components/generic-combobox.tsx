@@ -31,6 +31,7 @@ export function GenericCombobox<Type extends GenericType>({
   emptyText,
   keywordFields,
   template,
+  onChange,
 }: {
   list: Type[];
   name: string;
@@ -41,9 +42,17 @@ export function GenericCombobox<Type extends GenericType>({
   emptyText: string;
   keywordFields: string[];
   template: (item: Type) => JSX.Element;
+  onChange?: (value: string) => void;
 }) {
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState(defaultValue);
+  const [value, setValue] = React.useState<string | null | undefined>(defaultValue);
+
+  const handleValueChange = (newValue: string) => {
+    setValue(newValue);
+    if (onChange) {
+      onChange(newValue);
+    }
+  };
 
   let label;
   if (value) {
@@ -86,7 +95,8 @@ export function GenericCombobox<Type extends GenericType>({
                   key={item[valueField]}
                   value={item[valueField]}
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue);
+                    const newValue = currentValue === value ? "" : currentValue;
+                    handleValueChange(newValue);
                     setOpen(false);
                   }}
                   keywords={keywordFields.map((field) => item[field])}
@@ -107,3 +117,4 @@ export function GenericCombobox<Type extends GenericType>({
     </Popover>
   );
 }
+

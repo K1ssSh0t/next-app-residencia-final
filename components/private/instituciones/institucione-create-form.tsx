@@ -1,20 +1,17 @@
 "use client";
 
-import { startTransition, useActionState } from "react";
+import { startTransition, useActionState, useState, useEffect } from "react";
 import { createInstitucione, CreateInstitucioneState } from "@/actions/private/instituciones/create-institucione";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { FormAlert } from "@/components/form-alert";
 import { Input } from "@/components/ui/input";
 import { GenericCombobox } from "@/components/generic-combobox";
-import { Checkbox } from "@/components/ui/checkbox";
-
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { TipoInstitucione } from "@/schema/tipo-instituciones";
 import { TipoBachillere } from "@/schema/tipo-bachilleres";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Region } from "@/schema/regions";
 import { Municipio } from "@/schema/municipios";
-import { Modalidad } from "@/schema/modalidads";
 
 export function InstitucioneCreateForm({
   tipoInstitucioneList,
@@ -22,35 +19,43 @@ export function InstitucioneCreateForm({
   nivelEducativo,
   regionList,
   municipioList,
-
 }: {
   tipoInstitucioneList: TipoInstitucione[];
   tipoBachillereList: TipoBachillere[];
   nivelEducativo: boolean;
   regionList: Region[];
   municipioList: Municipio[];
-
 }) {
   const initialState: CreateInstitucioneState = {};
   const [state, dispatch] = useActionState(createInstitucione, initialState);
+  const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
+  const [filteredMunicipios, setFilteredMunicipios] = useState<Municipio[]>(municipioList);
+
+  useEffect(() => {
+    if (selectedRegion) {
+      const filtered = municipioList.filter(municipio => municipio.regionId === selectedRegion);
+      setFilteredMunicipios(filtered);
+    } else {
+      setFilteredMunicipios(municipioList);
+    }
+  }, [selectedRegion, municipioList]);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
 
-
-    // Convert 'nivelEducativo' to boolean before dispatching
     const nivelEducativoForm = formData.get('nivelEducativo');
     formData.set('nivelEducativo', nivelEducativoForm === 'true' ? 'true' : 'false');
 
-
-    // Si es nivel superior, eliminamos el campo tipoBachilleresId
     if (nivelEducativo) {
       formData.delete('tipoBachilleresId');
     }
 
-
     startTransition(() => dispatch(formData));
+  }
+
+  function handleRegionChange(value: string) {
+    setSelectedRegion(value);
   }
 
   return (
@@ -83,11 +88,13 @@ export function InstitucioneCreateForm({
             list={regionList}
             name="region"
             valueField="id"
-            searchPlaceholder="Search Tipo Instituciones..."
-            selectPlaceholder="Select Tipo Institucione..."
-            emptyText="No tipoInstitucione found"
+            searchPlaceholder="Buscar Región..."
+            selectPlaceholder="Seleccionar Región..."
+            emptyText="No se encontró la región"
             keywordFields={["id", "nombre"]}
             template={(item) => <div>{item.nombre}</div>}
+            onChange={handleRegionChange}
+
           />
           {state.errors?.region?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
@@ -96,12 +103,12 @@ export function InstitucioneCreateForm({
         <div>
           <Label>Municipio</Label>
           <GenericCombobox
-            list={municipioList}
+            list={filteredMunicipios}
             name="municipio"
             valueField="id"
-            searchPlaceholder="Search Tipo Instituciones..."
-            selectPlaceholder="Select Tipo Institucione..."
-            emptyText="No tipoInstitucione found"
+            searchPlaceholder="Buscar Municipio..."
+            selectPlaceholder="Seleccionar Municipio..."
+            emptyText="No se encontró el municipio"
             keywordFields={["id", "nombre"]}
             template={(item) => <div>{item.nombre}</div>}
           />
@@ -109,16 +116,15 @@ export function InstitucioneCreateForm({
             <p className="text-red-500" key={error}>{error}</p>
           ))}
         </div>
-
         <div className="flex flex-col gap-2">
           <Label>Tipo Instituciones Id</Label>
           <GenericCombobox
             list={tipoInstitucioneList}
             name="tipoInstitucionesId"
             valueField="id"
-            searchPlaceholder="Search Tipo Instituciones..."
-            selectPlaceholder="Select Tipo Institucione..."
-            emptyText="No tipoInstitucione found"
+            searchPlaceholder="Buscar Tipo de Institución..."
+            selectPlaceholder="Seleccionar Tipo de Institución..."
+            emptyText="No se encontró el tipo de institución"
             keywordFields={["id", "descripcion"]}
             template={(item) => <div>{item.descripcion}</div>}
           />
@@ -128,31 +134,26 @@ export function InstitucioneCreateForm({
             </p>
           ))}
         </div>
-        {!nivelEducativo && (<div className="flex flex-col gap-2">
-          <Label>Tipo Bachilleres Id</Label>
-          <GenericCombobox
-            list={tipoBachillereList}
-            name="tipoBachilleresId"
-            valueField="id"
-            searchPlaceholder="Search Tipo Bachilleres..."
-            selectPlaceholder="Select Tipo Bachillere..."
-            emptyText="No tipoBachillere found"
-            keywordFields={["id", "descripcion"]}
-            template={(item) => <div>{item.descripcion}</div>}
-          />
-          {state.errors?.tipoBachilleresId?.map((error) => (
-            <p className="text-red-500" key={error}>
-              {error}
-            </p>
-          ))}
-        </div>)}
-        {/* <div>
-          <Label>Users Id</Label>
-          <Input name="usersId" />
-          {state.errors?.usersId?.map((error) => (
-            <p className="text-red-500" key={error}>{error}</p>
-          ))}
-        </div> */}
+        {!nivelEducativo && (
+          <div className="flex flex-col gap-2">
+            <Label>Tipo Bachilleres Id</Label>
+            <GenericCombobox
+              list={tipoBachillereList}
+              name="tipoBachilleresId"
+              valueField="id"
+              searchPlaceholder="Buscar Tipo de Bachillerato..."
+              selectPlaceholder="Seleccionar Tipo de Bachillerato..."
+              emptyText="No se encontró el tipo de bachillerato"
+              keywordFields={["id", "descripcion"]}
+              template={(item) => <div>{item.descripcion}</div>}
+            />
+            {state.errors?.tipoBachilleresId?.map((error) => (
+              <p className="text-red-500" key={error}>
+                {error}
+              </p>
+            ))}
+          </div>
+        )}
         <div>
           <Label className="mr-2">Nivel Educativo</Label>
           <Select name="nivelEducativo" defaultValue={nivelEducativo ? "true" : "false"} disabled={true}>
@@ -183,3 +184,4 @@ export function InstitucioneCreateForm({
     </div>
   );
 }
+
