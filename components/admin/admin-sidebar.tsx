@@ -47,7 +47,8 @@ const items = [
   { title: "Modalidades", url: "/admin/modalidades", icon: Table2Icon },
   { title: "Regiones", url: "/admin/regiones", icon: Table2Icon },
   { title: "Municipios", url: "/admin/municipios", icon: Table2Icon },
-  // [CODE_MARK admin-sidebar-items]
+    { title: "Categorias Generales", url: "/admin/categorias-generales", icon: Table2Icon },
+// [CODE_MARK admin-sidebar-items]
 ];
 
 export function AdminSidebar({ user }: { user: User }) {
