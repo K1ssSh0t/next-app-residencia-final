@@ -16,12 +16,12 @@ export function UserTable({ userList }: { userList: UsersWithRelations }) {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>Id</TableHead>
-          <TableHead>Name</TableHead>
+          {/* <TableHead>Id</TableHead> */}
+          {/* <TableHead>Name</TableHead> */}
           <TableHead>Email</TableHead>
-          <TableHead>Email Verified</TableHead>
+          {/* <TableHead>Email Verified</TableHead> */}
           {/* <TableHead>Image</TableHead> */}
-          <TableHead>Role</TableHead>
+          <TableHead>Rol</TableHead>
           <TableHead>Nivel Educativo</TableHead>
           <TableHead>Password</TableHead>
           <TableHead></TableHead>
@@ -30,13 +30,13 @@ export function UserTable({ userList }: { userList: UsersWithRelations }) {
       <TableBody>
         {userList.map((user) => (
           <TableRow key={user.id}>
-            <TableCell>{user.id}</TableCell>
-            <TableCell>{user.name}</TableCell>
+            {/* <TableCell>{user.id}</TableCell> */}
+            {/* <TableCell>{user.name}</TableCell> */}
             <TableCell>{user.email}</TableCell>
-            <TableCell>{user.emailVerified?.toLocaleString()}</TableCell>
+            {/* <TableCell>{user.emailVerified?.toLocaleString()}</TableCell> */}
             {/* <TableCell>{user.image}</TableCell> */}
-            <TableCell>{user.role}</TableCell>
-            <TableCell>{user.role == "admin" ? "No aplica" :
+            <TableCell>{user.role == "admin" ? "Administrador" : user.role == "operador" ? "Operador" : user.role == "consultor" ? "Consultor" : "Usuario"}</TableCell>
+            <TableCell>{user.role == "admin" || user.role == "operador" || user.role == "consultor" ? "No aplica" :
               user.nivelEducativo ? "Superior" : "Media Superior"}</TableCell>
             <TableCell>{user.password}</TableCell>
             <TableCell className="justify-end flex gap-2">

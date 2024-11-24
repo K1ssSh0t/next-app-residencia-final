@@ -48,7 +48,7 @@ export function HelperUpdateForm({
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader>
-        <CardTitle>Actualizar Helper</CardTitle>
+        <CardTitle>Actualizar </CardTitle>
         <CardDescription>Modifica el estado del cuestionario para este helper.</CardDescription>
       </CardHeader>
       <form onSubmit={handleSubmit}>

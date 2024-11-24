@@ -16,8 +16,8 @@ export async function GET() {
       .select({
         usuario: users.name,
         institucion: instituciones.nombre,
-        region: instituciones.region,
-        municipio: instituciones.municipio,
+        region: instituciones.regionId,
+        municipio: instituciones.municipioId,
         tipoInstitucion: tipoInstituciones.descripcion,
         tipoBachiller: tipoBachilleres.descripcion,
         nivelEducativo: instituciones.nivelEducativo,

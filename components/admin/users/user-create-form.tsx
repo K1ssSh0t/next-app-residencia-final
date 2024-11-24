@@ -117,9 +117,11 @@ export function UserCreateForm() {
               <SelectValue placeholder="Selecciona un rol" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="admin">Admin</SelectItem>
-              <SelectItem value="user">User</SelectItem>
-              <SelectItem value="guest">Guest</SelectItem>
+              <SelectItem value="admin">Administrador</SelectItem>
+              <SelectItem value="user">Usuario de Institución</SelectItem>
+              <SelectItem value="operador">Operador</SelectItem>
+              <SelectItem value="consultor">Consultor</SelectItem>
+
             </SelectContent>
           </Select>
           {state.errors?.role?.map((error) => (
@@ -132,8 +134,8 @@ export function UserCreateForm() {
           <Label htmlFor="nivelEducativo">Nivel Educativo</Label>
           <Select
             name="nivelEducativo"
-            required={selectedRole !== "admin"}
-            disabled={selectedRole === "admin"}
+            required={selectedRole === "user"}
+            disabled={selectedRole !== "user"}
           >
             <SelectTrigger className="w-full">
               <SelectValue placeholder="Selecciona el nivel educativo" />
