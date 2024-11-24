@@ -40,7 +40,8 @@ const items = [
   // { title: "Cuestionarios", url: "/cuestionarios", icon: Table2Icon },
   // { title: "Preguntas", url: "/preguntas", icon: Table2Icon },
   { title: "Carrera Instituciones", url: "/carrera-instituciones", icon: Table2Icon },
-  // [CODE_MARK private-sidebar-items]
+    { title: "Datos Institucionales", url: "/datos-institucionales", icon: Table2Icon },
+// [CODE_MARK private-sidebar-items]
 ];
 
 export function PrivateSidebar({ user }: { user: User }) {

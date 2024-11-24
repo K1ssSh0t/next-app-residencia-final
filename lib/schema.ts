@@ -1,3 +1,4 @@
+import * as datosInstitucionales from "@/schema/datos-institucionales";
 import * as categoriasGenerales from "@/schema/categorias-generales";
 import * as carreraInstitucions from "@/schema/carrera-institucions";
 import * as municipios from "@/schema/municipios";
@@ -15,6 +16,7 @@ import * as users from "@/schema/users";
 import * as authTables from "@/schema/auth-tables";
 
 export const schema = {
+  ...datosInstitucionales,
   ...categoriasGenerales,
   ...carreraInstitucions,
   ...municipios,
