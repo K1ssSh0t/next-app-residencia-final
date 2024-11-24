@@ -8,7 +8,8 @@ import { createInsertSchema } from "drizzle-zod";
 import { BaseActionState } from "@/lib/types";
 import { auth } from "@/lib/auth";
 
-const insertDatosInstitucionaleSchema = createInsertSchema(datosInstitucionales);
+const insertDatosInstitucionaleSchema =
+  createInsertSchema(datosInstitucionales);
 
 export interface CreateDatosInstitucionaleState extends BaseActionState {
   errors?: {
@@ -31,8 +32,6 @@ export async function createDatosInstitucionale(
       throw new Error("unauthenticated");
     }
 
-
-
     const validatedFields = insertDatosInstitucionaleSchema.safeParse({
       institucionesId: formData.get("institucionesId") as string,
       categoriasGeneralesId: formData.get("categoriasGeneralesId") as string,
@@ -48,14 +47,17 @@ export async function createDatosInstitucionale(
     }
 
     await db.insert(datosInstitucionales).values(validatedFields.data);
-    
+
     revalidatePath("/datos-institucionales");
+    return {
+      status: "success",
+    };
   } catch (error) {
     console.error(error);
     return {
       status: "error",
-    }
+    };
   }
 
-  redirect("/datos-institucionales");
+  // redirect("/datos-institucionales");
 }

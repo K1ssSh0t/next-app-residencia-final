@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { PlusIcon } from "lucide-react";
+import { DivideCircle, PlusIcon, UserIcon, UsersIcon } from "lucide-react";
 import { db } from "@/lib/db";
 import { Button } from "@/components/ui/button";
 import { instituciones } from "@/schema/instituciones";
@@ -12,6 +12,7 @@ import { CuestionarioTable } from "@/components/private/cuestionarios/cuestionar
 import { Pagination } from "@/components/pagination";
 import { SearchInput } from "@/components/search-input";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { datosInstitucionales } from "@/schema/datos-institucionales";
 
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
@@ -100,6 +101,13 @@ export default async function Page(props: {
     where: eq(cuestionarios.usersId, `${session?.user?.id}`),
   });
 
+  const datosGenerales = await db.query.datosInstitucionales.findMany({
+    with: {
+      categoriasGenerale: true,
+    },
+    where: eq(datosInstitucionales.institucionesId, `${miInstitucion?.id}`),
+  })
+
 
   return (
     <div className="flex flex-col gap-5">
@@ -120,8 +128,8 @@ export default async function Page(props: {
 
         </div>
       </div>
-      <div>
-        <Card className="w-full max-w-2xl mx-auto">
+      <div className="grid grid-cols-10 gap-4  ">
+        <Card className="col-span-6 w-full">
           <CardHeader>
             <CardTitle className="text-3xl">Institución</CardTitle>
           </CardHeader>
@@ -175,6 +183,7 @@ export default async function Page(props: {
               </div>
             )}
           </CardContent>
+
           {miInstitucion && (
             <CardFooter className="flex justify-end">
               <Link href={`/instituciones/${miInstitucion.id}/edit`}>
@@ -184,6 +193,54 @@ export default async function Page(props: {
               </Link>
             </CardFooter>
           )}
+        </Card>
+        <Card className="w-full col-span-4">
+          <CardHeader>
+            <CardTitle className="text-3xl">Datos Generales</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 gap-4">
+
+              {datosGenerales.length == 0 ?
+                <>
+                  <Link href={{
+                    pathname: "/datos-institucionales/new",
+                    query: { idInstitucion: miInstitucion?.id }
+                  }}>
+                    <Button>
+                      <PlusIcon className="mr-2" /> Rellenar Datos
+                    </Button>
+                  </Link>
+                </> :
+                datosGenerales.map((dato, index) => (
+                  <div key={index}>
+                    <Card className="w-fit mx-auto">
+                      <CardHeader>
+                        <CardTitle className="text-lg font-bold text-center">
+                          {dato?.categoriasGenerale?.descripcion?.toString() || "Categoría"}
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="flex justify-around items-center gap-2">
+                          <div className="flex flex-col items-center">
+                            <UserIcon className="h-3 w-3 text-pink-500 mb-2" />
+                            <p className="text-xs font-semibold">Mujeres</p>
+                            <p className="text-sm font-bold text-pink-600">{dato?.cantidadMujeres?.toString() || "0"}</p>
+                          </div>
+                          <div className="flex flex-col items-center">
+                            <UsersIcon className="h-3 w-3 text-blue-500 mb-2" />
+                            <p className="text-xs font-semibold">Hombres</p>
+                            <p className="text-sm font-bold text-blue-600">{dato?.cantidadHombres?.toString() || "0"}</p>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                ))
+              }
+            </div>
+          </CardContent>
+
         </Card>
       </div>
       <div>
