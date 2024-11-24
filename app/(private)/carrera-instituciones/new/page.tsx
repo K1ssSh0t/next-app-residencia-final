@@ -27,11 +27,11 @@ export default async function Page(props: {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/admin/carrera-institucions">Carrera Institucions</BreadcrumbLink>
+              <BreadcrumbLink href="/admin/carrera-institucions">Carreras de la Institución</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>New</BreadcrumbPage>
+              <BreadcrumbPage>Nuevo</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>

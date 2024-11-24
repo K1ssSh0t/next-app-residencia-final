@@ -39,9 +39,9 @@ const items = [
   { title: "Datos de la Institucion", url: "/instituciones", icon: Table2Icon },
   // { title: "Cuestionarios", url: "/cuestionarios", icon: Table2Icon },
   // { title: "Preguntas", url: "/preguntas", icon: Table2Icon },
-  { title: "Carrera Instituciones", url: "/carrera-instituciones", icon: Table2Icon },
-    { title: "Datos Institucionales", url: "/datos-institucionales", icon: Table2Icon },
-// [CODE_MARK private-sidebar-items]
+  // { title: "Carrera Instituciones", url: "/carrera-instituciones", icon: Table2Icon },
+  { title: "Datos Institucionales", url: "/datos-institucionales", icon: Table2Icon },
+  // [CODE_MARK private-sidebar-items]
 ];
 
 export function PrivateSidebar({ user }: { user: User }) {

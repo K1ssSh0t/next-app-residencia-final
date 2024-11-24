@@ -43,7 +43,7 @@ export default async function Page(props: { params: Params }) {
   return (
     <div>
       <h1 className="text-xl font-bold mb-6">Cuestionario</h1>
-      <div>
+      <div className="hidden">
         <p className="hidden"><strong>Id:</strong> {cuestionario.id}</p>
         <p><strong>Año:</strong> {cuestionario.año}</p>
         <p><strong>Carreras Id:</strong> {cuestionario.carrerasId}</p>

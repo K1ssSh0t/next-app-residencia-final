@@ -34,7 +34,7 @@ export function CarreraInstitucionUpdateForm({
     <div>
       <form action={dispatch} onSubmit={handleSubmit} className="flex flex-col gap-2">
         <input type="hidden" name="id" value={carreraInstitucion.id} />
-        <div>
+        <div className="hidden">
           <Label>Instituciones Id</Label>
           <Input name="institucionesId" defaultValue={carreraInstitucion.institucionesId ?? ""} />
           {state.errors?.institucionesId?.map((error) => (
@@ -51,8 +51,8 @@ export function CarreraInstitucionUpdateForm({
             searchPlaceholder="Search Carreras..."
             selectPlaceholder="Select Carrera..."
             emptyText="No carrera found"
-            keywordFields={["id"]}
-            template={(item) => <div>{item.id}</div>}
+            keywordFields={["id", "descripcion"]}
+            template={(item) => <div>{item.descripcion}</div>}
           />
           {state.errors?.carrerasId?.map((error) => (
             <p className="text-red-500" key={error}>
@@ -84,8 +84,8 @@ export function CarreraInstitucionUpdateForm({
             searchPlaceholder="Search Modalidades..."
             selectPlaceholder="Select Modalidade..."
             emptyText="No modalidade found"
-            keywordFields={["id"]}
-            template={(item) => <div>{item.id}</div>}
+            keywordFields={["id", "descripcion"]}
+            template={(item) => <div>{item.descripcion}</div>}
           />
           {state.errors?.modalidadesId?.map((error) => (
             <p className="text-red-500" key={error}>
