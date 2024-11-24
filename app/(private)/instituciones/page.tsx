@@ -234,13 +234,23 @@ export default async function Page(props: {
                           </div>
                         </div>
                       </CardContent>
+
                     </Card>
                   </div>
                 ))
               }
             </div>
           </CardContent>
-
+          <CardFooter className="flex justify-end">
+            <Link href={{
+              pathname: "/datos-institucionales/edit",
+              query: { idInstitucion: miInstitucion?.id }
+            }}>
+              <Button>
+                <PlusIcon className="mr-2" /> Editar Datos
+              </Button>
+            </Link>
+          </CardFooter>
         </Card>
       </div>
       <div>

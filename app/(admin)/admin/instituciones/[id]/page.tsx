@@ -3,7 +3,7 @@ import { getInstitucioneWithRelations } from "@/repositories/institucione-reposi
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { PlusIcon } from "lucide-react";
+import { PlusIcon, UserIcon, UsersIcon } from "lucide-react";
 import { db } from "@/lib/db";
 import { eq } from "drizzle-orm";
 import { instituciones } from "@/schema/instituciones";
@@ -132,10 +132,28 @@ export default async function Page(props: { params: Params }) {
                             {datosGenerales.map((dato, index) => (
                                 <div key={index}>
 
-                                    <h2 className="text-xl font-semibold mb-2">{dato?.categoriasGenerale?.descripcion?.toString()}</h2>
-                                    <p>Cantidad Mujeres: {dato?.cantidadMujeres?.toString()}</p>
-                                    <p>Cantidad Hombres: {dato?.cantidadHombres?.toString()}</p>
+                                    <Card className="w-fit mx-auto">
+                                        <CardHeader>
+                                            <CardTitle className="text-lg font-bold text-center">
+                                                {dato?.categoriasGenerale?.descripcion?.toString() || "Categoría"}
+                                            </CardTitle>
+                                        </CardHeader>
+                                        <CardContent>
+                                            <div className="flex justify-around items-center gap-2">
+                                                <div className="flex flex-col items-center">
+                                                    <UserIcon className="h-3 w-3 text-pink-500 mb-2" />
+                                                    <p className="text-xs font-semibold">Mujeres</p>
+                                                    <p className="text-sm font-bold text-pink-600">{dato?.cantidadMujeres?.toString() || "0"}</p>
+                                                </div>
+                                                <div className="flex flex-col items-center">
+                                                    <UsersIcon className="h-3 w-3 text-blue-500 mb-2" />
+                                                    <p className="text-xs font-semibold">Hombres</p>
+                                                    <p className="text-sm font-bold text-blue-600">{dato?.cantidadHombres?.toString() || "0"}</p>
+                                                </div>
+                                            </div>
+                                        </CardContent>
 
+                                    </Card>
 
                                 </div>
                             ))
