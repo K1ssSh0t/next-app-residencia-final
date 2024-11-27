@@ -9,6 +9,9 @@ import { Input } from "@/components/ui/input";
 import { CategoriasGenerale } from "@/schema/categorias-generales";
 import { DatosInstitucionale } from "@/schema/datos-institucionales";
 
+
+//TODO: AGREGAR UN INDEX PARA QUE SEA UNICO LA INSTITUCION CON LA CATEGORIA
+// Y TAMBIEN QUE SI NO EXISTE QUE LO CREEE , CHECAR EN V0 LA RESPUESTA
 export function DatosInstitucionalesUpdateForm({
     categoriasGeneraleList,
     idInstitucion,

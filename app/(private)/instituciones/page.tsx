@@ -82,9 +82,11 @@ export default async function Page(props: {
     </div>
   );*/
   if (estadoCuestionario?.estadoCuestionario == false) {
-    return (<div className="flex flex-col gap-5">
-      <p className="text-xl font-bold">El cuestionario no esta activo</p>
-    </div>)
+    return (
+      <div className="p-4">
+        <p className="text-lg font-semibold text-red-500">El cuestionario no está activo</p>
+      </div>
+    );
   }
 
   const misCuestionarios = await db.query.cuestionarios.findMany({
@@ -110,172 +112,169 @@ export default async function Page(props: {
 
 
   return (
-    <div className="flex flex-col gap-5">
-      <h1 className="text-xl font-bold">Datos de Institución</h1>
-      <div className="flex justify-between">
-        <div>
-
-        </div>
-        <div className="text-right mr-2">
-
-          {/* {!miInstitucion ?
-            <Link href="/instituciones/new">
-              <Button>
-                <PlusIcon className="mr-2" /> New
-              </Button>
-            </Link>
-            : <div></div>} */}
-
-        </div>
+    <div className="space-y-3 p-3">
+      <div className="flex items-center justify-between ">
+        <h1 className="text-xl font-bold">Datos de Institución</h1>
+        {/* {!miInstitucion && (
+        <Link href="/instituciones/new">
+          <Button>
+            <PlusIcon className="mr-2 h-4 w-4" /> Nuevo
+          </Button>
+        </Link>
+      )} */}
       </div>
-      <div className="grid grid-cols-10 gap-4  ">
-        <Card className="col-span-6 w-full">
-          <CardHeader>
-            <CardTitle className="text-3xl">Institución</CardTitle>
+      <div className="grid gap-3 md:grid-cols-3">
+        <Card className="md:col-span-2">
+          <CardHeader className="pb-1 px-3 pt-3">
+            <CardTitle>Institución</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="px-3 py-2">
             {!miInstitucion ? (
-              <><div className="text-center text-muted-foreground">No tienes datos</div><Link href="/instituciones/new">
-                <Button>
-                  <PlusIcon className="mr-2" /> Rellenar Datos
-                </Button>
-              </Link></>
+              <div className="text-center space-y-4">
+                <p className="text-muted-foreground">No tienes datos</p>
+                <Link href="/instituciones/new">
+                  <Button>
+                    <PlusIcon className="mr-2 h-4 w-4" /> Rellenar Datos
+                  </Button>
+                </Link>
+              </div>
             ) : (
-              <div className="grid grid-cols-2 gap-4">
-                <div className="col-span-2">
-                  <h2 className="text-xl font-semibold mb-2">{miInstitucion.nombre?.toString()}</h2>
+              <div className="grid gap-2 text-sm">
+                <div className="border-b pb-1">
+                  <h2 className="font-semibold text-base">{miInstitucion.nombre}</h2>
                 </div>
-                <div className="col-span-2">
-                  <p className="text-sm font-medium text-muted-foreground">Clave Institución</p>
-                  <h2 className="text-xl font-semibold mb-2">{miInstitucion.claveInstitucion?.toString()}</h2>
-                </div>
-                <div className="col-span-2">
-                  <p className="text-sm font-medium text-muted-foreground">Clave Centro Trabajo</p>
-                  <h2 className="text-xl font-semibold mb-2">{miInstitucion.claveCentroTrabajo?.toString()}</h2>
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">Región</p>
-                  <p>{miInstitucion.region?.nombre?.toString()}</p>
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">Municipio</p>
-                  <p>{miInstitucion.municipio?.nombre?.toString()}</p>
-                </div>
-
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">Tipo Institución</p>
-                  <p>{miInstitucion.tipoInstituciones?.descripcion?.toString()}</p>
-                </div>
-                {!usuario?.nivelEducativo && (
+                <div className="grid grid-cols-2 gap-x-3 gap-y-1.5">
                   <div>
-                    <p className="text-sm font-medium text-muted-foreground">Tipo Bachiller</p>
-                    <p>{miInstitucion.tipoBachilleres?.descripcion?.toString()}</p>
+                    <span className="text-muted-foreground">Clave Institución:</span>
+                    <p className="font-medium">{miInstitucion.claveInstitucion}</p>
                   </div>
-                )}
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">Nivel Educativo</p>
-                  <p>{miInstitucion.nivelEducativo ? "Superior" : "Medio Superior"}</p>
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">Numero de Carreras</p>
-                  <p>{miInstitucion.numeroCarreras?.toString()}</p>
+                  <div>
+                    <span className="text-muted-foreground">Clave Centro Trabajo:</span>
+                    <p className="font-medium">{miInstitucion.claveCentroTrabajo}</p>
+                  </div>
+                  <div>
+                    <span className="text-muted-foreground">Región:</span>
+                    <p className="font-medium">{miInstitucion.region?.nombre}</p>
+                  </div>
+                  <div>
+                    <span className="text-muted-foreground">Municipio:</span>
+                    <p className="font-medium">{miInstitucion.municipio?.nombre}</p>
+                  </div>
+                  <div>
+                    <span className="text-muted-foreground">Tipo Institución:</span>
+                    <p className="font-medium">{miInstitucion.tipoInstituciones?.descripcion}</p>
+                  </div>
+                  {!usuario?.nivelEducativo && (
+                    <div>
+                      <span className="text-muted-foreground">Tipo Bachiller:</span>
+                      <p className="font-medium">{miInstitucion.tipoBachilleres?.descripcion}</p>
+                    </div>
+                  )}
+                  <div>
+                    <span className="text-muted-foreground">Nivel Educativo:</span>
+                    <p className="font-medium">{miInstitucion.nivelEducativo ? "Superior" : "Medio Superior"}</p>
+                  </div>
+                  <div>
+                    <span className="text-muted-foreground">Número de Carreras:</span>
+                    <p className="font-medium">{miInstitucion.numeroCarreras}</p>
+                  </div>
                 </div>
               </div>
             )}
           </CardContent>
-
           {miInstitucion && (
-            <CardFooter className="flex justify-end">
-              <Link href={`/instituciones/${miInstitucion.id}/edit`}>
-                <Button>
-                  <PlusIcon className="mr-2 h-4 w-4" /> Editar Datos de la Institución
+            <CardFooter className="px-3 py-2">
+              <Link href={`/instituciones/${miInstitucion.id}/edit`} className="ml-auto">
+                <Button size="sm">
+                  <PlusIcon className="mr-2 h-4 w-4" /> Editar
                 </Button>
               </Link>
             </CardFooter>
           )}
         </Card>
-        <Card className="w-full col-span-4">
-          <CardHeader>
-            <CardTitle className="text-3xl">Datos Generales</CardTitle>
+
+        <Card>
+          <CardHeader className="pb-1 px-3 pt-3">
+            <CardTitle>Datos Generales</CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-2 gap-4">
-
-              {datosGenerales.length == 0 ?
-                <>
-                  <Link href={{
-                    pathname: "/datos-institucionales/new",
-                    query: { idInstitucion: miInstitucion?.id }
-                  }}>
-                    <Button>
-                      <PlusIcon className="mr-2" /> Rellenar Datos
-                    </Button>
-                  </Link>
-                </> :
-                datosGenerales.map((dato, index) => (
-                  <div key={index}>
-                    <Card className="w-fit mx-auto">
-                      <CardHeader>
-                        <CardTitle className="text-lg font-bold text-center">
-                          {dato?.categoriasGenerale?.descripcion?.toString() || "Categoría"}
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="flex justify-around items-center gap-2">
-                          <div className="flex flex-col items-center">
-                            <UserIcon className="h-3 w-3 text-pink-500 mb-2" />
-                            <p className="text-xs font-semibold">Mujeres</p>
-                            <p className="text-sm font-bold text-pink-600">{dato?.cantidadMujeres?.toString() || "0"}</p>
-                          </div>
-                          <div className="flex flex-col items-center">
-                            <UsersIcon className="h-3 w-3 text-blue-500 mb-2" />
-                            <p className="text-xs font-semibold">Hombres</p>
-                            <p className="text-sm font-bold text-blue-600">{dato?.cantidadHombres?.toString() || "0"}</p>
-                          </div>
-                        </div>
-                      </CardContent>
-
-                    </Card>
+          <CardContent className="px-3 py-2">
+            {datosGenerales.length === 0 ? (
+              <div className="text-center space-y-4">
+                <p className="text-muted-foreground">No hay datos generales</p>
+                <Link href={{
+                  pathname: "/datos-institucionales/new",
+                  query: { idInstitucion: miInstitucion?.id }
+                }}>
+                  <Button size="sm">
+                    <PlusIcon className="mr-2 h-4 w-4" /> Rellenar Datos
+                  </Button>
+                </Link>
+              </div>
+            ) : (
+              <div className="grid gap-3">
+                {datosGenerales.map((dato, index) => (
+                  <div key={index} className="border rounded-lg p-2">
+                    <h3 className="font-medium text-sm text-center mb-1">
+                      {dato?.categoriasGenerale?.descripcion || "Categoría"}
+                    </h3>
+                    <div className="flex justify-around items-center">
+                      <div className="text-center px-2">
+                        <UserIcon className="h-3 w-3 text-pink-500 mx-auto mb-0.5" />
+                        <p className="text-xs text-muted-foreground">Mujeres</p>
+                        <p className="font-semibold text-sm text-pink-600">{dato?.cantidadMujeres || "0"}</p>
+                      </div>
+                      <div className="text-center px-2">
+                        <UsersIcon className="h-3 w-3 text-blue-500 mx-auto mb-0.5" />
+                        <p className="text-xs text-muted-foreground">Hombres</p>
+                        <p className="font-semibold text-sm text-blue-600">{dato?.cantidadHombres || "0"}</p>
+                      </div>
+                    </div>
                   </div>
-                ))
-              }
-            </div>
+                ))}
+              </div>
+            )}
           </CardContent>
-          {datosGenerales.length !== 0 &&
-            <CardFooter className="flex justify-end">
+          {datosGenerales.length > 0 && (
+            <CardFooter className="px-3 py-2">
               <Link href={{
                 pathname: "/datos-institucionales/edit",
                 query: { idInstitucion: miInstitucion?.id }
-              }}>
-                <Button>
-                  <PlusIcon className="mr-2" /> Editar Datos
+              }} className="ml-auto">
+                <Button size="sm">
+                  <PlusIcon className="mr-2 h-4 w-4" /> Editar
                 </Button>
               </Link>
-            </CardFooter>}
+            </CardFooter>
+          )}
         </Card>
       </div>
-      <div>
 
-      </div>
-      <div >
-        {/* {misCuestionarios.length > 0 ? <CuestionarioTable cuestionarioList={misCuestionarios} /> : <div>No tienes cuestionarios</div>} */}
+      <div className="mt-6">
         {miInstitucion ? (
           <>
             {misCuestionarios.length > 0 && (
               <CuestionarioTable cuestionarioList={misCuestionarios} />
             )}
             {misCuestionarios.length < (miInstitucion.numeroCarreras || 0) && (
-              <div className="mt-4 flex flex-col items-center ">
-                <div className="mb-2 text-lg font-semibold">
+              <div className="mt-4 max-w-md mx-auto">
+                <h3 className="text-lg font-medium mb-3 text-center">
                   {misCuestionarios.length === 0
-                    ? "Rellena los datos necesarios de las carreras"
-                    : "Agrega las carreras faltantes"}
-                </div>
-                <div className="space-y-2 w-full sm:w-64">
+                    ? "Rellena los datos de las carreras"
+                    : "Carreras faltantes"}
+                </h3>
+                <div className="space-y-2">
                   {Array.from({ length: (miInstitucion.numeroCarreras || 0) - misCuestionarios.length }).map((_, index) => (
-                    <Link key={index} href={{ pathname: "/carrera-instituciones/new", query: { idInstitucion: miInstitucion.id } }} className="w-full">
-                      <Button className="w-full justify-start my-2" variant="outline">
-                        <PlusIcon className="mr-2 h-4 w-4" /> Agrega Carrera {misCuestionarios.length + index + 1}
+                    <Link
+                      key={index}
+                      href={{
+                        pathname: "/carrera-instituciones/new",
+                        query: { idInstitucion: miInstitucion.id }
+                      }}
+                      className="block"
+                    >
+                      <Button className="w-full justify-start" variant="outline" size="sm">
+                        <PlusIcon className="mr-2 h-4 w-4" />
+                        Carrera {misCuestionarios.length + index + 1}
                       </Button>
                     </Link>
                   ))}
@@ -284,13 +283,21 @@ export default async function Page(props: {
             )}
           </>
         ) : (
-          <div className="text-center text-lg text-muted-foreground">No tienes datos de la institución.</div>
+          <p className="text-center text-muted-foreground">
+            No tienes datos de la institución
+          </p>
         )}
       </div>
-      <div>
-        <Pagination page={page} pageSize={pageSize} totalPages={totalPages} />
 
-      </div>
+      {misCuestionarios.length > 0 && (
+        <div className="mt-4">
+          <Pagination
+            page={page}
+            pageSize={pageSize}
+            totalPages={totalPages}
+          />
+        </div>
+      )}
     </div >
   );
 }

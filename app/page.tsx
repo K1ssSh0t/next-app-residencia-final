@@ -9,76 +9,43 @@ export default function Page() {
     <div>
       <Header />
 
-      <section>
-        <div className="container flex flex-col gap-8 mx-auto px-6 py-16 text-center p-5 rounded">
-          <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-            Sistema de Informacion Integral
-          </h1>
-          <p className="text-3xl">
-            Creado con...
+      <section >
+        <div className="container flex flex-col gap-8 mx-auto px-6 py-16 text-center p-5 rounded" >
+
+          {/* System Title */}
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-semibold text-[#672645] mb-2">Sistema Integral de Informacion</h2>
+            <p className="text-gray-600">
+              Dirección General de Planeación,<br />
+              Programación y Estadística Educativa
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <section
+      >
+        <div className="absolute bg-contain bg-center opacity-15 inset-0 -z-10" style={{
+          backgroundImage: `url('/IMG00_Admin.png')`
+        }}></div>
+        {/* Important Notice */}
+        <div className="bg-gray-100 p-6 rounded-lg">
+          <h3 className="text-xl font-semibold mb-4">Importante</h3>
+          <p className="text-sm text-gray-600 mb-4">
+            Los datos personales son manejados bajo los términos establecidos en la Ley General de Protección de Datos Personales en Posesión de Sujetos Obligados y que se siguen en los principios y deberes establecidos en el Título Segundo de la misma ley.
           </p>
-          <div className="flex flex-col gap-2 m-auto items-center w-full text-xl">
-            <ul className="text-left">
+          <p className="text-sm text-gray-600">
+            Para ello, la Dirección General de Planeación, Programación y Estadística Educativa cuenta con los mecanismos de seguridad y control que permiten proteger la infraestructura e información a partir de certificados de seguridad.
+          </p>
+        </div>
 
-            </ul>
-          </div>
+        <div className="text-center mt-4 text-sm text-gray-600">
 
         </div>
       </section>
 
-      <section className="container mx-auto px-6 py-8">
-        <h2 className="text-3xl md:text-4xl font-bold text-center">
-          Technologies
-        </h2>
-        <div className="mt-12 flex flex-wrap">
-          <div className="w-full md:w-1/3 px-4 py-6">
-            <h3 className="text-2xl font-bold">TypeScript</h3>
-            <p className="mt-2 text-muted-foreground">
-              JavaScript with syntax for types.
-            </p>
-          </div>
-          <div className="w-full md:w-1/3 px-4 py-6">
-            <h3 className="text-2xl font-bold">Next.js</h3>
-            <p className="mt-2 text-muted-foreground">React Framework.</p>
-          </div>
-          <div className="w-full md:w-1/3 px-4 py-6">
-            <h3 className="text-2xl font-bold">shadcn/ui</h3>
-            <p className="mt-2 text-muted-foreground">
-              Customizable UI Components.
-            </p>
-          </div>
-          <div className="w-full md:w-1/3 px-4 py-6">
-            <h3 className="text-2xl font-bold">Drizzle ORM</h3>
-            <p className="mt-2 text-muted-foreground">
-              Object Relational Mapper.
-            </p>
-          </div>
-          <div className="w-full md:w-1/3 px-4 py-6">
-            <h3 className="text-2xl font-bold">SQL</h3>
-            <p className="mt-2 text-muted-foreground">
-              PostgreSQL, MySQL, or SQLite.
-            </p>
-          </div>
-          <div className="w-full md:w-1/3 px-4 py-6">
-            <h3 className="text-2xl font-bold">TailwindCSS</h3>
-            <p className="mt-2 text-muted-foreground">
-              Utility-first CSS Framework.
-            </p>
-          </div>
-          <div className="w-full md:w-1/3 px-4 py-6">
-            <h3 className="text-2xl font-bold">Auth.js</h3>
-            <p className="mt-2 text-muted-foreground">Authentication.</p>
-          </div>
-          <div className="w-full md:w-1/3 px-4 py-6">
-            <h3 className="text-2xl font-bold">Stripe</h3>
-            <p className="mt-2 text-muted-foreground">Payment Processing.</p>
-          </div>
-          <div className="w-full md:w-1/3 px-4 py-6">
-            <h3 className="text-2xl font-bold">Zod</h3>
-            <p className="mt-2 text-muted-foreground">Data Validations.</p>
-          </div>
-        </div>
-      </section>
+
       <Footer />
     </div>
   );

@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
 import { PreguntaTable } from "@/components/private/preguntas/pregunta-user-table";
 
-//TODO: HACER QUE LA TABLA NO MUESTRE BOTONES DE EDICION NI DELETE
+
 
 type Params = Promise<{ id: string }>;
 

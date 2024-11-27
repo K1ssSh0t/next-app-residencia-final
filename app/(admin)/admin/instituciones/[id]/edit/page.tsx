@@ -4,6 +4,7 @@ import { InstitucioneUpdateForm } from "@/components/private/instituciones/insti
 import { getInstitucioneWithRelations } from "@/repositories/institucione-repository";
 import { auth } from "@/lib/auth";
 import { getUserWithRelations } from "@/repositories/user-repository";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 type Params = Promise<{ id: string }>;
 
@@ -12,9 +13,9 @@ export default async function Page(props: { params: Params }) {
 
   const params = await props.params;
   const { id } = params;
-  const institucione = await getInstitucioneWithRelations(id);
+  const institucion = await getInstitucioneWithRelations(id);
 
-  if (!institucione) {
+  if (!institucion) {
     notFound();
   }
 
@@ -29,18 +30,25 @@ export default async function Page(props: { params: Params }) {
 
 
 
-  return (
-    <div>
-      <h1 className="text-xl font-bold mb-6">Edita los Datos de la Institucion</h1>
-      <InstitucioneUpdateForm
-        institucione={institucione}
-        tipoInstitucioneList={tipoInstitucioneList}
-        tipoBachillereList={tipoBachillereList}
-        nivelEducativo={usuario?.nivelEducativo as boolean}
 
-        regionList={regionList}
-        municipioList={municipioList}
-      />
+  return (
+    <div className="container mx-auto py-6">
+      <Card>
+        <CardHeader>
+          <CardTitle>Editar Institución</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <InstitucioneUpdateForm
+            institucione={institucion}
+            tipoInstitucioneList={tipoInstitucioneList}
+            tipoBachillereList={tipoBachillereList}
+            nivelEducativo={institucion.nivelEducativo as boolean}
+
+            regionList={regionList}
+            municipioList={municipioList}
+          />
+        </CardContent>
+      </Card>
     </div>
   );
 }
