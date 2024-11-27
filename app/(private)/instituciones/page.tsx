@@ -118,13 +118,13 @@ export default async function Page(props: {
         </div>
         <div className="text-right mr-2">
 
-          {!miInstitucion ?
+          {/* {!miInstitucion ?
             <Link href="/instituciones/new">
               <Button>
                 <PlusIcon className="mr-2" /> New
               </Button>
             </Link>
-            : <div></div>}
+            : <div></div>} */}
 
         </div>
       </div>
@@ -241,16 +241,17 @@ export default async function Page(props: {
               }
             </div>
           </CardContent>
-          <CardFooter className="flex justify-end">
-            <Link href={{
-              pathname: "/datos-institucionales/edit",
-              query: { idInstitucion: miInstitucion?.id }
-            }}>
-              <Button>
-                <PlusIcon className="mr-2" /> Editar Datos
-              </Button>
-            </Link>
-          </CardFooter>
+          {datosGenerales.length !== 0 &&
+            <CardFooter className="flex justify-end">
+              <Link href={{
+                pathname: "/datos-institucionales/edit",
+                query: { idInstitucion: miInstitucion?.id }
+              }}>
+                <Button>
+                  <PlusIcon className="mr-2" /> Editar Datos
+                </Button>
+              </Link>
+            </CardFooter>}
         </Card>
       </div>
       <div>

@@ -114,7 +114,7 @@ export default async function Page(props: { params: Params }) {
                     </CardContent>
                     {institucion && (
                         <CardFooter className="flex justify-end">
-                            <Link href={`/instituciones/${institucion.id}/edit`}>
+                            <Link href={`/admin/instituciones/${institucion.id}/edit`}>
                                 <Button>
                                     <PlusIcon className="mr-2 h-4 w-4" /> Editar Datos de la Institución
                                 </Button>
@@ -129,38 +129,59 @@ export default async function Page(props: { params: Params }) {
                     <CardContent>
                         <div className="grid grid-cols-2 gap-4">
 
-                            {datosGenerales.map((dato, index) => (
-                                <div key={index}>
+                            {datosGenerales.length == 0 ?
+                                <>
+                                    <Link href={{
+                                        pathname: "/admin/datos-institucionales/new",
+                                        query: { idInstitucion: institucion?.id }
+                                    }}>
+                                        <Button>
+                                            <PlusIcon className="mr-2" /> Rellenar Datos
+                                        </Button>
+                                    </Link>
+                                </> :
+                                datosGenerales.map((dato, index) => (
+                                    <div key={index}>
 
-                                    <Card className="w-fit mx-auto">
-                                        <CardHeader>
-                                            <CardTitle className="text-lg font-bold text-center">
-                                                {dato?.categoriasGenerale?.descripcion?.toString() || "Categoría"}
-                                            </CardTitle>
-                                        </CardHeader>
-                                        <CardContent>
-                                            <div className="flex justify-around items-center gap-2">
-                                                <div className="flex flex-col items-center">
-                                                    <UserIcon className="h-3 w-3 text-pink-500 mb-2" />
-                                                    <p className="text-xs font-semibold">Mujeres</p>
-                                                    <p className="text-sm font-bold text-pink-600">{dato?.cantidadMujeres?.toString() || "0"}</p>
+                                        <Card className="w-fit mx-auto">
+                                            <CardHeader>
+                                                <CardTitle className="text-lg font-bold text-center">
+                                                    {dato?.categoriasGenerale?.descripcion?.toString() || "Categoría"}
+                                                </CardTitle>
+                                            </CardHeader>
+                                            <CardContent>
+                                                <div className="flex justify-around items-center gap-2">
+                                                    <div className="flex flex-col items-center">
+                                                        <UserIcon className="h-3 w-3 text-pink-500 mb-2" />
+                                                        <p className="text-xs font-semibold">Mujeres</p>
+                                                        <p className="text-sm font-bold text-pink-600">{dato?.cantidadMujeres?.toString() || "0"}</p>
+                                                    </div>
+                                                    <div className="flex flex-col items-center">
+                                                        <UsersIcon className="h-3 w-3 text-blue-500 mb-2" />
+                                                        <p className="text-xs font-semibold">Hombres</p>
+                                                        <p className="text-sm font-bold text-blue-600">{dato?.cantidadHombres?.toString() || "0"}</p>
+                                                    </div>
                                                 </div>
-                                                <div className="flex flex-col items-center">
-                                                    <UsersIcon className="h-3 w-3 text-blue-500 mb-2" />
-                                                    <p className="text-xs font-semibold">Hombres</p>
-                                                    <p className="text-sm font-bold text-blue-600">{dato?.cantidadHombres?.toString() || "0"}</p>
-                                                </div>
-                                            </div>
-                                        </CardContent>
+                                            </CardContent>
 
-                                    </Card>
+                                        </Card>
 
-                                </div>
-                            ))
+                                    </div>
+                                ))
                             }
                         </div>
                     </CardContent>
-
+                    {datosGenerales.length !== 0 &&
+                        <CardFooter className="flex justify-end">
+                            <Link href={{
+                                pathname: "/admin/datos-institucionales/edit",
+                                query: { idInstitucion: institucion?.id }
+                            }}>
+                                <Button>
+                                    <PlusIcon className="mr-2" /> Editar Datos
+                                </Button>
+                            </Link>
+                        </CardFooter>}
                 </Card>
             </div>
             <div className="text-center font-bold text-xl flex justify-center m-4 ">Cuestionarios</div>

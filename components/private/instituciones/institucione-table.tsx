@@ -48,16 +48,18 @@ export function InstitucioneTable({ institucioneList }: { institucioneList: Inst
                   <EyeIcon />
                 </Button>
               </Link>
-              {/* <Link href={`/instituciones/${institucione.id}/edit`}>
+              {/* <Link href={`/admin/instituciones/${institucione.id}/edit`}>
                 <Button size="icon" variant="outline">
                   <PencilIcon />
                 </Button>
-              </Link>
-              <Link href={`/instituciones/${institucione.id}/delete`}>
-                <Button size="icon" variant="outline">
-                  <TrashIcon />
-                </Button>
               </Link> */}
+              {
+                // <Link href={`/instituciones/${institucione.id}/delete`}>
+                //   <Button size="icon" variant="outline">
+                //     <TrashIcon />
+                //   </Button>
+                // </Link> 
+              }
             </TableCell>
           </TableRow>
         ))}
