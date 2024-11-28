@@ -124,9 +124,11 @@ export default async function Page(props: {
       )} */}
       </div>
       <div className="grid gap-3 md:grid-cols-3">
+
+        {/* <div className="md:col-span-1"></div> */}
         <Card className="md:col-span-2">
           <CardHeader className="pb-1 px-3 pt-3">
-            <CardTitle>Institución</CardTitle>
+            <CardTitle></CardTitle>
           </CardHeader>
           <CardContent className="px-3 py-2">
             {!miInstitucion ? (
@@ -143,11 +145,10 @@ export default async function Page(props: {
                 <div className="border-b pb-1">
                   <h2 className="font-semibold text-base">{miInstitucion.nombre}</h2>
                 </div>
-                <div className="grid grid-cols-2 gap-x-3 gap-y-1.5">
-                  <div>
-                    <span className="text-muted-foreground">Clave Institución:</span>
-                    <p className="font-medium">{miInstitucion.claveInstitucion}</p>
-                  </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-3 gap-y-1.5">                  <div>
+                  <span className="text-muted-foreground">Clave Institución:</span>
+                  <p className="font-medium">{miInstitucion.claveInstitucion}</p>
+                </div>
                   <div>
                     <span className="text-muted-foreground">Clave Centro Trabajo:</span>
                     <p className="font-medium">{miInstitucion.claveCentroTrabajo}</p>
@@ -178,22 +179,31 @@ export default async function Page(props: {
                     <span className="text-muted-foreground">Número de Carreras:</span>
                     <p className="font-medium">{miInstitucion.numeroCarreras}</p>
                   </div>
+                  {miInstitucion && (
+                    <CardFooter className="px-3">
+                      <Link href={`/instituciones/${miInstitucion.id}/edit`} className="ml-auto">
+                        <Button size="sm">
+                          <PlusIcon className="mr-2 h-4 w-4" /> Editar
+                        </Button>
+                      </Link>
+                    </CardFooter>
+                  )}
                 </div>
               </div>
             )}
           </CardContent>
-          {miInstitucion && (
-            <CardFooter className="px-3 py-2">
+          {/* {miInstitucion && (
+            <CardFooter className="px-3 p-2 ">
               <Link href={`/instituciones/${miInstitucion.id}/edit`} className="ml-auto">
                 <Button size="sm">
                   <PlusIcon className="mr-2 h-4 w-4" /> Editar
                 </Button>
               </Link>
             </CardFooter>
-          )}
+          )} */}
         </Card>
 
-        <Card>
+        <Card className="md:col-span-1">
           <CardHeader className="pb-1 px-3 pt-3">
             <CardTitle>Datos Generales</CardTitle>
           </CardHeader>
@@ -211,31 +221,30 @@ export default async function Page(props: {
                 </Link>
               </div>
             ) : (
-              <div className="grid gap-3">
-                {datosGenerales.map((dato, index) => (
-                  <div key={index} className="border rounded-lg p-2">
-                    <h3 className="font-medium text-sm text-center mb-1">
-                      {dato?.categoriasGenerale?.descripcion || "Categoría"}
-                    </h3>
-                    <div className="flex justify-around items-center">
-                      <div className="text-center px-2">
-                        <UserIcon className="h-3 w-3 text-pink-500 mx-auto mb-0.5" />
-                        <p className="text-xs text-muted-foreground">Mujeres</p>
-                        <p className="font-semibold text-sm text-pink-600">{dato?.cantidadMujeres || "0"}</p>
-                      </div>
-                      <div className="text-center px-2">
-                        <UsersIcon className="h-3 w-3 text-blue-500 mx-auto mb-0.5" />
-                        <p className="text-xs text-muted-foreground">Hombres</p>
-                        <p className="font-semibold text-sm text-blue-600">{dato?.cantidadHombres || "0"}</p>
-                      </div>
+              <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">                {datosGenerales.map((dato, index) => (
+                <div key={index} className="border rounded-lg p-2">
+                  <h3 className="font-medium text-sm text-center mb-1">
+                    {dato?.categoriasGenerale?.descripcion || "Categoría"}
+                  </h3>
+                  <div className="flex justify-around items-center">
+                    <div className="text-center px-2">
+                      <UserIcon className="h-3 w-3 text-pink-500 mx-auto mb-0.5" />
+                      <p className="text-xs text-muted-foreground">Mujeres</p>
+                      <p className="font-semibold text-sm text-pink-600">{dato?.cantidadMujeres || "0"}</p>
+                    </div>
+                    <div className="text-center px-2">
+                      <UsersIcon className="h-3 w-3 text-blue-500 mx-auto mb-0.5" />
+                      <p className="text-xs text-muted-foreground">Hombres</p>
+                      <p className="font-semibold text-sm text-blue-600">{dato?.cantidadHombres || "0"}</p>
                     </div>
                   </div>
-                ))}
+                </div>
+              ))}
               </div>
             )}
           </CardContent>
           {datosGenerales.length > 0 && (
-            <CardFooter className="px-3 py-2">
+            <CardFooter className="px-3">
               <Link href={{
                 pathname: "/datos-institucionales/edit",
                 query: { idInstitucion: miInstitucion?.id }
@@ -247,6 +256,7 @@ export default async function Page(props: {
             </CardFooter>
           )}
         </Card>
+        {/* <div className="md:col-span-1"></div> */}
       </div>
 
       <div className="mt-6">
