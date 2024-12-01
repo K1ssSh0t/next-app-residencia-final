@@ -2,6 +2,7 @@
 
 import { startTransition, useActionState } from "react";
 import { updateDatosInstitucionale, UpdateDatosInstitucionaleState } from "@/actions/private/datos-institucionales/update-datos-institucionale";
+import { createDatosInstitucionale } from "@/actions/private/datos-institucionales/create-datos-institucionale";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { FormAlert } from "@/components/form-alert";
@@ -21,29 +22,45 @@ export function DatosInstitucionalesUpdateForm({
     const initialState: UpdateDatosInstitucionaleState = {};
     const [state, dispatch] = useActionState(updateDatosInstitucionale, initialState);
 
+    const [createState, createDispatch] = useActionState(createDatosInstitucionale, initialState);
+
+
     function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         const formData = new FormData(event.target as HTMLFormElement);
 
-        const updatedDatosInstitucionales = categoriasGeneraleList.map(categoria => {
+        const datosToProcess = categoriasGeneraleList.map(categoria => {
             const existingData = datosInstitucionales.find(d => d.categoriasGeneralesId === categoria.id);
+
             return {
-                id: existingData?.id,
+                existingData,
                 institucionesId: idInstitucion,
                 categoriasGeneralesId: categoria.id,
                 cantidadHombres: parseInt(formData.get(`cantidadHombres_${categoria.id}`) as string) || 0,
-                cantidadMujeres: parseInt(formData.get(`cantidadMujeres_${categoria.id}`) as string) || 0
+                cantidadMujeres: parseInt(formData.get(`cantidadMujeres_${categoria.id}`) as string) || 0,
             };
         });
 
-        for (const dato of updatedDatosInstitucionales) {
+        // Procesar cada dato institucional
+        for (const dato of datosToProcess) {
             const formData = new FormData();
-            formData.append('id', dato.id || '');
-            formData.append('institucionesId', dato.institucionesId);
-            formData.append('categoriasGeneralesId', dato.categoriasGeneralesId);
-            formData.append('cantidadHombres', dato.cantidadHombres.toString());
-            formData.append('cantidadMujeres', dato.cantidadMujeres.toString());
-            startTransition(() => dispatch(formData));
+
+            if (dato.existingData) {
+                // Si existe, usamos update
+                formData.append('id', dato.existingData.id);
+                formData.append('institucionesId', dato.institucionesId);
+                formData.append('categoriasGeneralesId', dato.categoriasGeneralesId);
+                formData.append('cantidadHombres', dato.cantidadHombres.toString());
+                formData.append('cantidadMujeres', dato.cantidadMujeres.toString());
+                startTransition(() => dispatch(formData));
+            } else {
+                // Si no existe, usamos create
+                formData.append('institucionesId', dato.institucionesId);
+                formData.append('categoriasGeneralesId', dato.categoriasGeneralesId);
+                formData.append('cantidadHombres', dato.cantidadHombres.toString());
+                formData.append('cantidadMujeres', dato.cantidadMujeres.toString());
+                startTransition(() => createDispatch(formData));
+            }
         }
     }
 

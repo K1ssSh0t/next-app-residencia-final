@@ -1,4 +1,6 @@
 import { notFound } from "next/navigation";
+import { eq } from "drizzle-orm";
+import { CarreraInstitucionDeleteForm } from "@/components/private/carrera-institucions/carrera-institucion-delete-form";
 import { db } from "@/lib/db";
 import {
   Breadcrumb,
@@ -8,22 +10,18 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { CarreraInstitucionUpdateForm } from "@/components/private/carrera-institucions/carrera-institucion-update-form";
-import { getCarreraInstitucionWithRelations } from "@/repositories/carrera-institucion-repository";
+import { carreraInstituciones } from "@/schema/carrera-institucions";
 
 type Params = Promise<{ id: string }>;
 
 export default async function Page(props: { params: Params }) {
   const params = await props.params;
   const { id } = params;
-  const carreraInstitucion = await getCarreraInstitucionWithRelations(id);
+  const carreraInstitucion = await db.query.carreraInstituciones.findFirst({ where: eq(carreraInstituciones.id, id) });
 
   if (!carreraInstitucion) {
     notFound();
   }
-
-  const carreraList = await db.query.carreras.findMany();
-  const modalidadeList = await db.query.modalidads.findMany();
 
   return (
     <div className="relative">
@@ -31,7 +29,7 @@ export default async function Page(props: { params: Params }) {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/instituciones">Carrera Institucions</BreadcrumbLink>
+              <BreadcrumbLink href="/admin/carrera-institucions">Carrera Institucions</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
@@ -41,17 +39,13 @@ export default async function Page(props: { params: Params }) {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>Edit</BreadcrumbPage>
+              <BreadcrumbPage>Delete</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
       </div>
       <div className="pt-5">
-        <CarreraInstitucionUpdateForm
-          carreraInstitucion={carreraInstitucion}
-          carreraList={carreraList}
-          modalidadeList={modalidadeList}
-        />
+        <CarreraInstitucionDeleteForm carreraInstitucion={carreraInstitucion} />
       </div>
     </div>
   );

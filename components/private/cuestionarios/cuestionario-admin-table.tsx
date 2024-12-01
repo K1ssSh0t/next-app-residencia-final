@@ -41,11 +41,12 @@ export function CuestionarioTable({ cuestionarioList }: { cuestionarioList: Cues
                                     <EyeIcon />
                                 </Button>
                             </Link>
-                            {/* <Link href={`/cuestionarios/${cuestionario.id}/edit`}>
+                            <Link href={`/admin/carrera-institucion/${cuestionario.carrerasId}/edit`}>
                                 <Button size="icon" variant="outline">
                                     <PencilIcon />
                                 </Button>
                             </Link>
+                            {/*
                             <Link href={`/cuestionarios/${cuestionario.id}/delete`}>
                                 <Button size="icon" variant="outline">
                                     <TrashIcon />

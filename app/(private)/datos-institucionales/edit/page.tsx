@@ -35,7 +35,7 @@ export default async function Page(props: { searchParams: SearchParams }) {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/admin/datos-institucionales">Datos Institucionales</BreadcrumbLink>
+              <BreadcrumbLink href="/instituciones">Datos Institucionales</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>

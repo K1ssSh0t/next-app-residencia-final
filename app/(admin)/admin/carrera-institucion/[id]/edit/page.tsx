@@ -31,11 +31,11 @@ export default async function Page(props: { params: Params }) {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/instituciones">Carrera Institucions</BreadcrumbLink>
+              <BreadcrumbLink href="/admin/carrera-institucion">Carrera Institucions</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink href={`/admin/carrera-institucions/${carreraInstitucion.id}`}>
+              <BreadcrumbLink href={`/admin/carrera-institucion/${carreraInstitucion.id}`}>
                 {carreraInstitucion.id}
               </BreadcrumbLink>
             </BreadcrumbItem>
