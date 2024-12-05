@@ -22,7 +22,7 @@ export default async function Page(props: { params: Params }) {
     notFound();
   }
 
-  const regionList = await db.query.regions.findMany();
+  const regionList = await db.query.regiones.findMany();
 
   return (
     <div className="relative">
@@ -34,8 +34,8 @@ export default async function Page(props: { params: Params }) {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink href={`/admin/municipios/${ municipio.id }`}>
-                { municipio.id }
+              <BreadcrumbLink href={`/admin/municipios/${municipio.id}`}>
+                {municipio.id}
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
@@ -46,9 +46,9 @@ export default async function Page(props: { params: Params }) {
         </Breadcrumb>
       </div>
       <div className="pt-5">
-        <MunicipioUpdateForm 
-          municipio={ municipio }
-          regionList={ regionList }
+        <MunicipioUpdateForm
+          municipio={municipio}
+          regionList={regionList}
         />
       </div>
     </div>

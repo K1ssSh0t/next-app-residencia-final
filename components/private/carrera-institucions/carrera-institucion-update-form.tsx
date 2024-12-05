@@ -82,8 +82,8 @@ export function CarreraInstitucionUpdateForm({
             valueField="id"
             defaultValue={carreraInstitucion.modalidadesId}
             searchPlaceholder="Search Modalidades..."
-            selectPlaceholder="Select Modalidade..."
-            emptyText="No modalidade found"
+            selectPlaceholder="Select modalidad..."
+            emptyText="No modalidad found"
             keywordFields={["id", "descripcion"]}
             template={(item) => <div>{item.descripcion}</div>}
           />

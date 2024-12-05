@@ -8,15 +8,15 @@ import { FormAlert } from "@/components/form-alert";
 import { Input } from "@/components/ui/input";
 import { GenericCombobox } from "@/components/generic-combobox";
 
-import { DatosInstitucionale } from "@/schema/datos-institucionales";
-import { CategoriasGenerale } from "@/schema/categorias-generales";
+import { DatosInstitucionales } from "@/schema/datos-institucionales";
+import { CategoriasGenerales } from "@/schema/categorias-generales";
 
 export function DatosInstitucionaleUpdateForm({
   datosInstitucionale,
   categoriasGeneraleList,
 }: {
-  datosInstitucionale: DatosInstitucionale;
-  categoriasGeneraleList: CategoriasGenerale[];
+  datosInstitucionale: DatosInstitucionales;
+  categoriasGeneraleList: CategoriasGenerales[];
 }) {
   const initialState: UpdateDatosInstitucionaleState = {};
   const [state, dispatch] = useActionState(updateDatosInstitucionale, initialState);
@@ -47,7 +47,7 @@ export function DatosInstitucionaleUpdateForm({
             defaultValue={datosInstitucionale.categoriasGeneralesId}
             searchPlaceholder="Search Categorias Generales..."
             selectPlaceholder="Select Categorias Generale..."
-            emptyText="No categoriasGenerale found"
+            emptyText="No categoriasGenerales found"
             keywordFields={["id", "descripcion"]}
             template={(item) => <div>{item.descripcion}</div>}
           />

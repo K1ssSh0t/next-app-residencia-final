@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/lib/db";
-import { regions } from "@/schema/regions";
+import { regiones } from "@/schema/regions";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createInsertSchema } from "drizzle-zod";
@@ -9,7 +9,7 @@ import { BaseActionState } from "@/lib/types";
 import { auth } from "@/lib/auth";
 import { isAdmin } from "@/services/authorization-service";
 
-const insertRegionSchema = createInsertSchema(regions);
+const insertRegionSchema = createInsertSchema(regiones);
 
 export interface CreateRegionState extends BaseActionState {
   errors?: {
@@ -44,7 +44,7 @@ export async function createRegion(
       };
     }
 
-    await db.insert(regions).values(validatedFields.data);
+    await db.insert(regiones).values(validatedFields.data);
 
     revalidatePath("/admin/regiones");
   } catch (error) {

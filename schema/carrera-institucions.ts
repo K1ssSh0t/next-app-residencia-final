@@ -4,7 +4,7 @@ import { createId } from "@paralleldrive/cuid2";
 
 import { instituciones } from "./instituciones";
 import { carreras } from "./carreras";
-import { modalidads } from "./modalidads";
+import { modalidades } from "./modalidads";
 
 export type CarreraInstitucion = typeof carreraInstituciones.$inferSelect;
 
@@ -16,7 +16,7 @@ export const carreraInstituciones = pgTable("carrera_instituciones", {
   carrerasId: text().references(() => carreras.id),
   nombreRevoe: text(),
   planDeEstudio: text(),
-  modalidadesId: text().references(() => modalidads.id),
+  modalidadesId: text().references(() => modalidades.id),
   numeroRevoe: text(),
   createdAt: timestamp().notNull().defaultNow(),
   updatedAt: timestamp()
@@ -28,7 +28,7 @@ export const carreraInstituciones = pgTable("carrera_instituciones", {
 export const carreraInstitucionsRelations = relations(
   carreraInstituciones,
   ({ one, many }) => ({
-    institucione: one(instituciones, {
+    institucion: one(instituciones, {
       fields: [carreraInstituciones.institucionesId],
       references: [instituciones.id],
     }),
@@ -36,9 +36,9 @@ export const carreraInstitucionsRelations = relations(
       fields: [carreraInstituciones.carrerasId],
       references: [carreras.id],
     }),
-    modalidade: one(modalidads, {
+    modalidad: one(modalidades, {
       fields: [carreraInstituciones.modalidadesId],
-      references: [modalidads.id],
+      references: [modalidades.id],
     }),
   })
 );

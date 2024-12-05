@@ -7,12 +7,12 @@ import { Label } from "@/components/ui/label";
 import { FormAlert } from "@/components/form-alert";
 import { Input } from "@/components/ui/input";
 
-import { TipoInstitucione } from "@/schema/tipo-instituciones";
+import { TipoInstituciones } from "@/schema/tipo-instituciones";
 
-export function TipoInstitucioneUpdateForm({ 
+export function TipoInstitucioneUpdateForm({
   tipoInstitucione,
-}: { 
-  tipoInstitucione: TipoInstitucione;
+}: {
+  tipoInstitucione: TipoInstituciones;
 }) {
   const initialState: UpdateTipoInstitucioneState = {};
   const [state, dispatch] = useActionState(updateTipoInstitucione, initialState);
@@ -26,13 +26,13 @@ export function TipoInstitucioneUpdateForm({
   return (
     <div>
       <form action={dispatch} onSubmit={handleSubmit} className="flex flex-col gap-2">
-        <input type="hidden" name="id" value={ tipoInstitucione.id } />
+        <input type="hidden" name="id" value={tipoInstitucione.id} />
         <div>
-          <p><strong>Id:</strong> { tipoInstitucione.id }</p>
+          <p><strong>Id:</strong> {tipoInstitucione.id}</p>
         </div>
         <div>
           <Label>Descripcion</Label>
-          <Input name="descripcion" defaultValue={ tipoInstitucione.descripcion ?? "" } />
+          <Input name="descripcion" defaultValue={tipoInstitucione.descripcion ?? ""} />
           {state.errors?.descripcion?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}

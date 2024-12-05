@@ -93,7 +93,7 @@ export default async function Page(props: {
     with: {
       carrera: {
         with: {
-          modalidade: true,
+          modalidad: true,
           carrera: true,
         }
       },
@@ -105,7 +105,7 @@ export default async function Page(props: {
 
   const datosGenerales = await db.query.datosInstitucionales.findMany({
     with: {
-      categoriasGenerale: true,
+      categoriasGenerales: true,
     },
     where: eq(datosInstitucionales.institucionesId, `${miInstitucion?.id}`),
   })
@@ -224,7 +224,7 @@ export default async function Page(props: {
               <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">                {datosGenerales.map((dato, index) => (
                 <div key={index} className="border rounded-lg p-2">
                   <h3 className="font-medium text-sm text-center mb-1">
-                    {dato?.categoriasGenerale?.descripcion || "Categoría"}
+                    {dato?.categoriasGenerales?.descripcion || "Categoría"}
                   </h3>
                   <div className="flex justify-around items-center">
                     <div className="text-center px-2">

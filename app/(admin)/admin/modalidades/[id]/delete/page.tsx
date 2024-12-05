@@ -10,14 +10,14 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { modalidads } from "@/schema/modalidads";
+import { modalidades } from "@/schema/modalidads";
 
 type Params = Promise<{ id: string }>;
 
 export default async function Page(props: { params: Params }) {
   const params = await props.params;
   const { id } = params;
-  const modalidad = await db.query.modalidads.findFirst({ where: eq(modalidads.id, id) });
+  const modalidad = await db.query.modalidades.findFirst({ where: eq(modalidades.id, id) });
 
   if (!modalidad) {
     notFound();

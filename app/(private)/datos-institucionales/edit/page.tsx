@@ -23,7 +23,7 @@ export default async function Page(props: { searchParams: SearchParams }) {
 
   const datosGenerales = await db.query.datosInstitucionales.findMany({
     with: {
-      categoriasGenerale: true,
+      categoriasGenerales: true,
     },
     where: eq(datosInstitucionales.institucionesId, `${idInstitucion}`)
   })

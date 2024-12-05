@@ -4,18 +4,18 @@ import { deleteInstitucione, DeleteInstitucioneState } from "@/actions/private/i
 import { Button } from "@/components/ui/button";
 import { FormAlert } from "@/components/form-alert";
 import { useActionState } from "react";
-import { Institucione } from "@/schema/instituciones";
+import { Institucion } from "@/schema/instituciones";
 
-export function InstitucioneDeleteForm({ institucione }: { institucione: Institucione }) {
+export function InstitucioneDeleteForm({ institucion }: { institucion: Institucion }) {
   const initialState: DeleteInstitucioneState = {};
   const [state, dispatch] = useActionState(deleteInstitucione, initialState);
 
   return (
     <div>
       <form action={dispatch} className="flex flex-col gap-2">
-        <input type="hidden" name="id" value={ institucione.id} />
+        <input type="hidden" name="id" value={institucion.id} />
         <div>
-          <p><strong>Id:</strong> { institucione.id}</p>
+          <p><strong>Id:</strong> {institucion.id}</p>
         </div>
         <div>
           <Button type="submit" variant="destructive">

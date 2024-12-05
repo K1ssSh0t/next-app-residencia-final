@@ -7,12 +7,12 @@ import { Label } from "@/components/ui/label";
 import { FormAlert } from "@/components/form-alert";
 import { Input } from "@/components/ui/input";
 
-import { CategoriasGenerale } from "@/schema/categorias-generales";
+import { CategoriasGenerales } from "@/schema/categorias-generales";
 
-export function CategoriasGeneraleUpdateForm({ 
-  categoriasGenerale,
-}: { 
-  categoriasGenerale: CategoriasGenerale;
+export function CategoriasGeneraleUpdateForm({
+  categoriasGenerales,
+}: {
+  categoriasGenerales: CategoriasGenerales;
 }) {
   const initialState: UpdateCategoriasGeneraleState = {};
   const [state, dispatch] = useActionState(updateCategoriasGenerale, initialState);
@@ -26,10 +26,10 @@ export function CategoriasGeneraleUpdateForm({
   return (
     <div>
       <form action={dispatch} onSubmit={handleSubmit} className="flex flex-col gap-2">
-        <input type="hidden" name="id" value={ categoriasGenerale.id } />
+        <input type="hidden" name="id" value={categoriasGenerales.id} />
         <div>
           <Label>Descripcion</Label>
-          <Input name="descripcion" defaultValue={ categoriasGenerale.descripcion ?? "" } />
+          <Input name="descripcion" defaultValue={categoriasGenerales.descripcion ?? ""} />
           {state.errors?.descripcion?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}

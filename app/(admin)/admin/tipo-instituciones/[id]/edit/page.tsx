@@ -7,18 +7,18 @@ type Params = Promise<{ id: string }>;
 export default async function Page(props: { params: Params }) {
   const params = await props.params;
   const { id } = params;
-  const tipoInstitucione = await getTipoInstitucioneWithRelations(id);
+  const tipoInstitucion = await getTipoInstitucioneWithRelations(id);
 
-  if (!tipoInstitucione) {
+  if (!tipoInstitucion) {
     notFound();
   }
 
 
   return (
     <div>
-      <h1 className="text-xl font-bold mb-6">Edit Tipo Institucione</h1>
-      <TipoInstitucioneUpdateForm 
-        tipoInstitucione={ tipoInstitucione }
+      <h1 className="text-xl font-bold mb-6">Edit Tipoinstitucion</h1>
+      <TipoInstitucioneUpdateForm
+        tipoInstitucione={tipoInstitucion}
       />
     </div>
   );

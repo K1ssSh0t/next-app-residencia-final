@@ -4,9 +4,9 @@ import { deleteTipoBachillere, DeleteTipoBachillereState } from "@/actions/admin
 import { Button } from "@/components/ui/button";
 import { FormAlert } from "@/components/form-alert";
 import { useActionState } from "react";
-import { TipoBachillere } from "@/schema/tipo-bachilleres";
+import { TipoBachilleres } from "@/schema/tipo-bachilleres";
 
-export function TipoBachillereDeleteForm({ tipoBachillere }: { tipoBachillere: TipoBachillere }) {
+export function TipoBachillereDeleteForm({ tipoBachillere }: { tipoBachillere: TipoBachilleres }) {
   const initialState: DeleteTipoBachillereState = {};
   const [state, dispatch] = useActionState(deleteTipoBachillere, initialState);
 

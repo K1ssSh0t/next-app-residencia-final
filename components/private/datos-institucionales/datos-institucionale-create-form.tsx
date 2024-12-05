@@ -8,12 +8,12 @@ import { FormAlert } from "@/components/form-alert";
 import { Input } from "@/components/ui/input";
 import { GenericCombobox } from "@/components/generic-combobox";
 
-import { CategoriasGenerale } from "@/schema/categorias-generales";
+import { CategoriasGenerales } from "@/schema/categorias-generales";
 
 export function DatosInstitucionaleCreateForm({
   categoriasGeneraleList,
 }: {
-  categoriasGeneraleList: CategoriasGenerale[];
+  categoriasGeneraleList: CategoriasGenerales[];
 }) {
   const initialState: CreateDatosInstitucionaleState = {};
   const [state, dispatch] = useActionState(createDatosInstitucionale, initialState);
@@ -42,7 +42,7 @@ export function DatosInstitucionaleCreateForm({
             valueField="id"
             searchPlaceholder="Search Categorias Generales..."
             selectPlaceholder="Select Categorias Generale..."
-            emptyText="No categoriasGenerale found"
+            emptyText="No categoriasGenerales found"
             keywordFields={["id", "descripcion"]}
             template={(item) => <div>{item.descripcion}</div>}
           />

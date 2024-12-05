@@ -7,12 +7,12 @@ import { Label } from "@/components/ui/label";
 import { FormAlert } from "@/components/form-alert";
 import { Input } from "@/components/ui/input";
 
-import { TipoBachillere } from "@/schema/tipo-bachilleres";
+import { TipoBachilleres } from "@/schema/tipo-bachilleres";
 
 export function TipoBachillereUpdateForm({ 
   tipoBachillere,
 }: { 
-  tipoBachillere: TipoBachillere;
+  tipoBachillere: TipoBachilleres;
 }) {
   const initialState: UpdateTipoBachillereState = {};
   const [state, dispatch] = useActionState(updateTipoBachillere, initialState);

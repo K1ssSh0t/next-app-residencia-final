@@ -8,9 +8,9 @@ import { FormAlert } from "@/components/form-alert";
 import { Input } from "@/components/ui/input";
 import { GenericCombobox } from "@/components/generic-combobox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Institucione } from "@/schema/instituciones";
-import { TipoInstitucione } from "@/schema/tipo-instituciones";
-import { TipoBachillere } from "@/schema/tipo-bachilleres";
+import { Institucion } from "@/schema/instituciones";
+import { TipoInstituciones } from "@/schema/tipo-instituciones";
+import { TipoBachilleres } from "@/schema/tipo-bachilleres";
 import { Region } from "@/schema/regions";
 import { Municipio } from "@/schema/municipios";
 
@@ -26,23 +26,23 @@ function RequiredLabel({ children }: { children: React.ReactNode }) {
 
 
 export function InstitucioneUpdateForm({
-  institucione,
+  institucion,
   tipoInstitucioneList,
   tipoBachillereList,
   nivelEducativo,
   regionList,
   municipioList,
 }: {
-  institucione: Institucione;
-  tipoInstitucioneList: TipoInstitucione[];
-  tipoBachillereList: TipoBachillere[];
+  institucion: Institucion;
+  tipoInstitucioneList: TipoInstituciones[];
+  tipoBachillereList: TipoBachilleres[];
   nivelEducativo: boolean;
   regionList: Region[];
   municipioList: Municipio[];
 }) {
   const initialState: UpdateInstitucioneState = {};
   const [state, dispatch] = useActionState(updateInstitucione, initialState);
-  const [selectedRegion, setSelectedRegion] = useState<string | null>(institucione.regionId || null);
+  const [selectedRegion, setSelectedRegion] = useState<string | null>(institucion.regionId || null);
   const [filteredMunicipios, setFilteredMunicipios] = useState<Municipio[]>(municipioList);
 
   useEffect(() => {
@@ -77,14 +77,14 @@ export function InstitucioneUpdateForm({
   return (
     <div>
       <form action={dispatch} onSubmit={handleSubmit} className="space-y-6">
-        <input type="hidden" name="id" value={institucione.id} />
+        <input type="hidden" name="id" value={institucion.id} />
         {/* <div>
           <p><strong>Id:</strong> {institucione.id}</p>
         </div> */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
             <RequiredLabel>Nombre</RequiredLabel>
-            <Input name="nombre" defaultValue={institucione.nombre ?? ""} required />
+            <Input name="nombre" defaultValue={institucion.nombre ?? ""} required />
             {state.errors?.nombre?.map((error) => (
               <p className="text-destructive text-sm" key={error}>{error}</p>
             ))}
@@ -92,7 +92,7 @@ export function InstitucioneUpdateForm({
 
           <div className="space-y-2">
             <RequiredLabel>Clave de Institución</RequiredLabel>
-            <Input name="claveInstitucion" defaultValue={institucione.claveInstitucion ?? ""} required />
+            <Input name="claveInstitucion" defaultValue={institucion.claveInstitucion ?? ""} required />
             {state.errors?.claveInstitucion?.map((error) => (
               <p className="text-destructive text-sm" key={error}>{error}</p>
             ))}
@@ -100,7 +100,7 @@ export function InstitucioneUpdateForm({
 
           <div className="space-y-2">
             <RequiredLabel>Clave de Centro de Trabajo</RequiredLabel>
-            <Input name="claveCentroTrabajo" defaultValue={institucione.claveCentroTrabajo ?? ""} required />
+            <Input name="claveCentroTrabajo" defaultValue={institucion.claveCentroTrabajo ?? ""} required />
             {state.errors?.claveCentroTrabajo?.map((error) => (
               <p className="text-destructive text-sm" key={error}>{error}</p>
             ))}
@@ -111,7 +111,7 @@ export function InstitucioneUpdateForm({
             <Input
               name="numeroCarreras"
               type="number"
-              defaultValue={institucione.numeroCarreras ?? ""}
+              defaultValue={institucion.numeroCarreras ?? ""}
             />
             {state.errors?.numeroCarreras?.map((error) => (
               <p className="text-destructive text-sm" key={error}>{error}</p>
@@ -125,7 +125,7 @@ export function InstitucioneUpdateForm({
               list={regionList}
               name="region"
               valueField="id"
-              defaultValue={institucione.regionId}
+              defaultValue={institucion.regionId}
               searchPlaceholder="Buscar Región..."
               selectPlaceholder="Seleccionar Región..."
               emptyText="No se encontró la región"
@@ -145,7 +145,7 @@ export function InstitucioneUpdateForm({
               list={filteredMunicipios}
               name="municipio"
               valueField="id"
-              defaultValue={institucione.municipioId}
+              defaultValue={institucion.municipioId}
               searchPlaceholder="Buscar Municipio..."
               selectPlaceholder="Seleccionar Municipio..."
               emptyText="No se encontró el municipio"
@@ -164,7 +164,7 @@ export function InstitucioneUpdateForm({
               list={tipoInstitucioneList}
               name="tipoInstitucionesId"
               valueField="id"
-              defaultValue={institucione.tipoInstitucionesId}
+              defaultValue={institucion.tipoInstitucionesId}
               searchPlaceholder="Buscar Tipo de Institución..."
               selectPlaceholder="Seleccionar Tipo de Institución..."
               emptyText="No se encontró el tipo de institución"
@@ -178,7 +178,7 @@ export function InstitucioneUpdateForm({
 
           <div className="hidden">
             <Label>Users Id</Label>
-            <Input name="usersId" defaultValue={institucione.usersId ?? ""} />
+            <Input name="usersId" defaultValue={institucion.usersId ?? ""} />
             {state.errors?.usersId?.map((error) => (
               <p className="text-red-500" key={error}>{error}</p>
             ))}
@@ -191,7 +191,7 @@ export function InstitucioneUpdateForm({
                 list={tipoBachillereList}
                 name="tipoBachilleresId"
                 valueField="id"
-                defaultValue={institucione.tipoBachilleresId}
+                defaultValue={institucion.tipoBachilleresId}
                 searchPlaceholder="Buscar Tipo de Bachillerato..."
                 selectPlaceholder="Seleccionar Tipo de Bachillerato..."
                 emptyText="No se encontró el tipo de bachillerato"
@@ -206,7 +206,7 @@ export function InstitucioneUpdateForm({
 
           <div className="hidden">
             <Label>Nivel Educativo</Label>
-            <Select name="nivelEducativo" defaultValue={institucione.nivelEducativo ? "true" : "false"}>
+            <Select name="nivelEducativo" defaultValue={institucion.nivelEducativo ? "true" : "false"}>
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="Selecciona el nivel educativo" />
               </SelectTrigger>

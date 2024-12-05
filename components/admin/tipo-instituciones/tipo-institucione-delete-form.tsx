@@ -4,18 +4,18 @@ import { deleteTipoInstitucione, DeleteTipoInstitucioneState } from "@/actions/a
 import { Button } from "@/components/ui/button";
 import { FormAlert } from "@/components/form-alert";
 import { useActionState } from "react";
-import { TipoInstitucione } from "@/schema/tipo-instituciones";
+import { TipoInstituciones } from "@/schema/tipo-instituciones";
 
-export function TipoInstitucioneDeleteForm({ tipoInstitucione }: { tipoInstitucione: TipoInstitucione }) {
+export function TipoInstitucioneDeleteForm({ tipoInstitucione }: { tipoInstitucione: TipoInstituciones }) {
   const initialState: DeleteTipoInstitucioneState = {};
   const [state, dispatch] = useActionState(deleteTipoInstitucione, initialState);
 
   return (
     <div>
       <form action={dispatch} className="flex flex-col gap-2">
-        <input type="hidden" name="id" value={ tipoInstitucione.id} />
+        <input type="hidden" name="id" value={tipoInstitucione.id} />
         <div>
-          <p><strong>Id:</strong> { tipoInstitucione.id}</p>
+          <p><strong>Id:</strong> {tipoInstitucione.id}</p>
         </div>
         <div>
           <Button type="submit" variant="destructive">

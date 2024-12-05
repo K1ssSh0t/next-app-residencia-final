@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import { InstitucioneUpdateForm } from "@/components/private/instituciones/institucione-update-form";
-import { getInstitucioneWithRelations } from "@/repositories/institucione-repository";
+import { getInstitucionWithRelations } from "@/repositories/institucione-repository";
 import { auth } from "@/lib/auth";
 import { getUserWithRelations } from "@/repositories/user-repository";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -13,7 +13,7 @@ export default async function Page(props: { params: Params }) {
 
   const params = await props.params;
   const { id } = params;
-  const institucion = await getInstitucioneWithRelations(id);
+  const institucion = await getInstitucionWithRelations(id);
 
   if (!institucion) {
     notFound();
@@ -25,7 +25,7 @@ export default async function Page(props: { params: Params }) {
   const usuario = await getUserWithRelations(session?.user.id)
 
 
-  const regionList = await db.query.regions.findMany();
+  const regionList = await db.query.regiones.findMany();
   const municipioList = await db.query.municipios.findMany();
 
 
@@ -39,7 +39,7 @@ export default async function Page(props: { params: Params }) {
         </CardHeader>
         <CardContent>
           <InstitucioneUpdateForm
-            institucione={institucion}
+            institucion={institucion}
             tipoInstitucioneList={tipoInstitucioneList}
             tipoBachillereList={tipoBachillereList}
             nivelEducativo={institucion.nivelEducativo as boolean}

@@ -7,7 +7,7 @@ import {
 import { createId } from "@paralleldrive/cuid2";
 
 
-export type TipoBachillere = typeof tipoBachilleres.$inferSelect;
+export type TipoBachilleres = typeof tipoBachilleres.$inferSelect;
 
 export const tipoBachilleres = pgTable(
   "tipo_bachilleres",

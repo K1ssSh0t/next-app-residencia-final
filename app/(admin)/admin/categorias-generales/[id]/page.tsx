@@ -15,9 +15,9 @@ export default async function Page(props: { params: Params }) {
   const params = await props.params;
   const { id } = params;
 
-  const categoriasGenerale = await getCategoriasGeneraleWithRelations(id);
+  const categoriasGenerales = await getCategoriasGeneraleWithRelations(id);
 
-  if (!categoriasGenerale) {
+  if (!categoriasGenerales) {
     notFound();
   }
 
@@ -31,13 +31,13 @@ export default async function Page(props: { params: Params }) {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>{ categoriasGenerale.id }</BreadcrumbPage>
+              <BreadcrumbPage>{categoriasGenerales.id}</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
       </div>
       <div className="pt-5">
-        <p><strong>Descripcion:</strong> { categoriasGenerale.descripcion }</p>
+        <p><strong>Descripcion:</strong> {categoriasGenerales.descripcion}</p>
       </div>
     </div>
   );

@@ -6,8 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { FormAlert } from "@/components/form-alert";
 import { Input } from "@/components/ui/input";
-import { CategoriasGenerale } from "@/schema/categorias-generales";
-import { DatosInstitucionale } from "@/schema/datos-institucionales";
+import { CategoriasGenerales } from "@/schema/categorias-generales";
+import { DatosInstitucionales } from "@/schema/datos-institucionales";
 
 
 //TODO: AGREGAR UN INDEX PARA QUE SEA UNICO LA INSTITUCION CON LA CATEGORIA
@@ -17,9 +17,9 @@ export function DatosInstitucionalesUpdateForm({
     idInstitucion,
     datosInstitucionales
 }: {
-    categoriasGeneraleList: CategoriasGenerale[];
+    categoriasGeneraleList: CategoriasGenerales[];
     idInstitucion: string;
-    datosInstitucionales: DatosInstitucionale[];
+    datosInstitucionales: DatosInstitucionales[];
 }) {
     const initialState: UpdateDatosInstitucionaleState = {};
     const [state, dispatch] = useActionState(updateDatosInstitucionale, initialState);

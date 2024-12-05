@@ -11,18 +11,18 @@ import { createId } from "@paralleldrive/cuid2";
 import { tipoInstituciones } from "./tipo-instituciones";
 import { tipoBachilleres } from "./tipo-bachilleres";
 import { users } from "./users";
-import { modalidads } from "./modalidads";
-import { regions } from "./regions";
+import { modalidades } from "./modalidads";
+import { regiones } from "./regions";
 import { municipios } from "./municipios";
 
-export type Institucione = typeof instituciones.$inferSelect;
+export type Institucion = typeof instituciones.$inferSelect;
 
 export const instituciones = pgTable("instituciones", {
   id: text()
     .primaryKey()
     .$defaultFn(() => createId()),
   nombre: text(),
-  regionId: text().references(() => regions.id),
+  regionId: text().references(() => regiones.id),
   municipioId: text().references(() => municipios.id),
   tipoInstitucionesId: text().references(() => tipoInstituciones.id),
   tipoBachilleresId: text().references(() => tipoBachilleres.id),
@@ -55,9 +55,9 @@ export const institucionesRelations = relations(
       fields: [instituciones.usersId],
       references: [users.id],
     }),
-    region: one(regions, {
+    region: one(regiones, {
       fields: [instituciones.regionId],
-      references: [regions.id],
+      references: [regiones.id],
     }),
     municipio: one(municipios, {
       fields: [instituciones.municipioId],

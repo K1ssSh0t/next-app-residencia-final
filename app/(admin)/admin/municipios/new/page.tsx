@@ -10,7 +10,7 @@ import {
 import { MunicipioCreateForm } from "@/components/admin/municipios/municipio-create-form";
 
 export default async function Page() {
-  const regionList = await db.query.regions.findMany();
+  const regionList = await db.query.regiones.findMany();
 
   return (
     <div className="relative">
@@ -28,8 +28,8 @@ export default async function Page() {
         </Breadcrumb>
       </div>
       <div className="pt-5">
-        <MunicipioCreateForm 
-          regionList={ regionList }
+        <MunicipioCreateForm
+          regionList={regionList}
         />
       </div>
     </div>

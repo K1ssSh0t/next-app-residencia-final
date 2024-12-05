@@ -5,7 +5,7 @@ import { createId } from "@paralleldrive/cuid2";
 import { instituciones } from "./instituciones";
 import { categoriasGenerales } from "./categorias-generales";
 
-export type DatosInstitucionale = typeof datosInstitucionales.$inferSelect;
+export type DatosInstitucionales = typeof datosInstitucionales.$inferSelect;
 
 export const datosInstitucionales = pgTable("datos_institucionales", {
   id: text()
@@ -25,11 +25,11 @@ export const datosInstitucionales = pgTable("datos_institucionales", {
 export const datosInstitucionalesRelations = relations(
   datosInstitucionales,
   ({ one, many }) => ({
-    institucione: one(instituciones, {
+    institucion: one(instituciones, {
       fields: [datosInstitucionales.institucionesId],
       references: [instituciones.id],
     }),
-    categoriasGenerale: one(categoriasGenerales, {
+    categoriasGenerales: one(categoriasGenerales, {
       fields: [datosInstitucionales.categoriasGeneralesId],
       references: [categoriasGenerales.id],
     }),

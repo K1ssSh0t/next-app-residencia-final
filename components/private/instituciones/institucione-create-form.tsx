@@ -8,8 +8,8 @@ import { FormAlert } from "@/components/form-alert";
 import { Input } from "@/components/ui/input";
 import { GenericCombobox } from "@/components/generic-combobox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { TipoInstitucione } from "@/schema/tipo-instituciones";
-import { TipoBachillere } from "@/schema/tipo-bachilleres";
+import { TipoInstituciones } from "@/schema/tipo-instituciones";
+import { TipoBachilleres } from "@/schema/tipo-bachilleres";
 import { Region } from "@/schema/regions";
 import { Municipio } from "@/schema/municipios";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -30,8 +30,8 @@ export function InstitucioneCreateForm({
   regionList,
   municipioList,
 }: {
-  tipoInstitucioneList: TipoInstitucione[];
-  tipoBachillereList: TipoBachillere[];
+  tipoInstitucioneList: TipoInstituciones[];
+  tipoBachillereList: TipoBachilleres[];
   nivelEducativo: boolean;
   regionList: Region[];
   municipioList: Municipio[];

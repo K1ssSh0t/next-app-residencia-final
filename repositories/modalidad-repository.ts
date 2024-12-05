@@ -1,6 +1,6 @@
 import { eq, like } from "drizzle-orm";
 import { db } from "@/lib/db";
-import { modalidads } from "@/schema/modalidads";
+import { modalidades } from "@/schema/modalidads";
 
 export type ModalidadsWithRelations = Awaited<
   ReturnType<typeof getModalidadsWithRelations>
@@ -19,17 +19,17 @@ export async function getModalidadsWithRelations({
   offset: number;
   search?: string;
 }) {
-  return await db.query.modalidads.findMany({
+  return await db.query.modalidades.findMany({
     limit: limit,
     offset: offset,
-    where: search ? like(modalidads.id, `%${search}%`) : undefined,
-    with: undefined
+    where: search ? like(modalidades.id, `%${search}%`) : undefined,
+    with: undefined,
   });
 }
 
 export async function getModalidadWithRelations(id: string) {
-  return await db.query.modalidads.findFirst({
-    where: eq(modalidads.id, id),
+  return await db.query.modalidades.findFirst({
+    where: eq(modalidades.id, id),
     with: undefined,
   });
 }

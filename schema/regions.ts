@@ -2,9 +2,9 @@ import { relations } from "drizzle-orm";
 import { pgTable, text, timestamp } from "drizzle-orm/pg-core";
 import { createId } from "@paralleldrive/cuid2";
 
-export type Region = typeof regions.$inferSelect;
+export type Region = typeof regiones.$inferSelect;
 
-export const regions = pgTable("regiones", {
+export const regiones = pgTable("regiones", {
   id: text()
     .primaryKey()
     .$defaultFn(() => createId()),
@@ -16,4 +16,4 @@ export const regions = pgTable("regiones", {
     .$onUpdate(() => new Date()),
 });
 
-export const regionsRelations = relations(regions, ({ one, many }) => ({}));
+export const regionsRelations = relations(regiones, ({ one, many }) => ({}));
