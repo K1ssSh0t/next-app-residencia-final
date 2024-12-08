@@ -8,6 +8,10 @@ import { createInsertSchema } from "drizzle-zod";
 import { BaseActionState } from "@/lib/types";
 import { auth } from "@/lib/auth";
 import { z } from "zod";
+import { carreraInstituciones } from "@/schema/carrera-institucions";
+import { eq } from "drizzle-orm";
+import { carreras } from "@/schema/carreras";
+import { cuestionarios } from "@/schema/cuestionarios";
 
 const insertInstitucioneSchema = createInsertSchema(instituciones).extend({
   nivelEducativo: z.boolean(),
@@ -60,7 +64,29 @@ export async function createInstitucione(
       };
     }
 
-    await db.insert(instituciones).values(validatedFields.data);
+    const insertInstitucion = await db
+      .insert(instituciones)
+      .values(validatedFields.data)
+      .returning({ id: instituciones.id, nivel: instituciones.nivelEducativo });
+
+    if (insertInstitucion.pop()?.nivel != true) {
+      const carreraNoAplica = await db.query.carreras.findFirst({
+        where: eq(carreras.descripcion, "No aplica"),
+      });
+
+      const insertCarreraInstitucion = await db
+        .insert(carreraInstituciones)
+        .values({
+          carrerasId: carreraNoAplica?.id,
+          institucionesId: insertInstitucion.pop()?.id,
+        })
+        .returning({ id: carreraInstituciones.id });
+
+      await db.insert(cuestionarios).values({
+        carrerasId: insertCarreraInstitucion.pop()?.id,
+        usersId: session.user.id,
+      });
+    }
 
     revalidatePath("/instituciones");
   } catch (error) {

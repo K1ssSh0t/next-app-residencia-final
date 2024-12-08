@@ -55,6 +55,8 @@ export function InstitucioneCreateForm({
     const formData = new FormData(event.target as HTMLFormElement);
 
     const nivelEducativoForm = formData.get('nivelEducativo');
+    console.log(formData.get('nivelEducativo'))
+    console.log(formData)
     formData.set('nivelEducativo', nivelEducativoForm === 'true' ? 'true' : 'false');
 
     if (nivelEducativo) {
@@ -182,12 +184,12 @@ export function InstitucioneCreateForm({
               </div>
             )}
 
-            <div className="space-y-2">
+            <div className="space-y-2 hidden">
               <Label>Nivel Educativo</Label>
               <Select
                 name="nivelEducativo"
                 defaultValue={nivelEducativo ? "true" : "false"}
-                disabled={true}
+
               >
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Selecciona el nivel educativo" />

@@ -169,6 +169,13 @@
       "when": 1732422287026,
       "tag": "0023_chubby_boom_boom",
       "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "7",
+      "when": 1733621718345,
+      "tag": "0024_sweet_sharon_carter",
+      "breakpoints": true
     }
   ]
 }
