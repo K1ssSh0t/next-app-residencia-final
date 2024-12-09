@@ -44,6 +44,8 @@ export function InstitucioneUpdateForm({
   const [state, dispatch] = useActionState(updateInstitucione, initialState);
   const [selectedRegion, setSelectedRegion] = useState<string | null>(institucion.regionId || null);
   const [filteredMunicipios, setFilteredMunicipios] = useState<Municipio[]>(municipioList);
+  const [selectedTipoBachiller, setSelectedTipoBachiller] = useState<TipoBachilleres | null>(null);
+  const [showNumeroCarreras, setShowNumeroCarreras] = useState(true);
 
   useEffect(() => {
     if (selectedRegion) {
@@ -53,6 +55,15 @@ export function InstitucioneUpdateForm({
       setFilteredMunicipios(municipioList);
     }
   }, [selectedRegion, municipioList]);
+
+  useEffect(() => {
+    setShowNumeroCarreras(nivelEducativo || (selectedTipoBachiller?.descripcion === 'Tecnologico'));
+  }, [nivelEducativo, selectedTipoBachiller]);
+
+  useEffect(() => {
+    const selectedTipoBachiller = tipoBachillereList.find(tipo => tipo.id === institucion.tipoBachilleresId);
+    setSelectedTipoBachiller(selectedTipoBachiller || null);
+  }, [institucion]);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -73,6 +84,12 @@ export function InstitucioneUpdateForm({
   function handleRegionChange(value: string) {
     setSelectedRegion(value);
   }
+
+  function handleTipoBachillerChange(value: string) {
+    const selectedTipo = tipoBachillereList.find(tipo => tipo.id === value);
+    setSelectedTipoBachiller(selectedTipo || null);
+  }
+
 
   return (
     <div>
@@ -106,8 +123,8 @@ export function InstitucioneUpdateForm({
             ))}
           </div>
 
-          <div className="space-y-2">
-            <Label>Número de Carreras</Label>
+          {showNumeroCarreras && <div className="space-y-2">
+            <Label>{nivelEducativo ? "Número de Carreras" : "Formacion Educativa"}</Label>
             <Input
               name="numeroCarreras"
               type="number"
@@ -117,7 +134,7 @@ export function InstitucioneUpdateForm({
               <p className="text-destructive text-sm" key={error}>{error}</p>
             ))}
           </div>
-
+          }
           <div className="space-y-2">
             <RequiredLabel>Región</RequiredLabel>
             <GenericCombobox
@@ -197,6 +214,7 @@ export function InstitucioneUpdateForm({
                 emptyText="No se encontró el tipo de bachillerato"
                 keywordFields={["id", "descripcion"]}
                 template={(item) => <div>{item.descripcion}</div>}
+                onChange={handleTipoBachillerChange}
               />
               {state.errors?.tipoBachilleresId?.map((error) => (
                 <p className="text-destructive text-sm" key={error}>{error}</p>

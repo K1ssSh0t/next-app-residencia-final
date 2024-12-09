@@ -40,6 +40,9 @@ export function InstitucioneCreateForm({
   const [state, dispatch] = useActionState(createInstitucione, initialState);
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
   const [filteredMunicipios, setFilteredMunicipios] = useState<Municipio[]>(municipioList);
+  const [selectedTipoBachiller, setSelectedTipoBachiller] = useState<TipoBachilleres | null>(null);
+  const [showNumeroCarreras, setShowNumeroCarreras] = useState(true);
+
 
   useEffect(() => {
     if (selectedRegion) {
@@ -49,6 +52,10 @@ export function InstitucioneCreateForm({
       setFilteredMunicipios(municipioList);
     }
   }, [selectedRegion, municipioList]);
+
+  useEffect(() => {
+    setShowNumeroCarreras(nivelEducativo || (selectedTipoBachiller?.descripcion === 'Tecnologico'));
+  }, [nivelEducativo, selectedTipoBachiller]);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -70,6 +77,11 @@ export function InstitucioneCreateForm({
     setSelectedRegion(value);
   }
 
+  function handleTipoBachillerChange(value: string) {
+    const selectedTipo = tipoBachillereList.find(tipo => tipo.id === value);
+    setSelectedTipoBachiller(selectedTipo || null);
+  }
+
   return (
     <Card>
       <CardHeader>
@@ -80,7 +92,7 @@ export function InstitucioneCreateForm({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
               <RequiredLabel>Nombre</RequiredLabel>
-              <Input name="nombre" required />
+              <Input name="nombre" required placeholder="Ingresa el Nombre de la Institución" />
               {state.errors?.nombre?.map((error) => (
                 <p className="text-destructive text-sm" key={error}>{error}</p>
               ))}
@@ -88,7 +100,7 @@ export function InstitucioneCreateForm({
 
             <div className="space-y-2">
               <RequiredLabel>Clave de Institución</RequiredLabel>
-              <Input name="claveInstitucion" required />
+              <Input name="claveInstitucion" required placeholder="Ingresa la Clave de la Institución" />
               {state.errors?.claveInstitucion?.map((error) => (
                 <p className="text-destructive text-sm" key={error}>{error}</p>
               ))}
@@ -96,19 +108,19 @@ export function InstitucioneCreateForm({
 
             <div className="space-y-2">
               <RequiredLabel>Clave de Centro de Trabajo</RequiredLabel>
-              <Input name="claveCentroTrabajo" required />
+              <Input name="claveCentroTrabajo" required placeholder="Ingresa la Clave del Centro de Trabajo" />
               {state.errors?.claveCentroTrabajo?.map((error) => (
                 <p className="text-destructive text-sm" key={error}>{error}</p>
               ))}
             </div>
-
-            <div className="space-y-2">
-              <RequiredLabel>Número de Carreras</RequiredLabel>
-              <Input name="numeroCarreras" type="number" required min={0} />
-              {state.errors?.numeroCarreras?.map((error) => (
-                <p className="text-destructive text-sm" key={error}>{error}</p>
-              ))}
-            </div>
+            {showNumeroCarreras &&
+              <div className="space-y-2">
+                <RequiredLabel>{nivelEducativo ? "Número de Carreras" : "Formacion Educativa"}</RequiredLabel>
+                <Input name="numeroCarreras" type="number" required min={0} placeholder={nivelEducativo ? "Ingresa el Número de Carreras" : "Ingresa la Formación Educativa"} />
+                {state.errors?.numeroCarreras?.map((error) => (
+                  <p className="text-destructive text-sm" key={error}>{error}</p>
+                ))}
+              </div>}
 
             <div className="space-y-2">
               <RequiredLabel>Región</RequiredLabel>
@@ -177,6 +189,7 @@ export function InstitucioneCreateForm({
                   emptyText="No se encontró el tipo de bachillerato"
                   keywordFields={["id", "descripcion"]}
                   template={(item) => <div>{item.descripcion}</div>}
+                  onChange={handleTipoBachillerChange}
                 />
                 {state.errors?.tipoBachilleresId?.map((error) => (
                   <p className="text-destructive text-sm" key={error}>{error}</p>
