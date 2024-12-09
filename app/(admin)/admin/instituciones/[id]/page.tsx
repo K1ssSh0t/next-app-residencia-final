@@ -10,6 +10,8 @@ import { instituciones } from "@/schema/instituciones";
 import { cuestionarios } from "@/schema/cuestionarios";
 import { CuestionarioTable } from "@/components/private/cuestionarios/cuestionario-admin-table";
 import { datosInstitucionales } from "@/schema/datos-institucionales";
+import { especialidades } from "@/schema/especialidades";
+import { EspecialidadUpdateForm } from "@/components/private/especialidades/especialidad-update-form";
 
 type Params = Promise<{ id: string }>;
 
@@ -53,6 +55,11 @@ export default async function Page(props: { params: Params }) {
             categoriasGenerales: true,
         },
         where: eq(datosInstitucionales.institucionesId, `${id}`),
+    })
+
+
+    const especialidadesDatos = await db.query.especialidades.findMany({
+        where: eq(especialidades.cuestionarioId, `${cuestionario[0].id}`),
     })
 
 
@@ -102,10 +109,13 @@ export default async function Page(props: { params: Params }) {
                                         <span className="text-muted-foreground">Nivel Educativo:</span>
                                         <p className="font-medium">{institucion.nivelEducativo ? "Superior" : "Medio Superior"}</p>
                                     </div>
-                                    <div>
-                                        <span className="text-muted-foreground">Número de Carreras:</span>
-                                        <p className="font-medium">{institucion.numeroCarreras}</p>
-                                    </div>
+
+                                    {(institucion.nivelEducativo == true || (institucion.tipoBachilleres?.descripcion == "Tecnologico")) &&
+
+                                        <div>
+                                            <span className="text-muted-foreground">{ } {institucion.nivelEducativo ? "Número de Carreras:" : "Formación Educativa:"}</span>
+                                            <p className="font-medium">{institucion.numeroCarreras}</p>
+                                        </div>}
                                     {institucion && (
                                         <CardFooter className="px-3 py-2">
                                             <Link href={`/admin/instituciones/${institucion.id}/edit`} className="ml-auto">
@@ -186,6 +196,21 @@ export default async function Page(props: { params: Params }) {
             <div className="text-center font-bold text-xl flex justify-center m-4 ">Cuestionarios</div>
             <div>
                 {cuestionario ? <CuestionarioTable cuestionarioList={cuestionario} /> : <div>No tiene datos de cuestionario</div>}
+            </div>
+
+            <div className="flex justify-center">
+                {
+                    institucion?.nivelEducativo == false && institucion.tipoBachilleres?.descripcion == "Tecnologico" ? <div>
+                        {
+                            especialidadesDatos.map((especialidad, index) => (
+                                <EspecialidadUpdateForm key={index} especialidad={especialidad} />
+                            ))
+                        } </div> :
+                        (
+                            <div></div>
+                        )
+
+                }
             </div>
         </div>
     );

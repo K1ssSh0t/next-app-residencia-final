@@ -182,10 +182,11 @@ export default async function Page(props: {
                     <span className="text-muted-foreground">Nivel Educativo:</span>
                     <p className="font-medium">{miInstitucion.nivelEducativo ? "Superior" : "Medio Superior"}</p>
                   </div>
-                  <div>
-                    <span className="text-muted-foreground">{miInstitucion.nivelEducativo ? "Número de Carreras:" : "Formación Educativa:"}</span>
-                    <p className="font-medium">{miInstitucion.numeroCarreras}</p>
-                  </div>
+                  {(miInstitucion.nivelEducativo || (miInstitucion.tipoBachilleres?.descripcion == "Tecnologico")) &&
+                    <div>
+                      <span className="text-muted-foreground">{miInstitucion.nivelEducativo ? "Número de Carreras:" : "Formación Educativa:"}</span>
+                      <p className="font-medium">{miInstitucion.numeroCarreras}</p>
+                    </div>}
                   {miInstitucion && (
                     <CardFooter className="px-3">
                       <Link href={`/instituciones/${miInstitucion.id}/edit`} className="ml-auto">
