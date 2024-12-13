@@ -40,6 +40,9 @@ export default async function Page(props: {
         </div>
       </div>
       <div>
+        {/* TODO: AGREGAR UNA COLUMNA QUE MARQUE EL PROGRESO DEL CUESTIONARIO
+          TODO: AGREGAR UNA TABLA QUE GUARDE JSON PARA LOS DATOS HISTORICOS AL TERMINAR UN CICLO 
+        */}
         <UserTable userList={userList} />
       </div>
       <div>

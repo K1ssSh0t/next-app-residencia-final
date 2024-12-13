@@ -114,7 +114,7 @@ export default async function Page(props: {
   })
 
   const misEspecialidades = await db.query.especialidades.findMany({
-    where: eq(especialidades.cuestionarioId, `${misCuestionarios[0].id}`),
+    where: eq(especialidades.cuestionarioId, `${misCuestionarios[0]?.id}`),
   })
 
 
@@ -348,7 +348,7 @@ export default async function Page(props: {
             {
 
               Array.from({ length: (miInstitucion.numeroCarreras || 0) - misEspecialidades.length }).map((_, index) => (
-                <EspecialidadCreateForm key={index} cuestionarioId={misCuestionarios[0].id} />
+                <EspecialidadCreateForm key={index} cuestionarioId={misCuestionarios[0]?.id} />
               ))
 
 

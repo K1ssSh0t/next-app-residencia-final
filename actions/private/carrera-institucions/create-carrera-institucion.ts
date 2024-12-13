@@ -55,12 +55,10 @@ export async function createCarreraInstitucion(
       .values(validatedFields.data)
       .returning({ id: carreraInstituciones.id });
 
-    await db
-      .insert(cuestionarios)
-      .values({
-        carrerasId: insertCarreraInstitucion.pop()?.id,
-        usersId: session.user.id,
-      });
+    await db.insert(cuestionarios).values({
+      carrerasId: insertCarreraInstitucion.pop()?.id,
+      usersId: session.user.id,
+    });
 
     revalidatePath("/carrera-instituciones");
   } catch (error) {
@@ -70,5 +68,5 @@ export async function createCarreraInstitucion(
     };
   }
 
-  redirect("/carrera-instituciones");
+  redirect("/instituciones");
 }
