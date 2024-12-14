@@ -26,7 +26,7 @@ type UserWithProgress = {
   progressStatus: 'sin empezar' | 'en progreso' | 'terminado';
 };
 
-//TODO: HACER QUE EL PROGRESO SOLO SE MUESTRE PARA USUARIOS NORMALES
+//TODO:TALVEZ DIVIDIR EN TRES TABLAS | MEDIA SUPERIOR| SUPERIOR | PERSONAL
 
 
 export async function UserTable({ userList }: { userList: UsersWithRelations }) {
@@ -37,6 +37,8 @@ export async function UserTable({ userList }: { userList: UsersWithRelations }) 
       let progressStatus: 'sin empezar' | 'en progreso' | 'terminado' = 'sin empezar';
 
       if (institucion.length > 0) {
+        const totalRequired = institucion[0].numeroCarreras;
+
         const cuestionariosResult = await db
           .select({
             count: count(),
@@ -50,23 +52,26 @@ export async function UserTable({ userList }: { userList: UsersWithRelations }) 
           const cuestionariosCount = cuestionariosResult[0].count;
           const firstCuestionarioId = cuestionariosResult[0].firstId;
 
-          let totalRequired: number;
-
+          // Lógica de progreso para instituciones de nivel superior
           if (institucion[0].nivelEducativo) {
-            totalRequired = institucion[0].numeroCarreras!;
-          } else {
+            if (cuestionariosCount === totalRequired) {
+              progressStatus = 'terminado';
+            } else if (cuestionariosCount > 0) {
+              progressStatus = 'en progreso';
+            }
+          }
+          // Lógica de progreso para instituciones de nivel medio superior
+          else {
             const [especialidadesCount] = await db
               .select({ value: count() })
               .from(especialidades)
               .where(eq(especialidades.cuestionarioId, firstCuestionarioId));
 
-            totalRequired = especialidadesCount.value;
-          }
-
-          if (cuestionariosCount === totalRequired) {
-            progressStatus = 'terminado';
-          } else if (cuestionariosCount > 0) {
-            progressStatus = 'en progreso';
+            if (especialidadesCount.value === totalRequired) {
+              progressStatus = 'terminado';
+            } else if (especialidadesCount.value > 0) {
+              progressStatus = 'en progreso';
+            }
           }
         }
       }
@@ -109,7 +114,7 @@ export async function UserTable({ userList }: { userList: UsersWithRelations }) 
       </TableHeader>
       <TableBody>
         {userProgress.map((user) => {
-          const badgeColor = getProgressBadgeColor(user.progressStatus);
+          const badgeColor = getProgressBadgeColor(user.role == "admin" ? "no aplica" : user.progressStatus);
 
           return (
             <TableRow key={user.id}>
@@ -124,7 +129,8 @@ export async function UserTable({ userList }: { userList: UsersWithRelations }) 
               <TableCell>{user.password}</TableCell>
               <TableCell>
                 <Badge className={badgeColor}>
-                  {user.progressStatus}
+                  {user.role == "admin" ? "No aplica" :
+                    user.progressStatus}
                 </Badge>
               </TableCell>
               <TableCell className="justify-end flex gap-2">
