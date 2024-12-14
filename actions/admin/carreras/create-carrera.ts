@@ -14,6 +14,7 @@ export interface CreateCarreraState extends BaseActionState {
   errors?: {
     id?: string[];
     descripcion?: string[];
+    clave?: string[];
   };
 }
 
@@ -32,9 +33,9 @@ export async function createCarrera(
       throw new Error("unauthorized");
     }
 
-
     const validatedFields = insertCarreraSchema.safeParse({
       descripcion: formData.get("descripcion") as string,
+      clave: formData.get("clave") as string,
     });
 
     if (!validatedFields.success) {
@@ -45,13 +46,13 @@ export async function createCarrera(
     }
 
     await db.insert(carreras).values(validatedFields.data);
-    
+
     revalidatePath("/admin/carreras");
   } catch (error) {
     console.error(error);
     return {
       status: "error",
-    }
+    };
   }
 
   redirect("/admin/carreras");

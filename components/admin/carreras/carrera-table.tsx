@@ -16,29 +16,29 @@ export function CarreraTable({ carreraList }: { carreraList: CarrerasWithRelatio
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>Id</TableHead>
+          <TableHead>Clave</TableHead>
           <TableHead>Descripcion</TableHead>
           <TableHead></TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        { carreraList.map((carrera) => (
-          <TableRow key={ carrera.id }>
-            <TableCell>{ carrera.id }</TableCell>
-            <TableCell>{ carrera.descripcion }</TableCell>
+        {carreraList.map((carrera) => (
+          <TableRow key={carrera.id}>
+            <TableCell>{carrera.clave}</TableCell>
+            <TableCell>{carrera.descripcion}</TableCell>
             <TableCell className="justify-end flex gap-2">
               {/* [CODE_MARK table-actions] */}
-              <Link href={`/admin/carreras/${ carrera.id }`}>
+              <Link href={`/admin/carreras/${carrera.id}`}>
                 <Button size="icon" variant="outline">
                   <EyeIcon />
                 </Button>
               </Link>
-              <Link href={`/admin/carreras/${ carrera.id }/edit`}>
+              <Link href={`/admin/carreras/${carrera.id}/edit`}>
                 <Button size="icon" variant="outline">
                   <PencilIcon />
                 </Button>
               </Link>
-              <Link href={`/admin/carreras/${ carrera.id }/delete`}>
+              <Link href={`/admin/carreras/${carrera.id}/delete`}>
                 <Button size="icon" variant="outline">
                   <TrashIcon />
                 </Button>

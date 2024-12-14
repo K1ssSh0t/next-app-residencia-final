@@ -9,9 +9,9 @@ import { Input } from "@/components/ui/input";
 
 import { Carrera } from "@/schema/carreras";
 
-export function CarreraUpdateForm({ 
+export function CarreraUpdateForm({
   carrera,
-}: { 
+}: {
   carrera: Carrera;
 }) {
   const initialState: UpdateCarreraState = {};
@@ -26,13 +26,20 @@ export function CarreraUpdateForm({
   return (
     <div>
       <form action={dispatch} onSubmit={handleSubmit} className="flex flex-col gap-2">
-        <input type="hidden" name="id" value={ carrera.id } />
+        <input type="hidden" name="id" value={carrera.id} />
         <div>
-          <p><strong>Id:</strong> { carrera.id }</p>
+          <p><strong>Id:</strong> {carrera.id}</p>
+        </div>
+        <div>
+          <Label>Clave</Label>
+          <Input name="clave" />
+          {state.errors?.clave?.map((error) => (
+            <p className="text-red-500" key={error}>{error}</p>
+          ))}
         </div>
         <div>
           <Label>Descripcion</Label>
-          <Input name="descripcion" defaultValue={ carrera.descripcion ?? "" } />
+          <Input name="descripcion" defaultValue={carrera.descripcion ?? ""} />
           {state.errors?.descripcion?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}

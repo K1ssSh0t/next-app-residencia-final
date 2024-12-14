@@ -22,6 +22,13 @@ export function CarreraCreateForm() {
     <div>
       <form action={dispatch} onSubmit={handleSubmit} className="flex flex-col gap-2">
         <div>
+          <Label>Clave</Label>
+          <Input name="clave" />
+          {state.errors?.clave?.map((error) => (
+            <p className="text-red-500" key={error}>{error}</p>
+          ))}
+        </div>
+        <div>
           <Label>Descripcion</Label>
           <Input name="descripcion" />
           {state.errors?.descripcion?.map((error) => (
