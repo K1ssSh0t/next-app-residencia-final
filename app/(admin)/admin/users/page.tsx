@@ -8,6 +8,7 @@ import { parseSearchParams } from "@/lib/search-params-utils";
 import { users } from "@/schema/users";
 import { UserTable } from "@/components/admin/users/user-table";
 import { getUsersWithRelations } from "@/repositories/user-repository";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
@@ -24,6 +25,10 @@ export default async function Page(props: {
     search: search,
   });
 
+  const personalUsers = userList.filter(user => user.role !== 'user');
+  const medioSuperiorUsers = userList.filter(user => user.role === 'user' && user.nivelEducativo === false);
+  const superiorUsers = userList.filter(user => user.role === 'user' && user.nivelEducativo === true);
+
   return (
     <div className="flex flex-col gap-5">
       <h1 className="text-xl font-bold">Usuarios</h1>
@@ -39,12 +44,27 @@ export default async function Page(props: {
           </Link>
         </div>
       </div>
-      <div>
-        {/* 
+
+      {/* 
           TODO: AGREGAR UNA TABLA QUE GUARDE JSON PARA LOS DATOS HISTORICOS AL TERMINAR UN CICLO 
         */}
-        <UserTable userList={userList} />
-      </div>
+      <Tabs defaultValue="personal" className="w-full">
+        <TabsList className="grid w-full grid-cols-3">
+          <TabsTrigger value="personal">Personal</TabsTrigger>
+          <TabsTrigger value="medio-superior">Medio Superior</TabsTrigger>
+          <TabsTrigger value="superior">Superior</TabsTrigger>
+        </TabsList>
+        <TabsContent value="personal">
+          <UserTable userList={personalUsers} />
+        </TabsContent>
+        <TabsContent value="medio-superior">
+          <UserTable userList={medioSuperiorUsers} />
+        </TabsContent>
+        <TabsContent value="superior">
+          <UserTable userList={superiorUsers} />
+        </TabsContent>
+      </Tabs>
+
       <div>
         <Pagination page={page} pageSize={pageSize} totalPages={totalPages} />
       </div>

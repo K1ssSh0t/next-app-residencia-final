@@ -12,6 +12,7 @@ import { auth } from "@/lib/auth";
 import { tipoBachilleres } from "@/schema/tipo-bachilleres";
 import { eq, like } from "drizzle-orm";
 import { tipoInstituciones } from "@/schema/tipo-instituciones";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
@@ -49,6 +50,13 @@ export default async function Page(props: {
         },
     });
 
+    const medioSuperiorInstituciones = institucioneList.filter(
+        institucion => institucion.nivelEducativo === false
+    );
+    const superiorInstituciones = institucioneList.filter(
+        institucion => institucion.nivelEducativo === true
+    );
+
     return (
         <div className="flex flex-col gap-5">
             <h1 className="text-xl font-bold">Instituciones</h1>
@@ -64,9 +72,18 @@ export default async function Page(props: {
                     </Link>
                 </div>
             </div>
-            <div>
-                <InstitucioneTable institucioneList={institucioneList} />
-            </div>
+            <Tabs defaultValue="medio-superior" className="w-full">
+                <TabsList className="grid w-full grid-cols-2">
+                    <TabsTrigger value="medio-superior">Medio Superior</TabsTrigger>
+                    <TabsTrigger value="superior">Superior</TabsTrigger>
+                </TabsList>
+                <TabsContent value="medio-superior">
+                    <InstitucioneTable institucioneList={medioSuperiorInstituciones} />
+                </TabsContent>
+                <TabsContent value="superior">
+                    <InstitucioneTable institucioneList={superiorInstituciones} />
+                </TabsContent>
+            </Tabs>
             <div>
                 <Pagination page={page} pageSize={pageSize} totalPages={totalPages} />
             </div>
