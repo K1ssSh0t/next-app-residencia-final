@@ -32,17 +32,20 @@ export function CarreraInstitucionUpdateForm({
 
   return (
     <div>
+      <div className="mb-4 p-4 bg-yellow-100 border border-yellow-400 rounded">
+        <p className="text-yellow-700">Los campos que son requeridos son marcados con un asterisco (*)</p>
+      </div>
       <form action={dispatch} onSubmit={handleSubmit} className="flex flex-col gap-2">
         <input type="hidden" name="id" value={carreraInstitucion.id} />
         <div className="hidden">
-          <Label>Instituciones Id</Label>
+          <Label>Instituciones Id </Label>
           <Input name="institucionesId" defaultValue={carreraInstitucion.institucionesId ?? ""} />
           {state.errors?.institucionesId?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}
         </div>
         <div className="flex flex-col gap-2">
-          <Label>Carreras Id</Label>
+          <Label htmlFor="carrerasId">Carrera *</Label>
           <GenericCombobox
             list={carreraList}
             name="carrerasId"
@@ -52,7 +55,7 @@ export function CarreraInstitucionUpdateForm({
             selectPlaceholder="Select Carrera..."
             emptyText="No carrera found"
             keywordFields={["id", "descripcion"]}
-            template={(item) => <div>{item.descripcion}</div>}
+            template={(item) => <div aria-required id="carrerasId" >{item.descripcion}</div>}
           />
           {state.errors?.carrerasId?.map((error) => (
             <p className="text-red-500" key={error}>
@@ -61,21 +64,21 @@ export function CarreraInstitucionUpdateForm({
           ))}
         </div>
         <div>
-          <Label>Nombre Revoe</Label>
-          <Input name="nombreRevoe" defaultValue={carreraInstitucion.nombreRevoe ?? ""} />
+          <Label htmlFor="nombreRevoe">Nombre Revoe *</Label>
+          <Input name="nombreRevoe" defaultValue={carreraInstitucion.nombreRevoe ?? ""} required id="nombreRevoe" />
           {state.errors?.nombreRevoe?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}
         </div>
         <div>
-          <Label>Plan De Estudio</Label>
-          <Input name="planDeEstudio" defaultValue={carreraInstitucion.planDeEstudio ?? ""} />
+          <Label htmlFor="planDeEstudio">Plan De Estudio *</Label>
+          <Input name="planDeEstudio" defaultValue={carreraInstitucion.planDeEstudio ?? ""} required id="planDeEstudio" />
           {state.errors?.planDeEstudio?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}
         </div>
         <div className="flex flex-col gap-2">
-          <Label>Modalidades Id</Label>
+          <Label htmlFor="modalidadesId">Modalidad *</Label>
           <GenericCombobox
             list={modalidadeList}
             name="modalidadesId"
@@ -85,7 +88,7 @@ export function CarreraInstitucionUpdateForm({
             selectPlaceholder="Select modalidad..."
             emptyText="No modalidad found"
             keywordFields={["id", "descripcion"]}
-            template={(item) => <div>{item.descripcion}</div>}
+            template={(item) => <div aria-required id="modalidadesId">{item.descripcion}</div>}
           />
           {state.errors?.modalidadesId?.map((error) => (
             <p className="text-red-500" key={error}>
@@ -94,8 +97,8 @@ export function CarreraInstitucionUpdateForm({
           ))}
         </div>
         <div>
-          <Label>Numero Revoe</Label>
-          <Input name="numeroRevoe" defaultValue={carreraInstitucion.numeroRevoe ?? ""} />
+          <Label htmlFor="numeroRevoe">Numero Revoe *</Label>
+          <Input name="numeroRevoe" defaultValue={carreraInstitucion.numeroRevoe ?? ""} required id="numeroRevoe" />
           {state.errors?.numeroRevoe?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}

@@ -26,23 +26,26 @@ export function CategoriaPersonaUpdateForm({
 
   return (
     <div>
+      <div className="mb-4 p-4 bg-yellow-100 border border-yellow-400 rounded">
+        <p className="text-yellow-700">Los campos de descripción y nivel aplicable son requeridos.</p>
+      </div>
       <form action={dispatch} onSubmit={handleSubmit} className="flex flex-col gap-2">
         <input type="hidden" name="id" value={categoriaPersona.id} />
         <div>
           <p><strong>Id:</strong> {categoriaPersona.id}</p>
         </div>
         <div>
-          <Label>Descripcion</Label>
-          <Input name="descripcion" defaultValue={categoriaPersona.descripcion ?? ""} />
+          <Label htmlFor="descripcion">Descripcion</Label>
+          <Input name="descripcion" defaultValue={categoriaPersona.descripcion ?? ""} id="descripcion" required />
           {state.errors?.descripcion?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}
         </div>
         <div>
-          <Label>Nivel Aplicable</Label>
-          <Select name="nivelAplicado" defaultValue={categoriaPersona.nivelAplicado ?? ""} >
+          <Label htmlFor="nivelAplicado">Nivel Aplicable</Label>
+          <Select name="nivelAplicado" defaultValue={categoriaPersona.nivelAplicado ?? ""} required >
             <SelectTrigger className="w-full">
-              <SelectValue placeholder="Selecciona el nivel aplicable" />
+              <SelectValue placeholder="Selecciona el nivel aplicable" id="nivelAplicado" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="superior">Superior</SelectItem>

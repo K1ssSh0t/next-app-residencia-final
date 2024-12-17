@@ -74,6 +74,9 @@ export function UserCreateForm() {
 
   return (
     <div>
+      <div className="mb-4 p-4 bg-yellow-100 border border-yellow-400 rounded">
+        <p className="text-yellow-700">Los campos de correo electrónico, rol y contraseña son requeridos.</p>
+      </div>
       <form action={dispatch} onSubmit={handleSubmit} className="flex flex-col gap-2">
         <div className="hidden">
           <Label>Name</Label>
@@ -84,7 +87,7 @@ export function UserCreateForm() {
 
         </div>
         <div>
-          <Label>Email</Label>
+          <Label htmlFor="email">Email *</Label>
           <Input name="email" id="email" required />
           {state.errors?.email?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
@@ -107,7 +110,7 @@ export function UserCreateForm() {
           ))}
         </div>
         <div>
-          <Label htmlFor="role">Rol</Label>
+          <Label htmlFor="role">Rol *</Label>
           <Select
             name="role"
             required
@@ -143,7 +146,6 @@ export function UserCreateForm() {
             <SelectContent>
               <SelectItem value="true">Superior</SelectItem>
               <SelectItem value="false">Medio Superior</SelectItem>
-              <SelectItem value="unspecified">No especificado</SelectItem>
             </SelectContent>
           </Select>
           {state.errors?.nivelEducativo?.map((error) => (
@@ -153,7 +155,7 @@ export function UserCreateForm() {
 
         </div>
         <div>
-          <Label>Contraseña</Label>
+          <Label htmlFor="password">Contraseña *</Label>
           <Input name="password" type="password" id="password" required />
           {state.errors?.password?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>

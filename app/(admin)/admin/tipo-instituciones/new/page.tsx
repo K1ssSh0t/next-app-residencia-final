@@ -4,7 +4,7 @@ export default async function Page() {
 
   return (
     <div>
-      <h1 className="text-xl font-bold mb-6">Create Tipoinstitucion</h1>
+      <h1 className="text-xl font-bold mb-6">Crear Tipo de Institución</h1>
       <TipoInstitucioneCreateForm
       />
     </div>

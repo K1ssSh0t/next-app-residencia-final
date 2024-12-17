@@ -22,7 +22,7 @@ export default async function Page() {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>New</BreadcrumbPage>
+              <BreadcrumbPage>Nuevo</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>

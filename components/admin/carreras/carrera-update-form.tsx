@@ -25,21 +25,24 @@ export function CarreraUpdateForm({
 
   return (
     <div>
+      <div className="mb-4 p-4 bg-yellow-100 border border-yellow-400 rounded">
+        <p className="text-yellow-700">Los campos de clave y descripción son requeridos.</p>
+      </div>
       <form action={dispatch} onSubmit={handleSubmit} className="flex flex-col gap-2">
         <input type="hidden" name="id" value={carrera.id} />
         <div>
           <p><strong>Id:</strong> {carrera.id}</p>
         </div>
         <div>
-          <Label>Clave</Label>
-          <Input name="clave" />
+          <Label htmlFor="clave">Clave *</Label>
+          <Input name="clave" defaultValue={carrera.clave ?? ""} required id="clave" />
           {state.errors?.clave?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}
         </div>
         <div>
-          <Label>Descripcion</Label>
-          <Input name="descripcion" defaultValue={carrera.descripcion ?? ""} />
+          <Label htmlFor="descripcion">Descripcion *</Label>
+          <Input name="descripcion" defaultValue={carrera.descripcion ?? ""} required id="descripcion" />
           {state.errors?.descripcion?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}

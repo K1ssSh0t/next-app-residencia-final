@@ -9,9 +9,9 @@ import { Input } from "@/components/ui/input";
 
 import { Modalidad } from "@/schema/modalidads";
 
-export function ModalidadUpdateForm({ 
+export function ModalidadUpdateForm({
   modalidad,
-}: { 
+}: {
   modalidad: Modalidad;
 }) {
   const initialState: UpdateModalidadState = {};
@@ -25,11 +25,15 @@ export function ModalidadUpdateForm({
 
   return (
     <div>
+      <div className="mb-4 p-4 bg-yellow-100 border border-yellow-400 rounded">
+        <p className="text-yellow-700">El campo de descripción es requerido.</p>
+      </div>
       <form action={dispatch} onSubmit={handleSubmit} className="flex flex-col gap-2">
-        <input type="hidden" name="id" value={ modalidad.id } />
+        <input type="hidden" name="id" value={modalidad.id} />
         <div>
-          <Label>Descripcion</Label>
-          <Input name="descripcion" defaultValue={ modalidad.descripcion ?? "" } />
+          <Label htmlFor="descripcion">Descripcion *</Label>
+          <Input name="descripcion" defaultValue={modalidad.descripcion ?? ""} required id="descripcion"
+          />
           {state.errors?.descripcion?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}

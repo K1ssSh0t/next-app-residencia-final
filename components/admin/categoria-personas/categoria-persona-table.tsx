@@ -16,7 +16,7 @@ export function CategoriaPersonaTable({ categoriaPersonaList }: { categoriaPerso
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>Id</TableHead>
+          {/* <TableHead>Id</TableHead> */}
           <TableHead>Descripcion</TableHead>
           <TableHead>Nivel Aplicable</TableHead>
           <TableHead></TableHead>
@@ -25,7 +25,7 @@ export function CategoriaPersonaTable({ categoriaPersonaList }: { categoriaPerso
       <TableBody>
         {categoriaPersonaList.map((categoriaPersona) => (
           <TableRow key={categoriaPersona.id}>
-            <TableCell>{categoriaPersona.id}</TableCell>
+            {/* <TableCell>{categoriaPersona.id}</TableCell> */}
             <TableCell>{categoriaPersona.descripcion}</TableCell>
             <TableCell className="capitalize">{categoriaPersona.nivelAplicado}</TableCell>
             <TableCell className="justify-end flex gap-2">

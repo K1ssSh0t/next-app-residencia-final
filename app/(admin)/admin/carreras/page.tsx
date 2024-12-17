@@ -34,13 +34,13 @@ export default async function Page(props: {
         <div className="text-right mr-2">
           <Link href="/admin/carreras/new">
             <Button>
-              <PlusIcon className="mr-2" /> New
+              <PlusIcon className="mr-2" /> Nueva Carrera
             </Button>
           </Link>
         </div>
       </div>
       <div>
-        <CarreraTable carreraList={ carreraList } />
+        <CarreraTable carreraList={carreraList} />
       </div>
       <div>
         <Pagination page={page} pageSize={pageSize} totalPages={totalPages} />

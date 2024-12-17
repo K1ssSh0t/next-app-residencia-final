@@ -25,14 +25,17 @@ export function TipoInstitucioneUpdateForm({
 
   return (
     <div>
+      <div className="mb-4 p-4 bg-yellow-100 border border-yellow-400 rounded">
+        <p className="text-yellow-700">Los campos de descripción y nivel aplicable son requeridos.</p>
+      </div>
       <form action={dispatch} onSubmit={handleSubmit} className="flex flex-col gap-2">
         <input type="hidden" name="id" value={tipoInstitucione.id} />
         <div>
           <p><strong>Id:</strong> {tipoInstitucione.id}</p>
         </div>
         <div>
-          <Label>Descripcion</Label>
-          <Input name="descripcion" defaultValue={tipoInstitucione.descripcion ?? ""} />
+          <Label htmlFor="descripcion">Descripcion *</Label>
+          <Input name="descripcion" defaultValue={tipoInstitucione.descripcion ?? ""} required id="descripcion" />
           {state.errors?.descripcion?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}

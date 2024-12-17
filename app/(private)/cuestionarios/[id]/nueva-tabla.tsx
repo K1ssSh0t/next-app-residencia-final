@@ -144,7 +144,7 @@ export default function PreguntaForm({ preguntaList, categoriasList, cuestionari
 
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-8">
+        <form onSubmit={handleSubmit} className="space-y-8 grid gap-2 grid-cols-2 place-content-start place-items-end">
             {categoriasList.map((categoria) => (
                 <Card key={categoria.id}>
                     <CardHeader>
@@ -190,7 +190,7 @@ export default function PreguntaForm({ preguntaList, categoriasList, cuestionari
                     </CardContent>
                 </Card>
             ))}
-            <Button type="submit" className="w-full" disabled={isPending}>
+            <Button type="submit" className="w-full col-span-2" disabled={isPending}>
                 {isPending ? (
                     <>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />

@@ -88,27 +88,30 @@ export function InstitucioneCreateForm({
         <CardTitle>Nueva Institución</CardTitle>
       </CardHeader>
       <CardContent>
+        <div className="mb-4 p-4 bg-yellow-100 border border-yellow-400 rounded">
+          <p className="text-yellow-700">Los campos que son requeridos son marcados con un asterisco (*)</p>
+        </div>
         <form action={dispatch} onSubmit={handleSubmit} className="flex flex-col gap-2">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
-              <RequiredLabel>Nombre</RequiredLabel>
-              <Input name="nombre" required placeholder="Ingresa el Nombre de la Institución" />
+              <Label htmlFor="nombre">Nombre *</Label>
+              <Input name="nombre" required placeholder="Ingresa el Nombre de la Institución" id="nombre" />
               {state.errors?.nombre?.map((error) => (
                 <p className="text-destructive text-sm" key={error}>{error}</p>
               ))}
             </div>
 
             <div className="space-y-2">
-              <RequiredLabel>Clave de Institución</RequiredLabel>
-              <Input name="claveInstitucion" required placeholder="Ingresa la Clave de la Institución" />
+              <Label htmlFor="claveInstitucion">Clave de Institución *</Label>
+              <Input name="claveInstitucion" required placeholder="Ingresa la Clave de la Institución" id="claveInstitucion" />
               {state.errors?.claveInstitucion?.map((error) => (
                 <p className="text-destructive text-sm" key={error}>{error}</p>
               ))}
             </div>
 
             <div className="space-y-2">
-              <RequiredLabel>Clave de Centro de Trabajo</RequiredLabel>
-              <Input name="claveCentroTrabajo" required placeholder="Ingresa la Clave del Centro de Trabajo" />
+              <Label htmlFor="claveCentroTrabajo">Clave de Centro de Trabajo *</Label>
+              <Input name="claveCentroTrabajo" required placeholder="Ingresa la Clave del Centro de Trabajo" id="claveCentroTrabajo" />
               {state.errors?.claveCentroTrabajo?.map((error) => (
                 <p className="text-destructive text-sm" key={error}>{error}</p>
               ))}
@@ -123,7 +126,7 @@ export function InstitucioneCreateForm({
               </div>}
 
             <div className="space-y-2">
-              <RequiredLabel>Región</RequiredLabel>
+              <Label htmlFor="region">Región *</Label>
               <GenericCombobox
 
                 list={regionList}
@@ -133,7 +136,7 @@ export function InstitucioneCreateForm({
                 selectPlaceholder="Seleccionar Región..."
                 emptyText="No se encontró la región"
                 keywordFields={["id", "nombre"]}
-                template={(item) => <div>{item.nombre}</div>}
+                template={(item) => <div aria-required id="region">{item.nombre}</div>}
                 onChange={(value) => setSelectedRegion(value)}
               />
               {state.errors?.region?.map((error) => (
@@ -142,7 +145,7 @@ export function InstitucioneCreateForm({
             </div>
 
             <div className="space-y-2">
-              <RequiredLabel>Municipio</RequiredLabel>
+              <Label htmlFor="municipio">Municipio *</Label>
               <GenericCombobox
 
                 list={filteredMunicipios}
@@ -152,7 +155,7 @@ export function InstitucioneCreateForm({
                 selectPlaceholder="Seleccionar Municipio..."
                 emptyText="No se encontró el municipio"
                 keywordFields={["id", "nombre"]}
-                template={(item) => <div>{item.nombre}</div>}
+                template={(item) => <div aria-required id="municipio">{item.nombre}</div>}
               />
               {state.errors?.municipio?.map((error) => (
                 <p className="text-destructive text-sm" key={error}>{error}</p>
@@ -160,7 +163,7 @@ export function InstitucioneCreateForm({
             </div>
 
             <div className="space-y-2">
-              <RequiredLabel>Tipo de Institución</RequiredLabel>
+              <Label htmlFor="tipoInstitucionesId">Tipo de Institución *</Label>
               <GenericCombobox
 
                 list={tipoInstitucioneList}
@@ -170,7 +173,7 @@ export function InstitucioneCreateForm({
                 selectPlaceholder="Seleccionar Tipo de Institución..."
                 emptyText="No se encontró el tipo de institución"
                 keywordFields={["id", "descripcion"]}
-                template={(item) => <div>{item.descripcion}</div>}
+                template={(item) => <div aria-required id="tipoInstitucionesId">{item.descripcion}</div>}
               />
               {state.errors?.tipoInstitucionesId?.map((error) => (
                 <p className="text-destructive text-sm" key={error}>{error}</p>
@@ -179,7 +182,7 @@ export function InstitucioneCreateForm({
 
             {!nivelEducativo && (
               <div className="space-y-2">
-                <Label>Tipo de Bachiller</Label>
+                <Label>Tipo de Bachiller *</Label>
                 <GenericCombobox
                   list={tipoBachillereList}
                   name="tipoBachilleresId"

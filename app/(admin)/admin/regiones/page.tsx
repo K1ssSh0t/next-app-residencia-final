@@ -48,7 +48,7 @@ export default async function Page(props: {
         <div className="text-right mr-2">
           <Link href="/admin/regiones/new">
             <Button>
-              <PlusIcon className="mr-2" /> New
+              <PlusIcon className="mr-2" /> Agregar
             </Button>
           </Link>
         </div>

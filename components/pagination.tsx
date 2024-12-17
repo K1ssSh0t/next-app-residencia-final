@@ -117,6 +117,8 @@ export function Pagination({
           name="page"
           type="number"
           className="w-20"
+          min={1}
+          max={totalPages}
           defaultValue={page}
           onChange={changePage}
         />

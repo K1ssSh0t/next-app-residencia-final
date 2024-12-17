@@ -31,6 +31,9 @@ export function CarreraInstitucionCreateForm({
 
   return (
     <div>
+      <div className="mb-4 p-4 bg-yellow-100 border border-yellow-400 rounded">
+        <p className="text-yellow-700">Los campos que son requeridos son marcados con un asterisco (*)</p>
+      </div>
       <form action={dispatch} onSubmit={handleSubmit} className="flex flex-col gap-2">
         <div className="hidden">
           <Label>Instituciones Id</Label>
@@ -40,7 +43,7 @@ export function CarreraInstitucionCreateForm({
           ))}
         </div>
         <div className="flex flex-col gap-2">
-          <Label>Carreras Id</Label>
+          <Label htmlFor="carrerasId">Carrera *</Label>
           <GenericCombobox
             list={carreraList}
             name="carrerasId"
@@ -49,7 +52,7 @@ export function CarreraInstitucionCreateForm({
             selectPlaceholder="Select Carrera..."
             emptyText="No carrera found"
             keywordFields={["id", "descripcion"]}
-            template={(item) => <div>{item.descripcion}</div>}
+            template={(item) => <div aria-required id="carrerasId">{item.descripcion}</div>}
           />
           {state.errors?.carrerasId?.map((error) => (
             <p className="text-red-500" key={error}>
@@ -58,21 +61,21 @@ export function CarreraInstitucionCreateForm({
           ))}
         </div>
         <div>
-          <Label>Nombre Revoe</Label>
-          <Input name="nombreRevoe" />
+          <Label htmlFor="nombreRevoe">Nombre Revoe *</Label>
+          <Input name="nombreRevoe" required id="nombreRevoe" />
           {state.errors?.nombreRevoe?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}
         </div>
         <div>
-          <Label>Plan De Estudio</Label>
-          <Input name="planDeEstudio" />
+          <Label htmlFor="planDeEstudio">Plan De Estudio *</Label>
+          <Input name="planDeEstudio" required id="planDeEstudio" />
           {state.errors?.planDeEstudio?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}
         </div>
         <div className="flex flex-col gap-2">
-          <Label>Modalidades Id</Label>
+          <Label htmlFor="modalidadesId">Modalidad *</Label>
           <GenericCombobox
             list={modalidadeList}
             name="modalidadesId"
@@ -81,7 +84,7 @@ export function CarreraInstitucionCreateForm({
             selectPlaceholder="Select modalidad..."
             emptyText="No modalidad found"
             keywordFields={["id", "descripcion"]}
-            template={(item) => <div>{item.descripcion}</div>}
+            template={(item) => <div aria-required id="modalidadesId">{item.descripcion}</div>}
           />
           {state.errors?.modalidadesId?.map((error) => (
             <p className="text-red-500" key={error}>
@@ -90,8 +93,8 @@ export function CarreraInstitucionCreateForm({
           ))}
         </div>
         <div>
-          <Label>Numero Revoe</Label>
-          <Input name="numeroRevoe" />
+          <Label htmlFor="numeroRevoe">Numero Revoe *</Label>
+          <Input name="numeroRevoe" required id="numeroRevoe" />
           {state.errors?.numeroRevoe?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}

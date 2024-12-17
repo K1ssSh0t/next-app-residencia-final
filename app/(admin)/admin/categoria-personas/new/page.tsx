@@ -4,8 +4,8 @@ export default async function Page() {
 
   return (
     <div>
-      <h1 className="text-xl font-bold mb-6">Create Categoria Persona</h1>
-      <CategoriaPersonaCreateForm 
+      <h1 className="text-xl font-bold mb-6">Crear Indicador</h1>
+      <CategoriaPersonaCreateForm
       />
     </div>
   );
