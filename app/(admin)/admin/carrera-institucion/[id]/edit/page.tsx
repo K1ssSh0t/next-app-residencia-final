@@ -23,7 +23,7 @@ export default async function Page(props: { params: Params }) {
   }
 
   const carreraList = await db.query.carreras.findMany();
-  const modalidadeList = await db.query.modalidads.findMany();
+  const modalidadeList = await db.query.modalidades.findMany();
 
   return (
     <div className="relative">

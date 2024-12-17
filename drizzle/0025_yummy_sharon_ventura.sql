@@ -1,0 +1,1 @@
+ALTER TABLE "carreras" ADD COLUMN "clave" text;

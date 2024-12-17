@@ -19,7 +19,7 @@ export default async function Page(props: {
 
   const { idInstitucion } = searchParams
   const carreraList = await db.query.carreras.findMany();
-  const modalidadeList = await db.query.modalidads.findMany();
+  const modalidadeList = await db.query.modalidades.findMany();
 
   return (
     <div className="relative">
@@ -31,12 +31,12 @@ export default async function Page(props: {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>Nuevo</BreadcrumbPage>
+              <BreadcrumbPage>Nueva</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
       </div>
-      <div className="pt-5">
+      <div className="pt-5 w-1/2">
         <CarreraInstitucionCreateForm
           carreraList={carreraList}
           modalidadeList={modalidadeList}

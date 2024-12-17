@@ -48,13 +48,13 @@ export default async function Page(props: {
         <div className="text-right mr-2">
           <Link href="/admin/municipios/new">
             <Button>
-              <PlusIcon className="mr-2" /> New
+              <PlusIcon className="mr-2" /> Agregar
             </Button>
           </Link>
         </div>
       </div>
       <div className="mb-5">
-        <MunicipioTable municipioList={ municipioList } />
+        <MunicipioTable municipioList={municipioList} />
       </div>
       <div>
         <Pagination page={page} pageSize={pageSize} totalPages={totalPages} />

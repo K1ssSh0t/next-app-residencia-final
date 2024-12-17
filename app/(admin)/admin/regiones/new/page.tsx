@@ -16,17 +16,18 @@ export default async function Page() {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/admin/regions">Regions</BreadcrumbLink>
+              <BreadcrumbLink href="/admin/regions">Regiones</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>New</BreadcrumbPage>
+              <BreadcrumbPage>Nueva</BreadcrumbPage>
             </BreadcrumbItem>
+
           </BreadcrumbList>
         </Breadcrumb>
       </div>
       <div className="pt-5">
-        <RegionCreateForm 
+        <RegionCreateForm
         />
       </div>
     </div>

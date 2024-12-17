@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/lib/db";
-import { modalidads } from "@/schema/modalidads";
+import { modalidades } from "@/schema/modalidads";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createInsertSchema } from "drizzle-zod";
@@ -9,7 +9,7 @@ import { BaseActionState } from "@/lib/types";
 import { auth } from "@/lib/auth";
 import { isAdmin } from "@/services/authorization-service";
 
-const insertModalidadSchema = createInsertSchema(modalidads);
+const insertModalidadSchema = createInsertSchema(modalidades);
 
 export interface CreateModalidadState extends BaseActionState {
   errors?: {
@@ -44,7 +44,7 @@ export async function createModalidad(
       };
     }
 
-    await db.insert(modalidads).values(validatedFields.data);
+    await db.insert(modalidades).values(validatedFields.data);
 
     revalidatePath("/admin/modalidades");
   } catch (error) {

@@ -22,23 +22,23 @@ export function CategoriasGeneraleTable({ categoriasGeneraleList }: { categorias
         </TableRow>
       </TableHeader>
       <TableBody>
-        { categoriasGeneraleList.map((categoriasGenerale) => (
-          <TableRow key={ categoriasGenerale.id }>
-            <TableCell>{ categoriasGenerale.id }</TableCell>
-            <TableCell>{ categoriasGenerale.descripcion }</TableCell>
+        {categoriasGeneraleList.map((categoriasGenerales) => (
+          <TableRow key={categoriasGenerales.id}>
+            <TableCell>{categoriasGenerales.id}</TableCell>
+            <TableCell>{categoriasGenerales.descripcion}</TableCell>
             <TableCell className="justify-end flex gap-2">
               {/* [CODE_MARK table-actions] */}
-              <Link href={`/admin/categorias-generales/${ categoriasGenerale.id }`}>
+              <Link href={`/admin/categorias-generales/${categoriasGenerales.id}`}>
                 <Button size="icon" variant="outline">
                   <EyeIcon />
                 </Button>
               </Link>
-              <Link href={`/admin/categorias-generales/${ categoriasGenerale.id }/edit`}>
+              <Link href={`/admin/categorias-generales/${categoriasGenerales.id}/edit`}>
                 <Button size="icon" variant="outline">
                   <PencilIcon />
                 </Button>
               </Link>
-              <Link href={`/admin/categorias-generales/${ categoriasGenerale.id }/delete`}>
+              <Link href={`/admin/categorias-generales/${categoriasGenerales.id}/delete`}>
                 <Button size="icon" variant="outline">
                   <TrashIcon />
                 </Button>

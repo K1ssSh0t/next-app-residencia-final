@@ -4,9 +4,9 @@ import { deleteDatosInstitucionale, DeleteDatosInstitucionaleState } from "@/act
 import { Button } from "@/components/ui/button";
 import { FormAlert } from "@/components/form-alert";
 import { useActionState } from "react";
-import { DatosInstitucionale } from "@/schema/datos-institucionales";
+import { DatosInstitucionales } from "@/schema/datos-institucionales";
 
-export function DatosInstitucionaleDeleteForm({ datosInstitucionale }: { datosInstitucionale: DatosInstitucionale }) {
+export function DatosInstitucionaleDeleteForm({ datosInstitucionale }: { datosInstitucionale: DatosInstitucionales }) {
   const initialState: DeleteDatosInstitucionaleState = {};
   const [state, dispatch] = useActionState(deleteDatosInstitucionale, initialState);
 

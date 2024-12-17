@@ -29,17 +29,20 @@ export function MunicipioUpdateForm({
 
   return (
     <div>
+      <div className="mb-4 p-4 bg-yellow-100 border border-yellow-400 rounded">
+        <p className="text-yellow-700">Los campos de Nombre y Region son requeridos.</p>
+      </div>
       <form action={dispatch} onSubmit={handleSubmit} className="flex flex-col gap-2">
         <input type="hidden" name="id" value={municipio.id} />
         <div>
-          <Label>Nombre</Label>
-          <Input name="nombre" defaultValue={municipio.nombre ?? ""} />
+          <Label htmlFor="nombre">Nombre *</Label>
+          <Input name="nombre" defaultValue={municipio.nombre ?? ""} required id="nombre" />
           {state.errors?.nombre?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}
         </div>
         <div className="flex flex-col gap-2">
-          <Label>Region Id</Label>
+          <Label htmlFor="regionId" >Region *</Label>
           <GenericCombobox
             list={regionList}
             name="regionId"
@@ -49,7 +52,7 @@ export function MunicipioUpdateForm({
             selectPlaceholder="Select Region..."
             emptyText="No region found"
             keywordFields={["id", "nombre"]}
-            template={(item) => <div>{item.nombre}</div>}
+            template={(item) => <div aria-required="true" id="regionId">{item.nombre}</div>}
           />
           {state.errors?.regionId?.map((error) => (
             <p className="text-red-500" key={error}>

@@ -17,9 +17,9 @@ type Params = Promise<{ id: string }>;
 export default async function Page(props: { params: Params }) {
   const params = await props.params;
   const { id } = params;
-  const categoriasGenerale = await db.query.categoriasGenerales.findFirst({ where: eq(categoriasGenerales.id, id) });
+  const categoriaGeneral = await db.query.categoriasGenerales.findFirst({ where: eq(categoriasGenerales.id, id) });
 
-  if (!categoriasGenerale) {
+  if (!categoriaGeneral) {
     notFound();
   }
 
@@ -33,8 +33,8 @@ export default async function Page(props: { params: Params }) {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink href={`/admin/categorias-generales/${ categoriasGenerale.id }`}>
-                { categoriasGenerale.id }
+              <BreadcrumbLink href={`/admin/categorias-generales/${categoriaGeneral.id}`}>
+                {categoriaGeneral.id}
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
@@ -45,7 +45,7 @@ export default async function Page(props: { params: Params }) {
         </Breadcrumb>
       </div>
       <div className="pt-5">
-        <CategoriasGeneraleDeleteForm categoriasGenerale={ categoriasGenerale } />
+        <CategoriasGeneraleDeleteForm categoriasGenerales={categoriaGeneral} />
       </div>
     </div>
   );

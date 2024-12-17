@@ -16,9 +16,9 @@ export default async function Page(props: { params: Params }) {
 
   return (
     <div>
-      <h1 className="text-xl font-bold mb-6">Edit Carrera</h1>
-      <CarreraUpdateForm 
-        carrera={ carrera }
+      <h1 className="text-xl font-bold mb-6">Editar Carrera</h1>
+      <CarreraUpdateForm
+        carrera={carrera}
       />
     </div>
   );

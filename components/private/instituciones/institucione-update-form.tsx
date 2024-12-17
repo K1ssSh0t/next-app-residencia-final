@@ -8,9 +8,9 @@ import { FormAlert } from "@/components/form-alert";
 import { Input } from "@/components/ui/input";
 import { GenericCombobox } from "@/components/generic-combobox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Institucione } from "@/schema/instituciones";
-import { TipoInstitucione } from "@/schema/tipo-instituciones";
-import { TipoBachillere } from "@/schema/tipo-bachilleres";
+import { Institucion } from "@/schema/instituciones";
+import { TipoInstituciones } from "@/schema/tipo-instituciones";
+import { TipoBachilleres } from "@/schema/tipo-bachilleres";
 import { Region } from "@/schema/regions";
 import { Municipio } from "@/schema/municipios";
 
@@ -26,24 +26,26 @@ function RequiredLabel({ children }: { children: React.ReactNode }) {
 
 
 export function InstitucioneUpdateForm({
-  institucione,
+  institucion,
   tipoInstitucioneList,
   tipoBachillereList,
   nivelEducativo,
   regionList,
   municipioList,
 }: {
-  institucione: Institucione;
-  tipoInstitucioneList: TipoInstitucione[];
-  tipoBachillereList: TipoBachillere[];
+  institucion: Institucion;
+  tipoInstitucioneList: TipoInstituciones[];
+  tipoBachillereList: TipoBachilleres[];
   nivelEducativo: boolean;
   regionList: Region[];
   municipioList: Municipio[];
 }) {
   const initialState: UpdateInstitucioneState = {};
   const [state, dispatch] = useActionState(updateInstitucione, initialState);
-  const [selectedRegion, setSelectedRegion] = useState<string | null>(institucione.regionId || null);
+  const [selectedRegion, setSelectedRegion] = useState<string | null>(institucion.regionId || null);
   const [filteredMunicipios, setFilteredMunicipios] = useState<Municipio[]>(municipioList);
+  const [selectedTipoBachiller, setSelectedTipoBachiller] = useState<TipoBachilleres | null>(null);
+  const [showNumeroCarreras, setShowNumeroCarreras] = useState(true);
 
   useEffect(() => {
     if (selectedRegion) {
@@ -53,6 +55,15 @@ export function InstitucioneUpdateForm({
       setFilteredMunicipios(municipioList);
     }
   }, [selectedRegion, municipioList]);
+
+  useEffect(() => {
+    setShowNumeroCarreras(nivelEducativo || (selectedTipoBachiller?.descripcion === 'Tecnologico'));
+  }, [nivelEducativo, selectedTipoBachiller]);
+
+  useEffect(() => {
+    const selectedTipoBachiller = tipoBachillereList.find(tipo => tipo.id === institucion.tipoBachilleresId);
+    setSelectedTipoBachiller(selectedTipoBachiller || null);
+  }, [institucion]);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -74,63 +85,72 @@ export function InstitucioneUpdateForm({
     setSelectedRegion(value);
   }
 
+  function handleTipoBachillerChange(value: string) {
+    const selectedTipo = tipoBachillereList.find(tipo => tipo.id === value);
+    setSelectedTipoBachiller(selectedTipo || null);
+  }
+
+
   return (
     <div>
+      <div className="mb-4 p-4 bg-yellow-100 border border-yellow-400 rounded">
+        <p className="text-yellow-700">Los campos que son requeridos son marcados con un asterisco (*)</p>
+      </div>
       <form action={dispatch} onSubmit={handleSubmit} className="space-y-6">
-        <input type="hidden" name="id" value={institucione.id} />
+        <input type="hidden" name="id" value={institucion.id} />
         {/* <div>
           <p><strong>Id:</strong> {institucione.id}</p>
         </div> */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
-            <RequiredLabel>Nombre</RequiredLabel>
-            <Input name="nombre" defaultValue={institucione.nombre ?? ""} required />
+            <Label htmlFor="nombre" >Nombre *</Label>
+            <Input name="nombre" defaultValue={institucion.nombre ?? ""} required id="nombre" />
             {state.errors?.nombre?.map((error) => (
               <p className="text-destructive text-sm" key={error}>{error}</p>
             ))}
           </div>
 
           <div className="space-y-2">
-            <RequiredLabel>Clave de Institución</RequiredLabel>
-            <Input name="claveInstitucion" defaultValue={institucione.claveInstitucion ?? ""} required />
+            <Label htmlFor="claveInstitucion">Clave de Institución *</Label>
+            <Input name="claveInstitucion" defaultValue={institucion.claveInstitucion ?? ""} required />
             {state.errors?.claveInstitucion?.map((error) => (
               <p className="text-destructive text-sm" key={error}>{error}</p>
             ))}
           </div>
 
           <div className="space-y-2">
-            <RequiredLabel>Clave de Centro de Trabajo</RequiredLabel>
-            <Input name="claveCentroTrabajo" defaultValue={institucione.claveCentroTrabajo ?? ""} required />
+            <Label htmlFor="claveCentroTrabajo">Clave de Centro de Trabajo *</Label>
+            <Input name="claveCentroTrabajo" defaultValue={institucion.claveCentroTrabajo ?? ""} required id="claveCentroTrabajo" />
             {state.errors?.claveCentroTrabajo?.map((error) => (
               <p className="text-destructive text-sm" key={error}>{error}</p>
             ))}
           </div>
 
-          <div className="space-y-2">
-            <Label>Número de Carreras</Label>
+          {showNumeroCarreras && <div className="space-y-2">
+            <Label>{nivelEducativo ? "Número de Carreras" : "Formacion Educativa"}</Label>
             <Input
               name="numeroCarreras"
               type="number"
-              defaultValue={institucione.numeroCarreras ?? ""}
+              defaultValue={institucion.numeroCarreras ?? ""}
             />
             {state.errors?.numeroCarreras?.map((error) => (
               <p className="text-destructive text-sm" key={error}>{error}</p>
             ))}
           </div>
-
+          }
           <div className="space-y-2">
-            <RequiredLabel>Región</RequiredLabel>
+            <Label htmlFor="region">Región *</Label>
             <GenericCombobox
 
               list={regionList}
               name="region"
               valueField="id"
-              defaultValue={institucione.regionId}
+              defaultValue={institucion.regionId}
               searchPlaceholder="Buscar Región..."
               selectPlaceholder="Seleccionar Región..."
               emptyText="No se encontró la región"
               keywordFields={["id", "nombre"]}
-              template={(item) => <div>{item.nombre}</div>}
+              template={(item) => <div aria-required id="region">{item.nombre}</div>}
               onChange={(value) => setSelectedRegion(value)}
             />
             {state.errors?.region?.map((error) => (
@@ -139,18 +159,18 @@ export function InstitucioneUpdateForm({
           </div>
 
           <div className="space-y-2">
-            <RequiredLabel>Municipio</RequiredLabel>
+            <Label htmlFor="municipio">Municipio *</Label>
             <GenericCombobox
 
               list={filteredMunicipios}
               name="municipio"
               valueField="id"
-              defaultValue={institucione.municipioId}
+              defaultValue={institucion.municipioId}
               searchPlaceholder="Buscar Municipio..."
               selectPlaceholder="Seleccionar Municipio..."
               emptyText="No se encontró el municipio"
               keywordFields={["id", "nombre"]}
-              template={(item) => <div>{item.nombre}</div>}
+              template={(item) => <div aria-required id="municipio">{item.nombre}</div>}
             />
             {state.errors?.municipio?.map((error) => (
               <p className="text-destructive text-sm" key={error}>{error}</p>
@@ -158,18 +178,18 @@ export function InstitucioneUpdateForm({
           </div>
 
           <div className="space-y-2">
-            <RequiredLabel>Tipo de Institución</RequiredLabel>
+            <Label htmlFor="tipoInstitucionesId">Tipo de Institución *</Label>
             <GenericCombobox
 
               list={tipoInstitucioneList}
               name="tipoInstitucionesId"
               valueField="id"
-              defaultValue={institucione.tipoInstitucionesId}
+              defaultValue={institucion.tipoInstitucionesId}
               searchPlaceholder="Buscar Tipo de Institución..."
               selectPlaceholder="Seleccionar Tipo de Institución..."
               emptyText="No se encontró el tipo de institución"
               keywordFields={["id", "descripcion"]}
-              template={(item) => <div>{item.descripcion}</div>}
+              template={(item) => <div aria-required id="tipoInstitucionesId">{item.descripcion}</div>}
             />
             {state.errors?.tipoInstitucionesId?.map((error) => (
               <p className="text-destructive text-sm" key={error}>{error}</p>
@@ -178,7 +198,7 @@ export function InstitucioneUpdateForm({
 
           <div className="hidden">
             <Label>Users Id</Label>
-            <Input name="usersId" defaultValue={institucione.usersId ?? ""} />
+            <Input name="usersId" defaultValue={institucion.usersId ?? ""} />
             {state.errors?.usersId?.map((error) => (
               <p className="text-red-500" key={error}>{error}</p>
             ))}
@@ -191,12 +211,13 @@ export function InstitucioneUpdateForm({
                 list={tipoBachillereList}
                 name="tipoBachilleresId"
                 valueField="id"
-                defaultValue={institucione.tipoBachilleresId}
+                defaultValue={institucion.tipoBachilleresId}
                 searchPlaceholder="Buscar Tipo de Bachillerato..."
                 selectPlaceholder="Seleccionar Tipo de Bachillerato..."
                 emptyText="No se encontró el tipo de bachillerato"
                 keywordFields={["id", "descripcion"]}
                 template={(item) => <div>{item.descripcion}</div>}
+                onChange={handleTipoBachillerChange}
               />
               {state.errors?.tipoBachilleresId?.map((error) => (
                 <p className="text-destructive text-sm" key={error}>{error}</p>
@@ -206,7 +227,7 @@ export function InstitucioneUpdateForm({
 
           <div className="hidden">
             <Label>Nivel Educativo</Label>
-            <Select name="nivelEducativo" defaultValue={institucione.nivelEducativo ? "true" : "false"}>
+            <Select name="nivelEducativo" defaultValue={institucion.nivelEducativo ? "true" : "false"}>
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="Selecciona el nivel educativo" />
               </SelectTrigger>

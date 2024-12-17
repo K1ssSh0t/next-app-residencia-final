@@ -28,24 +28,24 @@ export default async function Page(props: { params: Params }) {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/admin/regions">Regions</BreadcrumbLink>
+              <BreadcrumbLink href="/admin/regions">Regiones</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink href={`/admin/regions/${ region.id }`}>
-                { region.id }
+              <BreadcrumbLink href={`/admin/regions/${region.id}`}>
+                {region.id}
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>Edit</BreadcrumbPage>
+              <BreadcrumbPage>Editar</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
       </div>
       <div className="pt-5">
-        <RegionUpdateForm 
-          region={ region }
+        <RegionUpdateForm
+          region={region}
         />
       </div>
     </div>

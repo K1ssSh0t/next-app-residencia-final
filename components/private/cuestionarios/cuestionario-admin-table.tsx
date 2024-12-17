@@ -32,7 +32,7 @@ export function CuestionarioTable({ cuestionarioList }: { cuestionarioList: Cues
                         <TableCell>{cuestionario.carrera?.carrera?.descripcion}</TableCell>
                         <TableCell>{cuestionario.carrera?.nombreRevoe}</TableCell>
                         <TableCell>{cuestionario.carrera?.planDeEstudio}</TableCell>
-                        <TableCell>{cuestionario.carrera?.modalidade?.descripcion}</TableCell>
+                        <TableCell>{cuestionario.carrera?.modalidad?.descripcion}</TableCell>
                         <TableCell>{cuestionario.carrera?.numeroRevoe}</TableCell>
                         <TableCell className="justify-end flex gap-2">
                             {/* [CODE_MARK table-actions] */}

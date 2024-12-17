@@ -41,6 +41,7 @@ const items = [
   // { title: "Preguntas", url: "/preguntas", icon: Table2Icon },
   // { title: "Carrera Instituciones", url: "/carrera-instituciones", icon: Table2Icon },
   // { title: "Datos Institucionales", url: "/datos-institucionales", icon: Table2Icon },
+  // { title: "Especialidades", url: "/especialidades", icon: Table2Icon },
   // [CODE_MARK private-sidebar-items]
 ];
 

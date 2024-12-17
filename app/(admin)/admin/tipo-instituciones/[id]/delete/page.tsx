@@ -9,16 +9,16 @@ type Params = Promise<{ id: string }>;
 export default async function Page(props: { params: Params }) {
   const params = await props.params;
   const { id } = params;
-  const tipoInstitucione = await db.query.tipoInstituciones.findFirst({ where: eq(tipoInstituciones.id, id) });
+  const tipoInstitucion = await db.query.tipoInstituciones.findFirst({ where: eq(tipoInstituciones.id, id) });
 
-  if (!tipoInstitucione) {
+  if (!tipoInstitucion) {
     notFound();
   }
 
   return (
     <div>
-      <h1 className="text-xl font-bold mb-6">Delete Tipo Institucione</h1>
-      <TipoInstitucioneDeleteForm tipoInstitucione={ tipoInstitucione } />
+      <h1 className="text-xl font-bold mb-6">Delete Tipoinstitucion</h1>
+      <TipoInstitucioneDeleteForm tipoInstitucione={tipoInstitucion} />
     </div>
   );
 }

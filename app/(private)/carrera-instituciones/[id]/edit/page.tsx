@@ -23,7 +23,7 @@ export default async function Page(props: { params: Params }) {
   }
 
   const carreraList = await db.query.carreras.findMany();
-  const modalidadeList = await db.query.modalidads.findMany();
+  const modalidadeList = await db.query.modalidades.findMany();
 
   return (
     <div className="relative">
@@ -31,7 +31,7 @@ export default async function Page(props: { params: Params }) {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/instituciones">Carrera Institucions</BreadcrumbLink>
+              <BreadcrumbLink href="/instituciones">Carrera Instituciones</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
@@ -41,12 +41,12 @@ export default async function Page(props: { params: Params }) {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>Edit</BreadcrumbPage>
+              <BreadcrumbPage>Editar</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
       </div>
-      <div className="pt-5">
+      <div className="pt-5 w-2/5">
         <CarreraInstitucionUpdateForm
           carreraInstitucion={carreraInstitucion}
           carreraList={carreraList}

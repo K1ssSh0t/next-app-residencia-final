@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/lib/db";
-import { modalidads } from "@/schema/modalidads";
+import { modalidades } from "@/schema/modalidads";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { createSelectSchema } from "drizzle-zod";
@@ -9,7 +9,7 @@ import { BaseActionState } from "@/lib/types";
 import { auth } from "@/lib/auth";
 import { isAdmin } from "@/services/authorization-service";
 
-const updateModalidadSchema = createSelectSchema(modalidads)
+const updateModalidadSchema = createSelectSchema(modalidades)
   .partial()
   .required({ id: true });
 
@@ -48,9 +48,9 @@ export async function updateModalidad(
     }
 
     await db
-      .update(modalidads)
+      .update(modalidades)
       .set(validatedFields.data)
-      .where(eq(modalidads.id, validatedFields.data.id));
+      .where(eq(modalidades.id, validatedFields.data.id));
 
     revalidatePath("/admin/modalidades");
     revalidatePath("/admin/modalidades/" + validatedFields.data.id);

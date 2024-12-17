@@ -6,13 +6,13 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { FormAlert } from "@/components/form-alert";
 import { Input } from "@/components/ui/input";
-import { CategoriasGenerale } from "@/schema/categorias-generales";
+import { CategoriasGenerales } from "@/schema/categorias-generales";
 
 export function DatosInstitucionaleCreateForm({
     categoriasGeneraleList,
     idInstitucion
 }: {
-    categoriasGeneraleList: CategoriasGenerale[];
+    categoriasGeneraleList: CategoriasGenerales[];
     idInstitucion: string
 }) {
     const initialState: CreateDatosInstitucionaleState = {};

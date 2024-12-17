@@ -8,12 +8,15 @@ import { createSelectSchema } from "drizzle-zod";
 import { BaseActionState } from "@/lib/types";
 import { auth } from "@/lib/auth";
 
-const updateCarreraSchema = createSelectSchema(carreras).partial().required({ id: true });
+const updateCarreraSchema = createSelectSchema(carreras)
+  .partial()
+  .required({ id: true });
 
 export interface UpdateCarreraState extends BaseActionState {
   errors?: {
     id?: string[];
     descripcion?: string[];
+    clave?: string[];
   };
 }
 
@@ -32,10 +35,10 @@ export async function updateCarrera(
       throw new Error("unauthorized");
     }
 
-
     const validatedFields = updateCarreraSchema.safeParse({
       id: formData.get("id") as string,
       descripcion: formData.get("descripcion") as string,
+      clave: formData.get("clave") as string,
     });
 
     if (!validatedFields.success) {
@@ -61,6 +64,6 @@ export async function updateCarrera(
     console.error(error);
     return {
       status: "error",
-    }
+    };
   }
 }

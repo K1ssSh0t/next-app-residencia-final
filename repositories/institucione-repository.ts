@@ -7,7 +7,7 @@ export type InstitucionesWithRelations = Awaited<
 >;
 
 export type InstitucioneWithRelations = Awaited<
-  ReturnType<typeof getInstitucioneWithRelations>
+  ReturnType<typeof getInstitucionWithRelations>
 >;
 
 export async function getInstitucionesWithRelations({
@@ -28,11 +28,12 @@ export async function getInstitucionesWithRelations({
       tipoInstituciones: true,
       municipio: true,
       region: true,
+      user: true,
     },
   });
 }
 
-export async function getInstitucioneWithRelations(id: string) {
+export async function getInstitucionWithRelations(id: string) {
   return await db.query.instituciones.findFirst({
     where: eq(instituciones.id, id),
     with: {

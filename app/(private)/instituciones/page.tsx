@@ -13,6 +13,9 @@ import { Pagination } from "@/components/pagination";
 import { SearchInput } from "@/components/search-input";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { datosInstitucionales } from "@/schema/datos-institucionales";
+import { especialidades } from "@/schema/especialidades";
+import { EspecialidadCreateForm } from "@/components/private/especialidades/especialidad--nuevo-create-form";
+import { EspecialidadUpdateForm } from "@/components/private/especialidades/especialidad-update-form";
 
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
@@ -93,7 +96,7 @@ export default async function Page(props: {
     with: {
       carrera: {
         with: {
-          modalidade: true,
+          modalidad: true,
           carrera: true,
         }
       },
@@ -105,9 +108,13 @@ export default async function Page(props: {
 
   const datosGenerales = await db.query.datosInstitucionales.findMany({
     with: {
-      categoriasGenerale: true,
+      categoriasGenerales: true,
     },
     where: eq(datosInstitucionales.institucionesId, `${miInstitucion?.id}`),
+  })
+
+  const misEspecialidades = await db.query.especialidades.findMany({
+    where: eq(especialidades.cuestionarioId, `${misCuestionarios[0]?.id}`),
   })
 
 
@@ -175,10 +182,11 @@ export default async function Page(props: {
                     <span className="text-muted-foreground">Nivel Educativo:</span>
                     <p className="font-medium">{miInstitucion.nivelEducativo ? "Superior" : "Medio Superior"}</p>
                   </div>
-                  <div>
-                    <span className="text-muted-foreground">Número de Carreras:</span>
-                    <p className="font-medium">{miInstitucion.numeroCarreras}</p>
-                  </div>
+                  {(miInstitucion.nivelEducativo || (miInstitucion.tipoBachilleres?.descripcion == "Tecnologico")) &&
+                    <div>
+                      <span className="text-muted-foreground">{miInstitucion.nivelEducativo ? "Número de Carreras:" : "Formación Educativa:"}</span>
+                      <p className="font-medium">{miInstitucion.numeroCarreras}</p>
+                    </div>}
                   {miInstitucion && (
                     <CardFooter className="px-3">
                       <Link href={`/instituciones/${miInstitucion.id}/edit`} className="ml-auto">
@@ -224,7 +232,7 @@ export default async function Page(props: {
               <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">                {datosGenerales.map((dato, index) => (
                 <div key={index} className="border rounded-lg p-2">
                   <h3 className="font-medium text-sm text-center mb-1">
-                    {dato?.categoriasGenerale?.descripcion || "Categoría"}
+                    {dato?.categoriasGenerales?.descripcion || "Categoría"}
                   </h3>
                   <div className="flex justify-around items-center">
                     <div className="text-center px-2">
@@ -259,8 +267,10 @@ export default async function Page(props: {
         {/* <div className="md:col-span-1"></div> */}
       </div>
 
+
+
       <div className="mt-6">
-        {miInstitucion ? (
+        {miInstitucion && miInstitucion.nivelEducativo != false ? (
           <>
             {misCuestionarios.length > 0 && (
               <CuestionarioTable cuestionarioList={misCuestionarios} />
@@ -292,14 +302,14 @@ export default async function Page(props: {
               </div>
             )}
           </>
-        ) : (
-          <p className="text-center text-muted-foreground">
-            No tienes datos de la institución
-          </p>
-        )}
+        ) : miInstitucion && miInstitucion.nivelEducativo == false ? (
+          <CuestionarioTable cuestionarioList={misCuestionarios} />
+        ) : (<p className="text-center text-muted-foreground">
+          No tienes datos de la institución
+        </p>)}
       </div>
 
-      {misCuestionarios.length > 0 && (
+      {/* {misCuestionarios.length > 0 && miInstitucion?.nivelEducativo != false && (
         <div className="mt-4">
           <Pagination
             page={page}
@@ -307,7 +317,51 @@ export default async function Page(props: {
             totalPages={totalPages}
           />
         </div>
-      )}
+      )} */}
+
+
+      <div className="flex justify-center">
+        {
+          miInstitucion?.nivelEducativo == false && miInstitucion.tipoBachilleres?.descripcion == "Tecnologico" ? <div>
+            {/* {Array.from({ length: (miInstitucion.numeroCarreras || 0) - misEspecialidades.length }).map((_, index) => (
+              <Link
+                key={index}
+                href={{
+                  pathname: "/especialidades/new",
+                  query: { idCuestionario: misCuestionarios[0].id }
+                }}
+                className="block"
+              >
+                <Button className="w-full justify-start" variant="outline" size="sm">
+                  <PlusIcon className="mr-2 h-4 w-4" />
+                  Especialidad {misEspecialidades.length + index + 1}
+                  {JSON.stringify(misEspecialidades)}
+                </Button>
+              </Link>
+            ))} */}
+
+            {
+              misEspecialidades.map((especialidad, index) => (
+                <EspecialidadUpdateForm key={index} especialidad={especialidad} />
+              ))
+            }
+            {
+
+              Array.from({ length: (miInstitucion.numeroCarreras || 0) - misEspecialidades.length }).map((_, index) => (
+                <EspecialidadCreateForm key={index} cuestionarioId={misCuestionarios[0]?.id} />
+              ))
+
+
+            }
+
+          </div> :
+            (
+              <div></div>
+            )
+
+        }
+      </div>
+
     </div >
   );
 }

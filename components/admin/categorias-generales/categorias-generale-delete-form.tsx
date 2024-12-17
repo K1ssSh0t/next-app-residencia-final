@@ -4,16 +4,16 @@ import { deleteCategoriasGenerale, DeleteCategoriasGeneraleState } from "@/actio
 import { Button } from "@/components/ui/button";
 import { FormAlert } from "@/components/form-alert";
 import { useActionState } from "react";
-import { CategoriasGenerale } from "@/schema/categorias-generales";
+import { CategoriasGenerales } from "@/schema/categorias-generales";
 
-export function CategoriasGeneraleDeleteForm({ categoriasGenerale }: { categoriasGenerale: CategoriasGenerale }) {
+export function CategoriasGeneraleDeleteForm({ categoriasGenerales }: { categoriasGenerales: CategoriasGenerales }) {
   const initialState: DeleteCategoriasGeneraleState = {};
   const [state, dispatch] = useActionState(deleteCategoriasGenerale, initialState);
 
   return (
     <div>
       <form action={dispatch} className="flex flex-col gap-2">
-        <input type="hidden" name="id" value={ categoriasGenerale.id} />
+        <input type="hidden" name="id" value={categoriasGenerales.id} />
         <div>
           <Button type="submit" variant="destructive">
             Delete

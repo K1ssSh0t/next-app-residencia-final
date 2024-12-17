@@ -14,7 +14,7 @@ export default async function Page() {
   const usuario = await getUserWithRelations(session?.user.id)
 
 
-  const regionList = await db.query.regions.findMany();
+  const regionList = await db.query.regiones.findMany();
   const municipioList = await db.query.municipios.findMany();
 
 

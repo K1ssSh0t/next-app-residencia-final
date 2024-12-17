@@ -11,7 +11,7 @@ import { Pagination } from "@/components/pagination";
 import { Button } from "@/components/ui/button";
 import { SearchInput } from "@/components/search-input";
 import { parseSearchParams } from "@/lib/search-params-utils";
-import { regions } from "@/schema/regions";
+import { regiones } from "@/schema/regions";
 import { RegionTable } from "@/components/admin/regions/region-table";
 import { getRegionsWithRelations } from "@/repositories/region-repository";
 
@@ -22,7 +22,7 @@ export default async function Page(props: {
 }) {
   const searchParams = await props.searchParams;
   const { page, pageIndex, pageSize, search } = parseSearchParams(searchParams);
-  const count = await db.$count(regions);
+  const count = await db.$count(regiones);
   const totalPages = Math.ceil(count / pageSize);
   const regionList = await getRegionsWithRelations({
     limit: pageSize,
@@ -48,7 +48,7 @@ export default async function Page(props: {
         <div className="text-right mr-2">
           <Link href="/admin/regiones/new">
             <Button>
-              <PlusIcon className="mr-2" /> New
+              <PlusIcon className="mr-2" /> Agregar
             </Button>
           </Link>
         </div>

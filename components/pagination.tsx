@@ -109,14 +109,16 @@ export function Pagination({
         </Button>
       </div>
       <div className="text-nowrap">
-        Page: {page} of {totalPages}
+        Pagina: {page} de {totalPages}
       </div>
       <div className="flex items-center gap-2">
-        <div className="text-nowrap">Go to page:</div>
+        <div className="text-nowrap">Ir a pagina:</div>
         <Input
           name="page"
           type="number"
           className="w-20"
+          min={1}
+          max={totalPages}
           defaultValue={page}
           onChange={changePage}
         />
@@ -130,11 +132,11 @@ export function Pagination({
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="10">Show 10</SelectItem>
-            <SelectItem value="20">Show 20</SelectItem>
-            <SelectItem value="50">Show 50</SelectItem>
-            <SelectItem value="100">Show 100</SelectItem>
-            <SelectItem value="200">Show 200</SelectItem>
+            <SelectItem value="10">Mostrar 10</SelectItem>
+            <SelectItem value="20">Mostrar 20</SelectItem>
+            <SelectItem value="50">Mostrar 50</SelectItem>
+            <SelectItem value="100">Mostrar 100</SelectItem>
+            <SelectItem value="200">Mostrar 200</SelectItem>
           </SelectContent>
         </Select>
       </div>

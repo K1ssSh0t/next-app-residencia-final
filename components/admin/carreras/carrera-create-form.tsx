@@ -20,10 +20,20 @@ export function CarreraCreateForm() {
 
   return (
     <div>
+      <div className="mb-4 p-4 bg-yellow-100 border border-yellow-400 rounded">
+        <p className="text-yellow-700">Los campos de clave y descripción son requeridos.</p>
+      </div>
       <form action={dispatch} onSubmit={handleSubmit} className="flex flex-col gap-2">
         <div>
-          <Label>Descripcion</Label>
-          <Input name="descripcion" />
+          <Label htmlFor="clave">Clave *</Label>
+          <Input name="clave" required id="clave" />
+          {state.errors?.clave?.map((error) => (
+            <p className="text-red-500" key={error}>{error}</p>
+          ))}
+        </div>
+        <div>
+          <Label htmlFor="descripcion">Descripcion *</Label>
+          <Input name="descripcion" required id="descripcion" />
           {state.errors?.descripcion?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}

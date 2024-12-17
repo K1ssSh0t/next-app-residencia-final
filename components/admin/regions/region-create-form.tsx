@@ -19,11 +19,13 @@ export function RegionCreateForm() {
   }
 
   return (
-    <div>
+    <div><div className="mb-4 p-4 bg-yellow-100 border border-yellow-400 rounded">
+      <p className="text-yellow-700">El campo de Nombre es requerido.</p>
+    </div>
       <form action={dispatch} onSubmit={handleSubmit} className="flex flex-col gap-2">
         <div>
-          <Label>Nombre</Label>
-          <Input name="nombre" />
+          <Label htmlFor="nombre">Nombre *</Label>
+          <Input name="nombre" required id="nombre" />
           {state.errors?.nombre?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}

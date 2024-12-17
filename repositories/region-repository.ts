@@ -1,6 +1,6 @@
 import { eq, like } from "drizzle-orm";
 import { db } from "@/lib/db";
-import { regions } from "@/schema/regions";
+import { regiones } from "@/schema/regions";
 
 export type RegionsWithRelations = Awaited<
   ReturnType<typeof getRegionsWithRelations>
@@ -19,17 +19,17 @@ export async function getRegionsWithRelations({
   offset: number;
   search?: string;
 }) {
-  return await db.query.regions.findMany({
+  return await db.query.regiones.findMany({
     limit: limit,
     offset: offset,
-    where: search ? like(regions.id, `%${search}%`) : undefined,
-    with: undefined
+    where: search ? like(regiones.id, `%${search}%`) : undefined,
+    with: undefined,
   });
 }
 
 export async function getRegionWithRelations(id: string) {
-  return await db.query.regions.findFirst({
-    where: eq(regions.id, id),
+  return await db.query.regiones.findFirst({
+    where: eq(regiones.id, id),
     with: undefined,
   });
 }

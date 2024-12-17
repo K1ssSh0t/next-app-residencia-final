@@ -7,12 +7,12 @@ import { Label } from "@/components/ui/label";
 import { FormAlert } from "@/components/form-alert";
 import { Input } from "@/components/ui/input";
 
-import { TipoBachillere } from "@/schema/tipo-bachilleres";
+import { TipoBachilleres } from "@/schema/tipo-bachilleres";
 
-export function TipoBachillereUpdateForm({ 
+export function TipoBachillereUpdateForm({
   tipoBachillere,
-}: { 
-  tipoBachillere: TipoBachillere;
+}: {
+  tipoBachillere: TipoBachilleres;
 }) {
   const initialState: UpdateTipoBachillereState = {};
   const [state, dispatch] = useActionState(updateTipoBachillere, initialState);
@@ -25,14 +25,17 @@ export function TipoBachillereUpdateForm({
 
   return (
     <div>
+      <div className="mb-4 p-4 bg-yellow-100 border border-yellow-400 rounded">
+        <p className="text-yellow-700">El campo de descripción es requerido.</p>
+      </div>
       <form action={dispatch} onSubmit={handleSubmit} className="flex flex-col gap-2">
-        <input type="hidden" name="id" value={ tipoBachillere.id } />
+        <input type="hidden" name="id" value={tipoBachillere.id} />
         <div>
-          <p><strong>Id:</strong> { tipoBachillere.id }</p>
+          <p><strong>Id:</strong> {tipoBachillere.id}</p>
         </div>
         <div>
-          <Label>Descripcion</Label>
-          <Input name="descripcion" defaultValue={ tipoBachillere.descripcion ?? "" } />
+          <Label htmlFor="descripcion">Descripcion *</Label>
+          <Input name="descripcion" defaultValue={tipoBachillere.descripcion ?? ""} required id="descripcion" />
           {state.errors?.descripcion?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}

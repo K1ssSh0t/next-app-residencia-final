@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getInstitucioneWithRelations } from "@/repositories/institucione-repository";
+import { getInstitucionWithRelations } from "@/repositories/institucione-repository";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -10,6 +10,8 @@ import { instituciones } from "@/schema/instituciones";
 import { cuestionarios } from "@/schema/cuestionarios";
 import { CuestionarioTable } from "@/components/private/cuestionarios/cuestionario-admin-table";
 import { datosInstitucionales } from "@/schema/datos-institucionales";
+import { especialidades } from "@/schema/especialidades";
+import { EspecialidadUpdateForm } from "@/components/private/especialidades/especialidad-update-form";
 
 type Params = Promise<{ id: string }>;
 
@@ -39,7 +41,7 @@ export default async function Page(props: { params: Params }) {
         with: {
             carrera: {
                 with: {
-                    modalidade: true,
+                    modalidad: true,
                     carrera: true,
                 }
             }
@@ -50,9 +52,14 @@ export default async function Page(props: { params: Params }) {
 
     const datosGenerales = await db.query.datosInstitucionales.findMany({
         with: {
-            categoriasGenerale: true,
+            categoriasGenerales: true,
         },
         where: eq(datosInstitucionales.institucionesId, `${id}`),
+    })
+
+
+    const especialidadesDatos = await db.query.especialidades.findMany({
+        where: eq(especialidades.cuestionarioId, `${cuestionario[0].id}`),
     })
 
 
@@ -102,10 +109,13 @@ export default async function Page(props: { params: Params }) {
                                         <span className="text-muted-foreground">Nivel Educativo:</span>
                                         <p className="font-medium">{institucion.nivelEducativo ? "Superior" : "Medio Superior"}</p>
                                     </div>
-                                    <div>
-                                        <span className="text-muted-foreground">Número de Carreras:</span>
-                                        <p className="font-medium">{institucion.numeroCarreras}</p>
-                                    </div>
+
+                                    {(institucion.nivelEducativo == true || (institucion.tipoBachilleres?.descripcion == "Tecnologico")) &&
+
+                                        <div>
+                                            <span className="text-muted-foreground">{ } {institucion.nivelEducativo ? "Número de Carreras:" : "Formación Educativa:"}</span>
+                                            <p className="font-medium">{institucion.numeroCarreras}</p>
+                                        </div>}
                                     {institucion && (
                                         <CardFooter className="px-3 py-2">
                                             <Link href={`/admin/instituciones/${institucion.id}/edit`} className="ml-auto">
@@ -150,7 +160,7 @@ export default async function Page(props: { params: Params }) {
                             <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">                                {datosGenerales.map((dato, index) => (
                                 <div key={index} className="border rounded-lg p-2">
                                     <h3 className="font-medium text-sm text-center mb-1">
-                                        {dato?.categoriasGenerale?.descripcion || "Categoría"}
+                                        {dato?.categoriasGenerales?.descripcion || "Categoría"}
                                     </h3>
                                     <div className="flex justify-around items-center">
                                         <div className="text-center px-2">
@@ -186,6 +196,21 @@ export default async function Page(props: { params: Params }) {
             <div className="text-center font-bold text-xl flex justify-center m-4 ">Cuestionarios</div>
             <div>
                 {cuestionario ? <CuestionarioTable cuestionarioList={cuestionario} /> : <div>No tiene datos de cuestionario</div>}
+            </div>
+
+            <div className="flex justify-center">
+                {
+                    institucion?.nivelEducativo == false && institucion.tipoBachilleres?.descripcion == "Tecnologico" ? <div>
+                        {
+                            especialidadesDatos.map((especialidad, index) => (
+                                <EspecialidadUpdateForm key={index} especialidad={especialidad} />
+                            ))
+                        } </div> :
+                        (
+                            <div></div>
+                        )
+
+                }
             </div>
         </div>
     );

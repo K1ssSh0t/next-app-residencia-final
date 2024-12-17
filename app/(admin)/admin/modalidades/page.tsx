@@ -11,7 +11,7 @@ import { Pagination } from "@/components/pagination";
 import { Button } from "@/components/ui/button";
 import { SearchInput } from "@/components/search-input";
 import { parseSearchParams } from "@/lib/search-params-utils";
-import { modalidads } from "@/schema/modalidads";
+import { modalidades } from "@/schema/modalidads";
 import { ModalidadTable } from "@/components/admin/modalidads/modalidad-table";
 import { getModalidadsWithRelations } from "@/repositories/modalidad-repository";
 
@@ -22,7 +22,7 @@ export default async function Page(props: {
 }) {
   const searchParams = await props.searchParams;
   const { page, pageIndex, pageSize, search } = parseSearchParams(searchParams);
-  const count = await db.$count(modalidads);
+  const count = await db.$count(modalidades);
   const totalPages = Math.ceil(count / pageSize);
   const modalidadList = await getModalidadsWithRelations({
     limit: pageSize,
@@ -48,7 +48,7 @@ export default async function Page(props: {
         <div className="text-right mr-2">
           <Link href="/admin/modalidades/new">
             <Button>
-              <PlusIcon className="mr-2" /> New
+              <PlusIcon className="mr-2" /> Agregar
             </Button>
           </Link>
         </div>

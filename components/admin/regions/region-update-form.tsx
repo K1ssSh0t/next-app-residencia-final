@@ -9,9 +9,9 @@ import { Input } from "@/components/ui/input";
 
 import { Region } from "@/schema/regions";
 
-export function RegionUpdateForm({ 
+export function RegionUpdateForm({
   region,
-}: { 
+}: {
   region: Region;
 }) {
   const initialState: UpdateRegionState = {};
@@ -25,11 +25,14 @@ export function RegionUpdateForm({
 
   return (
     <div>
+      <div className="mb-4 p-4 bg-yellow-100 border border-yellow-400 rounded">
+        <p className="text-yellow-700">El campo de Nombre es requerido.</p>
+      </div>
       <form action={dispatch} onSubmit={handleSubmit} className="flex flex-col gap-2">
-        <input type="hidden" name="id" value={ region.id } />
+        <input type="hidden" name="id" value={region.id} />
         <div>
-          <Label>Nombre</Label>
-          <Input name="nombre" defaultValue={ region.nombre ?? "" } />
+          <Label htmlFor="nombre">Nombre *</Label>
+          <Input name="nombre" defaultValue={region.nombre ?? ""} required id="nombre" />
           {state.errors?.nombre?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}

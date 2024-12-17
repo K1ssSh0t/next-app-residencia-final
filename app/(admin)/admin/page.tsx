@@ -11,7 +11,7 @@ export default async function Page() {
 
   const estadoCuestionario = await db.query.helpers.findFirst();
 
-
+  // TODO:TIENE QUE HAVER UN DATO EN LA DB PARA QUE FUNCIONE
 
   return (
     <div className="container mx-auto py-8">

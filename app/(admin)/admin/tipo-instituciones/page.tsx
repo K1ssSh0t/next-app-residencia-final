@@ -26,7 +26,7 @@ export default async function Page(props: {
 
   return (
     <div className="flex flex-col gap-5">
-      <h1 className="text-xl font-bold">Tipo Instituciones</h1>
+      <h1 className="text-xl font-bold">Tipos de  Instituciones</h1>
       <div className="flex justify-between">
         <div>
           <SearchInput placeholder="Search Tipo Instituciones" />
@@ -34,13 +34,13 @@ export default async function Page(props: {
         <div className="text-right mr-2">
           <Link href="/admin/tipo-instituciones/new">
             <Button>
-              <PlusIcon className="mr-2" /> New
+              <PlusIcon className="mr-2" /> Agregar
             </Button>
           </Link>
         </div>
       </div>
       <div>
-        <TipoInstitucioneTable tipoInstitucioneList={ tipoInstitucioneList } />
+        <TipoInstitucioneTable tipoInstitucioneList={tipoInstitucioneList} />
       </div>
       <div>
         <Pagination page={page} pageSize={pageSize} totalPages={totalPages} />

@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/lib/db";
-import { regions } from "@/schema/regions";
+import { regiones } from "@/schema/regions";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { createSelectSchema } from "drizzle-zod";
@@ -9,7 +9,7 @@ import { BaseActionState } from "@/lib/types";
 import { auth } from "@/lib/auth";
 import { isAdmin } from "@/services/authorization-service";
 
-const updateRegionSchema = createSelectSchema(regions)
+const updateRegionSchema = createSelectSchema(regiones)
   .partial()
   .required({ id: true });
 
@@ -48,9 +48,9 @@ export async function updateRegion(
     }
 
     await db
-      .update(regions)
+      .update(regiones)
       .set(validatedFields.data)
-      .where(eq(regions.id, validatedFields.data.id));
+      .where(eq(regiones.id, validatedFields.data.id));
 
     revalidatePath("/admin/regiones");
     revalidatePath("/admin/regiones/" + validatedFields.data.id);

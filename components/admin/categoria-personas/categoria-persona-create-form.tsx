@@ -21,19 +21,22 @@ export function CategoriaPersonaCreateForm() {
 
   return (
     <div>
+      <div className="mb-4 p-4 bg-yellow-100 border border-yellow-400 rounded">
+        <p className="text-yellow-700">Los campos de descripción y nivel aplicable son requeridos.</p>
+      </div>
       <form action={dispatch} onSubmit={handleSubmit} className="flex flex-col gap-2">
         <div>
-          <Label>Descripcion</Label>
-          <Input name="descripcion" />
+          <Label htmlFor="descripcion">Descripcion *</Label>
+          <Input name="descripcion" required id="descripcion" />
           {state.errors?.descripcion?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}
         </div>
         <div>
-          <Label>Nivel aplicable</Label>
-          <Select name="nivelAplicado" >
+          <Label htmlFor="nivelAplicado">Nivel aplicable *</Label>
+          <Select name="nivelAplicado">
             <SelectTrigger className="w-full">
-              <SelectValue placeholder="Selecciona el nivel aplicable" />
+              <SelectValue placeholder="Selecciona el nivel aplicable" id="nivelAplicado" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="superior">Superior</SelectItem>
@@ -46,7 +49,7 @@ export function CategoriaPersonaCreateForm() {
           ))}
         </div>
         <div>
-          <Button type="submit">Submit</Button>
+          <Button type="submit">Enviar</Button>
         </div>
         <FormAlert state={state} />
       </form>

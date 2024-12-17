@@ -16,9 +16,9 @@ export default async function Page(props: { params: Params }) {
 
   return (
     <div>
-      <h1 className="text-xl font-bold mb-6">Edit Categoria Persona</h1>
-      <CategoriaPersonaUpdateForm 
-        categoriaPersona={ categoriaPersona }
+      <h1 className="text-xl font-bold mb-6">Editar Indicador</h1>
+      <CategoriaPersonaUpdateForm
+        categoriaPersona={categoriaPersona}
       />
     </div>
   );

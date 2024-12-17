@@ -17,8 +17,9 @@ export default async function Page(props: { params: Params }) {
     <div>
       <h1 className="text-xl font-bold mb-6">Carreras</h1>
       <div>
-        <p><strong>Id:</strong> { carrera.id }</p>
-        <p><strong>Descripcion:</strong> { carrera.descripcion }</p>
+        <p><strong>Id:</strong> {carrera.id}</p>
+        <p><strong>Clave:</strong> {carrera.clave}</p>
+        <p><strong>Descripcion:</strong> {carrera.descripcion}</p>
       </div>
     </div>
   );

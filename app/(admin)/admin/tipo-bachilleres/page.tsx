@@ -26,7 +26,7 @@ export default async function Page(props: {
 
   return (
     <div className="flex flex-col gap-5">
-      <h1 className="text-xl font-bold">Tipo Bachilleres</h1>
+      <h1 className="text-xl font-bold">Tipos de  Bachilleres</h1>
       <div className="flex justify-between">
         <div>
           <SearchInput placeholder="Search Tipo Bachilleres" />
@@ -34,13 +34,13 @@ export default async function Page(props: {
         <div className="text-right mr-2">
           <Link href="/admin/tipo-bachilleres/new">
             <Button>
-              <PlusIcon className="mr-2" /> New
+              <PlusIcon className="mr-2" /> Agregar
             </Button>
           </Link>
         </div>
       </div>
       <div>
-        <TipoBachillereTable tipoBachillereList={ tipoBachillereList } />
+        <TipoBachillereTable tipoBachillereList={tipoBachillereList} />
       </div>
       <div>
         <Pagination page={page} pageSize={pageSize} totalPages={totalPages} />

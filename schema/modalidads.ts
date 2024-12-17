@@ -2,9 +2,9 @@ import { relations } from "drizzle-orm";
 import { pgTable, text, timestamp } from "drizzle-orm/pg-core";
 import { createId } from "@paralleldrive/cuid2";
 
-export type Modalidad = typeof modalidads.$inferSelect;
+export type Modalidad = typeof modalidades.$inferSelect;
 
-export const modalidads = pgTable("modalidades", {
+export const modalidades = pgTable("modalidades", {
   id: text()
     .primaryKey()
     .$defaultFn(() => createId()),
@@ -17,6 +17,6 @@ export const modalidads = pgTable("modalidades", {
 });
 
 export const modalidadsRelations = relations(
-  modalidads,
+  modalidades,
   ({ one, many }) => ({})
 );

@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/lib/db";
-import { regions } from "@/schema/regions";
+import { regiones } from "@/schema/regions";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -10,7 +10,7 @@ import { BaseActionState } from "@/lib/types";
 import { auth } from "@/lib/auth";
 import { isAdmin } from "@/services/authorization-service";
 
-const deleteRegionSchema = createSelectSchema(regions).pick({ id: true });
+const deleteRegionSchema = createSelectSchema(regiones).pick({ id: true });
 
 export interface DeleteRegionState extends BaseActionState {
   errors?: {
@@ -44,7 +44,7 @@ export async function deleteRegion(
       };
     }
 
-    await db.delete(regions).where(eq(regions.id, validatedFields.data.id));
+    await db.delete(regiones).where(eq(regiones.id, validatedFields.data.id));
 
     revalidatePath("/admin/regiones");
   } catch (error) {

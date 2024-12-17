@@ -10,14 +10,14 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { regions } from "@/schema/regions";
+import { regiones } from "@/schema/regions";
 
 type Params = Promise<{ id: string }>;
 
 export default async function Page(props: { params: Params }) {
   const params = await props.params;
   const { id } = params;
-  const region = await db.query.regions.findFirst({ where: eq(regions.id, id) });
+  const region = await db.query.regiones.findFirst({ where: eq(regiones.id, id) });
 
   if (!region) {
     notFound();
@@ -33,8 +33,8 @@ export default async function Page(props: { params: Params }) {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink href={`/admin/regions/${ region.id }`}>
-                { region.id }
+              <BreadcrumbLink href={`/admin/regions/${region.id}`}>
+                {region.id}
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
@@ -45,7 +45,7 @@ export default async function Page(props: { params: Params }) {
         </Breadcrumb>
       </div>
       <div className="pt-5">
-        <RegionDeleteForm region={ region } />
+        <RegionDeleteForm region={region} />
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import { startTransition, useActionState } from "react";
+import { startTransition, useActionState, useEffect, useState } from "react";
 import { updateUser, UpdateUserState } from "@/actions/admin/users/update-user";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -17,10 +17,17 @@ export function UserUpdateForm({
 }) {
   const initialState: UpdateUserState = {};
   const [state, dispatch] = useActionState(updateUser, initialState);
+  const [selectedRole, setSelectedRole] = useState<string | undefined>();
+
+  useEffect(() => {
+    setSelectedRole(user.role)
+  }, [])
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
+
+
 
 
     // Convert 'nivelEducativo' to boolean before dispatching
@@ -33,12 +40,15 @@ export function UserUpdateForm({
 
   return (
     <div>
+      <div className="mb-4 p-4 bg-yellow-100 border border-yellow-400 rounded">
+        <p className="text-yellow-700">Los campos de correo electrónico, rol y contraseña son requeridos.</p>
+      </div>
       <form action={dispatch} onSubmit={handleSubmit} className="flex flex-col gap-2">
         <input type="hidden" name="id" value={user.id} />
         <div>
           <p><strong>Id:</strong> {user.id}</p>
         </div>
-        <div>
+        <div className="hidden">
           <Label>Name</Label>
           <Input name="name" defaultValue={user.name ?? ""} />
           {state.errors?.name?.map((error) => (
@@ -46,7 +56,7 @@ export function UserUpdateForm({
           ))}
         </div>
         <div>
-          <Label>Email</Label>
+          <Label htmlFor="email">Email *</Label>
           <Input name="email" defaultValue={user.email ?? ""} />
           {state.errors?.email?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
@@ -59,7 +69,7 @@ export function UserUpdateForm({
             <p className="text-red-500" key={error}>{error}</p>
           ))}
         </div> */}
-        <div>
+        <div className="hidden">
           <Label>Image</Label>
           <Input name="image" defaultValue={user.image ?? ""} />
           {state.errors?.image?.map((error) => (
@@ -67,15 +77,16 @@ export function UserUpdateForm({
           ))}
         </div>
         <div>
-          <Label>Role</Label>
-          <Select name="role" defaultValue={user.role ?? ""}>
+          <Label htmlFor="role">Rol *</Label>
+          <Select name="role" defaultValue={user.role ?? ""} required onValueChange={(value) => setSelectedRole(value)}>
             <SelectTrigger className="w-full">
               <SelectValue placeholder="Select a role" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="admin">Admin</SelectItem>
-              <SelectItem value="user">User</SelectItem>
-              <SelectItem value="guest">Guest</SelectItem>
+              <SelectItem value="admin">Administrador</SelectItem>
+              <SelectItem value="user">Usuario de Institución</SelectItem>
+              <SelectItem value="operador">Operador</SelectItem>
+              <SelectItem value="consultor">Consultor</SelectItem>
             </SelectContent>
           </Select>
           {state.errors?.role?.map((error) => (
@@ -83,8 +94,9 @@ export function UserUpdateForm({
           ))}
         </div>
         <div>
-          <Label>Nivel Educativo</Label>
-          <Select name="nivelEducativo" defaultValue={user.nivelEducativo ? "true" : "false"}>
+          <Label htmlFor="nivelEducativo">Nivel Educativo</Label>
+          <Select name="nivelEducativo" defaultValue={user.nivelEducativo ? "true" : "false"} required={selectedRole === "user"}
+            disabled={selectedRole !== "user"}>
             <SelectTrigger className="w-full">
               <SelectValue placeholder="Selecciona el nivel educativo" />
             </SelectTrigger>
@@ -98,8 +110,8 @@ export function UserUpdateForm({
           ))}
         </div>
         <div>
-          <Label>Password</Label>
-          <Input name="password" type="password" defaultValue={""} />
+          <Label htmlFor="password">Password *</Label>
+          <Input name="password" type="password" defaultValue={""} required />
           {state.errors?.password?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}
