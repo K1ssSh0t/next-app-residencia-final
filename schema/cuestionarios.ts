@@ -9,6 +9,7 @@ import {
 import { createId } from "@paralleldrive/cuid2";
 import { users } from "./users";
 import { carreraInstituciones } from "./carrera-institucions";
+import { preguntas } from "./preguntas";
 
 export type Cuestionario = typeof cuestionarios.$inferSelect;
 
@@ -48,5 +49,6 @@ export const cuestionariosRelations = relations(
       fields: [cuestionarios.usersId],
       references: [users.id],
     }),
+    preguntas: many(preguntas),
   })
 );

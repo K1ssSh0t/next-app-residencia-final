@@ -1,5 +1,5 @@
 
-import { FiltrosSuperior } from "@/components/admin/consultas/filtros-superior";
+import { FiltrosMedioSuperior } from "@/components/admin/consultas/filtros-medio-superior";
 import { SearchInput } from "@/components/search-input";
 
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage } from "@/components/ui/breadcrumb";
@@ -67,11 +67,13 @@ export default async function Page(props: {
 
 
     return (
-        <div className="lg:flex-col lg:max-w-[80vw]">
+        <div className="">
+            <div className="">
 
+            </div>
             <div className="flex flex-col justify-between pt-5 mb-5">
                 <div className="">
-                    <FiltrosSuperior filterOptions={datosFormateados} />
+                    <FiltrosMedioSuperior filterOptions={datosFormateados} />
                 </div>
                 {/* <div className="w-2/3">
                     <SearchInput placeholder="Buscar Institución por nombre" />
