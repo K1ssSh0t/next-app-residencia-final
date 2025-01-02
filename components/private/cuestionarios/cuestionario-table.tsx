@@ -10,8 +10,11 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { CuestionariosWithRelations } from "@/repositories/cuestionario-repository";
+import { db } from "@/lib/db";
 
-export function CuestionarioTable({ cuestionarioList }: { cuestionarioList: CuestionariosWithRelations }) {
+export async function CuestionarioTable({ cuestionarioList }: { cuestionarioList: CuestionariosWithRelations }) {
+
+  const estadoCuestionario = await db.query.helpers.findFirst();
   return (
     <Table>
       <TableHeader>
@@ -45,11 +48,16 @@ export function CuestionarioTable({ cuestionarioList }: { cuestionarioList: Cues
                   <EyeIcon />
                 </Button>
               </Link>
-              <Link href={`/carrera-instituciones/${cuestionario.carrerasId}/edit`}>
-                <Button size="icon" variant="outline">
-                  <PencilIcon />
-                </Button>
-              </Link>
+              {estadoCuestionario?.estadoCuestionario && (
+                <Link href={`/carrera-instituciones/${cuestionario.carrerasId}/edit`}>
+                  <Button size="icon" variant="outline">
+                    <PencilIcon />
+                  </Button>
+                </Link>
+              )
+
+              }
+
               <Link href={`/cuestionarios/${cuestionario.id}/delete`}>
                 <Button size="icon" variant="outline">
                   <TrashIcon />

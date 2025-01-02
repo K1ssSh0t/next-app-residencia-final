@@ -39,6 +39,7 @@ export default async function Page(props: { params: Params }) {
     where: eq(preguntas.cuestionariosId, id)
   });
 
+  const estadoCuestionario = await db.query.helpers.findFirst();
 
   return (
     <div>
@@ -60,7 +61,8 @@ export default async function Page(props: { params: Params }) {
         {/* <PreguntaTable preguntaList={preguntasList} /> */}
         <PreguntaForm preguntaList={preguntasList}
           categoriasList={categoriasList}
-          cuestionarioId={id} />
+          cuestionarioId={id}
+          estadoCuestionario={estadoCuestionario?.estadoCuestionario} />
       </div>
     </div>
   );

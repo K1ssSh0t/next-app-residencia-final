@@ -17,6 +17,7 @@ interface PreguntaFormProps {
     preguntaList: PreguntasWithRelations
     categoriasList: CategoriaPersona[]
     cuestionarioId: string
+    estadoCuestionario?: boolean | null
 }
 
 interface FormValues {
@@ -28,7 +29,7 @@ interface FormValues {
     }
 }
 
-export default function PreguntaForm({ preguntaList, categoriasList, cuestionarioId }: PreguntaFormProps) {
+export default function PreguntaForm({ preguntaList, categoriasList, cuestionarioId, estadoCuestionario }: PreguntaFormProps) {
     const [formValues, setFormValues] = useState<FormValues>(() => {
         const initialValues: FormValues = {}
 
@@ -190,7 +191,7 @@ export default function PreguntaForm({ preguntaList, categoriasList, cuestionari
                     </CardContent>
                 </Card>
             ))}
-            <Button type="submit" className="w-full col-span-2" disabled={isPending}>
+            <Button type="submit" className="w-full col-span-2" disabled={isPending || !estadoCuestionario as boolean}>
                 {isPending ? (
                     <>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />

@@ -49,6 +49,7 @@ export default async function Page(props: {
 
   const estadoCuestionario = await db.query.helpers.findFirst();
 
+  const isCuestionarioActivo = estadoCuestionario?.estadoCuestionario !== false;
 
   /*
   const searchParams = await props.searchParams;
@@ -84,13 +85,13 @@ export default async function Page(props: {
       </div>
     </div>
   );*/
-  if (estadoCuestionario?.estadoCuestionario == false) {
-    return (
-      <div className="p-4">
-        <p className="text-lg font-semibold text-red-500">El cuestionario no está activo</p>
-      </div>
-    );
-  }
+  // if (estadoCuestionario?.estadoCuestionario == false) {
+  //   return (
+  //     <div className="p-4">
+  //       <p className="text-lg font-semibold text-red-500">El cuestionario no está activo</p>
+  //     </div>
+  //   );
+  // }
 
   const misCuestionarios = await db.query.cuestionarios.findMany({
     with: {
@@ -124,7 +125,7 @@ export default async function Page(props: {
         <h1 className="text-xl font-bold">Datos de Institución</h1>
         {/* {!miInstitucion && (
         <Link href="/instituciones/new">
-          <Button>
+          <Button disabled={!isCuestionarioActivo}>
             <PlusIcon className="mr-2 h-4 w-4" /> Nuevo
           </Button>
         </Link>
@@ -141,8 +142,8 @@ export default async function Page(props: {
             {!miInstitucion ? (
               <div className="text-center space-y-4">
                 <p className="text-muted-foreground">No tienes datos</p>
-                <Link href="/instituciones/new">
-                  <Button>
+                <Link href="/instituciones/new" className={isCuestionarioActivo ? "" : "pointer-events-none"}>
+                  <Button disabled={!isCuestionarioActivo}>
                     <PlusIcon className="mr-2 h-4 w-4" /> Rellenar Datos
                   </Button>
                 </Link>
@@ -189,8 +190,8 @@ export default async function Page(props: {
                     </div>}
                   {miInstitucion && (
                     <CardFooter className="px-3">
-                      <Link href={`/instituciones/${miInstitucion.id}/edit`} className="ml-auto">
-                        <Button size="sm">
+                      <Link href={`/instituciones/${miInstitucion.id}/edit`} className={isCuestionarioActivo ? "" : "pointer-events-none"}>
+                        <Button size="sm" disabled={!isCuestionarioActivo}>
                           <PlusIcon className="mr-2 h-4 w-4" /> Editar
                         </Button>
                       </Link>
@@ -222,8 +223,9 @@ export default async function Page(props: {
                 <Link href={{
                   pathname: "/datos-institucionales/new",
                   query: { idInstitucion: miInstitucion?.id }
-                }}>
-                  <Button size="sm">
+                }}
+                  className={isCuestionarioActivo ? "" : "pointer-events-none"}>
+                  <Button size="sm" disabled={!isCuestionarioActivo}>
                     <PlusIcon className="mr-2 h-4 w-4" /> Rellenar Datos
                   </Button>
                 </Link>
@@ -256,8 +258,8 @@ export default async function Page(props: {
               <Link href={{
                 pathname: "/datos-institucionales/edit",
                 query: { idInstitucion: miInstitucion?.id }
-              }} className="ml-auto">
-                <Button size="sm">
+              }} className={isCuestionarioActivo ? "" : "pointer-events-none"}>
+                <Button size="sm" disabled={!isCuestionarioActivo}>
                   <PlusIcon className="mr-2 h-4 w-4" /> Editar
                 </Button>
               </Link>
@@ -290,9 +292,9 @@ export default async function Page(props: {
                         pathname: "/carrera-instituciones/new",
                         query: { idInstitucion: miInstitucion.id }
                       }}
-                      className="block"
+                      className={isCuestionarioActivo ? "block" : "pointer-events-none"}
                     >
-                      <Button className="w-full justify-start" variant="outline" size="sm">
+                      <Button className="w-full justify-start" variant="outline" size="sm" disabled={!isCuestionarioActivo}>
                         <PlusIcon className="mr-2 h-4 w-4" />
                         Carrera {misCuestionarios.length + index + 1}
                       </Button>
