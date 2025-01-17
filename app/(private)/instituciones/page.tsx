@@ -136,7 +136,7 @@ export default async function Page(props: {
       <div className="grid gap-3 md:grid-cols-3">
 
         {/* <div className="md:col-span-1"></div> */}
-        <Card className="md:col-span-2">
+        <Card className="md:col-span-3">
           <CardHeader className="pb-1 px-3 pt-3">
             <CardTitle></CardTitle>
           </CardHeader>
@@ -214,7 +214,7 @@ export default async function Page(props: {
           )} */}
         </Card>
 
-        <Card className="md:col-span-1">
+        {/* <Card className="md:col-span-1">
           <CardHeader className="pb-1 px-3 pt-3">
             <CardTitle>Datos Generales</CardTitle>
           </CardHeader>
@@ -267,13 +267,13 @@ export default async function Page(props: {
               </Link>
             </CardFooter>
           )}
-        </Card>
+        </Card> */}
         {/* <div className="md:col-span-1"></div> */}
       </div>
 
 
 
-      <div className="mt-6">
+      {/* <div className="mt-6">
         {miInstitucion && miInstitucion.nivelEducativo != false ? (
           <>
             {misCuestionarios.length > 0 && (
@@ -311,7 +311,7 @@ export default async function Page(props: {
         ) : (<p className="text-center text-muted-foreground">
           No tienes datos de la institución
         </p>)}
-      </div>
+      </div> */}
 
       {/* {misCuestionarios.length > 0 && miInstitucion?.nivelEducativo != false && (
         <div className="mt-4">
@@ -324,7 +324,7 @@ export default async function Page(props: {
       )} */}
 
 
-      <div className="flex justify-center">
+      {/* <div className="flex justify-center">
         {
           miInstitucion?.nivelEducativo == false && miInstitucion.tipoBachilleres?.descripcion == "Tecnologico" ? <div className=" ">
             {/* {Array.from({ length: (miInstitucion.numeroCarreras || 0) - misEspecialidades.length }).map((_, index) => (
@@ -342,7 +342,7 @@ export default async function Page(props: {
                   {JSON.stringify(misEspecialidades)}
                 </Button>
               </Link>
-            ))} */}
+            ))} 
 
             {
               misEspecialidades.map((especialidad, index) => (
@@ -364,7 +364,7 @@ export default async function Page(props: {
             )
 
         }
-      </div>
+      </div> */}
 
     </div >
   );

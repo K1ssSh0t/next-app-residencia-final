@@ -32,11 +32,13 @@ import { User } from "@/schema/users";
 import Link from "next/link";
 import GoBackButton from "../go-back-button";
 import { ModeToggle } from "../mode-toggle";
+import { title } from "process";
 
 const items = [
   { title: "Home", url: "/", icon: HomeIcon },
   { title: "Dashboard", "url": "/dashboard", icon: LayoutDashboardIcon },
   { title: "Datos de la Institucion", url: "/instituciones", icon: Table2Icon },
+  { title: "Cuestionarios", url: "/cuestionario-usuario", icon: Table2Icon },
   // { title: "Cuestionarios", url: "/cuestionarios", icon: Table2Icon },
   // { title: "Preguntas", url: "/preguntas", icon: Table2Icon },
   // { title: "Carrera Instituciones", url: "/carrera-instituciones", icon: Table2Icon },
