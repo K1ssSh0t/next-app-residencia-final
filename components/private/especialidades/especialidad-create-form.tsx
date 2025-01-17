@@ -24,7 +24,7 @@ export function EspecialidadCreateForm() {
         <div>
           <Label>Nombre</Label>
           <Input name="nombre" />
-          {state.errors?.nombre?.map((error) => (
+          {state.errors?.nombreEspecialidad?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}
         </div>

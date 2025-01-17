@@ -6,9 +6,11 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { FormAlert } from "@/components/form-alert";
 import { Input } from "@/components/ui/input";
+import { GenericCombobox } from "@/components/generic-combobox";
+import { EspecialidadesLista } from "@/schema/especialidades-listas";
 
 
-export function EspecialidadCreateForm({ cuestionarioId }: { cuestionarioId: string }) {
+export function EspecialidadCreateForm({ cuestionarioId, listaCarreras }: { cuestionarioId: string, listaCarreras: EspecialidadesLista[] }) {
     const initialState: CreateEspecialidadState = {};
     const [state, dispatch] = useActionState(createEspecialidad, initialState);
 
@@ -21,10 +23,21 @@ export function EspecialidadCreateForm({ cuestionarioId }: { cuestionarioId: str
     return (
         <div>
             <form action={dispatch} onSubmit={handleSubmit} className="flex flex-row  gap-2">
-                <div>
+                <div className="flex flex-col gap-2">
                     <Label>Nombre</Label>
-                    <Input name="nombre" />
-                    {state.errors?.nombre?.map((error) => (
+                    {/* <Input name="nombre" /> */}
+                    <GenericCombobox
+                        list={listaCarreras}
+                        name="nombreEspecialidad"
+                        valueField="id"
+
+                        searchPlaceholder="Search Carreras..."
+                        selectPlaceholder="Select Carrera..."
+                        emptyText="No carrera found"
+                        keywordFields={["id", "descripcion"]}
+                        template={(item) => <div aria-required id="carrerasId" >{item.descripcion}</div>}
+                    />
+                    {state.errors?.nombreEspecialidad?.map((error) => (
                         <p className="text-red-500" key={error}>{error}</p>
                     ))}
                 </div>

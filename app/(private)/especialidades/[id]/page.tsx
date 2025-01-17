@@ -37,7 +37,7 @@ export default async function Page(props: { params: Params }) {
         </Breadcrumb>
       </div>
       <div className="pt-5">
-        <p><strong>Nombre:</strong> {especialidad.nombre}</p>
+        <p><strong>Nombre:</strong> {especialidad.nombreEspecialidad}</p>
         <p><strong>Hombres:</strong> {especialidad.hombres}</p>
         <p><strong>Mujeres:</strong> {especialidad.mujeres}</p>
         <p><strong>Cuestionario Id:</strong> {especialidad.cuestionarioId}</p>

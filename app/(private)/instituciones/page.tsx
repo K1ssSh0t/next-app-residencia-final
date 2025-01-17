@@ -119,6 +119,8 @@ export default async function Page(props: {
   })
 
 
+  const listaEspecialidades = await db.query.especialidadesListas.findMany()
+
   return (
     <div className="space-y-3 p-3">
       <div className="flex items-center justify-between ">
@@ -324,7 +326,7 @@ export default async function Page(props: {
 
       <div className="flex justify-center">
         {
-          miInstitucion?.nivelEducativo == false && miInstitucion.tipoBachilleres?.descripcion == "Tecnologico" ? <div>
+          miInstitucion?.nivelEducativo == false && miInstitucion.tipoBachilleres?.descripcion == "Tecnologico" ? <div className=" ">
             {/* {Array.from({ length: (miInstitucion.numeroCarreras || 0) - misEspecialidades.length }).map((_, index) => (
               <Link
                 key={index}
@@ -344,13 +346,13 @@ export default async function Page(props: {
 
             {
               misEspecialidades.map((especialidad, index) => (
-                <EspecialidadUpdateForm key={index} especialidad={especialidad} />
+                <EspecialidadUpdateForm key={index} especialidad={especialidad} listaCarreras={listaEspecialidades} />
               ))
             }
             {
 
               Array.from({ length: (miInstitucion.numeroCarreras || 0) - misEspecialidades.length }).map((_, index) => (
-                <EspecialidadCreateForm key={index} cuestionarioId={misCuestionarios[0]?.id} />
+                <EspecialidadCreateForm key={index} cuestionarioId={misCuestionarios[0]?.id} listaCarreras={listaEspecialidades} />
               ))
 
 

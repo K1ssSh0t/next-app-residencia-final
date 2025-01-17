@@ -1,0 +1,2 @@
+ALTER TABLE "especialidades" RENAME COLUMN "nombre" TO "nombre_especialidad";--> statement-breakpoint
+ALTER TABLE "especialidades" ADD CONSTRAINT "especialidades_nombre_especialidad_especialidades_listas_id_fk" FOREIGN KEY ("nombre_especialidad") REFERENCES "public"."especialidades_listas"("id") ON DELETE no action ON UPDATE no action;

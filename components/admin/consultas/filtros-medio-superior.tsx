@@ -42,6 +42,7 @@ interface FilterOptions {
     regions: Option[]
     municipalities: Option[]
     institutionTypes: Option[]
+    tiposBachillerato: Option[]
     careers?: Option[]
     modalities?: Option[]
     institutions?: Option[]
@@ -109,6 +110,7 @@ export function FiltrosMedioSuperior({ filterOptions }: { filterOptions: FilterO
     const [selectedRegion, setSelectedRegion] = React.useState("")
     const [selectedMunicipality, setSelectedMunicipality] = React.useState("")
     const [selectedInstitutionType, setSelectedInstitutionType] = React.useState("")
+    const [selectedBachilleratoType, setSelectedBachilleratoType] = React.useState("")
     const [nombreInstitucion, setNombreInstitucion] = React.useState("")
     const [selectedCareer, setSelectedCareer] = React.useState("")
     const [selectedModality, setSelectedModality] = React.useState("")
@@ -119,6 +121,15 @@ export function FiltrosMedioSuperior({ filterOptions }: { filterOptions: FilterO
     const [isPending, startTransition] = React.useTransition()
 
     const [filteredMunicipalities, setFilteredMunicipalities] = React.useState(filterOptions.municipalities);
+
+    const [currentPage, setCurrentPage] = React.useState(1);
+    const itemsPerPage = 2;
+
+    const handlePageChange = (page: number) => {
+        setCurrentPage(page);
+    };
+
+    const paginatedResults = results?.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
     React.useEffect(() => {
         if (selectedRegion) {
@@ -145,7 +156,7 @@ export function FiltrosMedioSuperior({ filterOptions }: { filterOptions: FilterO
                     institutionType: selectedInstitutionType || undefined,
                     municipalityType: selectedMunicipality || undefined,
                     institutionName: nombreInstitucion || undefined,
-
+                    tipoBachillerato: selectedBachilleratoType || undefined,
 
                 })
                 setResults(institutions)
@@ -257,6 +268,15 @@ export function FiltrosMedioSuperior({ filterOptions }: { filterOptions: FilterO
                             onChange={setSelectedInstitutionType}
                         />
                     </div>
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium">Tipo Bachiller</label>
+                        <ComboboxFilter
+                            options={filterOptions.tiposBachillerato}
+                            placeholder="Todos los tipos"
+                            value={selectedBachilleratoType}
+                            onChange={setSelectedBachilleratoType}
+                        />
+                    </div>
 
                     <div className="space-y-2">
                         <label htmlFor="" className="text-sm font-medium" >Nombre de Institución</label>
@@ -336,6 +356,7 @@ export function FiltrosMedioSuperior({ filterOptions }: { filterOptions: FilterO
                                 <TableRow>
                                     <TableHead className="w-[200px]">Nombre</TableHead>
                                     <TableHead>Tipo de Institución</TableHead>
+                                    <TableHead>Tipo de Bachiller</TableHead>
                                     <TableHead>Región</TableHead>
                                     <TableHead>Municipio</TableHead>
 
@@ -345,16 +366,17 @@ export function FiltrosMedioSuperior({ filterOptions }: { filterOptions: FilterO
                                     {categoriasPreguntas.map(category => (
                                         <TableHead key={category}>{category}</TableHead>
                                     ))}
-                                    <TableHead>Cuestionario</TableHead>
+                                    <TableHead>PARA DATOS ESPECIALIDADES DE TECNOLOGICOS</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                {results.map((institution: any) => {
+                                {paginatedResults?.map((institution: any) => {
                                     const totals = calculateTotals(institution)
                                     return (
                                         <TableRow key={institution.id}>
                                             <TableCell className="font-medium">{institution.nombre}</TableCell>
                                             <TableCell>{institution.tipoInstituciones?.descripcion}</TableCell>
+                                            <TableCell>{institution.tipoBachilleres?.descripcion}</TableCell>
                                             <TableCell>{institution.region?.nombre}</TableCell>
                                             <TableCell>{institution.municipio?.nombre}</TableCell>
                                             {categoriasGenerales.map(category => (
@@ -381,7 +403,7 @@ export function FiltrosMedioSuperior({ filterOptions }: { filterOptions: FilterO
                                                     ))}
                                                 </TableCell>
                                             ))}
-                                            <TableCell>
+                                            {/* <TableCell>
                                                 {institution.cuestionariosData ? (
                                                     <div className="text-sm">
                                                         <strong>Cuestionario:</strong> {institution.cuestionariosData.nombre}<br />
@@ -396,6 +418,15 @@ export function FiltrosMedioSuperior({ filterOptions }: { filterOptions: FilterO
                                                     </div>
                                                 ) : 'No disponible'}
 
+                                            </TableCell> */}
+                                            <TableCell>
+                                                {institution.cuestionariosData.especialidades.map((especialidad: any) => (
+                                                    <div key={especialidad.id} className="text-sm">
+                                                        <strong>{especialidad.especialidadLista.descripcion}</strong><br />
+                                                        H: {especialidad.hombres}<br />
+                                                        M: {especialidad.mujeres}<br />
+                                                    </div>
+                                                ))}
                                             </TableCell>
                                         </TableRow>
                                     )
@@ -434,6 +465,21 @@ export function FiltrosMedioSuperior({ filterOptions }: { filterOptions: FilterO
                                 </TableRow>
                             </TableBody>
                         </Table>
+                    </div>
+                    <div className="flex justify-end mt-4">
+                        <Button
+                            onClick={() => handlePageChange(currentPage - 1)}
+                            disabled={currentPage === 1}
+                        >
+                            Anterior
+                        </Button>
+                        <span className="mx-2">Página {currentPage} de {Math.ceil(results.length / itemsPerPage)}</span>
+                        <Button
+                            onClick={() => handlePageChange(currentPage + 1)}
+                            disabled={currentPage === Math.ceil(results.length / itemsPerPage)}
+                        >
+                            Siguiente
+                        </Button>
                     </div>
                 </div>
             )}

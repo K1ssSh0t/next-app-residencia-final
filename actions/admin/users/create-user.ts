@@ -24,6 +24,8 @@ export interface CreateUserState extends BaseActionState {
     role?: string[];
     password?: string[];
     nivelEducativo?: string[];
+    correoContacto?: string[];
+    nombreContacto?: string[];
   };
 }
 
@@ -50,6 +52,8 @@ export async function createUser(
       role: formData.get("role") as string,
       password: formData.get("password") as string,
       nivelEducativo: formData.get("nivelEducativo") === "true",
+      correoContacto: formData.get("correoContacto") as string,
+      nombreContacto: formData.get("nombreContacto") as string,
     });
 
     if (!validatedFields.success) {

@@ -56,9 +56,23 @@ export function UserUpdateForm({
           ))}
         </div>
         <div>
-          <Label htmlFor="email">Email *</Label>
-          <Input name="email" defaultValue={user.email ?? ""} />
+          <Label htmlFor="email">Nombre de usuario *</Label>
+          <Input name="email" defaultValue={user.email ?? ""} required />
           {state.errors?.email?.map((error) => (
+            <p className="text-red-500" key={error}>{error}</p>
+          ))}
+        </div>
+        <div>
+          <Label htmlFor="correoContacto" > Correo Contacto *</Label>
+          <Input name="correoContacto" defaultValue={user.correoContacto ?? ""} type="email" required />
+          {state.errors?.correoContacto?.map((error) => (
+            <p className="text-red-500" key={error}>{error}</p>
+          ))}
+        </div>
+        <div>
+          <Label htmlFor="nombreContacto">Nombre del Responsable *</Label>
+          <Input name="nombreContacto" defaultValue={user.nombreContacto ?? ""} required />
+          {state.errors?.nombreContacto?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}
         </div>

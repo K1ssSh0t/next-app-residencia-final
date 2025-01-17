@@ -120,6 +120,17 @@ export function FiltrosSuperior({ filterOptions }: { filterOptions: FilterOption
 
     const [filteredMunicipalities, setFilteredMunicipalities] = React.useState(filterOptions.municipalities);
 
+    const [currentPage, setCurrentPage] = React.useState(1);
+    const itemsPerPage = 5;
+
+    const handlePageChange = (page: number) => {
+        setCurrentPage(page);
+    };
+
+    const paginatedResults = results?.flatMap(institution =>
+        institution.cuestionario?.map(cuestionario => ({ institution, cuestionario }))
+    ).slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
     React.useEffect(() => {
         if (selectedRegion) {
             const municipiosFiltrados = filterOptions.municipalities.filter(municipio => municipio.regionId === selectedRegion);
@@ -358,39 +369,36 @@ export function FiltrosSuperior({ filterOptions }: { filterOptions: FilterOption
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                {results.map((institution) => {
-                                    return institution.cuestionario?.map((cuestionario) => (
-                                        <TableRow key={cuestionario.id}>
-                                            <TableCell className="font-medium">{cuestionario.carrera?.carrera?.descripcion}</TableCell>
-                                            <TableCell>{cuestionario.carrera?.nombreRevoe}</TableCell>
-                                            <TableCell>{cuestionario.carrera?.numeroRevoe}</TableCell>
-                                            <TableCell>{institution.nombre}</TableCell>
-                                            <TableCell>{institution.tipoInstituciones?.descripcion}</TableCell>
-                                            <TableCell>{cuestionario.carrera?.modalidad?.descripcion}</TableCell>
-
-                                            <TableCell>{institution.region?.nombre}</TableCell>
-                                            <TableCell>{institution.municipio?.nombre}</TableCell>
-                                            {categoriasCuestionario.map(category => (
-                                                <TableCell key={`${cuestionario.id}-${category}`}>
-                                                    {cuestionario.preguntas.filter((pregunta) => pregunta.categoriaPersona?.descripcion === category).map((pregunta) => (
-                                                        <div key={pregunta.id} className="text-sm">
-                                                            {pregunta.cantidadHombres! + pregunta.cantidadMujeres!}
-                                                        </div>
-                                                    ))}
-                                                </TableCell>
-                                            ))}
-                                            {categoriasGenerales.map(category => (
-                                                <TableCell key={`${cuestionario.id}-${category}`}>
-                                                    {institution.datosInstitucionales?.filter((dato) => dato.categoriasGenerales?.descripcion === category).map((dato) => (
-                                                        <div key={dato.id} className="text-sm">
-                                                            {dato.cantidadHombres! + dato.cantidadMujeres!}
-                                                        </div>
-                                                    ))}
-                                                </TableCell>
-                                            ))}
-                                        </TableRow>
-                                    ));
-                                })}
+                                {paginatedResults?.map(({ institution, cuestionario }) => (
+                                    <TableRow key={cuestionario.id}>
+                                        <TableCell className="font-medium">{cuestionario.carrera?.carrera?.descripcion}</TableCell>
+                                        <TableCell>{cuestionario.carrera?.nombreRevoe}</TableCell>
+                                        <TableCell>{cuestionario.carrera?.numeroRevoe}</TableCell>
+                                        <TableCell>{institution.nombre}</TableCell>
+                                        <TableCell>{institution.tipoInstituciones?.descripcion}</TableCell>
+                                        <TableCell>{cuestionario.carrera?.modalidad?.descripcion}</TableCell>
+                                        <TableCell>{institution.region?.nombre}</TableCell>
+                                        <TableCell>{institution.municipio?.nombre}</TableCell>
+                                        {categoriasCuestionario.map(category => (
+                                            <TableCell key={`${cuestionario.id}-${category}`}>
+                                                {cuestionario.preguntas.filter((pregunta) => pregunta.categoriaPersona?.descripcion === category).map((pregunta) => (
+                                                    <div key={pregunta.id} className="text-sm">
+                                                        {pregunta.cantidadHombres! + pregunta.cantidadMujeres!}
+                                                    </div>
+                                                ))}
+                                            </TableCell>
+                                        ))}
+                                        {categoriasGenerales.map(category => (
+                                            <TableCell key={`${cuestionario.id}-${category}`}>
+                                                {institution.datosInstitucionales?.filter((dato) => dato.categoriasGenerales?.descripcion === category).map((dato) => (
+                                                    <div key={dato.id} className="text-sm">
+                                                        {dato.cantidadHombres! + dato.cantidadMujeres!}
+                                                    </div>
+                                                ))}
+                                            </TableCell>
+                                        ))}
+                                    </TableRow>
+                                ))}
                                 <TableRow>
                                     <TableCell className="font-medium">Totales</TableCell>
                                     <TableCell colSpan={7}></TableCell>
@@ -425,6 +433,21 @@ export function FiltrosSuperior({ filterOptions }: { filterOptions: FilterOption
                                 </TableRow>
                             </TableBody>
                         </Table>
+                    </div>
+                    <div className="flex justify-end mt-4">
+                        <Button
+                            onClick={() => handlePageChange(currentPage - 1)}
+                            disabled={currentPage === 1}
+                        >
+                            Anterior
+                        </Button>
+                        <span className="mx-2">Página {currentPage} de {Math.ceil(results.flatMap(institution => institution.cuestionario || []).length / itemsPerPage)}</span>
+                        <Button
+                            onClick={() => handlePageChange(currentPage + 1)}
+                            disabled={currentPage === Math.ceil(results.flatMap(institution => institution.cuestionario || []).length / itemsPerPage)}
+                        >
+                            Siguiente
+                        </Button>
                     </div>
                 </div>
             )}

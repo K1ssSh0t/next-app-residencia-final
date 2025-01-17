@@ -8,11 +8,15 @@ import { FormAlert } from "@/components/form-alert";
 import { Input } from "@/components/ui/input";
 
 import { Especialidad } from "@/schema/especialidades";
+import { GenericCombobox } from "@/components/generic-combobox";
+import { EspecialidadesLista } from "@/schema/especialidades-listas";
 
 export function EspecialidadUpdateForm({
   especialidad,
+  listaCarreras
 }: {
   especialidad: Especialidad;
+  listaCarreras: EspecialidadesLista[];
 }) {
   const initialState: UpdateEspecialidadState = {};
   const [state, dispatch] = useActionState(updateEspecialidad, initialState);
@@ -23,14 +27,28 @@ export function EspecialidadUpdateForm({
     startTransition(() => dispatch(formData));
   }
 
+  //TODO:   TRATTAR DE COREGIR ESE MALDITO ERROR QUE NO TIENE DESCRIPCION
+
   return (
-    <div>
+    <div className="flex flex-col gap-2 max-w-fit">
       <form action={dispatch} onSubmit={handleSubmit} className="flex flex-row gap-2">
         <input type="hidden" name="id" value={especialidad.id} />
-        <div>
+        <div id={especialidad.id} className="flex flex-col gap-2">
           <Label>Nombre</Label>
-          <Input name="nombre" defaultValue={especialidad.nombre ?? ""} />
-          {state.errors?.nombre?.map((error) => (
+          {/* <Input name="nombre" defaultValue={especialidad.nombreEspecialidad ?? ""} /> */}
+          <GenericCombobox
+            list={listaCarreras}
+            name="nombreEspecialidad"
+            valueField="id"
+            defaultValue={especialidad.nombreEspecialidad ?? ""}
+            searchPlaceholder="Buscar Especialidad..."
+            selectPlaceholder="Seleccionar Especialidad..."
+            emptyText="No carrera found"
+            keywordFields={["id", "descripcion"]}
+            template={(item) => <div  >{item.descripcion}</div>}
+          />
+
+          {state.errors?.nombreEspecialidad?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}
         </div>

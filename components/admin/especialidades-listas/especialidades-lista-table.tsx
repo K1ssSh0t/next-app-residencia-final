@@ -9,42 +9,38 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { EspecialidadsWithRelations } from "@/repositories/especialidad-repository";
+import { EspecialidadesListasWithRelations } from "@/repositories/especialidades-lista-repository";
 
-export function EspecialidadTable({ especialidadList }: { especialidadList: EspecialidadsWithRelations }) {
+export function EspecialidadesListaTable({ especialidadesListaList }: { especialidadesListaList: EspecialidadesListasWithRelations }) {
   return (
     <Table>
       <TableHeader>
         <TableRow>
           <TableHead>Id</TableHead>
-          <TableHead>Nombre</TableHead>
-          <TableHead>Hombres</TableHead>
-          <TableHead>Mujeres</TableHead>
-          <TableHead>Cuestionario</TableHead>
+          <TableHead>Descripcion</TableHead>
+          <TableHead>Clave</TableHead>
           <TableHead></TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {especialidadList.map((especialidad) => (
-          <TableRow key={especialidad.id}>
-            <TableCell>{especialidad.id}</TableCell>
-            <TableCell>{especialidad.nombreEspecialidad}</TableCell>
-            <TableCell>{especialidad.hombres}</TableCell>
-            <TableCell>{especialidad.mujeres}</TableCell>
-            <TableCell>{especialidad.cuestionarioId}</TableCell>
+        { especialidadesListaList.map((especialidadesLista) => (
+          <TableRow key={ especialidadesLista.id }>
+            <TableCell>{ especialidadesLista.id }</TableCell>
+            <TableCell>{ especialidadesLista.descripcion }</TableCell>
+            <TableCell>{ especialidadesLista.clave }</TableCell>
             <TableCell className="justify-end flex gap-2">
               {/* [CODE_MARK table-actions] */}
-              <Link href={`/especialidades/${especialidad.id}`}>
+              <Link href={`/admin/especialidades-listas/${ especialidadesLista.id }`}>
                 <Button size="icon" variant="outline">
                   <EyeIcon />
                 </Button>
               </Link>
-              <Link href={`/especialidades/${especialidad.id}/edit`}>
+              <Link href={`/admin/especialidades-listas/${ especialidadesLista.id }/edit`}>
                 <Button size="icon" variant="outline">
                   <PencilIcon />
                 </Button>
               </Link>
-              <Link href={`/especialidades/${especialidad.id}/delete`}>
+              <Link href={`/admin/especialidades-listas/${ especialidadesLista.id }/delete`}>
                 <Button size="icon" variant="outline">
                   <TrashIcon />
                 </Button>

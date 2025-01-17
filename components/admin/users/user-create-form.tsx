@@ -11,21 +11,23 @@ import { z } from "zod";
 
 // Define Zod schema for form validation
 const userCreateSchema = z.object({
-  email: z.string().email("Correo inválido"),
-  role: z.enum(["admin", "user", "guest"], {
+  email: z.string(),
+  role: z.enum(["admin", "user", "consultor", "operador"], {
     errorMap: () => ({ message: "Selecciona un rol válido" }),
   }),
   nivelEducativo: z.enum(["true", "false", "unspecified"], {
     errorMap: () => ({ message: "Selecciona un nivel educativo válido" }),
   }).optional(),
+  correoContacto: z.string().email("Correo inválido"),
+  nombreContacto: z.string(),
   password: z.string().min(5, "La contraseña debe ser de por lo menos 5 caracteres"),
 }).refine((data) => {
-  if (data.role !== "admin" && data.nivelEducativo === undefined) {
+  if (data.role === "user" && data.nivelEducativo === undefined) {
     return false;
   }
   return true;
 }, {
-  message: "Nivel educativo es requerido para roles que no son admin",
+  message: "Nivel educativo es requerido para el rol de usuario",
   path: ["nivelEducativo"],
 });
 
@@ -87,13 +89,29 @@ export function UserCreateForm() {
 
         </div>
         <div>
-          <Label htmlFor="email">Email *</Label>
+          <Label htmlFor="email">Nombre de Usuario *</Label>
           <Input name="email" id="email" required />
           {state.errors?.email?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}
           {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
 
+        </div>
+        <div>
+          <Label htmlFor="correoContacto">Correo de Contacto *</Label>
+          <Input name="correoContacto" id="correoContacto" required />
+          {state.errors?.correoContacto?.map((error) => (
+            <p className="text-red-500" key={error}>{error}</p>
+          ))}
+          {errors.correoContacto && <p className="text-red-500 text-sm mt-1">{errors.correoContacto}</p>}
+        </div>
+        <div>
+          <Label htmlFor="nombreContacto">Nombre del Responsable *</Label>
+          <Input name="nombreContacto" id="nombreContacto" required />
+          {state.errors?.nombreContacto?.map((error) => (
+            <p className="text-red-500" key={error}>{error}</p>
+          ))}
+          {errors.nombreContacto && <p className="text-red-500 text-sm mt-1">{errors.nombreContacto}</p>}
         </div>
         {/* <div>
           <Label>Email Verified</Label>

@@ -19,7 +19,7 @@ export function GenericCheckboxList<Type extends GenericType>({
   defaultValue?: string[];
   searchPlaceholder: string;
   keywordFields: string[];
-  template: (item: Type) => JSX.Element;
+  template: (item: Type) => React.JSX.Element;
 }) {
   const [search, setSearch] = React.useState("");
 

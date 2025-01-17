@@ -13,7 +13,7 @@ const insertEspecialidadSchema = createInsertSchema(especialidades);
 export interface CreateEspecialidadState extends BaseActionState {
   errors?: {
     id?: string[];
-    nombre?: string[];
+    nombreEspecialidad?: string[];
     hombres?: string[];
     mujeres?: string[];
     cuestionarioId?: string[];
@@ -32,7 +32,7 @@ export async function createEspecialidad(
     }
 
     const validatedFields = insertEspecialidadSchema.safeParse({
-      nombre: formData.get("nombre") as string,
+      nombreEspecialidad: formData.get("nombreEspecialidad") as string,
       hombres: parseInt(formData.get("hombres") as string),
       mujeres: parseInt(formData.get("mujeres") as string),
       cuestionarioId: formData.get("cuestionarioId") as string,

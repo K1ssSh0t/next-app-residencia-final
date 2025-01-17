@@ -23,7 +23,10 @@ type UserWithProgress = {
   role: string;
   nivelEducativo: boolean | null;
   password: string | null;
+  correoContacto: string | null;
+  nombreContacto: string | null;
   progressStatus: 'sin empezar' | 'en progreso' | 'terminado';
+
 };
 
 //TODO:TALVEZ DIVIDIR EN TRES TABLAS | MEDIA SUPERIOR| SUPERIOR | PERSONAL
@@ -102,19 +105,21 @@ export async function UserTable({ userList }: { userList: UsersWithRelations }) 
         <TableRow>
           {/* <TableHead>Id</TableHead> */}
           {/* <TableHead>Name</TableHead> */}
-          <TableHead>Email</TableHead>
+          <TableHead>Nombre de Usuario</TableHead>
           {/* <TableHead>Email Verified</TableHead> */}
           {/* <TableHead>Image</TableHead> */}
           <TableHead>Rol</TableHead>
           <TableHead>Nivel Educativo</TableHead>
-          <TableHead>Password</TableHead>
+          {/* <TableHead>Password</TableHead> */}
+          <TableHead>Correo de Contacto</TableHead>
+          <TableHead>Nombre del Responsable</TableHead>
           <TableHead>Progreso</TableHead>
           <TableHead className=" sr-only">Acciones</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {userProgress.map((user) => {
-          const badgeColor = getProgressBadgeColor(user.role == "admin" ? "no aplica" : user.progressStatus);
+          const badgeColor = getProgressBadgeColor(user.role == "admin" || user.role == "operador" || user.role == "consultor" ? "no aplica" : user.progressStatus);
 
           return (
             <TableRow key={user.id}>
@@ -126,10 +131,16 @@ export async function UserTable({ userList }: { userList: UsersWithRelations }) 
               <TableCell>{user.role == "admin" ? "Administrador" : user.role == "operador" ? "Operador" : user.role == "consultor" ? "Consultor" : "Usuario"}</TableCell>
               <TableCell>{user.role == "admin" || user.role == "operador" || user.role == "consultor" ? "No aplica" :
                 user.nivelEducativo ? "Superior" : "Media Superior"}</TableCell>
-              <TableCell>{user.password}</TableCell>
+              {/* <TableCell>{user.password}</TableCell> */}
+              <TableCell>
+                {user.correoContacto}
+              </TableCell>
+              <TableCell>
+                {user.nombreContacto}
+              </TableCell>
               <TableCell>
                 <Badge className={badgeColor}>
-                  {user.role == "admin" ? "No aplica" :
+                  {user.role == "admin" || user.role == "operador" || user.role == "consultor" ? "No aplica" :
                     user.progressStatus}
                 </Badge>
               </TableCell>

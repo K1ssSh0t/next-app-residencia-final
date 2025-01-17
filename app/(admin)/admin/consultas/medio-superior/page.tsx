@@ -23,6 +23,7 @@ export default async function Page(props: {
     const regiones = await db.query.regiones.findMany();
     const tipoInstituciones = await db.query.tipoInstituciones.findMany();
     const municipios = await db.query.municipios.findMany();
+    const tiposBachillerato = await db.query.tipoBachilleres.findMany();
 
     // Transformar regiones a formato value/label
     const regionesFormateadas = regiones.map(region => ({
@@ -43,11 +44,17 @@ export default async function Page(props: {
         regionId: municipio.regionId
     }));
 
+    const tiposBachilleratoFormateados = tiposBachillerato.map(tipo => ({
+        value: tipo.id,
+        label: tipo.descripcion
+    }));
+
     // Combinar ambos arrays en un solo objeto
     const datosFormateados = {
         regions: regionesFormateadas,
         institutionTypes: tiposInstitucionesFormateados,
-        municipalities: municipiosFormateados
+        municipalities: municipiosFormateados,
+        tiposBachillerato: tiposBachilleratoFormateados
     };
 
     // export default function Page() {

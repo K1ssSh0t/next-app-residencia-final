@@ -41,7 +41,7 @@ export function GenericCombobox<Type extends GenericType>({
   selectPlaceholder: string;
   emptyText: string;
   keywordFields: string[];
-  template: (item: Type) => JSX.Element;
+  template: (item: Type) => React.JSX.Element;
   onChange?: (value: string) => void;
 }) {
   const [open, setOpen] = React.useState(false);

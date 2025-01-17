@@ -63,6 +63,8 @@ export default async function Page(props: { params: Params }) {
     })
 
 
+    const listaEspecialidades = await db.query.especialidadesListas.findMany();
+
     return (
         <div>
             <h1 className="text-xl font-bold mb-6">Instituciones</h1>
@@ -203,7 +205,7 @@ export default async function Page(props: { params: Params }) {
                     institucion?.nivelEducativo == false && institucion.tipoBachilleres?.descripcion == "Tecnologico" ? <div>
                         {
                             especialidadesDatos.map((especialidad, index) => (
-                                <EspecialidadUpdateForm key={index} especialidad={especialidad} />
+                                <EspecialidadUpdateForm key={index} especialidad={especialidad} listaCarreras={listaEspecialidades} />
                             ))
                         } </div> :
                         (

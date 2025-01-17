@@ -12,6 +12,7 @@ interface SearchParams {
   institutionType?: string;
   municipalityType?: string; // Nuevo parámetro
   institutionName?: string;
+  tipoBachillerato?: string; // Nuevo parámetro
 }
 
 export type InstitucionesBusqueda = Awaited<
@@ -35,6 +36,12 @@ export async function buscarMedioSuperior(params: SearchParams) {
     if (params.municipalityType) {
       whereClause.push(
         like(instituciones.municipioId, params.municipalityType)
+      );
+    }
+
+    if (params.tipoBachillerato) {
+      whereClause.push(
+        like(instituciones.tipoBachilleresId, params.tipoBachillerato)
       );
     }
 
@@ -71,6 +78,11 @@ export async function buscarMedioSuperior(params: SearchParams) {
             preguntas: {
               with: {
                 categoriaPersona: true,
+              },
+            },
+            especialidades: {
+              with: {
+                especialidadLista: true,
               },
             },
           },

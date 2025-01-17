@@ -3,6 +3,7 @@ import { pgTable, text, integer, timestamp } from "drizzle-orm/pg-core";
 import { createId } from "@paralleldrive/cuid2";
 
 import { cuestionarios } from "./cuestionarios";
+import { especialidadesListas } from "./especialidades-listas";
 
 export type Especialidad = typeof especialidades.$inferSelect;
 
@@ -10,7 +11,7 @@ export const especialidades = pgTable("especialidades", {
   id: text()
     .primaryKey()
     .$defaultFn(() => createId()),
-  nombre: text(),
+  nombreEspecialidad: text().references(() => especialidadesListas.id),
   hombres: integer(),
   mujeres: integer(),
   cuestionarioId: text().references(() => cuestionarios.id),
@@ -27,6 +28,10 @@ export const especialidadesRelations = relations(
     cuestionario: one(cuestionarios, {
       fields: [especialidades.cuestionarioId],
       references: [cuestionarios.id],
+    }),
+    especialidadLista: one(especialidadesListas, {
+      fields: [especialidades.nombreEspecialidad],
+      references: [especialidadesListas.id],
     }),
   })
 );

@@ -7,20 +7,19 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { EspecialidadUpdateForm } from "@/components/private/especialidades/especialidad-update-form";
-import { getEspecialidadWithRelations } from "@/repositories/especialidad-repository";
+import { getEspecialidadesListaWithRelations } from "@/repositories/especialidades-lista-repository";
 
 type Params = Promise<{ id: string }>;
 
 export default async function Page(props: { params: Params }) {
   const params = await props.params;
   const { id } = params;
-  const especialidad = await getEspecialidadWithRelations(id);
 
-  if (!especialidad) {
+  const especialidadesLista = await getEspecialidadesListaWithRelations(id);
+
+  if (!especialidadesLista) {
     notFound();
   }
-
 
   return (
     <div className="relative">
@@ -28,25 +27,18 @@ export default async function Page(props: { params: Params }) {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/admin/especialidades">Especialidads</BreadcrumbLink>
+              <BreadcrumbLink href="/admin/especialidades-listas">Especialidades Listas</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink href={`/admin/especialidades/${especialidad.id}`}>
-                {especialidad.id}
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>Edit</BreadcrumbPage>
+              <BreadcrumbPage>{ especialidadesLista.id }</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
       </div>
       <div className="pt-5">
-        {/* <EspecialidadUpdateForm
-          especialidad={especialidad}
-        /> */}
+        <p><strong>Descripcion:</strong> { especialidadesLista.descripcion }</p>
+        <p><strong>Clave:</strong> { especialidadesLista.clave }</p>
       </div>
     </div>
   );

@@ -1,4 +1,7 @@
 import { notFound } from "next/navigation";
+import { eq } from "drizzle-orm";
+import { EspecialidadesListaDeleteForm } from "@/components/admin/especialidades-listas/especialidades-lista-delete-form";
+import { db } from "@/lib/db";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -7,20 +10,18 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { EspecialidadUpdateForm } from "@/components/private/especialidades/especialidad-update-form";
-import { getEspecialidadWithRelations } from "@/repositories/especialidad-repository";
+import { especialidadesListas } from "@/schema/especialidades-listas";
 
 type Params = Promise<{ id: string }>;
 
 export default async function Page(props: { params: Params }) {
   const params = await props.params;
   const { id } = params;
-  const especialidad = await getEspecialidadWithRelations(id);
+  const especialidadesLista = await db.query.especialidadesListas.findFirst({ where: eq(especialidadesListas.id, id) });
 
-  if (!especialidad) {
+  if (!especialidadesLista) {
     notFound();
   }
-
 
   return (
     <div className="relative">
@@ -28,25 +29,23 @@ export default async function Page(props: { params: Params }) {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/admin/especialidades">Especialidads</BreadcrumbLink>
+              <BreadcrumbLink href="/admin/especialidades-listas">Especialidades Listas</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink href={`/admin/especialidades/${especialidad.id}`}>
-                {especialidad.id}
+              <BreadcrumbLink href={`/admin/especialidades-listas/${ especialidadesLista.id }`}>
+                { especialidadesLista.id }
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>Edit</BreadcrumbPage>
+              <BreadcrumbPage>Delete</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
       </div>
       <div className="pt-5">
-        {/* <EspecialidadUpdateForm
-          especialidad={especialidad}
-        /> */}
+        <EspecialidadesListaDeleteForm especialidadesLista={ especialidadesLista } />
       </div>
     </div>
   );
