@@ -334,39 +334,46 @@ export default async function Page(props: {
 
             <div className="flex justify-center">
                 {
-                    miInstitucion?.nivelEducativo == false && miInstitucion.tipoBachilleres?.descripcion == "Tecnologico" ? <div className=" ">
+                    miInstitucion?.nivelEducativo == false && miInstitucion.tipoBachilleres?.descripcion == "Tecnologico" ? <>
+                        {/* <div className=" "> */}
+
+
                         {/* {Array.from({ length: (miInstitucion.numeroCarreras || 0) - misEspecialidades.length }).map((_, index) => (
-              <Link
-                key={index}
-                href={{
-                  pathname: "/especialidades/new",
-                  query: { idCuestionario: misCuestionarios[0].id }
-                }}
-                className="block"
-              >
-                <Button className="w-full justify-start" variant="outline" size="sm">
-                  <PlusIcon className="mr-2 h-4 w-4" />
-                  Especialidad {misEspecialidades.length + index + 1}
-                  {JSON.stringify(misEspecialidades)}
-                </Button>
-              </Link>
-            ))} */}
-
-                        {
-                            misEspecialidades.map((especialidad, index) => (
-                                <EspecialidadUpdateForm key={index} especialidad={especialidad} listaCarreras={listaEspecialidades} />
-                            ))
-                        }
-                        {
-
-                            Array.from({ length: (miInstitucion.numeroCarreras || 0) - misEspecialidades.length }).map((_, index) => (
-                                <EspecialidadCreateForm key={index} cuestionarioId={misCuestionarios[0]?.id} listaCarreras={listaEspecialidades} />
-                            ))
+<Link
+key={index}
+href={{
+pathname: "/especialidades/new",
+query: { idCuestionario: misCuestionarios[0].id }
+}}
+className="block"
+>
+<Button className="w-full justify-start" variant="outline" size="sm">
+<PlusIcon className="mr-2 h-4 w-4" />
+Especialidad {misEspecialidades.length + index + 1}
+{JSON.stringify(misEspecialidades)}
+</Button>
+</Link>
+))} */}
 
 
-                        }
+                        {/* 
+                        {misEspecialidades.map((especialidad, index) => (
+                            <EspecialidadUpdateForm key={index} especialidad={especialidad} listaCarreras={listaEspecialidades} />
+                        ))}
+                        {Array.from({ length: (miInstitucion.numeroCarreras || 0) - misEspecialidades.length }).map((_, index) => (
+                            <EspecialidadCreateForm key={index} cuestionarioId={misCuestionarios[0]?.id} listaCarreras={listaEspecialidades} />
+                        ))}
 
-                    </div> :
+                    </div> */}
+
+                        <div>
+                            <Link href={"/datos-especialidades"} >
+                                <Button size="sm">
+                                    <PlusIcon className="mr-2 h-4 w-4" /> Ir a rellenar datos de las especialidades
+                                </Button>
+                            </Link>
+                        </div></>
+                        :
                         (
                             <div></div>
                         )
