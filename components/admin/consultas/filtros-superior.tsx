@@ -2,7 +2,7 @@
 
 import * as React from "react"
 
-import { Check, ChevronsUpDown, Search, Loader2 } from 'lucide-react'
+import { Check, ChevronsUpDown, Search, Loader2, Download } from 'lucide-react'
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -46,6 +46,58 @@ interface FilterOptions {
     modalities?: Option[]
     institutions?: Option[]
 }
+
+const convertToCSV = (data: InstitucionesBusqueda, categoriasCuestionario: string[], categoriasGenerales: string[]) => {
+    const headers = [
+        'Nombre Carrera',
+        'REVOE',
+        'Número REVOE',
+        'Institución',
+        'Tipo de Institución',
+        'Modalidad',
+        'Región',
+        'Municipio',
+        ...categoriasCuestionario.map(c => `${c}_Hombres,${c}_Mujeres,${c}_Total`),
+        ...categoriasGenerales.map(c => `${c}_Hombres,${c}_Mujeres,${c}_Total`)
+    ].join(',');
+
+    const rows = data.flatMap(institution =>
+        institution.cuestionario?.map(cuestionario => {
+            const basicInfo = [
+                cuestionario.carrera?.carrera?.descripcion || '',
+                cuestionario.carrera?.nombreRevoe || '',
+                cuestionario.carrera?.numeroRevoe || '',
+                institution.nombre || '',
+                institution.tipoInstituciones?.descripcion || '',
+                cuestionario.carrera?.modalidad?.descripcion || '',
+                institution.region?.nombre || '',
+                institution.municipio?.nombre || ''
+            ];
+
+            const cuestionarioData = categoriasCuestionario.map(category => {
+                const pregunta = cuestionario.preguntas.find(
+                    p => p.categoriaPersona?.descripcion === category
+                );
+                const h = pregunta?.cantidadHombres || 0;
+                const m = pregunta?.cantidadMujeres || 0;
+                return `${h},${m},${h + m}`;
+            });
+
+            const datosInstitucionales = categoriasGenerales.map(category => {
+                const dato = institution.datosInstitucionales?.find(
+                    d => d.categoriasGenerales?.descripcion === category
+                );
+                const h = dato?.cantidadHombres || 0;
+                const m = dato?.cantidadMujeres || 0;
+                return `${h},${m},${h + m}`;
+            });
+
+            return [...basicInfo, ...cuestionarioData, ...datosInstitucionales].join(',');
+        })
+    ).filter(Boolean);
+
+    return `${headers}\n${rows.join('\n')}`;
+};
 
 export function ComboboxFilter({
     options,
@@ -93,8 +145,7 @@ export function ComboboxFilter({
                                     className={cn(
                                         "mr-2 h-4 w-4",
                                         value === option.value ? "opacity-100" : "opacity-0"
-                                    )}
-                                />
+                                    )} />
                                 {option.label}
                             </CommandItem>
                         ))}
@@ -187,6 +238,30 @@ export function FiltrosSuperior({ filterOptions }: { filterOptions: FilterOption
             }
         })
     }
+
+    const handleExportFiltered = () => {
+        if (!results) return;
+        const csv = convertToCSV(results, categoriasCuestionario, categoriasGenerales);
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'instituciones_superior_filtradas.csv';
+        link.click();
+    };
+
+    const handleExportAll = async () => {
+        try {
+            const allInstitutions = await buscarSuperior({});
+            const csv = convertToCSV(allInstitutions, categoriasCuestionario, categoriasGenerales);
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'todas_instituciones_superior.csv';
+            link.click();
+        } catch (error) {
+            setError("Error al exportar todas las instituciones");
+        }
+    };
 
     const calculateTotals = (institution: InstitucionesBusqueda[0]) => {
         const totals: { [key: string]: { hombres: number, mujeres: number, total: number } } = {}
@@ -343,7 +418,19 @@ export function FiltrosSuperior({ filterOptions }: { filterOptions: FilterOption
 
             {results && results.length > 0 && (
                 <div className="mt-8 space-y-4">
-                    <h3 className="text-lg font-medium">Resultados</h3>
+                    <div className="flex justify-between items-center">
+                        <h3 className="text-lg font-medium">Resultados</h3>
+                        <div className="space-x-2">
+                            <Button onClick={handleExportFiltered} variant="outline">
+                                <Download className="mr-2 h-4 w-4" />
+                                Exportar Filtrados
+                            </Button>
+                            <Button onClick={handleExportAll} variant="outline">
+                                <Download className="mr-2 h-4 w-4" />
+                                Exportar Todos
+                            </Button>
+                        </div>
+                    </div>
                     <div className="rounded-md border">
                         <Table>
 

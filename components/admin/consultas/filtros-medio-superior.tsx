@@ -2,7 +2,7 @@
 
 import * as React from "react"
 
-import { Check, ChevronsUpDown, Search, Loader2 } from 'lucide-react'
+import { Check, ChevronsUpDown, Search, Loader2, Download } from 'lucide-react'
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -46,6 +46,74 @@ interface FilterOptions {
     careers?: Option[]
     modalities?: Option[]
     institutions?: Option[]
+}
+
+const convertToCSV = (data: InstitucionesBusqueda, categories: string[], preguntaCategories: string[], especialidadesList: string[]) => {
+    const headers = [
+        'Nombre',
+        'Tipo de Institución',
+        'Tipo de Bachiller',
+        'Región',
+        'Municipio',
+        ...categories.map(c => `${c}_Hombres,${c}_Mujeres,${c}_Total`),
+        ...preguntaCategories.map(c => `${c}_Hombres,${c}_Mujeres,${c}_Total`),
+        ...especialidadesList.map(e => `${e}_Hombres,${e}_Mujeres,${e}_Total`)
+    ].join(',');
+
+    const rows = data.map(institution => {
+        const totals = calculateTotals(institution);
+
+        const basicInfo = [
+            institution.nombre,
+            institution.tipoInstituciones?.descripcion || '',
+            institution.tipoBachilleres?.descripcion || '',
+            institution.region?.nombre || '',
+            institution.municipio?.nombre || ''
+        ];
+
+        const categoryData = categories.map(category => {
+            const total = totals[category] || { hombres: 0, mujeres: 0, total: 0 };
+            return `${total.hombres},${total.mujeres},${total.total}`;
+        });
+
+        const preguntasData = preguntaCategories.map(category => {
+            const pregunta = institution.cuestionariosData?.preguntas.find(
+                (p: any) => p.categoriaPersona?.descripcion === category
+            );
+            const h = pregunta?.cantidadHombres || 0;
+            const m = pregunta?.cantidadMujeres || 0;
+            return `${h},${m},${h + m}`;
+        });
+
+        const especialidadesData = especialidadesList.map(especialidad => {
+            const esp = institution.cuestionariosData?.especialidades.find(
+                (e: any) => e.especialidadLista.descripcion === especialidad
+            );
+            const h = esp?.hombres || 0;
+            const m = esp?.mujeres || 0;
+            return `${h},${m},${h + m}`;
+        });
+
+        return [...basicInfo, ...categoryData, ...preguntasData, ...especialidadesData].join(',');
+    });
+
+    return `${headers}\n${rows.join('\n')}`;
+};
+
+const calculateTotals = (institution: InstitucionesBusqueda[0]) => {
+    const totals: { [key: string]: { hombres: number, mujeres: number, total: number } } = {}
+
+    institution.datosInstitucionales?.forEach(dato => {
+        const categoria = dato.categoriasGenerales?.descripcion || 'Sin categoría'
+        if (!totals[categoria]) {
+            totals[categoria] = { hombres: 0, mujeres: 0, total: 0 }
+        }
+        totals[categoria].hombres += dato.cantidadHombres || 0
+        totals[categoria].mujeres += dato.cantidadMujeres || 0
+        totals[categoria].total += (dato.cantidadHombres || 0) + (dato.cantidadMujeres || 0)
+    })
+
+    return totals
 }
 
 export function ComboboxFilter({
@@ -140,15 +208,10 @@ export function FiltrosMedioSuperior({ filterOptions }: { filterOptions: FilterO
         }
     }, [selectedRegion, filterOptions.municipalities]);
 
+    const [especialidades, setEspecialidades] = React.useState<string[]>([]);
 
     const handleSearch = () => {
         setError(null)
-
-        // if (!selectedRegion || !selectedInstitutionType) {
-        //     setError("Por favor seleccione región y tipo de institución")
-        //     return
-        // }
-
         startTransition(async () => {
             try {
                 const institutions = await buscarMedioSuperior({
@@ -161,9 +224,11 @@ export function FiltrosMedioSuperior({ filterOptions }: { filterOptions: FilterO
                 })
                 setResults(institutions)
 
-                // Extract unique categories
+                // Extract unique categories and specialties
                 const uniqueCategories = new Set<string>()
                 const uniqueCategoriesPreguntas = new Set<string>()
+                const uniqueEspecialidades = new Set<string>()
+
                 institutions.forEach(institution => {
                     institution.datosInstitucionales?.forEach(dato => {
                         if (dato.categoriasGenerales?.descripcion) {
@@ -175,31 +240,22 @@ export function FiltrosMedioSuperior({ filterOptions }: { filterOptions: FilterO
                             uniqueCategoriesPreguntas.add(pregunta.categoriaPersona.descripcion)
                         }
                     });
+                    institution.cuestionariosData?.especialidades.forEach((especialidad: any) => {
+                        if (especialidad.especialidadLista?.descripcion) {
+                            uniqueEspecialidades.add(especialidad.especialidadLista.descripcion)
+                        }
+                    });
                 })
                 setCategoriasGenerales(Array.from(uniqueCategories))
                 setCategoriasPreguntas(Array.from(uniqueCategoriesPreguntas))
-
+                setEspecialidades(Array.from(uniqueEspecialidades))
             } catch (err) {
                 setError("Error al buscar instituciones")
             }
         })
     }
 
-    const calculateTotals = (institution: InstitucionesBusqueda[0]) => {
-        const totals: { [key: string]: { hombres: number, mujeres: number, total: number } } = {}
 
-        institution.datosInstitucionales?.forEach(dato => {
-            const categoria = dato.categoriasGenerales?.descripcion || 'Sin categoría'
-            if (!totals[categoria]) {
-                totals[categoria] = { hombres: 0, mujeres: 0, total: 0 }
-            }
-            totals[categoria].hombres += dato.cantidadHombres || 0
-            totals[categoria].mujeres += dato.cantidadMujeres || 0
-            totals[categoria].total += (dato.cantidadHombres || 0) + (dato.cantidadMujeres || 0)
-        })
-
-        return totals
-    }
 
     const calculateOverallTotals = (institutions: InstitucionesBusqueda) => {
         const overallTotals: { [key: string]: { hombres: number, mujeres: number, total: number } } = {};
@@ -230,13 +286,36 @@ export function FiltrosMedioSuperior({ filterOptions }: { filterOptions: FilterO
         return overallTotals;
     };
 
+    const handleExportFiltered = () => {
+        if (!results) return;
+        const csv = convertToCSV(results, categoriasGenerales, categoriasPreguntas, especialidades);
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'instituciones_filtradas.csv';
+        link.click();
+    };
+
+    const handleExportAll = async () => {
+        try {
+            const allInstitutions = await buscarMedioSuperior({});
+            const csv = convertToCSV(allInstitutions, categoriasGenerales, categoriasPreguntas, especialidades);
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'todas_instituciones.csv';
+            link.click();
+        } catch (error) {
+            setError("Error al exportar todas las instituciones");
+        }
+    };
 
     return (
         <div className="w-full max-w-[95vw] mx-auto p-4">
             <h1 className="text-2xl font-semibold mb-4">Instituciones Nivel Medio Superior</h1>
 
 
-            <div className="space-y-4">
+            <div className="space-y-4 ">
                 <h2 className="text-lg font-medium">Seleccionar Filtros (Opcional)</h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -348,7 +427,19 @@ export function FiltrosMedioSuperior({ filterOptions }: { filterOptions: FilterO
 
             {results && results.length > 0 && (
                 <div className="mt-8 space-y-4">
-                    <h3 className="text-lg font-medium">Resultados</h3>
+                    <div className="flex justify-between items-center">
+                        <h3 className="text-lg font-medium">Resultados</h3>
+                        <div className="space-x-2">
+                            <Button onClick={handleExportFiltered} variant="outline">
+                                <Download className="mr-2 h-4 w-4" />
+                                Exportar Filtrados
+                            </Button>
+                            <Button onClick={handleExportAll} variant="outline">
+                                <Download className="mr-2 h-4 w-4" />
+                                Exportar Todos
+                            </Button>
+                        </div>
+                    </div>
                     <div className="rounded-md border">
                         <Table>
 
@@ -366,7 +457,9 @@ export function FiltrosMedioSuperior({ filterOptions }: { filterOptions: FilterO
                                     {categoriasPreguntas.map(category => (
                                         <TableHead key={category}>{category}</TableHead>
                                     ))}
-                                    <TableHead>PARA DATOS ESPECIALIDADES DE TECNOLOGICOS</TableHead>
+                                    {especialidades.map(especialidad => (
+                                        <TableHead key={especialidad}>{especialidad}</TableHead>
+                                    ))}
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
@@ -403,37 +496,28 @@ export function FiltrosMedioSuperior({ filterOptions }: { filterOptions: FilterO
                                                     ))}
                                                 </TableCell>
                                             ))}
-                                            {/* <TableCell>
-                                                {institution.cuestionariosData ? (
-                                                    <div className="text-sm">
-                                                        <strong>Cuestionario:</strong> {institution.cuestionariosData.nombre}<br />
-                                                        <strong>Preguntas:</strong>
-                                                        <ul>
-                                                            {institution.cuestionariosData.preguntas.map((pregunta: any) => (
-                                                                <li key={pregunta.id}>
-                                                                    {pregunta.cantidadHombres} - {pregunta.categoriaPersona?.descripcion}
-                                                                </li>
-                                                            ))}
-                                                        </ul>
-                                                    </div>
-                                                ) : 'No disponible'}
-
-                                            </TableCell> */}
-                                            <TableCell>
-                                                {institution.cuestionariosData.especialidades.map((especialidad: any) => (
-                                                    <div key={especialidad.id} className="text-sm">
-                                                        <strong>{especialidad.especialidadLista.descripcion}</strong><br />
-                                                        H: {especialidad.hombres}<br />
-                                                        M: {especialidad.mujeres}<br />
-                                                    </div>
-                                                ))}
-                                            </TableCell>
+                                            {especialidades.map(especialidad => {
+                                                const especialidadData = institution.cuestionariosData?.especialidades.find(
+                                                    (e: any) => e.especialidadLista.descripcion === especialidad
+                                                );
+                                                return (
+                                                    <TableCell key={`${institution.id}-${especialidad}`}>
+                                                        {especialidadData ? (
+                                                            <div className="text-sm">
+                                                                H: {especialidadData.hombres}<br />
+                                                                M: {especialidadData.mujeres}<br />
+                                                                T: {especialidadData.hombres + especialidadData.mujeres}
+                                                            </div>
+                                                        ) : '-'}
+                                                    </TableCell>
+                                                );
+                                            })}
                                         </TableRow>
                                     )
                                 })}
                                 <TableRow>
                                     <TableCell className="font-medium">Totales</TableCell>
-                                    <TableCell colSpan={3}></TableCell>
+                                    <TableCell colSpan={4}></TableCell>
                                     {categoriasGenerales.map(category => {
                                         const overallTotals = calculateOverallTotals(results);
                                         return (
@@ -459,6 +543,27 @@ export function FiltrosMedioSuperior({ filterOptions }: { filterOptions: FilterO
                                                         T: {overallTotals[category].total}
                                                     </div>
                                                 ) : '-'}
+                                            </TableCell>
+                                        );
+                                    })}
+                                    {especialidades.map(especialidad => {
+                                        const total = results.reduce((acc, institution) => {
+                                            const esp = institution.cuestionariosData?.especialidades.find(
+                                                (e: any) => e.especialidadLista.descripcion === especialidad
+                                            );
+                                            return {
+                                                hombres: acc.hombres + (esp?.hombres || 0),
+                                                mujeres: acc.mujeres + (esp?.mujeres || 0)
+                                            };
+                                        }, { hombres: 0, mujeres: 0 });
+
+                                        return (
+                                            <TableCell key={`total-${especialidad}`}>
+                                                <div className="text-sm">
+                                                    H: {total.hombres}<br />
+                                                    M: {total.mujeres}<br />
+                                                    T: {total.hombres + total.mujeres}
+                                                </div>
                                             </TableCell>
                                         );
                                     })}

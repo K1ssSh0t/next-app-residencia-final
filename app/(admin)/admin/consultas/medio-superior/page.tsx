@@ -74,7 +74,7 @@ export default async function Page(props: {
 
 
     return (
-        <div className="">
+        <div className="lg:flex-col lg:max-w-[80vw]">
             <div className="">
 
             </div>
