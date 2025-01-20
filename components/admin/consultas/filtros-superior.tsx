@@ -470,7 +470,9 @@ export function FiltrosSuperior({ filterOptions }: { filterOptions: FilterOption
                                             <TableCell key={`${cuestionario.id}-${category}`}>
                                                 {cuestionario.preguntas.filter((pregunta) => pregunta.categoriaPersona?.descripcion === category).map((pregunta) => (
                                                     <div key={pregunta.id} className="text-sm">
-                                                        {pregunta.cantidadHombres! + pregunta.cantidadMujeres!}
+                                                        H: {pregunta.cantidadHombres!} <br />
+                                                        M: {pregunta.cantidadMujeres!} <br />
+                                                        T: {pregunta.cantidadHombres! + pregunta.cantidadMujeres!}
                                                     </div>
                                                 ))}
                                             </TableCell>
@@ -479,7 +481,9 @@ export function FiltrosSuperior({ filterOptions }: { filterOptions: FilterOption
                                             <TableCell key={`${cuestionario.id}-${category}`}>
                                                 {institution.datosInstitucionales?.filter((dato) => dato.categoriasGenerales?.descripcion === category).map((dato) => (
                                                     <div key={dato.id} className="text-sm">
-                                                        {dato.cantidadHombres! + dato.cantidadMujeres!}
+                                                        H: {dato.cantidadHombres!} <br />
+                                                        M: {dato.cantidadMujeres!} <br />
+                                                        T: {dato.cantidadHombres! + dato.cantidadMujeres!}
                                                     </div>
                                                 ))}
                                             </TableCell>
