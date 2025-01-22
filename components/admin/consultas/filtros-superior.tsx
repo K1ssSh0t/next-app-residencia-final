@@ -49,6 +49,7 @@ interface FilterOptions {
 
 const convertToCSV = (data: InstitucionesBusqueda, categoriasCuestionario: string[], categoriasGenerales: string[]) => {
     const headers = [
+        'Año',
         'Nombre Carrera',
         'REVOE',
         'Número REVOE',
@@ -64,6 +65,7 @@ const convertToCSV = (data: InstitucionesBusqueda, categoriasCuestionario: strin
     const rows = data.flatMap(institution =>
         institution.cuestionario?.map(cuestionario => {
             const basicInfo = [
+                cuestionario.año,
                 cuestionario.carrera?.carrera?.descripcion || '',
                 cuestionario.carrera?.nombreRevoe || '',
                 cuestionario.carrera?.numeroRevoe || '',

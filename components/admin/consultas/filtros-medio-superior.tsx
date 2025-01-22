@@ -50,6 +50,7 @@ interface FilterOptions {
 
 const convertToCSV = (data: InstitucionesBusqueda, categories: string[], preguntaCategories: string[], especialidadesList: string[]) => {
     const headers = [
+        'Año',
         'Nombre',
         'Tipo de Institución',
         'Tipo de Bachiller',
@@ -64,6 +65,7 @@ const convertToCSV = (data: InstitucionesBusqueda, categories: string[], pregunt
         const totals = calculateTotals(institution);
 
         const basicInfo = [
+            institution.cuestionariosData?.año || '',
             institution.nombre,
             institution.tipoInstituciones?.descripcion || '',
             institution.tipoBachilleres?.descripcion || '',
