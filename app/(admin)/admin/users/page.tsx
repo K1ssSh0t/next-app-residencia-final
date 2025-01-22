@@ -45,9 +45,6 @@ export default async function Page(props: {
         </div>
       </div>
 
-      {/* 
-          TODO: AGREGAR UNA TABLA QUE GUARDE JSON PARA LOS DATOS HISTORICOS AL TERMINAR UN CICLO 
-        */}
       <Tabs defaultValue="personal" className="w-full">
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="personal">Personal</TabsTrigger>

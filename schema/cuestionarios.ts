@@ -22,7 +22,9 @@ export const cuestionarios = pgTable(
     id: text()
       .primaryKey()
       .$defaultFn(() => createId()),
-    año: integer(),
+    año: integer()
+      .notNull()
+      .$defaultFn(() => new Date().getFullYear()),
     carrerasId: text().references(() => carreraInstituciones.id),
     usersId: text().references(() => users.id),
     createdAt: timestamp().notNull().defaultNow(),

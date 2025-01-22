@@ -16,6 +16,7 @@ import { datosInstitucionales } from "@/schema/datos-institucionales";
 import { especialidades } from "@/schema/especialidades";
 import { EspecialidadCreateForm } from "@/components/private/especialidades/especialidad--nuevo-create-form";
 import { EspecialidadUpdateForm } from "@/components/private/especialidades/especialidad-update-form";
+import { AutoCreateButton } from "@/components/private/cuestionarios/auto-create-button";
 
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
@@ -106,6 +107,13 @@ export default async function Page(props: {
         offset: pageIndex * pageSize,
         where: eq(cuestionarios.usersId, `${session?.user?.id}`),
     });
+
+    // Add current year check
+    const currentYear = new Date().getFullYear();
+    const hasCurrentYearQuestionnaire = misCuestionarios.some(q => q.año === currentYear);
+
+    // Filter to show only current year's questionnaires
+    const currentYearCuestionarios = misCuestionarios.filter(q => q.año === currentYear);
 
     const datosGenerales = await db.query.datosInstitucionales.findMany({
         with: {
@@ -280,22 +288,21 @@ export default async function Page(props: {
             </div>
 
 
-
             <div className="mt-6">
                 {miInstitucion && miInstitucion.nivelEducativo != false ? (
                     <>
-                        {misCuestionarios.length > 0 && (
-                            <CuestionarioTable cuestionarioList={misCuestionarios} />
+                        {currentYearCuestionarios.length > 0 && (
+                            <CuestionarioTable cuestionarioList={currentYearCuestionarios} />
                         )}
-                        {misCuestionarios.length < (miInstitucion.numeroCarreras || 0) && (
+                        {currentYearCuestionarios.length < (miInstitucion.numeroCarreras || 0) && (
                             <div className="mt-4 max-w-md mx-auto">
                                 <h3 className="text-lg font-medium mb-3 text-center">
-                                    {misCuestionarios.length === 0
+                                    {currentYearCuestionarios.length === 0
                                         ? "Rellena los datos de las carreras"
                                         : "Carreras faltantes"}
                                 </h3>
                                 <div className="space-y-2">
-                                    {Array.from({ length: (miInstitucion.numeroCarreras || 0) - misCuestionarios.length }).map((_, index) => (
+                                    {Array.from({ length: (miInstitucion.numeroCarreras || 0) - currentYearCuestionarios.length }).map((_, index) => (
                                         <Link
                                             key={index}
                                             href={{
@@ -306,7 +313,7 @@ export default async function Page(props: {
                                         >
                                             <Button className="w-full justify-start" variant="outline" size="sm" disabled={!isCuestionarioActivo}>
                                                 <PlusIcon className="mr-2 h-4 w-4" />
-                                                Carrera {misCuestionarios.length + index + 1}
+                                                Carrera {currentYearCuestionarios.length + index + 1}
                                             </Button>
                                         </Link>
                                     ))}
@@ -315,7 +322,23 @@ export default async function Page(props: {
                         )}
                     </>
                 ) : miInstitucion && miInstitucion.nivelEducativo == false ? (
-                    <CuestionarioTable cuestionarioList={misCuestionarios} />
+                    <>
+                        {currentYearCuestionarios.length > 0 ? (
+                            <CuestionarioTable cuestionarioList={currentYearCuestionarios} />
+                        ) : (
+                            <div className="mt-4 max-w-md mx-auto">
+                                <h3 className="text-lg font-medium mb-3 text-center">
+                                    No hay cuestionarios para el año {currentYear}
+                                </h3>
+                                <div className="text-center">
+                                    <AutoCreateButton
+                                        institucionId={miInstitucion.id}
+                                        disabled={!isCuestionarioActivo || hasCurrentYearQuestionnaire}
+                                    />
+                                </div>
+                            </div>
+                        )}
+                    </>
                 ) : (<p className="text-center text-muted-foreground">
                     No tienes datos de la institución
                 </p>)}

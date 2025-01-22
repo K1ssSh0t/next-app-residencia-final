@@ -27,8 +27,6 @@ export function EspecialidadUpdateForm({
     startTransition(() => dispatch(formData));
   }
 
-  //TODO:   TRATTAR DE COREGIR ESE MALDITO ERROR QUE NO TIENE DESCRIPCION
-
   return (
     <div className="flex flex-col gap-2 max-w-fit">
       <form action={dispatch} onSubmit={handleSubmit} className="flex flex-row gap-2">

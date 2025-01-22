@@ -8,13 +8,30 @@ import { instituciones } from "@/schema/instituciones";
 
 export default async function Page() {
     const session = await auth();
+    const currentYear = new Date().getFullYear();
 
+    // Get current year's questionnaire
     const misCuestionarios = await db.query.cuestionarios.findMany({
         where: eq(cuestionarios.usersId, `${session?.user?.id}`),
     });
 
+    const currentYearCuestionario = misCuestionarios.find(q => q.año === currentYear);
+
+    if (!currentYearCuestionario) {
+        return (
+            <div className="p-4">
+                <h1 className="text-2xl font-bold mb-4">Datos Especialidades</h1>
+                <div className="bg-white rounded-lg shadow p-6">
+                    <p className="text-center text-muted-foreground">
+                        No hay cuestionario para el año actual. Por favor, crea un cuestionario primero.
+                    </p>
+                </div>
+            </div>
+        );
+    }
+
     const misEspecialidades = await db.query.especialidades.findMany({
-        where: eq(especialidades.cuestionarioId, `${misCuestionarios[0]?.id}`),
+        where: eq(especialidades.cuestionarioId, currentYearCuestionario.id),
     });
 
     const listaEspecialidades = await db.query.especialidadesListas.findMany();
@@ -30,7 +47,7 @@ export default async function Page() {
                 <CombinedEspecialidadesForm
                     existingEspecialidades={misEspecialidades}
                     listaEspecialidades={listaEspecialidades}
-                    cuestionarioId={misCuestionarios[0]?.id}
+                    cuestionarioId={currentYearCuestionario.id}
                     numeroCarreras={miInstitucion?.numeroCarreras || 0}
                 />
             </div>

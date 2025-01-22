@@ -29,8 +29,6 @@ type UserWithProgress = {
 
 };
 
-//TODO:TALVEZ DIVIDIR EN TRES TABLAS | MEDIA SUPERIOR| SUPERIOR | PERSONAL
-
 
 export async function UserTable({ userList }: { userList: UsersWithRelations }) {
 
