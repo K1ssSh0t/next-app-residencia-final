@@ -13,6 +13,7 @@ interface SearchParams {
   municipalityType?: string; // Nuevo parámetro
   institutionName?: string;
   tipoBachillerato?: string; // Nuevo parámetro
+  year?: string; // Nuevo parámetro
 }
 
 export type InstitucionesBusqueda = Awaited<
@@ -72,8 +73,13 @@ export async function buscarMedioSuperior(params: SearchParams) {
           },
         });
 
+        let whereConditions = [eq(cuestionarios.usersId, institution.usersId!)];
+        if (params.year) {
+          whereConditions.push(eq(cuestionarios.año, parseInt(params.year)));
+        }
+
         const cuestionariosData = await db.query.cuestionarios.findFirst({
-          where: eq(cuestionarios.usersId, institution.usersId!),
+          where: and(...whereConditions),
           with: {
             preguntas: {
               with: {
@@ -88,6 +94,11 @@ export async function buscarMedioSuperior(params: SearchParams) {
           },
         });
 
+        // Si hay filtro de año y no hay datos para ese año, retornar null
+        if (params.year && !cuestionariosData) {
+          return null;
+        }
+
         return {
           ...institution,
           datosInstitucionales: datosInst,
@@ -95,7 +106,14 @@ export async function buscarMedioSuperior(params: SearchParams) {
         };
       })
     );
-    return institutionsWithData;
+
+    // Filtrar las instituciones que son null (no tienen datos para el año seleccionado)
+    const filteredInstitutions = institutionsWithData.filter(
+      (institution): institution is NonNullable<typeof institution> =>
+        institution !== null
+    );
+
+    return filteredInstitutions;
   } catch (error) {
     console.error("Error searching institutions:", error);
     throw new Error("Error al buscar instituciones");

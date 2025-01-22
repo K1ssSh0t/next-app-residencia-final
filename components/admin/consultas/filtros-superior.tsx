@@ -161,6 +161,7 @@ export function FiltrosSuperior({ filterOptions }: { filterOptions: FilterOption
     const [selectedMunicipality, setSelectedMunicipality] = React.useState("")
     const [selectedInstitutionType, setSelectedInstitutionType] = React.useState("")
     const [nombreInstitucion, setNombreInstitucion] = React.useState("")
+    const [selectedYear, setSelectedYear] = React.useState("")
     const [selectedCareer, setSelectedCareer] = React.useState("")
     const [selectedModality, setSelectedModality] = React.useState("")
     const [results, setResults] = React.useState<InstitucionesBusqueda>()
@@ -191,6 +192,11 @@ export function FiltrosSuperior({ filterOptions }: { filterOptions: FilterOption
         }
     }, [selectedRegion, filterOptions.municipalities]);
 
+    const currentYear = new Date().getFullYear()
+    const years = Array.from({ length: 5 }, (_, i) => ({
+        value: String(currentYear - i),
+        label: String(currentYear - i)
+    }))
 
     const handleSearch = () => {
         setError(null)
@@ -206,9 +212,8 @@ export function FiltrosSuperior({ filterOptions }: { filterOptions: FilterOption
                     region: selectedRegion || undefined,
                     institutionType: selectedInstitutionType || undefined,
                     municipalityType: selectedMunicipality || undefined,
-                    institutionName: nombreInstitucion || undefined
-
-
+                    institutionName: nombreInstitucion || undefined,
+                    year: selectedYear || undefined
                 })
                 setResults(institutions)
 
@@ -354,6 +359,16 @@ export function FiltrosSuperior({ filterOptions }: { filterOptions: FilterOption
                         <input type="text" value={nombreInstitucion} onChange={(e) => setNombreInstitucion(e.target.value)} className="w-full border  rounded-md p-2" />
                     </div>
 
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium">Año</label>
+                        <ComboboxFilter
+                            options={years}
+                            placeholder="Seleccionar año"
+                            value={selectedYear}
+                            onChange={setSelectedYear}
+                        />
+                    </div>
+
                     {/* <div className="space-y-2">
                         <label className="text-sm font-medium">Carrera Específica</label>
                         <ComboboxFilter
@@ -436,6 +451,7 @@ export function FiltrosSuperior({ filterOptions }: { filterOptions: FilterOption
 
                             <TableHeader>
                                 <TableRow>
+                                    <TableHead>Año</TableHead>
                                     <TableHead className="w-[200px]">Nombre Carrera</TableHead>
                                     <TableHead>REVOE</TableHead>
                                     <TableHead>Número REVOE</TableHead>
@@ -458,6 +474,7 @@ export function FiltrosSuperior({ filterOptions }: { filterOptions: FilterOption
                             <TableBody>
                                 {paginatedResults?.map(({ institution, cuestionario }) => (
                                     <TableRow key={cuestionario.id}>
+                                        <TableCell>{cuestionario.año}</TableCell>
                                         <TableCell className="font-medium">{cuestionario.carrera?.carrera?.descripcion}</TableCell>
                                         <TableCell>{cuestionario.carrera?.nombreRevoe}</TableCell>
                                         <TableCell>{cuestionario.carrera?.numeroRevoe}</TableCell>

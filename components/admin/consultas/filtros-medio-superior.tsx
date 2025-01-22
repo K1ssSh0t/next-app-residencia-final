@@ -191,7 +191,7 @@ export function FiltrosMedioSuperior({ filterOptions }: { filterOptions: FilterO
     const [filteredMunicipalities, setFilteredMunicipalities] = React.useState(filterOptions.municipalities);
 
     const [currentPage, setCurrentPage] = React.useState(1);
-    const itemsPerPage = 2;
+    const itemsPerPage = 5;
 
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
@@ -209,6 +209,13 @@ export function FiltrosMedioSuperior({ filterOptions }: { filterOptions: FilterO
     }, [selectedRegion, filterOptions.municipalities]);
 
     const [especialidades, setEspecialidades] = React.useState<string[]>([]);
+    const [selectedYear, setSelectedYear] = React.useState("")
+
+    const currentYear = new Date().getFullYear()
+    const years = Array.from({ length: 5 }, (_, i) => ({
+        value: String(currentYear - i),
+        label: String(currentYear - i)
+    }))
 
     const handleSearch = () => {
         setError(null)
@@ -220,7 +227,7 @@ export function FiltrosMedioSuperior({ filterOptions }: { filterOptions: FilterO
                     municipalityType: selectedMunicipality || undefined,
                     institutionName: nombreInstitucion || undefined,
                     tipoBachillerato: selectedBachilleratoType || undefined,
-
+                    year: selectedYear || undefined, // Agregar el año
                 })
                 setResults(institutions)
 
@@ -362,6 +369,15 @@ export function FiltrosMedioSuperior({ filterOptions }: { filterOptions: FilterO
                         <input type="text" value={nombreInstitucion} onChange={(e) => setNombreInstitucion(e.target.value)} className="w-full border  rounded-md p-2" />
                     </div>
 
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium">Año</label>
+                        <ComboboxFilter
+                            options={years}
+                            placeholder="Seleccionar año"
+                            value={selectedYear}
+                            onChange={setSelectedYear}
+                        />
+                    </div>
 
                     {/* <div className="space-y-2">
                         <label className="text-sm font-medium">Carrera Específica</label>
@@ -445,6 +461,7 @@ export function FiltrosMedioSuperior({ filterOptions }: { filterOptions: FilterO
 
                             <TableHeader>
                                 <TableRow>
+                                    <TableHead>Año</TableHead>
                                     <TableHead className="w-[200px]">Nombre</TableHead>
                                     <TableHead>Tipo de Institución</TableHead>
                                     <TableHead>Tipo de Bachiller</TableHead>
@@ -467,6 +484,7 @@ export function FiltrosMedioSuperior({ filterOptions }: { filterOptions: FilterO
                                     const totals = calculateTotals(institution)
                                     return (
                                         <TableRow key={institution.id}>
+                                            <TableCell>{institution.cuestionariosData?.año}</TableCell>
                                             <TableCell className="font-medium">{institution.nombre}</TableCell>
                                             <TableCell>{institution.tipoInstituciones?.descripcion}</TableCell>
                                             <TableCell>{institution.tipoBachilleres?.descripcion}</TableCell>

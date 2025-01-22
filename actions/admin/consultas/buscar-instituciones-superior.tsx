@@ -12,6 +12,7 @@ interface SearchParams {
     institutionType?: string;
     municipalityType?: string; // Nuevo parámetro
     institutionName?: string;
+    year?: string; // Nuevo parámetro
 }
 
 export type InstitucionesBusqueda = Awaited<
@@ -64,14 +65,19 @@ export async function buscarSuperior(params: SearchParams) {
                         categoriasGenerales: true,
                     },
                 });
+
+                let whereConditions = [eq(cuestionarios.usersId, institution.usersId!)];
+                if (params.year) {
+                    whereConditions.push(eq(cuestionarios.año, parseInt(params.year)));
+                }
+
                 const cuestionario = await db.query.cuestionarios.findMany({
-                    where: eq(cuestionarios.usersId, institution.usersId!),
+                    where: and(...whereConditions),
                     with: {
                         carrera: {
                             with: {
                                 modalidad: true,
                                 carrera: true,
-
                             },
                         },
                         preguntas: {
