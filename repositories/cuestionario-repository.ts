@@ -23,7 +23,14 @@ export async function getCuestionariosWithRelations({
     limit: limit,
     offset: offset,
     where: search ? like(cuestionarios.id, `%${search}%`) : undefined,
-    with: undefined,
+    with: {
+      carrera: {
+        with: {
+          carrera: true,
+          modalidad: true,
+        },
+      },
+    },
   });
 }
 

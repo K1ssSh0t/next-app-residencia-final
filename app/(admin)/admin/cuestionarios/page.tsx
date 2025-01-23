@@ -36,8 +36,13 @@ export default async function Page(props: {
         offset: pageIndex * pageSize,
         where: search ? like(cuestionarios.id, `%${search}%`) : undefined,
         with: {
-            carrera: true,
-        }
+            carrera: {
+                with: {
+                    carrera: true,
+                    modalidad: true,
+                },
+            },
+        },
     });
 
     return (

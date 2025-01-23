@@ -35,7 +35,12 @@ export default async function Page(props: {
 
   const misCuestionarios = await db.query.cuestionarios.findMany({
     with: {
-      carrera: true,
+      carrera: {
+        with: {
+          carrera: true,
+          modalidad: true,
+        },
+      },
     },
     limit: pageSize,
     offset: pageIndex * pageSize,

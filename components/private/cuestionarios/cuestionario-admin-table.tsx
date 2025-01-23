@@ -11,7 +11,13 @@ import {
 import { Button } from "@/components/ui/button";
 import { CuestionariosWithRelations } from "@/repositories/cuestionario-repository";
 
-export function CuestionarioTable({ cuestionarioList }: { cuestionarioList: CuestionariosWithRelations }) {
+interface Props {
+    cuestionarioList: CuestionariosWithRelations;
+    showEspecialidadesButton?: boolean;
+    institucionId?: string;
+}
+
+export function CuestionarioTable({ cuestionarioList, showEspecialidadesButton = false, institucionId }: Props) {
     return (
         <Table>
             <TableHeader>
@@ -22,6 +28,7 @@ export function CuestionarioTable({ cuestionarioList }: { cuestionarioList: Cues
                     <TableHead>Plan de Estudio</TableHead>
                     <TableHead>Modalidad</TableHead>
                     <TableHead>Numero Revoe</TableHead>
+                    {showEspecialidadesButton && <TableHead>Especialidades</TableHead>}
                     <TableHead></TableHead>
                 </TableRow>
             </TableHeader>
@@ -34,8 +41,16 @@ export function CuestionarioTable({ cuestionarioList }: { cuestionarioList: Cues
                         <TableCell>{cuestionario.carrera?.planDeEstudio}</TableCell>
                         <TableCell>{cuestionario.carrera?.modalidad?.descripcion}</TableCell>
                         <TableCell>{cuestionario.carrera?.numeroRevoe}</TableCell>
+                        {showEspecialidadesButton && (
+                            <TableCell>
+                                <Link href={`/admin/instituciones/${institucionId}/especialidades/${cuestionario.id}`}>
+                                    <Button size="sm" variant="outline">
+                                        Ver Especialidades
+                                    </Button>
+                                </Link>
+                            </TableCell>
+                        )}
                         <TableCell className="justify-end flex gap-2">
-                            {/* [CODE_MARK table-actions] */}
                             <Link href={`/admin/cuestionarios/${cuestionario.id}`}>
                                 <Button size="icon" variant="outline">
                                     <EyeIcon />

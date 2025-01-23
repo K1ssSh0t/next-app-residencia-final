@@ -12,6 +12,7 @@ import { CuestionarioTable } from "@/components/private/cuestionarios/cuestionar
 import { datosInstitucionales } from "@/schema/datos-institucionales";
 import { especialidades } from "@/schema/especialidades";
 import { EspecialidadUpdateForm } from "@/components/private/especialidades/especialidad-update-form";
+import { CombinedEspecialidadesForm } from "@/components/private/especialidades/combined-especialidades-form";
 
 type Params = Promise<{ id: string }>;
 
@@ -56,12 +57,6 @@ export default async function Page(props: { params: Params }) {
         },
         where: eq(datosInstitucionales.institucionesId, `${id}`),
     })
-
-
-    const especialidadesDatos = await db.query.especialidades.findMany({
-        where: eq(especialidades.cuestionarioId, `${cuestionario[0].id}`),
-    })
-
 
     const listaEspecialidades = await db.query.especialidadesListas.findMany();
 
@@ -195,24 +190,20 @@ export default async function Page(props: { params: Params }) {
                     )}
                 </Card>
             </div>
-            <div className="text-center font-bold text-xl flex justify-center m-4 ">Cuestionarios</div>
+            <div className="text-center font-bold text-xl flex justify-center m-4">Cuestionarios</div>
             <div>
-                {cuestionario ? <CuestionarioTable cuestionarioList={cuestionario} /> : <div>No tiene datos de cuestionario</div>}
-            </div>
-
-            <div className="flex justify-center">
-                {
-                    institucion?.nivelEducativo == false && institucion.tipoBachilleres?.descripcion == "Tecnologico" ? <div>
-                        {
-                            especialidadesDatos.map((especialidad, index) => (
-                                <EspecialidadUpdateForm key={index} especialidad={especialidad} listaCarreras={listaEspecialidades} />
-                            ))
-                        } </div> :
-                        (
-                            <div></div>
-                        )
-
-                }
+                {cuestionario ? (
+                    <CuestionarioTable
+                        cuestionarioList={cuestionario}
+                        showEspecialidadesButton={
+                            institucion?.nivelEducativo === false &&
+                            institucion.tipoBachilleres?.descripcion === "Tecnologico"
+                        }
+                        institucionId={id}
+                    />
+                ) : (
+                    <div>No tiene datos de cuestionario</div>
+                )}
             </div>
         </div>
     );
