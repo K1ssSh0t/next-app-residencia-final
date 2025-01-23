@@ -11,6 +11,9 @@ export const datosInstitucionales = pgTable("datos_institucionales", {
   id: text()
     .primaryKey()
     .$defaultFn(() => createId()),
+  anio: integer()
+    .notNull()
+    .$defaultFn(() => new Date().getFullYear()),
   institucionesId: text().references(() => instituciones.id),
   categoriasGeneralesId: text().references(() => categoriasGenerales.id),
   cantidadHombres: integer(),

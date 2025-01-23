@@ -1,0 +1,1 @@
+ALTER TABLE "datos_institucionales" ALTER COLUMN "anio" SET NOT NULL;

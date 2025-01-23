@@ -122,6 +122,9 @@ export default async function Page(props: {
         where: eq(datosInstitucionales.institucionesId, `${miInstitucion?.id}`),
     })
 
+    // Filter datos generales for current year
+    const currentYearDatosGenerales = datosGenerales.filter(dato => dato.anio === currentYear);
+
     const misEspecialidades = await db.query.especialidades.findMany({
         where: eq(especialidades.cuestionarioId, `${misCuestionarios[0]?.id}`),
     })
@@ -225,7 +228,7 @@ export default async function Page(props: {
                     {/* TODO: MODIFICAR LOS DATOS GENERALES PARA QYE TAMBIEN TENGAN AÑO Y SE PUEDA DISTINGIR UN AÑO DEL OTRO */}
                     <Card className="md:col-span-3">
                         <CardHeader className="pb-1 px-3 pt-3">
-                            <CardTitle>Datos Generales</CardTitle>
+                            <CardTitle>Datos Generales {currentYear}</CardTitle>
                         </CardHeader>
                         <CardContent className="px-3 py-2">
                             {!miInstitucion ? (
@@ -235,12 +238,15 @@ export default async function Page(props: {
                                         <PlusIcon className="mr-2 h-4 w-4" /> Ir a rellenar datos de la Institución
                                     </Button></Link>
                                 </div>
-                            ) : datosGenerales.length === 0 ? (
+                            ) : currentYearDatosGenerales.length === 0 ? (
                                 <div className="text-center space-y-4">
-                                    <p className="text-muted-foreground">No hay datos generales</p>
+                                    <p className="text-muted-foreground">No hay datos generales para el año {currentYear}</p>
                                     <Link href={{
                                         pathname: "/datos-institucionales/new",
-                                        query: { idInstitucion: miInstitucion?.id }
+                                        query: {
+                                            idInstitucion: miInstitucion?.id,
+
+                                        }
                                     }}
                                         className={isCuestionarioActivo ? "" : "pointer-events-none"}>
                                         <Button size="sm" disabled={!isCuestionarioActivo}>
@@ -249,7 +255,7 @@ export default async function Page(props: {
                                     </Link>
                                 </div>
                             ) : (
-                                <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">                {datosGenerales.map((dato, index) => (
+                                <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">                {currentYearDatosGenerales.map((dato, index) => (
                                     <div key={index} className="border rounded-lg p-2">
                                         <h3 className="font-medium text-sm text-center mb-1">
                                             {dato?.categoriasGenerales?.descripcion || "Categoría"}
@@ -271,11 +277,14 @@ export default async function Page(props: {
                                 </div>
                             )}
                         </CardContent>
-                        {datosGenerales.length > 0 && miInstitucion && (
+                        {currentYearDatosGenerales.length > 0 && miInstitucion && (
                             <CardFooter className="px-3">
                                 <Link href={{
                                     pathname: "/datos-institucionales/edit",
-                                    query: { idInstitucion: miInstitucion?.id }
+                                    query: {
+                                        idInstitucion: miInstitucion?.id,
+                                        anio: currentYear,
+                                    }
                                 }} className={isCuestionarioActivo ? "" : "pointer-events-none"}>
                                     <Button size="sm" disabled={!isCuestionarioActivo}>
                                         <PlusIcon className="mr-2 h-4 w-4" /> Editar

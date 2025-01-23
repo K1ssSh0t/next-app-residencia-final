@@ -56,7 +56,18 @@ export default async function Page(props: { params: Params }) {
             categoriasGenerales: true,
         },
         where: eq(datosInstitucionales.institucionesId, `${id}`),
-    })
+        orderBy: (datosInstitucionales, { desc }) => [desc(datosInstitucionales.anio)]
+    });
+
+    // Group datos generales by year
+    const datosPorAnio = datosGenerales.reduce((acc, dato) => {
+        const year = dato.anio || 'Sin año';
+        if (!acc[year]) {
+            acc[year] = [];
+        }
+        acc[year].push(dato);
+        return acc;
+    }, {} as Record<string, typeof datosGenerales>);
 
     const listaEspecialidades = await db.query.especialidadesListas.findMany();
 
@@ -126,15 +137,6 @@ export default async function Page(props: { params: Params }) {
                             </div>
                         )}
                     </CardContent>
-                    {/* {institucion && (
-                        <CardFooter className="px-3 py-2">
-                            <Link href={`/admin/instituciones/${institucion.id}/edit`} className="ml-auto">
-                                <Button size="sm">
-                                    <PlusIcon className="mr-2 h-4 w-4" /> Editar
-                                </Button>
-                            </Link>
-                        </CardFooter>
-                    )} */}
                 </Card>
                 <Card className="md:col-span-1">
                     <CardHeader className="pb-1 px-3 pt-3">
@@ -154,40 +156,49 @@ export default async function Page(props: { params: Params }) {
                                 </Link>
                             </div>
                         ) : (
-                            <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">                                {datosGenerales.map((dato, index) => (
-                                <div key={index} className="border rounded-lg p-2">
-                                    <h3 className="font-medium text-sm text-center mb-1">
-                                        {dato?.categoriasGenerales?.descripcion || "Categoría"}
-                                    </h3>
-                                    <div className="flex justify-around items-center">
-                                        <div className="text-center px-2">
-                                            <UserIcon className="h-3 w-3 text-pink-500 mx-auto mb-0.5" />
-                                            <p className="text-xs text-muted-foreground">Mujeres</p>
-                                            <p className="font-semibold text-sm text-pink-600">{dato?.cantidadMujeres || "0"}</p>
+                            <div className="space-y-6">
+                                {Object.entries(datosPorAnio).map(([year, datos]) => (
+                                    <div key={year} className="space-y-3">
+                                        <div className="flex items-center justify-between">
+                                            <h3 className="font-semibold">Año {year}</h3>
+                                            <Link href={{
+                                                pathname: "/admin/datos-institucionales/edit",
+                                                query: {
+                                                    idInstitucion: institucion?.id,
+                                                    anio: year
+                                                }
+                                            }}>
+                                                <Button size="sm" variant="outline">
+                                                    <PlusIcon className="mr-2 h-4 w-4" /> Editar
+                                                </Button>
+                                            </Link>
                                         </div>
-                                        <div className="text-center px-2">
-                                            <UsersIcon className="h-3 w-3 text-blue-500 mx-auto mb-0.5" />
-                                            <p className="text-xs text-muted-foreground">Hombres</p>
-                                            <p className="font-semibold text-sm text-blue-600">{dato?.cantidadHombres || "0"}</p>
+                                        <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+                                            {datos.map((dato, index) => (
+                                                <div key={index} className="border rounded-lg p-2">
+                                                    <h3 className="font-medium text-sm text-center mb-1">
+                                                        {dato?.categoriasGenerales?.descripcion || "Categoría"}
+                                                    </h3>
+                                                    <div className="flex justify-around items-center">
+                                                        <div className="text-center px-2">
+                                                            <UserIcon className="h-3 w-3 text-pink-500 mx-auto mb-0.5" />
+                                                            <p className="text-xs text-muted-foreground">Mujeres</p>
+                                                            <p className="font-semibold text-sm text-pink-600">{dato?.cantidadMujeres || "0"}</p>
+                                                        </div>
+                                                        <div className="text-center px-2">
+                                                            <UsersIcon className="h-3 w-3 text-blue-500 mx-auto mb-0.5" />
+                                                            <p className="text-xs text-muted-foreground">Hombres</p>
+                                                            <p className="font-semibold text-sm text-blue-600">{dato?.cantidadHombres || "0"}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ))}
                                         </div>
                                     </div>
-                                </div>
-                            ))}
+                                ))}
                             </div>
                         )}
                     </CardContent>
-                    {datosGenerales.length > 0 && (
-                        <CardFooter className="px-3 py-2">
-                            <Link href={{
-                                pathname: "/admin/datos-institucionales/edit",
-                                query: { idInstitucion: institucion?.id }
-                            }} className="ml-auto">
-                                <Button size="sm">
-                                    <PlusIcon className="mr-2 h-4 w-4" /> Editar
-                                </Button>
-                            </Link>
-                        </CardFooter>
-                    )}
                 </Card>
             </div>
             <div className="text-center font-bold text-xl flex justify-center m-4">Cuestionarios</div>
