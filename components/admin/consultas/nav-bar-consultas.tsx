@@ -22,7 +22,7 @@ export function NavBar() {
                     Buscar Superior
                 </Link>
                 <Link
-                    href="consultas/medio-superior"
+                    href="/admin/consultas/medio-superior"
                     className={cn(
                         "text-sm font-medium transition-colors hover:text-primary",
                         pathname === "/admin/consultas/medio-superior"
