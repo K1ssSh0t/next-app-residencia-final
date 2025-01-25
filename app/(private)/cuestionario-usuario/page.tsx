@@ -225,7 +225,6 @@ export default async function Page(props: {
           )} 
                 </Card> */}
 
-                    {/* TODO: MODIFICAR LOS DATOS GENERALES PARA QYE TAMBIEN TENGAN AÑO Y SE PUEDA DISTINGIR UN AÑO DEL OTRO */}
                     <Card className="md:col-span-3">
                         <CardHeader className="pb-1 px-3 pt-3">
                             <CardTitle>Datos Generales {currentYear}</CardTitle>

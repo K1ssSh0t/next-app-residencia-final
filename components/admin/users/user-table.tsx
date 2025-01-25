@@ -16,6 +16,9 @@ import { cuestionarios } from "@/schema/cuestionarios";
 import { count, eq, sql } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { especialidades } from "@/schema/especialidades";
+import { datosInstitucionales } from "@/schema/datos-institucionales";
+import { categoriaPersonas } from "@/schema/categoria-personas";
+import { preguntas } from "@/schema/preguntas";
 
 type UserWithProgress = {
   id: string;
@@ -31,6 +34,12 @@ type UserWithProgress = {
 
 
 export async function UserTable({ userList }: { userList: UsersWithRelations }) {
+  const currentYear = new Date().getFullYear();
+
+  // Obtener todas las categorías de personas una sola vez
+  const allCategorias = await db
+    .select()
+    .from(categoriaPersonas);
 
   const userProgress: UserWithProgress[] = await Promise.all(
     userList.map(async (user) => {
@@ -38,40 +47,86 @@ export async function UserTable({ userList }: { userList: UsersWithRelations }) 
       let progressStatus: 'sin empezar' | 'en progreso' | 'terminado' = 'sin empezar';
 
       if (institucion.length > 0) {
-        const totalRequired = institucion[0].numeroCarreras;
+        const hasDatosInstitucionales = await db
+          .select({ count: count() })
+          .from(datosInstitucionales)
+          .where(
+            sql`${datosInstitucionales.institucionesId} = ${institucion[0].id} AND ${datosInstitucionales.anio} = ${currentYear}`
+          );
 
-        const cuestionariosResult = await db
-          .select({
-            count: count(),
-            firstId: sql<string>`MIN(${cuestionarios.id})`
-          })
-          .from(cuestionarios)
-          .where(eq(cuestionarios.usersId, user.id))
-          .groupBy(cuestionarios.usersId);
+        if (hasDatosInstitucionales[0].count === 0) {
+          progressStatus = 'sin empezar';
+        } else {
+          // Determinar nivel y categorías aplicables
+          const nivelInstitucional = institucion[0].nivelEducativo ? 'superior' : 'medioSuperior';
+          const categoriasAplicables = allCategorias.filter(cat =>
+            cat.nivelAplicado === nivelInstitucional || cat.nivelAplicado === 'ambos'
+          );
 
-        if (cuestionariosResult.length > 0) {
-          const cuestionariosCount = cuestionariosResult[0].count;
-          const firstCuestionarioId = cuestionariosResult[0].firstId;
+          const cuestionariosResult = await db
+            .select({
+              id: cuestionarios.id,
+            })
+            .from(cuestionarios)
+            .where(
+              sql`${cuestionarios.usersId} = ${user.id} AND EXTRACT(YEAR FROM ${cuestionarios.createdAt}) = ${currentYear}`
+            );
 
-          // Lógica de progreso para instituciones de nivel superior
-          if (institucion[0].nivelEducativo) {
-            if (cuestionariosCount === totalRequired) {
-              progressStatus = 'terminado';
-            } else if (cuestionariosCount > 0) {
-              progressStatus = 'en progreso';
-            }
-          }
-          // Lógica de progreso para instituciones de nivel medio superior
-          else {
-            const [especialidadesCount] = await db
-              .select({ value: count() })
-              .from(especialidades)
-              .where(eq(especialidades.cuestionarioId, firstCuestionarioId));
+          if (cuestionariosResult.length > 0) {
+            if (nivelInstitucional === 'medioSuperior') {
+              // Para medio superior: verificar un solo cuestionario con preguntas y especialidades
+              if (cuestionariosResult.length === 1) {
+                const cuestionarioId = cuestionariosResult[0].id;
 
-            if (especialidadesCount.value === totalRequired) {
-              progressStatus = 'terminado';
-            } else if (especialidadesCount.value > 0) {
-              progressStatus = 'en progreso';
+                // Verificar preguntas
+                const preguntasCount = await db
+                  .select({ count: count() })
+                  .from(preguntas)
+                  .where(eq(preguntas.cuestionariosId, cuestionarioId));
+
+                // Verificar especialidades
+                const especialidadesCount = await db
+                  .select({ count: count() })
+                  .from(especialidades)
+                  .where(eq(especialidades.cuestionarioId, cuestionarioId));
+
+                const tieneTodasLasPreguntas = preguntasCount[0].count === categoriasAplicables.length;
+                const tieneTodasLasEspecialidades = especialidadesCount[0].count === institucion[0].numeroCarreras;
+
+                if (tieneTodasLasPreguntas && tieneTodasLasEspecialidades) {
+                  progressStatus = 'terminado';
+                } else if (preguntasCount[0].count > 0 || especialidadesCount[0].count > 0) {
+                  progressStatus = 'en progreso';
+                }
+              } else if (cuestionariosResult.length > 1) {
+                progressStatus = 'en progreso';
+              }
+            } else {
+              // Para superior: verificar que haya un cuestionario completo por cada carrera
+              const totalCarreras = institucion[0].numeroCarreras;
+
+              // Primero verificamos si tiene al menos un cuestionario (en progreso)
+              if (cuestionariosResult.length > 0) {
+                // Verificar si todos los cuestionarios están completos
+                const cuestionariosCompletos = await Promise.all(
+                  cuestionariosResult.map(async (cuest) => {
+                    const preguntasCount = await db
+                      .select({ count: count() })
+                      .from(preguntas)
+                      .where(eq(preguntas.cuestionariosId, cuest.id));
+
+                    return preguntasCount[0].count === categoriasAplicables.length;
+                  })
+                );
+
+                const cuestionariosTerminados = cuestionariosCompletos.filter(Boolean).length;
+
+                if (cuestionariosTerminados === totalCarreras) {
+                  progressStatus = 'terminado';
+                } else {
+                  progressStatus = 'en progreso';
+                }
+              }
             }
           }
         }
