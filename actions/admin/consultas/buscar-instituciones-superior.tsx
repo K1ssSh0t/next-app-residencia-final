@@ -93,6 +93,11 @@ export async function buscarSuperior(params: SearchParams) {
                     },
                 });
 
+                // Return null if no data is found for the selected year
+                if (params.year && (datosInst.length === 0 && cuestionario.length === 0)) {
+                    return null;
+                }
+
                 return {
                     ...institution,
                     datosInstitucionales: datosInst,
@@ -100,6 +105,7 @@ export async function buscarSuperior(params: SearchParams) {
                 };
             })
         );
+
         const filteredInstitutions = institutionsWithData.filter(
             (institution): institution is NonNullable<typeof institution> =>
                 institution !== null

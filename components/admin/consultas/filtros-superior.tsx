@@ -89,41 +89,76 @@ const convertToCSV = (data: InstitucionesBusqueda, categoriasCuestionario: strin
         ...categoriasGenerales.map(c => `${c}_Hombres,${c}_Mujeres,${c}_Total`)
     ].join(',');
 
-    const rows = data.flatMap(institution =>
-        institution.cuestionario?.map(cuestionario => {
-            const basicInfo = [
-                cuestionario.año,
-                cuestionario.carrera?.carrera?.descripcion || '',
-                cuestionario.carrera?.nombreRevoe || '',
-                cuestionario.carrera?.numeroRevoe || '',
-                institution.nombre || '',
-                institution.tipoInstituciones?.descripcion || '',
-                cuestionario.carrera?.modalidad?.descripcion || '',
-                institution.region?.nombre || '',
-                institution.municipio?.nombre || ''
-            ];
+    const rows = data
+        .filter(institution =>
+            (institution.datosInstitucionales && institution.datosInstitucionales.length > 0) ||
+            (institution.cuestionario && institution.cuestionario.length > 0)
+        )
+        .flatMap(institution => {
+            // Si tiene cuestionarios, crear una fila por cada uno
+            if (institution.cuestionario && institution.cuestionario.length > 0) {
+                return institution.cuestionario.map(cuestionario => {
+                    const basicInfo = [
+                        cuestionario.año,
+                        cuestionario.carrera?.carrera?.descripcion || '',
+                        cuestionario.carrera?.nombreRevoe || '',
+                        cuestionario.carrera?.numeroRevoe || '',
+                        institution.nombre || '',
+                        institution.tipoInstituciones?.descripcion || '',
+                        cuestionario.carrera?.modalidad?.descripcion || '',
+                        institution.region?.nombre || '',
+                        institution.municipio?.nombre || ''
+                    ];
 
-            const cuestionarioData = categoriasCuestionario.map(category => {
-                const pregunta = cuestionario.preguntas.find(
-                    p => p.categoriaPersona?.descripcion === category
-                );
-                const h = pregunta?.cantidadHombres || 0;
-                const m = pregunta?.cantidadMujeres || 0;
-                return `${h},${m},${h + m}`;
-            });
+                    const cuestionarioData = categoriasCuestionario.map(category => {
+                        const pregunta = cuestionario.preguntas.find(
+                            p => p.categoriaPersona?.descripcion === category
+                        );
+                        const h = pregunta?.cantidadHombres || 0;
+                        const m = pregunta?.cantidadMujeres || 0;
+                        return `${h},${m},${h + m}`;
+                    });
 
-            const datosInstitucionales = categoriasGenerales.map(category => {
-                const dato = institution.datosInstitucionales?.find(
-                    d => d.categoriasGenerales?.descripcion === category
-                );
-                const h = dato?.cantidadHombres || 0;
-                const m = dato?.cantidadMujeres || 0;
-                return `${h},${m},${h + m}`;
-            });
+                    const datosInstitucionales = categoriasGenerales.map(category => {
+                        const dato = institution.datosInstitucionales?.find(
+                            d => d.categoriasGenerales?.descripcion === category
+                        );
+                        const h = dato?.cantidadHombres || 0;
+                        const m = dato?.cantidadMujeres || 0;
+                        return `${h},${m},${h + m}`;
+                    });
 
-            return [...basicInfo, ...cuestionarioData, ...datosInstitucionales].join(',');
-        })
-    ).filter(Boolean);
+                    return [...basicInfo, ...cuestionarioData, ...datosInstitucionales].join(',');
+                });
+            } else {
+                // Si solo tiene datos institucionales, crear una única fila con el año de los datos institucionales
+                const año = institution.datosInstitucionales?.[0]?.anio || '-';
+                const basicInfo = [
+                    año, // Usar el año de datos institucionales
+                    '-', // carrera
+                    '-', // REVOE
+                    '-', // número REVOE
+                    institution.nombre || '',
+                    institution.tipoInstituciones?.descripcion || '',
+                    '-', // modalidad
+                    institution.region?.nombre || '',
+                    institution.municipio?.nombre || ''
+                ];
+
+                const cuestionarioData = categoriasCuestionario.map(() => '0,0,0');
+
+                const datosInstitucionales = categoriasGenerales.map(category => {
+                    const dato = institution.datosInstitucionales?.find(
+                        d => d.categoriasGenerales?.descripcion === category
+                    );
+                    const h = dato?.cantidadHombres || 0;
+                    const m = dato?.cantidadMujeres || 0;
+                    return `${h},${m},${h + m}`;
+                });
+
+                return [[...basicInfo, ...cuestionarioData, ...datosInstitucionales].join(',')];
+            }
+        });
 
     return `${headers}\n${rows.join('\n')}`;
 };
@@ -208,10 +243,11 @@ export function FiltrosSuperior({ filterOptions }: { filterOptions: FilterOption
         setCurrentPage(page);
     };
 
-    //TODO: MODIFICAR AQUI , POSIBLE BUG AQUI, HACE QUE NO MUESTRE TODAS LAS INSTITUCIONES 
-    const paginatedResults = results?.flatMap(institution =>
-        institution.cuestionario?.map(cuestionario => ({ institution, cuestionario }))
-    ).slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+    // Modificar la estructura de paginación para manejar instituciones directamente
+    const paginatedResults = results?.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
 
     const [showDetailedView, setShowDetailedView] = React.useState(true);
 
@@ -350,7 +386,19 @@ export function FiltrosSuperior({ filterOptions }: { filterOptions: FilterOption
     const renderResults = () => {
         if (!results || results.length === 0) return null;
 
-        const overallTotals = calculateOverallTotals(results);
+        // Filtrar solo las instituciones que tienen datos para mostrar
+        const institucionesConDatos = results.filter(institution =>
+            (institution.datosInstitucionales && institution.datosInstitucionales.length > 0) ||
+            (institution.cuestionario && institution.cuestionario.length > 0)
+        );
+
+        // Usar las instituciones filtradas para la paginación
+        const paginatedInstitutions = institucionesConDatos.slice(
+            (currentPage - 1) * itemsPerPage,
+            currentPage * itemsPerPage
+        );
+
+        const overallTotals = calculateOverallTotals(institucionesConDatos);
         const cuestionarioTotals = Object.fromEntries(
             categoriasCuestionario.map(category => [
                 category,
@@ -388,10 +436,8 @@ export function FiltrosSuperior({ filterOptions }: { filterOptions: FilterOption
                 </div>
 
                 {showDetailedView ? (
-                    // Existing table code
                     <div className="rounded-md border">
                         <Table>
-
                             <TableHeader>
                                 <TableRow>
                                     <TableHead>Año</TableHead>
@@ -416,41 +462,82 @@ export function FiltrosSuperior({ filterOptions }: { filterOptions: FilterOption
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                {paginatedResults?.map(({ institution, cuestionario }) => (
-                                    <TableRow key={cuestionario.id}>
-                                        <TableCell>{cuestionario.año}</TableCell>
-                                        <TableCell className="font-medium">{cuestionario.carrera?.carrera?.descripcion}</TableCell>
-                                        <TableCell>{cuestionario.carrera?.nombreRevoe}</TableCell>
-                                        <TableCell>{cuestionario.carrera?.numeroRevoe}</TableCell>
-                                        <TableCell>{institution.nombre}</TableCell>
-                                        <TableCell>{institution.tipoInstituciones?.descripcion}</TableCell>
-                                        <TableCell>{cuestionario.carrera?.modalidad?.descripcion}</TableCell>
-                                        <TableCell>{institution.region?.nombre}</TableCell>
-                                        <TableCell>{institution.municipio?.nombre}</TableCell>
-                                        {categoriasGenerales.map(category => (
-                                            <TableCell key={`${cuestionario.id}-${category}`}>
-                                                {institution.datosInstitucionales?.filter((dato) => dato.categoriasGenerales?.descripcion === category).map((dato) => (
-                                                    <div key={dato.id} className="text-sm">
-                                                        H: {dato.cantidadHombres!} <br />
-                                                        M: {dato.cantidadMujeres!} <br />
-                                                        T: {dato.cantidadHombres! + dato.cantidadMujeres!}
-                                                    </div>
+                                {paginatedInstitutions?.map((institution) => (
+                                    // Si tiene cuestionarios, mostrar una fila por cada uno
+                                    (institution.cuestionario && institution.cuestionario.length > 0 ?
+                                        institution.cuestionario.map(cuestionario => (
+                                            <TableRow key={`${institution.id}-${cuestionario.id}`}>
+                                                <TableCell>{cuestionario.año}</TableCell>
+                                                <TableCell className="font-medium">{cuestionario.carrera?.carrera?.descripcion}</TableCell>
+                                                <TableCell>{cuestionario.carrera?.nombreRevoe}</TableCell>
+                                                <TableCell>{cuestionario.carrera?.numeroRevoe}</TableCell>
+                                                <TableCell>{institution.nombre}</TableCell>
+                                                <TableCell>{institution.tipoInstituciones?.descripcion}</TableCell>
+                                                <TableCell>{cuestionario.carrera?.modalidad?.descripcion}</TableCell>
+                                                <TableCell>{institution.region?.nombre}</TableCell>
+                                                <TableCell>{institution.municipio?.nombre}</TableCell>
+                                                {categoriasGenerales.map(category => (
+                                                    <TableCell key={`${institution.id}-${category}`}>
+                                                        {institution.datosInstitucionales?.filter(
+                                                            dato => dato.categoriasGenerales?.descripcion === category
+                                                        ).map(dato => (
+                                                            <div key={dato.id} className="text-sm">
+                                                                H: {dato.cantidadHombres!} <br />
+                                                                M: {dato.cantidadMujeres!} <br />
+                                                                T: {dato.cantidadHombres! + dato.cantidadMujeres!}
+                                                            </div>
+                                                        ))}
+                                                    </TableCell>
                                                 ))}
-                                            </TableCell>
-                                        ))}
-                                        {categoriasCuestionario.map(category => (
-                                            <TableCell key={`${cuestionario.id}-${category}`}>
-                                                {cuestionario.preguntas.filter((pregunta) => pregunta.categoriaPersona?.descripcion === category).map((pregunta) => (
-                                                    <div key={pregunta.id} className="text-sm">
-                                                        H: {pregunta.cantidadHombres!} <br />
-                                                        M: {pregunta.cantidadMujeres!} <br />
-                                                        T: {pregunta.cantidadHombres! + pregunta.cantidadMujeres!}
-                                                    </div>
+                                                {categoriasCuestionario.map(category => (
+                                                    <TableCell key={`${cuestionario.id}-${category}`}>
+                                                        {cuestionario.preguntas.filter(
+                                                            pregunta => pregunta.categoriaPersona?.descripcion === category
+                                                        ).map(pregunta => (
+                                                            <div key={pregunta.id} className="text-sm">
+                                                                H: {pregunta.cantidadHombres!} <br />
+                                                                M: {pregunta.cantidadMujeres!} <br />
+                                                                T: {pregunta.cantidadHombres! + pregunta.cantidadMujeres!}
+                                                            </div>
+                                                        ))}
+                                                    </TableCell>
                                                 ))}
-                                            </TableCell>
-                                        ))}
-
-                                    </TableRow>
+                                            </TableRow>
+                                        ))
+                                        :
+                                        // Si no tiene cuestionarios pero sí datos institucionales, mostrar una fila con el año
+                                        institution.datosInstitucionales && institution.datosInstitucionales.length > 0 && (
+                                            <TableRow key={institution.id}>
+                                                <TableCell>
+                                                    {institution.datosInstitucionales[0]?.anio || '-'}
+                                                </TableCell>
+                                                <TableCell>-</TableCell>
+                                                <TableCell>-</TableCell>
+                                                <TableCell>-</TableCell>
+                                                <TableCell>{institution.nombre}</TableCell>
+                                                <TableCell>{institution.tipoInstituciones?.descripcion}</TableCell>
+                                                <TableCell>-</TableCell>
+                                                <TableCell>{institution.region?.nombre}</TableCell>
+                                                <TableCell>{institution.municipio?.nombre}</TableCell>
+                                                {categoriasGenerales.map(category => (
+                                                    <TableCell key={`${institution.id}-${category}`}>
+                                                        {institution.datosInstitucionales?.filter(
+                                                            dato => dato.categoriasGenerales?.descripcion === category
+                                                        ).map(dato => (
+                                                            <div key={dato.id} className="text-sm">
+                                                                H: {dato.cantidadHombres!} <br />
+                                                                M: {dato.cantidadMujeres!} <br />
+                                                                T: {dato.cantidadHombres! + dato.cantidadMujeres!}
+                                                            </div>
+                                                        ))}
+                                                    </TableCell>
+                                                ))}
+                                                {categoriasCuestionario.map(category => (
+                                                    <TableCell key={`${institution.id}-${category}`}>-</TableCell>
+                                                ))}
+                                            </TableRow>
+                                        )
+                                    )
                                 ))}
                                 <TableRow>
                                     <TableCell className="font-medium">Totales</TableCell>
@@ -509,10 +596,12 @@ export function FiltrosSuperior({ filterOptions }: { filterOptions: FilterOption
                         >
                             Anterior
                         </Button>
-                        <span className="mx-2">Página {currentPage} de {Math.ceil(results.flatMap(institution => institution.cuestionario || []).length / itemsPerPage)}</span>
+                        <span className="mx-2">
+                            Página {currentPage} de {Math.ceil(institucionesConDatos.length / itemsPerPage)}
+                        </span>
                         <Button
                             onClick={() => handlePageChange(currentPage + 1)}
-                            disabled={currentPage === Math.ceil(results.flatMap(institution => institution.cuestionario || []).length / itemsPerPage)}
+                            disabled={currentPage === Math.ceil(institucionesConDatos.length / itemsPerPage)}
                         >
                             Siguiente
                         </Button>
