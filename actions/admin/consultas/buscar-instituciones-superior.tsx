@@ -59,8 +59,13 @@ export async function buscarSuperior(params: SearchParams) {
         // Fetch datos institucionales separately
         const institutionsWithData = await Promise.all(
             institutionsData.map(async (institution) => {
+                let datosInstConditions = [eq(datosInstitucionales.institucionesId, institution.id)];
+                if (params.year) {
+                    datosInstConditions.push(eq(datosInstitucionales.anio, parseInt(params.year)));
+                }
+
                 const datosInst = await db.query.datosInstitucionales.findMany({
-                    where: eq(datosInstitucionales.institucionesId, institution.id),
+                    where: and(...datosInstConditions),
                     with: {
                         categoriasGenerales: true,
                     },
@@ -95,7 +100,12 @@ export async function buscarSuperior(params: SearchParams) {
                 };
             })
         );
-        return institutionsWithData;
+        const filteredInstitutions = institutionsWithData.filter(
+            (institution): institution is NonNullable<typeof institution> =>
+                institution !== null
+        );
+
+        return filteredInstitutions;
     } catch (error) {
         console.error("Error searching institutions:", error);
         throw new Error("Error al buscar instituciones");

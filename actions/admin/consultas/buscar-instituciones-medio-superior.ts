@@ -66,8 +66,17 @@ export async function buscarMedioSuperior(params: SearchParams) {
     // Fetch datos institucionales and cuestionarios separately
     const institutionsWithData = await Promise.all(
       institutionsData.map(async (institution) => {
+        let datosInstConditions = [
+          eq(datosInstitucionales.institucionesId, institution.id),
+        ];
+        if (params.year) {
+          datosInstConditions.push(
+            eq(datosInstitucionales.anio, parseInt(params.year))
+          );
+        }
+
         const datosInst = await db.query.datosInstitucionales.findMany({
-          where: eq(datosInstitucionales.institucionesId, institution.id),
+          where: and(...datosInstConditions),
           with: {
             categoriasGenerales: true,
           },

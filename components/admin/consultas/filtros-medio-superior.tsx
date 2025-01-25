@@ -118,6 +118,33 @@ const calculateTotals = (institution: InstitucionesBusqueda[0]) => {
     return totals
 }
 
+interface TotalViewProps {
+    totals: { [key: string]: { hombres: number, mujeres: number, total: number } };
+    title: string;
+}
+
+function TotalsCard({ totals, title }: TotalViewProps) {
+    return (
+        <Card className="mb-4">
+            <CardContent className="pt-6">
+                <h3 className="text-lg font-semibold mb-4">{title}</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {Object.entries(totals).map(([category, data]) => (
+                        <div key={category} className="p-4 border rounded-lg">
+                            <h4 className="font-medium mb-2">{category}</h4>
+                            <div className="space-y-1 text-sm">
+                                <p>Hombres: {data.hombres}</p>
+                                <p>Mujeres: {data.mujeres}</p>
+                                <p className="font-semibold">Total: {data.total}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </CardContent>
+        </Card>
+    );
+}
+
 export function ComboboxFilter({
     options,
     placeholder = "Seleccionar",
@@ -319,6 +346,8 @@ export function FiltrosMedioSuperior({ filterOptions }: { filterOptions: FilterO
         }
     };
 
+    const [showDetailedView, setShowDetailedView] = React.useState(true);
+
     return (
         <div className="w-full max-w-[95vw] mx-auto p-4">
             <h1 className="text-2xl font-semibold mb-4">Instituciones Nivel Medio Superior</h1>
@@ -448,6 +477,12 @@ export function FiltrosMedioSuperior({ filterOptions }: { filterOptions: FilterO
                     <div className="flex justify-between items-center">
                         <h3 className="text-lg font-medium">Resultados</h3>
                         <div className="space-x-2">
+                            <Button
+                                onClick={() => setShowDetailedView(!showDetailedView)}
+                                variant="outline"
+                            >
+                                {showDetailedView ? "Ver Solo Totales" : "Ver Tabla Detallada"}
+                            </Button>
                             <Button onClick={handleExportFiltered} variant="outline">
                                 <Download className="mr-2 h-4 w-4" />
                                 Exportar Filtrados
@@ -458,154 +493,199 @@ export function FiltrosMedioSuperior({ filterOptions }: { filterOptions: FilterO
                             </Button>
                         </div>
                     </div>
-                    <div className="rounded-md border">
-                        <Table>
 
-                            <TableHeader>
-                                <TableRow>
-                                    <TableHead>Año</TableHead>
-                                    <TableHead className="w-[200px]">Nombre</TableHead>
-                                    <TableHead>Tipo de Institución</TableHead>
-                                    <TableHead>Tipo de Bachiller</TableHead>
-                                    <TableHead>Región</TableHead>
-                                    <TableHead>Municipio</TableHead>
+                    {showDetailedView ? (
+                        <div className="rounded-md border">
+                            <Table>
 
-                                    {categoriasGenerales.map(category => (
-                                        <TableHead key={category}>{category}</TableHead>
-                                    ))}
-                                    {categoriasPreguntas.map(category => (
-                                        <TableHead key={category}>{category}</TableHead>
-                                    ))}
-                                    {especialidades.map(especialidad => (
-                                        <TableHead key={especialidad}>{especialidad}</TableHead>
-                                    ))}
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                {paginatedResults?.map((institution: any) => {
-                                    const totals = calculateTotals(institution)
-                                    return (
-                                        <TableRow key={institution.id}>
-                                            <TableCell>{institution.cuestionariosData?.año}</TableCell>
-                                            <TableCell className="font-medium">{institution.nombre}</TableCell>
-                                            <TableCell>{institution.tipoInstituciones?.descripcion}</TableCell>
-                                            <TableCell>{institution.tipoBachilleres?.descripcion}</TableCell>
-                                            <TableCell>{institution.region?.nombre}</TableCell>
-                                            <TableCell>{institution.municipio?.nombre}</TableCell>
-                                            {categoriasGenerales.map(category => (
-                                                <TableCell key={`${institution.id}-${category}`}>
-                                                    {totals[category] ? (
+                                <TableHeader>
+                                    <TableRow>
+                                        <TableHead>Año</TableHead>
+                                        <TableHead className="w-[200px]">Nombre</TableHead>
+                                        <TableHead>Tipo de Institución</TableHead>
+                                        <TableHead>Tipo de Bachiller</TableHead>
+                                        <TableHead>Región</TableHead>
+                                        <TableHead>Municipio</TableHead>
+
+                                        {categoriasGenerales.map(category => (
+                                            <TableHead key={category}>{category}</TableHead>
+                                        ))}
+                                        {categoriasPreguntas.map(category => (
+                                            <TableHead key={category}>{category}</TableHead>
+                                        ))}
+                                        {especialidades.map(especialidad => (
+                                            <TableHead key={especialidad}>{especialidad}</TableHead>
+                                        ))}
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                    {paginatedResults?.map((institution: any) => {
+                                        const totals = calculateTotals(institution)
+                                        return (
+                                            <TableRow key={institution.id}>
+                                                <TableCell>{institution.cuestionariosData?.año}</TableCell>
+                                                <TableCell className="font-medium">{institution.nombre}</TableCell>
+                                                <TableCell>{institution.tipoInstituciones?.descripcion}</TableCell>
+                                                <TableCell>{institution.tipoBachilleres?.descripcion}</TableCell>
+                                                <TableCell>{institution.region?.nombre}</TableCell>
+                                                <TableCell>{institution.municipio?.nombre}</TableCell>
+                                                {categoriasGenerales.map(category => (
+                                                    <TableCell key={`${institution.id}-${category}`}>
+                                                        {totals[category] ? (
+                                                            <div className="text-sm">
+                                                                H: {totals[category].hombres}<br />
+                                                                M: {totals[category].mujeres}<br />
+                                                                T: {totals[category].total}
+                                                            </div>
+                                                        ) : ''}
+
+                                                    </TableCell>
+                                                ))}
+                                                {categoriasPreguntas.map(category => (
+                                                    <TableCell key={`${institution.id}-${category}`}>
+
+                                                        {institution.cuestionariosData?.preguntas.filter((pregunta: any) => pregunta.categoriaPersona?.descripcion === category).map((pregunta: any) => (
+                                                            <div key={pregunta.id} className="text-sm">
+                                                                H: {pregunta.cantidadHombres} <br />
+                                                                M: {pregunta.cantidadMujeres} <br />
+                                                                T: {pregunta.cantidadHombres + pregunta.cantidadMujeres}
+                                                            </div>
+                                                        ))}
+                                                    </TableCell>
+                                                ))}
+                                                {especialidades.map(especialidad => {
+                                                    const especialidadData = institution.cuestionariosData?.especialidades.find(
+                                                        (e: any) => e.especialidadLista.descripcion === especialidad
+                                                    );
+                                                    return (
+                                                        <TableCell key={`${institution.id}-${especialidad}`}>
+                                                            {especialidadData ? (
+                                                                <div className="text-sm">
+                                                                    H: {especialidadData.hombres}<br />
+                                                                    M: {especialidadData.mujeres}<br />
+                                                                    T: {especialidadData.hombres + especialidadData.mujeres}
+                                                                </div>
+                                                            ) : '-'}
+                                                        </TableCell>
+                                                    );
+                                                })}
+                                            </TableRow>
+                                        )
+                                    })}
+                                    <TableRow>
+                                        <TableCell className="font-medium">Totales</TableCell>
+                                        <TableCell colSpan={5}></TableCell>
+                                        {categoriasGenerales.map(category => {
+                                            const overallTotals = calculateOverallTotals(results);
+                                            return (
+                                                <TableCell key={`total-${category}`}>
+                                                    {overallTotals[category] ? (
                                                         <div className="text-sm">
-                                                            H: {totals[category].hombres}<br />
-                                                            M: {totals[category].mujeres}<br />
-                                                            T: {totals[category].total}
+                                                            H: {overallTotals[category].hombres}<br />
+                                                            M: {overallTotals[category].mujeres}<br />
+                                                            T: {overallTotals[category].total}
                                                         </div>
-                                                    ) : ''}
-
+                                                    ) : '-'}
                                                 </TableCell>
-                                            ))}
-                                            {categoriasPreguntas.map(category => (
-                                                <TableCell key={`${institution.id}-${category}`}>
-
-                                                    {institution.cuestionariosData?.preguntas.filter((pregunta: any) => pregunta.categoriaPersona?.descripcion === category).map((pregunta: any) => (
-                                                        <div key={pregunta.id} className="text-sm">
-                                                            H: {pregunta.cantidadHombres} <br />
-                                                            M: {pregunta.cantidadMujeres} <br />
-                                                            T: {pregunta.cantidadHombres + pregunta.cantidadMujeres}
+                                            );
+                                        })}
+                                        {categoriasPreguntas.map(category => {
+                                            const overallTotals = calculateOverallTotals(results);
+                                            return (
+                                                <TableCell key={`total-${category}`}>
+                                                    {overallTotals[category] ? (
+                                                        <div className="text-sm">
+                                                            H: {overallTotals[category].hombres}<br />
+                                                            M: {overallTotals[category].mujeres}<br />
+                                                            T: {overallTotals[category].total}
                                                         </div>
-                                                    ))}
+                                                    ) : '-'}
                                                 </TableCell>
-                                            ))}
-                                            {especialidades.map(especialidad => {
-                                                const especialidadData = institution.cuestionariosData?.especialidades.find(
+                                            );
+                                        })}
+                                        {especialidades.map(especialidad => {
+                                            const total = results.reduce((acc, institution) => {
+                                                const esp = institution.cuestionariosData?.especialidades.find(
                                                     (e: any) => e.especialidadLista.descripcion === especialidad
                                                 );
-                                                return (
-                                                    <TableCell key={`${institution.id}-${especialidad}`}>
-                                                        {especialidadData ? (
-                                                            <div className="text-sm">
-                                                                H: {especialidadData.hombres}<br />
-                                                                M: {especialidadData.mujeres}<br />
-                                                                T: {especialidadData.hombres + especialidadData.mujeres}
-                                                            </div>
-                                                        ) : '-'}
-                                                    </TableCell>
-                                                );
-                                            })}
-                                        </TableRow>
-                                    )
-                                })}
-                                <TableRow>
-                                    <TableCell className="font-medium">Totales</TableCell>
-                                    <TableCell colSpan={4}></TableCell>
-                                    {categoriasGenerales.map(category => {
-                                        const overallTotals = calculateOverallTotals(results);
-                                        return (
-                                            <TableCell key={`total-${category}`}>
-                                                {overallTotals[category] ? (
+                                                return {
+                                                    hombres: acc.hombres + (esp?.hombres || 0),
+                                                    mujeres: acc.mujeres + (esp?.mujeres || 0)
+                                                };
+                                            }, { hombres: 0, mujeres: 0 });
+
+                                            return (
+                                                <TableCell key={`total-${especialidad}`}>
                                                     <div className="text-sm">
-                                                        H: {overallTotals[category].hombres}<br />
-                                                        M: {overallTotals[category].mujeres}<br />
-                                                        T: {overallTotals[category].total}
+                                                        H: {total.hombres}<br />
+                                                        M: {total.mujeres}<br />
+                                                        T: {total.hombres + total.mujeres}
                                                     </div>
-                                                ) : '-'}
-                                            </TableCell>
-                                        );
-                                    })}
-                                    {categoriasPreguntas.map(category => {
-                                        const overallTotals = calculateOverallTotals(results);
-                                        return (
-                                            <TableCell key={`total-${category}`}>
-                                                {overallTotals[category] ? (
-                                                    <div className="text-sm">
-                                                        H: {overallTotals[category].hombres}<br />
-                                                        M: {overallTotals[category].mujeres}<br />
-                                                        T: {overallTotals[category].total}
-                                                    </div>
-                                                ) : '-'}
-                                            </TableCell>
-                                        );
-                                    })}
-                                    {especialidades.map(especialidad => {
-                                        const total = results.reduce((acc, institution) => {
+                                                </TableCell>
+                                            );
+                                        })}
+                                    </TableRow>
+                                </TableBody>
+                            </Table>
+                        </div>
+                    ) : (
+                        <div className="space-y-4">
+                            <TotalsCard
+                                totals={Object.fromEntries(
+                                    categoriasPreguntas.map(category => [
+                                        category,
+                                        calculateOverallTotals(results)[category] || { hombres: 0, mujeres: 0, total: 0 }
+                                    ])
+                                )}
+                                title="Totales por Categoría de Preguntas"
+                            />
+                            <TotalsCard
+                                totals={Object.fromEntries(
+                                    categoriasGenerales.map(category => [
+                                        category,
+                                        calculateOverallTotals(results)[category] || { hombres: 0, mujeres: 0, total: 0 }
+                                    ])
+                                )}
+                                title="Totales por Categoría General"
+                            />
+                            <TotalsCard
+                                totals={Object.fromEntries(
+                                    especialidades.map(especialidad => [
+                                        especialidad,
+                                        results.reduce((acc, institution) => {
                                             const esp = institution.cuestionariosData?.especialidades.find(
                                                 (e: any) => e.especialidadLista.descripcion === especialidad
                                             );
                                             return {
                                                 hombres: acc.hombres + (esp?.hombres || 0),
-                                                mujeres: acc.mujeres + (esp?.mujeres || 0)
+                                                mujeres: acc.mujeres + (esp?.mujeres || 0),
+                                                total: acc.total + (esp?.hombres || 0) + (esp?.mujeres || 0)
                                             };
-                                        }, { hombres: 0, mujeres: 0 });
+                                        }, { hombres: 0, mujeres: 0, total: 0 })
+                                    ])
+                                )}
+                                title="Totales por Especialidad"
+                            />
+                        </div>
+                    )}
 
-                                        return (
-                                            <TableCell key={`total-${especialidad}`}>
-                                                <div className="text-sm">
-                                                    H: {total.hombres}<br />
-                                                    M: {total.mujeres}<br />
-                                                    T: {total.hombres + total.mujeres}
-                                                </div>
-                                            </TableCell>
-                                        );
-                                    })}
-                                </TableRow>
-                            </TableBody>
-                        </Table>
-                    </div>
-                    <div className="flex justify-end mt-4">
-                        <Button
-                            onClick={() => handlePageChange(currentPage - 1)}
-                            disabled={currentPage === 1}
-                        >
-                            Anterior
-                        </Button>
-                        <span className="mx-2">Página {currentPage} de {Math.ceil(results.length / itemsPerPage)}</span>
-                        <Button
-                            onClick={() => handlePageChange(currentPage + 1)}
-                            disabled={currentPage === Math.ceil(results.length / itemsPerPage)}
-                        >
-                            Siguiente
-                        </Button>
-                    </div>
+                    {showDetailedView && (
+                        <div className="flex justify-end mt-4">
+                            <Button
+                                onClick={() => handlePageChange(currentPage - 1)}
+                                disabled={currentPage === 1}
+                            >
+                                Anterior
+                            </Button>
+                            <span className="mx-2">Página {currentPage} de {Math.ceil(results.length / itemsPerPage)}</span>
+                            <Button
+                                onClick={() => handlePageChange(currentPage + 1)}
+                                disabled={currentPage === Math.ceil(results.length / itemsPerPage)}
+                            >
+                                Siguiente
+                            </Button>
+                        </div>
+                    )}
                 </div>
             )}
 

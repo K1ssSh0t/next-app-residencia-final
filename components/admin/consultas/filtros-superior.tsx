@@ -47,6 +47,33 @@ interface FilterOptions {
     institutions?: Option[]
 }
 
+interface TotalViewProps {
+    totals: { [key: string]: { hombres: number, mujeres: number, total: number } };
+    title: string;
+}
+
+function TotalsCard({ totals, title }: TotalViewProps) {
+    return (
+        <Card className="mb-4">
+            <CardContent className="pt-6">
+                <h3 className="text-lg font-semibold mb-4">{title}</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {Object.entries(totals).map(([category, data]) => (
+                        <div key={category} className="p-4 border rounded-lg">
+                            <h4 className="font-medium mb-2">{category}</h4>
+                            <div className="space-y-1 text-sm">
+                                <p>Hombres: {data.hombres}</p>
+                                <p>Mujeres: {data.mujeres}</p>
+                                <p className="font-semibold">Total: {data.total}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </CardContent>
+        </Card>
+    );
+}
+
 const convertToCSV = (data: InstitucionesBusqueda, categoriasCuestionario: string[], categoriasGenerales: string[]) => {
     const headers = [
         'Año',
@@ -181,9 +208,12 @@ export function FiltrosSuperior({ filterOptions }: { filterOptions: FilterOption
         setCurrentPage(page);
     };
 
+    //TODO: MODIFICAR AQUI , POSIBLE BUG AQUI, HACE QUE NO MUESTRE TODAS LAS INSTITUCIONES 
     const paginatedResults = results?.flatMap(institution =>
         institution.cuestionario?.map(cuestionario => ({ institution, cuestionario }))
     ).slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
+    const [showDetailedView, setShowDetailedView] = React.useState(true);
 
     React.useEffect(() => {
         if (selectedRegion) {
@@ -307,8 +337,8 @@ export function FiltrosSuperior({ filterOptions }: { filterOptions: FilterOption
                         overallTotals[categoria] = { hombres: 0, mujeres: 0, total: 0 };
                     }
                     // Assuming each question has a count of responses or similar metric
-                    overallTotals[categoria].hombres += pregunta.cantidadHombres ?? 0;
-                    overallTotals[categoria].mujeres += pregunta.cantidadMujeres ?? 0;
+                    overallTotals[categoria].hombres += pregunta.cantidadHombres || 0;
+                    overallTotals[categoria].mujeres += pregunta.cantidadMujeres || 0;
                     overallTotals[categoria].total += pregunta.cantidadHombres! + pregunta.cantidadMujeres!;
                 });
             })
@@ -317,6 +347,180 @@ export function FiltrosSuperior({ filterOptions }: { filterOptions: FilterOption
         return overallTotals;
     };
 
+    const renderResults = () => {
+        if (!results || results.length === 0) return null;
+
+        const overallTotals = calculateOverallTotals(results);
+        const cuestionarioTotals = Object.fromEntries(
+            categoriasCuestionario.map(category => [
+                category,
+                overallTotals[category] || { hombres: 0, mujeres: 0, total: 0 }
+            ])
+        );
+
+        const institucionTotals = Object.fromEntries(
+            categoriasGenerales.map(category => [
+                category,
+                overallTotals[category] || { hombres: 0, mujeres: 0, total: 0 }
+            ])
+        );
+
+        return (
+            <div className="mt-8 space-y-4">
+                <div className="flex justify-between items-center">
+                    <h3 className="text-lg font-medium">Resultados</h3>
+                    <div className="space-x-2">
+                        <Button
+                            onClick={() => setShowDetailedView(!showDetailedView)}
+                            variant="outline"
+                        >
+                            {showDetailedView ? "Ver Solo Totales" : "Ver Tabla Detallada"}
+                        </Button>
+                        <Button onClick={handleExportFiltered} variant="outline">
+                            <Download className="mr-2 h-4 w-4" />
+                            Exportar Filtrados
+                        </Button>
+                        <Button onClick={handleExportAll} variant="outline">
+                            <Download className="mr-2 h-4 w-4" />
+                            Exportar Todos
+                        </Button>
+                    </div>
+                </div>
+
+                {showDetailedView ? (
+                    // Existing table code
+                    <div className="rounded-md border">
+                        <Table>
+
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead>Año</TableHead>
+                                    <TableHead className="w-[200px]">Nombre Carrera</TableHead>
+                                    <TableHead>REVOE</TableHead>
+                                    <TableHead>Número REVOE</TableHead>
+                                    <TableHead>Institución</TableHead>
+                                    <TableHead>Tipo de Institución</TableHead>
+                                    <TableHead>Modalidad</TableHead>
+                                    <TableHead>Región</TableHead>
+                                    <TableHead>Municipio</TableHead>
+                                    {
+                                        categoriasGenerales.map(category => (
+                                            <TableHead key={category}>{category}</TableHead>
+                                        ))
+                                    }
+                                    {categoriasCuestionario.map(category => (
+                                        <TableHead key={category}>{category}</TableHead>
+                                    ))}
+
+
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {paginatedResults?.map(({ institution, cuestionario }) => (
+                                    <TableRow key={cuestionario.id}>
+                                        <TableCell>{cuestionario.año}</TableCell>
+                                        <TableCell className="font-medium">{cuestionario.carrera?.carrera?.descripcion}</TableCell>
+                                        <TableCell>{cuestionario.carrera?.nombreRevoe}</TableCell>
+                                        <TableCell>{cuestionario.carrera?.numeroRevoe}</TableCell>
+                                        <TableCell>{institution.nombre}</TableCell>
+                                        <TableCell>{institution.tipoInstituciones?.descripcion}</TableCell>
+                                        <TableCell>{cuestionario.carrera?.modalidad?.descripcion}</TableCell>
+                                        <TableCell>{institution.region?.nombre}</TableCell>
+                                        <TableCell>{institution.municipio?.nombre}</TableCell>
+                                        {categoriasGenerales.map(category => (
+                                            <TableCell key={`${cuestionario.id}-${category}`}>
+                                                {institution.datosInstitucionales?.filter((dato) => dato.categoriasGenerales?.descripcion === category).map((dato) => (
+                                                    <div key={dato.id} className="text-sm">
+                                                        H: {dato.cantidadHombres!} <br />
+                                                        M: {dato.cantidadMujeres!} <br />
+                                                        T: {dato.cantidadHombres! + dato.cantidadMujeres!}
+                                                    </div>
+                                                ))}
+                                            </TableCell>
+                                        ))}
+                                        {categoriasCuestionario.map(category => (
+                                            <TableCell key={`${cuestionario.id}-${category}`}>
+                                                {cuestionario.preguntas.filter((pregunta) => pregunta.categoriaPersona?.descripcion === category).map((pregunta) => (
+                                                    <div key={pregunta.id} className="text-sm">
+                                                        H: {pregunta.cantidadHombres!} <br />
+                                                        M: {pregunta.cantidadMujeres!} <br />
+                                                        T: {pregunta.cantidadHombres! + pregunta.cantidadMujeres!}
+                                                    </div>
+                                                ))}
+                                            </TableCell>
+                                        ))}
+
+                                    </TableRow>
+                                ))}
+                                <TableRow>
+                                    <TableCell className="font-medium">Totales</TableCell>
+                                    <TableCell colSpan={8}></TableCell>
+                                    {categoriasGenerales.map(category => {
+                                        const overallTotals = calculateOverallTotals(results);
+                                        return (
+                                            <TableCell key={`total-${category}`}>
+                                                {overallTotals[category] ? (
+                                                    <div className="text-sm">
+                                                        H: {overallTotals[category].hombres}<br />
+                                                        M: {overallTotals[category].mujeres}<br />
+                                                        T: {overallTotals[category].total}
+                                                    </div>
+                                                ) : '-'}
+                                            </TableCell>
+                                        );
+                                    })}
+                                    {categoriasCuestionario.map(category => {
+                                        const overallTotals = calculateOverallTotals(results);
+                                        return (
+                                            <TableCell key={`total-${category}`}>
+                                                {overallTotals[category] ? (
+                                                    <div className="text-sm">
+                                                        H: {overallTotals[category].hombres}<br />
+                                                        M: {overallTotals[category].mujeres}<br />
+                                                        T: {overallTotals[category].total}
+                                                    </div>
+                                                ) : '-'}
+                                            </TableCell>
+                                        );
+                                    })}
+
+                                </TableRow>
+                            </TableBody>
+                        </Table>
+                    </div>
+                ) : (
+                    <div className="space-y-4">
+                        <TotalsCard
+                            totals={cuestionarioTotals}
+                            title="Totales por Categoría de Cuestionario"
+                        />
+                        <TotalsCard
+                            totals={institucionTotals}
+                            title="Totales por Categoría Institucional"
+                        />
+                    </div>
+                )}
+
+                {showDetailedView && (
+                    <div className="flex justify-end mt-4">
+                        <Button
+                            onClick={() => handlePageChange(currentPage - 1)}
+                            disabled={currentPage === 1}
+                        >
+                            Anterior
+                        </Button>
+                        <span className="mx-2">Página {currentPage} de {Math.ceil(results.flatMap(institution => institution.cuestionario || []).length / itemsPerPage)}</span>
+                        <Button
+                            onClick={() => handlePageChange(currentPage + 1)}
+                            disabled={currentPage === Math.ceil(results.flatMap(institution => institution.cuestionario || []).length / itemsPerPage)}
+                        >
+                            Siguiente
+                        </Button>
+                    </div>
+                )}
+            </div>
+        );
+    };
 
     return (
         <div className="w-full max-w-[95vw] mx-auto p-4">
@@ -432,135 +636,7 @@ export function FiltrosSuperior({ filterOptions }: { filterOptions: FilterOption
                 </Card>
             )}
 
-
-            {results && results.length > 0 && (
-                <div className="mt-8 space-y-4">
-                    <div className="flex justify-between items-center">
-                        <h3 className="text-lg font-medium">Resultados</h3>
-                        <div className="space-x-2">
-                            <Button onClick={handleExportFiltered} variant="outline">
-                                <Download className="mr-2 h-4 w-4" />
-                                Exportar Filtrados
-                            </Button>
-                            <Button onClick={handleExportAll} variant="outline">
-                                <Download className="mr-2 h-4 w-4" />
-                                Exportar Todos
-                            </Button>
-                        </div>
-                    </div>
-                    <div className="rounded-md border">
-                        <Table>
-
-                            <TableHeader>
-                                <TableRow>
-                                    <TableHead>Año</TableHead>
-                                    <TableHead className="w-[200px]">Nombre Carrera</TableHead>
-                                    <TableHead>REVOE</TableHead>
-                                    <TableHead>Número REVOE</TableHead>
-                                    <TableHead>Institución</TableHead>
-                                    <TableHead>Tipo de Institución</TableHead>
-                                    <TableHead>Modalidad</TableHead>
-                                    <TableHead>Región</TableHead>
-                                    <TableHead>Municipio</TableHead>
-                                    {categoriasCuestionario.map(category => (
-                                        <TableHead key={category}>{category}</TableHead>
-                                    ))}
-                                    {
-                                        categoriasGenerales.map(category => (
-                                            <TableHead key={category}>{category}</TableHead>
-                                        ))
-                                    }
-
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                {paginatedResults?.map(({ institution, cuestionario }) => (
-                                    <TableRow key={cuestionario.id}>
-                                        <TableCell>{cuestionario.año}</TableCell>
-                                        <TableCell className="font-medium">{cuestionario.carrera?.carrera?.descripcion}</TableCell>
-                                        <TableCell>{cuestionario.carrera?.nombreRevoe}</TableCell>
-                                        <TableCell>{cuestionario.carrera?.numeroRevoe}</TableCell>
-                                        <TableCell>{institution.nombre}</TableCell>
-                                        <TableCell>{institution.tipoInstituciones?.descripcion}</TableCell>
-                                        <TableCell>{cuestionario.carrera?.modalidad?.descripcion}</TableCell>
-                                        <TableCell>{institution.region?.nombre}</TableCell>
-                                        <TableCell>{institution.municipio?.nombre}</TableCell>
-                                        {categoriasCuestionario.map(category => (
-                                            <TableCell key={`${cuestionario.id}-${category}`}>
-                                                {cuestionario.preguntas.filter((pregunta) => pregunta.categoriaPersona?.descripcion === category).map((pregunta) => (
-                                                    <div key={pregunta.id} className="text-sm">
-                                                        H: {pregunta.cantidadHombres!} <br />
-                                                        M: {pregunta.cantidadMujeres!} <br />
-                                                        T: {pregunta.cantidadHombres! + pregunta.cantidadMujeres!}
-                                                    </div>
-                                                ))}
-                                            </TableCell>
-                                        ))}
-                                        {categoriasGenerales.map(category => (
-                                            <TableCell key={`${cuestionario.id}-${category}`}>
-                                                {institution.datosInstitucionales?.filter((dato) => dato.categoriasGenerales?.descripcion === category).map((dato) => (
-                                                    <div key={dato.id} className="text-sm">
-                                                        H: {dato.cantidadHombres!} <br />
-                                                        M: {dato.cantidadMujeres!} <br />
-                                                        T: {dato.cantidadHombres! + dato.cantidadMujeres!}
-                                                    </div>
-                                                ))}
-                                            </TableCell>
-                                        ))}
-                                    </TableRow>
-                                ))}
-                                <TableRow>
-                                    <TableCell className="font-medium">Totales</TableCell>
-                                    <TableCell colSpan={7}></TableCell>
-                                    {categoriasGenerales.map(category => {
-                                        const overallTotals = calculateOverallTotals(results);
-                                        return (
-                                            <TableCell key={`total-${category}`}>
-                                                {overallTotals[category] ? (
-                                                    <div className="text-sm">
-                                                        H: {overallTotals[category].hombres}<br />
-                                                        M: {overallTotals[category].mujeres}<br />
-                                                        T: {overallTotals[category].total}
-                                                    </div>
-                                                ) : '-'}
-                                            </TableCell>
-                                        );
-                                    })}
-                                    {categoriasCuestionario.map(category => {
-                                        const overallTotals = calculateOverallTotals(results);
-                                        return (
-                                            <TableCell key={`total-${category}`}>
-                                                {overallTotals[category] ? (
-                                                    <div className="text-sm">
-                                                        H: {overallTotals[category].hombres}<br />
-                                                        M: {overallTotals[category].mujeres}<br />
-                                                        T: {overallTotals[category].total}
-                                                    </div>
-                                                ) : '-'}
-                                            </TableCell>
-                                        );
-                                    })}
-                                </TableRow>
-                            </TableBody>
-                        </Table>
-                    </div>
-                    <div className="flex justify-end mt-4">
-                        <Button
-                            onClick={() => handlePageChange(currentPage - 1)}
-                            disabled={currentPage === 1}
-                        >
-                            Anterior
-                        </Button>
-                        <span className="mx-2">Página {currentPage} de {Math.ceil(results.flatMap(institution => institution.cuestionario || []).length / itemsPerPage)}</span>
-                        <Button
-                            onClick={() => handlePageChange(currentPage + 1)}
-                            disabled={currentPage === Math.ceil(results.flatMap(institution => institution.cuestionario || []).length / itemsPerPage)}
-                        >
-                            Siguiente
-                        </Button>
-                    </div>
-                </div>
-            )}
+            {renderResults()}
 
         </div>
     )
