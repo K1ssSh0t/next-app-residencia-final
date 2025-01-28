@@ -40,7 +40,7 @@ export async function Header() {
           </MobileMenu>
           <nav className="hidden md:flex space-x-10">
             <Link href="/dashboard" className="text-base font-medium text-foreground hover:text-foreground-alt">
-              Dashboard
+              Ir a Cuestionarios
             </Link>
             {user?.role !== "user" && (
               <Link href="/admin" className="text-base font-medium text-foreground hover:text-foreground-alt">
