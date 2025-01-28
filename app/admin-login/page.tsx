@@ -10,11 +10,12 @@ import { Separator } from '@/components/ui/separator'
 import { authenticate } from '@/actions/auth'
 import { useToast } from '@/hooks/use-toast'
 import { z } from 'zod'
+import Link from 'next/link'
 
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>
 
 const loginSchema = z.object({
-  email: z.string().email({ message: "Correo electrónico inválido" }),
+  email: z.string().min(3, { message: "El usuario debe tener al menos 5 caracteres" }),
   password: z.string().min(5, { message: "La contraseña debe tener al menos 5 caracteres" })
 })
 
@@ -111,12 +112,12 @@ export default function Page(props: {
           onSubmit={handleSubmit}
         >
           <div className="w-full">
-            <Label htmlFor="email">Correo</Label>
+            <Label htmlFor="email">Usuario</Label>
             <Input
               id="email"
-              type="email"
+              type="text"
               name="email"
-              placeholder="user@example.com"
+              placeholder="user"
               required
             />
             {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
@@ -140,6 +141,11 @@ export default function Page(props: {
         </form>
         <Separator className="my-4" />
         {error && <div className="text-red-500">{error}</div>}
+        <div className="mt-4 text-center">
+          <Link href="/" className="text-blue-600 hover:text-blue-800 underline">
+            Volver al inicio
+          </Link>
+        </div>
       </div>
     </div>
   )
