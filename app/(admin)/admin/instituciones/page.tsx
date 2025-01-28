@@ -39,7 +39,7 @@ export default async function Page(props: {
     const institucioneList = await db.query.instituciones.findMany({
         limit: pageSize,
         offset: pageIndex * pageSize,
-        where: search ? like(instituciones.id, `%${search}%`) : undefined,
+        where: search ? like(instituciones.nombre, `%${search}%`) : undefined,
         with: {
             tipoBachilleres: true,
             tipoInstituciones: true,

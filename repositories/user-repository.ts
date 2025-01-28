@@ -22,8 +22,8 @@ export async function getUsersWithRelations({
   return await db.query.users.findMany({
     limit: limit,
     offset: offset,
-    where: search ? like(users.id, `%${search}%`) : undefined,
-    with: undefined
+    where: search ? like(users.email, `%${search}%`) : undefined,
+    with: undefined,
   });
 }
 
