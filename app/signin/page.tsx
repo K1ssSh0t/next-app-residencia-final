@@ -10,6 +10,7 @@ import { authenticate } from '@/actions/auth'
 import { useToast } from '@/hooks/use-toast'
 import { z } from 'zod'
 import Link from 'next/link'
+import { Eye, EyeOff } from "lucide-react"
 
 
 const loginSchema = z.object({
@@ -22,6 +23,7 @@ export default function Page() {
   const { toast } = useToast()
   const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState<{ [key: string]: string }>({})
+  const [showPassword, setShowPassword] = useState(false)
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -99,13 +101,25 @@ export default function Page() {
           </div>
           <div className="w-full">
             <Label htmlFor="password">Contraseña</Label>
-            <Input
-              id="password"
-              type="password"
-              name="password"
-              placeholder="password"
-              required
-            />
+            <div className="relative w-full">
+              <Input
+                id="password"
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder="password"
+                required
+                className="pr-10"
+              />
+              <Button
+                type="button"
+                variant="outline"
+                className="absolute top-0 right-0 px-3 h-full hover:bg-gray-200"
+                onClick={() => setShowPassword(!showPassword)}
+                tabIndex={-1}
+              >
+                {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+              </Button>
+            </div>
             {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
           </div>
           <Button className="w-full" type="submit" disabled={isLoading}>
@@ -189,4 +203,3 @@ export default function Page() {
 //     </div>
 //   );
 // }
-
