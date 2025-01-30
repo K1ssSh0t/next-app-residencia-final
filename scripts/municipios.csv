@@ -1,0 +1,571 @@
+﻿cve_mun,nom_mun,Region,Distrito
+19,Concepción Pápalo,Cañada,Cuicatlán
+24,Cuyamecalco Villa de Zaragoza,Cañada,Cuicatlán
+27,Chiquihuitlán de Benito Juárez,Cañada,Cuicatlán
+98,San Andrés Teotilálpam,Cañada,Cuicatlán
+139,San Francisco Chapulapa,Cañada,Cuicatlán
+177,San Juan Bautista Cuicatlán,Cañada,Cuicatlán
+182,San Juan Bautista Tlacoatzintepec,Cañada,Cuicatlán
+220,San Juan Tepeuxila,Cañada,Cuicatlán
+276,San Miguel Santa Flor,Cañada,Cuicatlán
+311,San Pedro Jaltepetongo,Cañada,Cuicatlán
+313,San Pedro Jocotipac,Cañada,Cuicatlán
+326,San Pedro Sochiápam,Cañada,Cuicatlán
+330,San Pedro Teutila,Cañada,Cuicatlán
+355,Santa Ana Cuauhtémoc,Cañada,Cuicatlán
+425,Santa María Pápalo,Cañada,Cuicatlán
+436,Santa María Texcatitlán,Cañada,Cuicatlán
+438,Santa María Tlalixtac,Cañada,Cuicatlán
+478,Santiago Nacaltepec,Cañada,Cuicatlán
+527,Santos Reyes Pápalo,Cañada,Cuicatlán
+558,Valerio Trujano,Cañada,Cuicatlán
+29,Eloxochitlán de Flores Magón,Cañada,Teotitlán
+40,Huautepec,Cañada,Teotitlán
+41,Huautla de Jiménez,Cañada,Teotitlán
+58,Mazatlán Villa de Flores,Cañada,Teotitlán
+109,San Antonio Nanahuatípam,Cañada,Teotitlán
+116,San Bartolomé Ayautla,Cañada,Teotitlán
+142,San Francisco Huehuetlán,Cañada,Teotitlán
+163,San Jerónimo Tecóatl,Cañada,Teotitlán
+171,San José Tenango,Cañada,Teotitlán
+187,San Juan Coatzóspam,Cañada,Teotitlán
+206,San Juan de los Cués,Cañada,Teotitlán
+228,San Lorenzo Cuaunecuiltitla,Cañada,Teotitlán
+234,San Lucas Zoquiápam,Cañada,Teotitlán
+244,San Martín Toxpalan,Cañada,Teotitlán
+249,San Mateo Yoloxochitlán,Cañada,Teotitlán
+322,San Pedro Ocopetatillo,Cañada,Teotitlán
+354,Santa Ana Ateixtlahuaca,Cañada,Teotitlán
+374,Santa Cruz Acatepec,Cañada,Teotitlán
+396,Santa María la Asunción,Cañada,Teotitlán
+406,Santa María Chilchotla,Cañada,Teotitlán
+416,Santa María Ixcatlán,Cañada,Teotitlán
+431,Santa María Tecomavaca,Cañada,Teotitlán
+434,Santa María Teopoxco,Cañada,Teotitlán
+490,Santiago Texcalcingo,Cañada,Teotitlán
+545,Teotitlán de Flores Magón,Cañada,Teotitlán
+56,Mártires de Tacubaya,Costa,Jamiltepec
+70,Pinotepa de Don Luis,Costa,Jamiltepec
+82,San Agustín Chayuco,Costa,Jamiltepec
+90,San Andrés Huaxpaltepec,Costa,Jamiltepec
+111,San Antonio Tepetlapa,Costa,Jamiltepec
+168,San José Estancia Grande,Costa,Jamiltepec
+180,San Juan Bautista Lo de Soto,Costa,Jamiltepec
+185,San Juan Cacahuatepec,Costa,Jamiltepec
+188,San Juan Colorado,Costa,Jamiltepec
+225,San Lorenzo,Costa,Jamiltepec
+285,San Miguel Tlacamama,Costa,Jamiltepec
+302,San Pedro Atoyac,Costa,Jamiltepec
+312,San Pedro Jicayán,Costa,Jamiltepec
+345,San Sebastián Ixcapa,Costa,Jamiltepec
+367,Santa Catarina Mechoacán,Costa,Jamiltepec
+402,Santa María Cortijo,Costa,Jamiltepec
+414,Santa María Huazolotitlán,Costa,Jamiltepec
+466,Santiago Ixtayutla,Costa,Jamiltepec
+467,Santiago Jamiltepec,Costa,Jamiltepec
+474,Santiago Llano Grande,Costa,Jamiltepec
+482,Santiago Pinotepa Nacional,Costa,Jamiltepec
+485,Santiago Tapextla,Costa,Jamiltepec
+489,Santiago Tetepec,Costa,Jamiltepec
+507,Santo Domingo Armenta,Costa,Jamiltepec
+153,San Gabriel Mixtepec,Costa,Juquila
+202,San Juan Lachao,Costa,Juquila
+213,San Juan Quiahije,Costa,Juquila
+272,San Miguel Panixtlahuaca,Costa,Juquila
+314,San Pedro Juchatengo,Costa,Juquila
+318,San Pedro Mixtepec Distrito 22,Costa,Juquila
+334,Villa de Tututepec,Costa,Juquila
+364,Santa Catarina Juquila,Costa,Juquila
+433,Santa María Temaxcaltepec,Costa,Juquila
+497,Santiago Yaitepec,Costa,Juquila
+526,Santos Reyes Nopala,Costa,Juquila
+543,Tataltepec de Valdés,Costa,Juquila
+12,Candelaria Loxicha,Costa,Pochutla
+71,Pluma Hidalgo,Costa,Pochutla
+85,San Agustín Loxicha,Costa,Pochutla
+113,San Baltazar Loxicha,Costa,Pochutla
+117,San Bartolomé Loxicha,Costa,Pochutla
+253,San Mateo Piñas,Costa,Pochutla
+266,San Miguel del Puerto,Costa,Pochutla
+306,San Pedro el Alto,Costa,Pochutla
+324,San Pedro Pochutla,Costa,Pochutla
+366,Santa Catarina Loxicha,Costa,Pochutla
+401,Santa María Colotepec,Costa,Pochutla
+413,Santa María Huatulco,Costa,Pochutla
+439,Santa María Tonameca,Costa,Pochutla
+509,Santo Domingo de Morelos,Costa,Pochutla
+5,Asunción Ixtaltepec,Istmo,Juchitán
+10,El Barrio de la Soledad,Istmo,Juchitán
+14,Ciudad Ixtepec,Istmo,Juchitán
+25,Chahuites,Istmo,Juchitán
+30,El Espinal,Istmo,Juchitán
+43,Juchitán de Zaragoza,Istmo,Juchitán
+57,Matías Romero Avendaño,Istmo,Juchitán
+66,Santiago Niltepec,Istmo,Juchitán
+75,Reforma de Pineda,Istmo,Juchitán
+130,San Dionisio del Mar,Istmo,Juchitán
+141,San Francisco del Mar,Istmo,Juchitán
+143,San Francisco Ixhuatán,Istmo,Juchitán
+198,San Juan Guichicovi,Istmo,Juchitán
+265,San Miguel Chimalapa,Istmo,Juchitán
+327,San Pedro Tapanatepec,Istmo,Juchitán
+407,Santa María Chimalapa,Istmo,Juchitán
+427,Santa María Petapa,Istmo,Juchitán
+441,Santa María Xadani,Istmo,Juchitán
+505,Santo Domingo Ingenio,Istmo,Juchitán
+513,Santo Domingo Petapa,Istmo,Juchitán
+525,Santo Domingo Zanatepec,Istmo,Juchitán
+557,Unión Hidalgo,Istmo,Juchitán
+36,Guevea de Humboldt,Istmo,Tehuantepec
+52,Magdalena Tequisistlán,Istmo,Tehuantepec
+53,Magdalena Tlacotepec,Istmo,Tehuantepec
+79,Salina Cruz,Istmo,Tehuantepec
+124,Heroica Villa de San Blas Atempa,Istmo,Tehuantepec
+248,San Mateo del Mar,Istmo,Tehuantepec
+282,San Miguel Tenango,Istmo,Tehuantepec
+305,San Pedro Comitancillo,Istmo,Tehuantepec
+307,San Pedro Huamelula,Istmo,Tehuantepec
+308,San Pedro Huilotepec,Istmo,Tehuantepec
+412,Santa María Guienagati,Istmo,Tehuantepec
+418,Santa María Jalapa del Marqués,Istmo,Tehuantepec
+421,Santa María Mixtequilla,Istmo,Tehuantepec
+440,Santa María Totolapilla,Istmo,Tehuantepec
+453,Santiago Astata,Istmo,Tehuantepec
+470,Santiago Lachiguiri,Istmo,Tehuantepec
+472,Santiago Laollaga,Istmo,Tehuantepec
+508,Santo Domingo Chihuitán,Istmo,Tehuantepec
+515,Santo Domingo Tehuantepec,Istmo,Tehuantepec
+18,Concepción Buenavista,Mixteca,Coixtlahuaca
+47,Santa Magdalena Jicotlán,Mixteca,Coixtlahuaca
+129,San Cristóbal Suchixtlahuaca,Mixteca,Coixtlahuaca
+151,San Francisco Teopan,Mixteca,Coixtlahuaca
+176,San Juan Bautista Coixtlahuaca,Mixteca,Coixtlahuaca
+256,San Mateo Tlapiltepec,Mixteca,Coixtlahuaca
+283,San Miguel Tequixtepec,Mixteca,Coixtlahuaca
+287,San Miguel Tulancingo,Mixteca,Coixtlahuaca
+422,Santa María Nativitas,Mixteca,Coixtlahuaca
+464,Santiago Ihuitlán Plumas,Mixteca,Coixtlahuaca
+488,Santiago Tepetlapa,Mixteca,Coixtlahuaca
+548,Tepelmeme Villa de Morelos,Mixteca,Coixtlahuaca
+552,Tlacotepec Plumas,Mixteca,Coixtlahuaca
+4,Asunción Cuyotepeji,Mixteca,Huajuapan
+22,Cosoltepec,Mixteca,Huajuapan
+32,Fresnillo de Trujano,Mixteca,Huajuapan
+39,Heroica Ciudad de Huajuapan de León,Mixteca,Huajuapan
+55,Mariscala de Juárez,Mixteca,Huajuapan
+89,San Andrés Dinicuiti,Mixteca,Huajuapan
+160,San Jerónimo Silacayoapilla,Mixteca,Huajuapan
+164,San Jorge Nuchita,Mixteca,Huajuapan
+165,San José Ayuquila,Mixteca,Huajuapan
+181,San Juan Bautista Suchitepec,Mixteca,Huajuapan
+237,San Marcos Arteaga,Mixteca,Huajuapan
+245,San Martín Zacatepec,Mixteca,Huajuapan
+261,San Miguel Amatitlán,Mixteca,Huajuapan
+340,San Pedro y San Pablo Tequixtepec,Mixteca,Huajuapan
+352,San Simón Zahuatlán,Mixteca,Huajuapan
+373,Santa Catarina Zapoquila,Mixteca,Huajuapan
+381,Santa Cruz Tacache de Mina,Mixteca,Huajuapan
+400,Santa María Camotlán,Mixteca,Huajuapan
+455,Santiago Ayuquililla,Mixteca,Huajuapan
+456,Santiago Cacaloxtepec,Mixteca,Huajuapan
+459,Villa de Santiago Chazumba,Mixteca,Huajuapan
+462,Santiago Huajolotitlán,Mixteca,Huajuapan
+476,Santiago Miltepec,Mixteca,Huajuapan
+520,Santo Domingo Tonalá,Mixteca,Huajuapan
+524,Santo Domingo Yodohino,Mixteca,Huajuapan
+529,Santos Reyes Yucuná,Mixteca,Huajuapan
+549,"Heroica Villa Tezoatlán de Segura y Luna, Cuna de la Independencia de Oaxaca",Mixteca,Huajuapan
+568,Zapotitlán Palmas,Mixteca,Huajuapan
+16,Coicoyán de las Flores,Mixteca,Juxtlahuaca
+208,San Juan Mixtepec Distrito 08,Mixteca,Juxtlahuaca
+242,San Martín Peras,Mixteca,Juxtlahuaca
+286,San Miguel Tlacotepec,Mixteca,Juxtlahuaca
+348,San Sebastián Tecomaxtlahuaca,Mixteca,Juxtlahuaca
+469,Santiago Juxtlahuaca,Mixteca,Juxtlahuaca
+528,Santos Reyes Tepejillo,Mixteca,Juxtlahuaca
+6,Asunción Nochixtlán,Mixteca,NochIxtlán
+46,Magdalena Jaltepec,Mixteca,NochIxtlán
+54,Magdalena Zahuatlán,Mixteca,NochIxtlán
+94,San Andrés Nuxiño,Mixteca,NochIxtlán
+96,San Andrés Sinaxtla,Mixteca,NochIxtlán
+140,San Francisco Chindúa,Mixteca,NochIxtlán
+144,San Francisco Jaltepetongo,Mixteca,NochIxtlán
+147,San Francisco Nuxaño,Mixteca,NochIxtlán
+195,San Juan Diuxi,Mixteca,NochIxtlán
+215,San Juan Sayultepec,Mixteca,NochIxtlán
+217,San Juan Tamazola,Mixteca,NochIxtlán
+224,San Juan Yucuita,Mixteca,NochIxtlán
+250,San Mateo Etlatongo,Mixteca,NochIxtlán
+255,San Mateo Sindihui,Mixteca,NochIxtlán
+264,San Miguel Chicahua,Mixteca,NochIxtlán
+270,San Miguel Huautla,Mixteca,NochIxtlán
+274,San Miguel Piedras,Mixteca,NochIxtlán
+281,San Miguel Tecomatlán,Mixteca,NochIxtlán
+304,San Pedro Coxcaltepec Cántaros,Mixteca,NochIxtlán
+329,San Pedro Teozacoalco,Mixteca,NochIxtlán
+331,San Pedro Tidaá,Mixteca,NochIxtlán
+395,Santa María Apazco,Mixteca,NochIxtlán
+404,Santa María Chachoápam,Mixteca,NochIxtlán
+451,Santiago Apoala,Mixteca,NochIxtlán
+463,Santiago Huauclilla,Mixteca,NochIxtlán
+492,Santiago Tilantongo,Mixteca,NochIxtlán
+493,Santiago Tillo,Mixteca,NochIxtlán
+511,Santo Domingo Nuxaá,Mixteca,NochIxtlán
+523,Santo Domingo Yanhuitlán,Mixteca,NochIxtlán
+562,Magdalena Yodocono de Porfirio Díaz,Mixteca,NochIxtlán
+564,Yutanduchi de Guerrero,Mixteca,NochIxtlán
+569,Santa Inés de Zaragoza,Mixteca,NochIxtlán
+11,Calihualá,Mixteca,Silacayoápam
+34,Guadalupe de Ramírez,Mixteca,Silacayoápam
+65,Ixpantepec Nieves,Mixteca,Silacayoápam
+81,San Agustín Atenango,Mixteca,Silacayoápam
+99,San Andrés Tepetlapa,Mixteca,Silacayoápam
+152,San Francisco Tlapancingo,Mixteca,Silacayoápam
+183,San Juan Bautista Tlachichilco,Mixteca,Silacayoápam
+186,San Juan Cieneguilla,Mixteca,Silacayoápam
+199,San Juan Ihualtepec,Mixteca,Silacayoápam
+230,San Lorenzo Victoria,Mixteca,Silacayoápam
+251,San Mateo Nejápam,Mixteca,Silacayoápam
+259,San Miguel Ahuehuetitlán,Mixteca,Silacayoápam
+290,San Nicolás Hidalgo,Mixteca,Silacayoápam
+376,Santa Cruz de Bravo,Mixteca,Silacayoápam
+461,Santiago del Río,Mixteca,Silacayoápam
+484,Santiago Tamazola,Mixteca,Silacayoápam
+501,Santiago Yucuyachi,Mixteca,Silacayoápam
+537,Silacayoápam,Mixteca,Silacayoápam
+567,Zapotitlán Lagunas,Mixteca,Silacayoápam
+93,San Andrés Lagunas,Mixteca,Teposcolula
+105,San Antonino Monte Verde,Mixteca,Teposcolula
+106,San Antonio Acutla,Mixteca,Teposcolula
+121,San Bartolo Soyaltepec,Mixteca,Teposcolula
+221,San Juan Teposcolula,Mixteca,Teposcolula
+321,San Pedro Nopala,Mixteca,Teposcolula
+332,San Pedro Topiltepec,Mixteca,Teposcolula
+339,San Pedro y San Pablo Teposcolula,Mixteca,Teposcolula
+341,San Pedro Yucunama,Mixteca,Teposcolula
+346,San Sebastián Nicananduta,Mixteca,Teposcolula
+405,Villa de Chilapa de Díaz,Mixteca,Teposcolula
+423,Santa María Nduayaco,Mixteca,Teposcolula
+479,Santiago Nejapilla,Mixteca,Teposcolula
+486,Villa Tejúpam de la Unión,Mixteca,Teposcolula
+499,Santiago Yolomécatl,Mixteca,Teposcolula
+518,Santo Domingo Tlatayápam,Mixteca,Teposcolula
+521,Santo Domingo Tonaltepec,Mixteca,Teposcolula
+536,San Vicente Nuñú,Mixteca,Teposcolula
+540,Villa de Tamazulápam del Progreso,Mixteca,Teposcolula
+547,Teotongo,Mixteca,Teposcolula
+556,La Trinidad Vista Hermosa,Mixteca,Teposcolula
+26,Chalcatongo de Hidalgo,Mixteca,Tlaxiaco
+50,Magdalena Peñasco,Mixteca,Tlaxiaco
+86,San Agustín Tlacotepec,Mixteca,Tlaxiaco
+110,San Antonio Sinicahua,Mixteca,Tlaxiaco
+119,San Bartolomé Yucuañe,Mixteca,Tlaxiaco
+127,San Cristóbal Amoltepec,Mixteca,Tlaxiaco
+133,San Esteban Atatlahuca,Mixteca,Tlaxiaco
+172,San Juan Achiutla,Mixteca,Tlaxiaco
+210,San Juan Ñumí,Mixteca,Tlaxiaco
+218,San Juan Teita,Mixteca,Tlaxiaco
+239,San Martín Huamelúlpam,Mixteca,Tlaxiaco
+240,San Martín Itunyoso,Mixteca,Tlaxiaco
+252,San Mateo Peñasco,Mixteca,Tlaxiaco
+258,San Miguel Achiutla,Mixteca,Tlaxiaco
+269,San Miguel el Grande,Mixteca,Tlaxiaco
+297,San Pablo Tijaltepec,Mixteca,Tlaxiaco
+317,San Pedro Mártir Yucuxaco,Mixteca,Tlaxiaco
+320,San Pedro Molinos,Mixteca,Tlaxiaco
+370,Santa Catarina Tayata,Mixteca,Tlaxiaco
+371,Santa Catarina Ticuá,Mixteca,Tlaxiaco
+372,Santa Catarina Yosonotú,Mixteca,Tlaxiaco
+379,Santa Cruz Nundaco,Mixteca,Tlaxiaco
+382,Santa Cruz Tacahua,Mixteca,Tlaxiaco
+383,Santa Cruz Tayata,Mixteca,Tlaxiaco
+397,Heroica Ciudad de Tlaxiaco,Mixteca,Tlaxiaco
+408,Santa María del Rosario,Mixteca,Tlaxiaco
+430,Santa María Tataltepec,Mixteca,Tlaxiaco
+444,Santa María Yolotepec,Mixteca,Tlaxiaco
+445,Santa María Yosoyúa,Mixteca,Tlaxiaco
+446,Santa María Yucuhiti,Mixteca,Tlaxiaco
+480,Santiago Nundiche,Mixteca,Tlaxiaco
+481,Santiago Nuyoó,Mixteca,Tlaxiaco
+500,Santiago Yosondúa,Mixteca,Tlaxiaco
+510,Santo Domingo Ixcatlán,Mixteca,Tlaxiaco
+532,Santo Tomás Ocotepec,Mixteca,Tlaxiaco
+189,San Juan Comaltepec,Papaloapan,Choapam
+205,San Juan Lalana,Papaloapan,Choapam
+212,San Juan Petlapa,Papaloapan,Choapam
+460,Santiago Choápam,Papaloapan,Choapam
+468,Santiago Jocotepec,Papaloapan,Choapam
+498,Santiago Yaveo,Papaloapan,Choapam
+2,Acatlán de Pérez Figueroa,Papaloapan,Tuxtepec
+9,Ayotzintepec,Papaloapan,Tuxtepec
+21,Cosolapa,Papaloapan,Tuxtepec
+44,Loma Bonita,Papaloapan,Tuxtepec
+134,San Felipe Jalapa de Díaz,Papaloapan,Tuxtepec
+136,San Felipe Usila,Papaloapan,Tuxtepec
+166,San José Chiltepec,Papaloapan,Tuxtepec
+169,San José Independencia,Papaloapan,Tuxtepec
+184,San Juan Bautista Tuxtepec,Papaloapan,Tuxtepec
+232,San Lucas Ojitlán,Papaloapan,Tuxtepec
+278,San Miguel Soyaltepec,Papaloapan,Tuxtepec
+309,San Pedro Ixcatlán,Papaloapan,Tuxtepec
+417,Santa María Jacatepec,Papaloapan,Tuxtepec
+559,San Juan Bautista Valle Nacional,Papaloapan,Tuxtepec
+1,Abejones,Sierra Norte,Ixtlán
+35,Guelatao de Juárez,Sierra Norte,Ixtlán
+42,Ixtlán de Juárez,Sierra Norte,Ixtlán
+62,Natividad,Sierra Norte,Ixtlán
+173,San Juan Atepec,Sierra Norte,Ixtlán
+191,San Juan Chicomezúchil,Sierra Norte,Ixtlán
+196,San Juan Evangelista Analco,Sierra Norte,Ixtlán
+214,San Juan Quiotepec,Sierra Norte,Ixtlán
+247,Capulálpam de Méndez,Sierra Norte,Ixtlán
+260,San Miguel Aloápam,Sierra Norte,Ixtlán
+262,San Miguel Amatlán,Sierra Norte,Ixtlán
+267,San Miguel del Río,Sierra Norte,Ixtlán
+288,San Miguel Yotao,Sierra Norte,Ixtlán
+296,San Pablo Macuiltianguis,Sierra Norte,Ixtlán
+335,San Pedro Yaneri,Sierra Norte,Ixtlán
+336,San Pedro Yólox,Sierra Norte,Ixtlán
+359,Santa Ana Yareni,Sierra Norte,Ixtlán
+363,Santa Catarina Ixtepeji,Sierra Norte,Ixtlán
+365,Santa Catarina Lachatao,Sierra Norte,Ixtlán
+419,Santa María Jaltianguis,Sierra Norte,Ixtlán
+443,Santa María Yavesía,Sierra Norte,Ixtlán
+458,Santiago Comaltepec,Sierra Norte,Ixtlán
+473,Santiago Laxopa,Sierra Norte,Ixtlán
+496,Santiago Xiacuí,Sierra Norte,Ixtlán
+504,Nuevo Zoquiápam,Sierra Norte,Ixtlán
+544,Teococuilco de Marcos Pérez,Sierra Norte,Ixtlán
+3,Asunción Cacalotepec,Sierra Norte,Mixe
+31,Tamazulápam del Espíritu Santo,Sierra Norte,Mixe
+60,Mixistlán de la Reforma,Sierra Norte,Mixe
+190,San Juan Cotzocón,Sierra Norte,Mixe
+207,San Juan Mazatlán,Sierra Norte,Mixe
+231,San Lucas Camotlán,Sierra Norte,Mixe
+275,San Miguel Quetzaltepec,Sierra Norte,Mixe
+323,San Pedro Ocotepec,Sierra Norte,Mixe
+337,San Pedro y San Pablo Ayutla,Sierra Norte,Mixe
+394,Santa María Alotepec,Sierra Norte,Mixe
+435,Santa María Tepantlali,Sierra Norte,Mixe
+437,Santa María Tlahuitoltepec,Sierra Norte,Mixe
+454,Santiago Atitlán,Sierra Norte,Mixe
+465,Santiago Ixcuintepec,Sierra Norte,Mixe
+502,Santiago Zacatepec,Sierra Norte,Mixe
+517,Santo Domingo Tepuxtepec,Sierra Norte,Mixe
+554,Totontepec Villa de Morelos,Sierra Norte,Mixe
+38,Villa Hidalgo Yalálag,Sierra Norte,Villa Alta
+97,San Andrés Solaga,Sierra Norte,Villa Alta
+100,San Andrés Yaá,Sierra Norte,Villa Alta
+114,San Baltazar Yatzachi el Bajo,Sierra Norte,Villa Alta
+120,San Bartolomé Zoogocho,Sierra Norte,Villa Alta
+128,San Cristóbal Lachirioag,Sierra Norte,Villa Alta
+138,San Francisco Cajonos,Sierra Norte,Villa Alta
+156,San Ildefonso Villa Alta,Sierra Norte,Villa Alta
+201,San Juan Juquila Vijanos,Sierra Norte,Villa Alta
+216,San Juan Tabaá,Sierra Norte,Villa Alta
+222,San Juan Yaeé,Sierra Norte,Villa Alta
+223,San Juan Yatzona,Sierra Norte,Villa Alta
+246,San Mateo Cajonos,Sierra Norte,Villa Alta
+257,San Melchor Betaza,Sierra Norte,Villa Alta
+280,Villa Talea de Castro,Sierra Norte,Villa Alta
+299,San Pablo Yaganiza,Sierra Norte,Villa Alta
+303,San Pedro Cajonos,Sierra Norte,Villa Alta
+432,Santa María Temaxcalapa,Sierra Norte,Villa Alta
+442,Santa María Yalina,Sierra Norte,Villa Alta
+457,Santiago Camotlán,Sierra Norte,Villa Alta
+471,Santiago Lalopa,Sierra Norte,Villa Alta
+503,Santiago Zoochila,Sierra Norte,Villa Alta
+514,Santo Domingo Roayaga,Sierra Norte,Villa Alta
+522,Santo Domingo Xagacía,Sierra Norte,Villa Alta
+541,Tanetze de Zaragoza,Sierra Norte,Villa Alta
+59,Miahuatlán de Porfirio Díaz,Sierra Sur,Miahuatlán
+61,Monjas,Sierra Sur,Miahuatlán
+95,San Andrés Paxtlán,Sierra Sur,Miahuatlán
+126,San Cristóbal Amatlán,Sierra Sur,Miahuatlán
+146,San Francisco Logueche,Sierra Sur,Miahuatlán
+148,San Francisco Ozolotepec,Sierra Sur,Miahuatlán
+154,San Ildefonso Amatlán,Sierra Sur,Miahuatlán
+159,San Jerónimo Coatlán,Sierra Sur,Miahuatlán
+167,San José del Peñasco,Sierra Sur,Miahuatlán
+170,San José Lachiguiri,Sierra Sur,Miahuatlán
+209,San Juan Mixtepec Distrito 26,Sierra Sur,Miahuatlán
+211,San Juan Ozolotepec,Sierra Sur,Miahuatlán
+235,San Luis Amatlán,Sierra Sur,Miahuatlán
+236,San Marcial Ozolotepec,Sierra Sur,Miahuatlán
+254,San Mateo Río Hondo,Sierra Sur,Miahuatlán
+263,San Miguel Coatlán,Sierra Sur,Miahuatlán
+279,San Miguel Suchixtepec,Sierra Sur,Miahuatlán
+289,San Nicolás,Sierra Sur,Miahuatlán
+291,San Pablo Coatlán,Sierra Sur,Miahuatlán
+319,San Pedro Mixtepec Distrito 26,Sierra Sur,Miahuatlán
+344,San Sebastián Coatlán,Sierra Sur,Miahuatlán
+347,San Sebastián Río Hondo,Sierra Sur,Miahuatlán
+351,San Simón Almolongas,Sierra Sur,Miahuatlán
+353,Santa Ana,Sierra Sur,Miahuatlán
+362,Santa Catarina Cuixtla,Sierra Sur,Miahuatlán
+384,Santa Cruz Xitla,Sierra Sur,Miahuatlán
+391,Santa Lucía Miahuatlán,Sierra Sur,Miahuatlán
+424,Santa María Ozolotepec,Sierra Sur,Miahuatlán
+495,Santiago Xanica,Sierra Sur,Miahuatlán
+512,Santo Domingo Ozolotepec,Sierra Sur,Miahuatlán
+533,Santo Tomás Tamazulapan,Sierra Sur,Miahuatlán
+538,Sitio de Xitlapehua,Sierra Sur,Miahuatlán
+20,Constancia del Rosario,Sierra Sur,Putla
+37,Mesones Hidalgo,Sierra Sur,Putla
+73,Putla Villa de Guerrero,Sierra Sur,Putla
+76,La Reforma,Sierra Sur,Putla
+88,San Andrés Cabecera Nueva,Sierra Sur,Putla
+300,San Pedro Amuzgos,Sierra Sur,Putla
+377,Santa Cruz Itundujia,Sierra Sur,Putla
+392,Santa Lucía Monteverde,Sierra Sur,Putla
+415,Santa María Ipalapa,Sierra Sur,Putla
+447,Santa María Zacatepec,Sierra Sur,Putla
+137,San Francisco Cahuacuá,Sierra Sur,Sola De Vega
+149,San Francisco Sola,Sierra Sur,Sola De Vega
+155,San Ildefonso Sola,Sierra Sur,Sola De Vega
+158,San Jacinto Tlacotepec,Sierra Sur,Sola De Vega
+229,San Lorenzo Texmelúcan,Sierra Sur,Sola De Vega
+277,Villa Sola de Vega,Sierra Sur,Sola De Vega
+386,Santa Cruz Zenzontepec,Sierra Sur,Sola De Vega
+420,Santa María Lachixío,Sierra Sur,Sola De Vega
+429,Santa María Sola,Sierra Sur,Sola De Vega
+448,Santa María Zaniza,Sierra Sur,Sola De Vega
+450,Santiago Amoltepec,Sierra Sur,Sola De Vega
+477,Santiago Minas,Sierra Sur,Sola De Vega
+491,Santiago Textitlán,Sierra Sur,Sola De Vega
+516,Santo Domingo Teojomulco,Sierra Sur,Sola De Vega
+535,San Vicente Lachixío,Sierra Sur,Sola De Vega
+566,San Mateo Yucutindoo,Sierra Sur,Sola De Vega
+8,Asunción Tlacolulita,Sierra Sur,Yautepec
+64,Nejapa de Madero,Sierra Sur,Yautepec
+74,Santa Catarina Quioquitani,Sierra Sur,Yautepec
+122,San Bartolo Yautepec,Sierra Sur,Yautepec
+125,San Carlos Yautepec,Sierra Sur,Yautepec
+200,San Juan Juquila Mixes,Sierra Sur,Yautepec
+204,San Juan Lajarcia,Sierra Sur,Yautepec
+316,San Pedro Mártir Quiechapa,Sierra Sur,Yautepec
+357,Santa Ana Tavela,Sierra Sur,Yautepec
+361,Santa Catalina Quierí,Sierra Sur,Yautepec
+410,Santa María Ecatepec,Sierra Sur,Yautepec
+428,Santa María Quiegolani,Sierra Sur,Yautepec
+23,Cuilápam de Guerrero,Valles Centrales,Centro
+67,Oaxaca de Juárez,Valles Centrales,Centro
+83,San Agustín de las Juntas,Valles Centrales,Centro
+87,San Agustín Yatareni,Valles Centrales,Centro
+91,San Andrés Huayápam,Valles Centrales,Centro
+92,San Andrés Ixtlahuaca,Valles Centrales,Centro
+107,San Antonio de la Cal,Valles Centrales,Centro
+115,San Bartolo Coyotepec,Valles Centrales,Centro
+157,San Jacinto Amilpas,Valles Centrales,Centro
+174,Ánimas Trujano,Valles Centrales,Centro
+310,San Pedro Ixtlahuaca,Valles Centrales,Centro
+342,San Raymundo Jalpan,Valles Centrales,Centro
+350,San Sebastián Tutla,Valles Centrales,Centro
+375,Santa Cruz Amilpas,Valles Centrales,Centro
+385,Santa Cruz Xoxocotlán,Valles Centrales,Centro
+390,Santa Lucía del Camino,Valles Centrales,Centro
+399,Santa María Atzompa,Valles Centrales,Centro
+403,Santa María Coyotepec,Valles Centrales,Centro
+409,Santa María del Tule,Valles Centrales,Centro
+519,Santo Domingo Tomaltepec,Valles Centrales,Centro
+553,Tlalixtac de Cabrera,Valles Centrales,Centro
+15,Coatecas Altas,Valles Centrales,Ejutla
+17,La Compañía,Valles Centrales,Ejutla
+28,Heroica Ciudad de Ejutla de Crespo,Valles Centrales,Ejutla
+69,La Pe,Valles Centrales,Ejutla
+80,San Agustín Amatengo,Valles Centrales,Ejutla
+101,San Andrés Zabache,Valles Centrales,Ejutla
+203,San Juan Lachigalla,Valles Centrales,Ejutla
+238,San Martín de los Cansecos,Valles Centrales,Ejutla
+241,San Martín Lachilá,Valles Centrales,Ejutla
+268,San Miguel Ejutla,Valles Centrales,Ejutla
+534,San Vicente Coatlán,Valles Centrales,Ejutla
+542,Taniche,Valles Centrales,Ejutla
+563,Yogana,Valles Centrales,Ejutla
+33,Guadalupe Etla,Valles Centrales,Etla
+45,Magdalena Apasco,Valles Centrales,Etla
+63,Nazareno Etla,Valles Centrales,Etla
+77,Reyes Etla,Valles Centrales,Etla
+84,San Agustín Etla,Valles Centrales,Etla
+102,San Andrés Zautla,Valles Centrales,Etla
+135,San Felipe Tejalápam,Valles Centrales,Etla
+150,San Francisco Telixtlahuaca,Valles Centrales,Etla
+161,San Jerónimo Sosola,Valles Centrales,Etla
+175,San Juan Bautista Atatlahuca,Valles Centrales,Etla
+178,San Juan Bautista Guelache,Valles Centrales,Etla
+179,San Juan Bautista Jayacatlán,Valles Centrales,Etla
+193,San Juan del Estado,Valles Centrales,Etla
+227,San Lorenzo Cacaotepec,Valles Centrales,Etla
+293,San Pablo Etla,Valles Centrales,Etla
+294,San Pablo Huitzo,Valles Centrales,Etla
+338,Villa de Etla,Valles Centrales,Etla
+426,Santa María Peñoles,Valles Centrales,Etla
+483,Santiago Suchilquitongo,Valles Centrales,Etla
+487,Santiago Tenango,Valles Centrales,Etla
+494,Santiago Tlazoyaltepec,Valles Centrales,Etla
+531,Santo Tomás Mazaltepec,Valles Centrales,Etla
+539,Soledad Etla,Valles Centrales,Etla
+7,Asunción Ocotlán,Valles Centrales,Ocotlan
+49,Magdalena Ocotlán,Valles Centrales,Ocotlan
+68,Ocotlán de Morelos,Valles Centrales,Ocotlan
+72,San José del Progreso,Valles Centrales,Ocotlan
+103,San Antonino Castillo Velasco,Valles Centrales,Ocotlan
+112,San Baltazar Chichicápam,Valles Centrales,Ocotlan
+132,San Dionisio Ocotlán,Valles Centrales,Ocotlan
+162,San Jerónimo Taviche,Valles Centrales,Ocotlan
+192,San Juan Chilateca,Valles Centrales,Ocotlan
+243,San Martín Tilcajete,Valles Centrales,Ocotlan
+284,San Miguel Tilquiápam,Valles Centrales,Ocotlan
+301,San Pedro Apóstol,Valles Centrales,Ocotlan
+315,San Pedro Mártir,Valles Centrales,Ocotlan
+328,San Pedro Taviche,Valles Centrales,Ocotlan
+360,Santa Ana Zegache,Valles Centrales,Ocotlan
+368,Santa Catarina Minas,Valles Centrales,Ocotlan
+393,Santa Lucía Ocotlán,Valles Centrales,Ocotlan
+452,Santiago Apóstol,Valles Centrales,Ocotlan
+530,Santo Tomás Jalieza,Valles Centrales,Ocotlan
+561,Yaxe,Valles Centrales,Ocotlan
+51,Magdalena Teitipac,Valles Centrales,Tlacolula
+78,Rojas de Cuauhtémoc,Valles Centrales,Tlacolula
+118,San Bartolomé Quialana,Valles Centrales,Tlacolula
+131,San Dionisio Ocotepec,Valles Centrales,Tlacolula
+145,San Francisco Lachigoló,Valles Centrales,Tlacolula
+194,San Juan del Río,Valles Centrales,Tlacolula
+197,San Juan Guelavía,Valles Centrales,Tlacolula
+219,San Juan Teitipac,Valles Centrales,Tlacolula
+226,San Lorenzo Albarradas,Valles Centrales,Tlacolula
+233,San Lucas Quiaviní,Valles Centrales,Tlacolula
+298,San Pablo Villa de Mitla,Valles Centrales,Tlacolula
+325,San Pedro Quiatoni,Valles Centrales,Tlacolula
+333,San Pedro Totolápam,Valles Centrales,Tlacolula
+343,San Sebastián Abasolo,Valles Centrales,Tlacolula
+349,San Sebastián Teitipac,Valles Centrales,Tlacolula
+356,Santa Ana del Valle,Valles Centrales,Tlacolula
+380,Santa Cruz Papalutla,Valles Centrales,Tlacolula
+411,Santa María Guelacé,Valles Centrales,Tlacolula
+449,Santa María Zoquitlán,Valles Centrales,Tlacolula
+475,Santiago Matatlán,Valles Centrales,Tlacolula
+506,Santo Domingo Albarradas,Valles Centrales,Tlacolula
+546,Teotitlán del Valle,Valles Centrales,Tlacolula
+550,San Jerónimo Tlacochahuaya,Valles Centrales,Tlacolula
+551,Tlacolula de Matamoros,Valles Centrales,Tlacolula
+560,Villa Díaz Ordaz,Valles Centrales,Tlacolula
+108,San Antonio Huitepec,Valles Centrales,Zaachila
+273,San Miguel Peras,Valles Centrales,Zaachila
+292,San Pablo Cuatro Venados,Valles Centrales,Zaachila
+388,Santa Inés del Monte,Valles Centrales,Zaachila
+555,Trinidad Zaachila,Valles Centrales,Zaachila
+565,Villa de Zaachila,Valles Centrales,Zaachila
+13,Ciénega de Zimatlán,Valles Centrales,Zimatlán
+48,Magdalena Mixtepec,Valles Centrales,Zimatlán
+104,San Antonino el Alto,Valles Centrales,Zimatlán
+123,San Bernardo Mixtepec,Valles Centrales,Zimatlán
+271,San Miguel Mixtepec,Valles Centrales,Zimatlán
+295,San Pablo Huixtepec,Valles Centrales,Zimatlán
+358,Santa Ana Tlapacoyan,Valles Centrales,Zimatlán
+369,Santa Catarina Quiané,Valles Centrales,Zimatlán
+378,Santa Cruz Mixtepec,Valles Centrales,Zimatlán
+387,Santa Gertrudis,Valles Centrales,Zimatlán
+389,Santa Inés Yatzeche,Valles Centrales,Zimatlán
+398,Ayoquezco de Aldama,Valles Centrales,Zimatlán
+570,Zimatlán de Álvarez,Valles Centrales,Zimatlán
