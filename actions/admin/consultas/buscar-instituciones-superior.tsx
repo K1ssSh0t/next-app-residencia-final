@@ -6,6 +6,7 @@ import { and, eq, ilike, like, SQL, SQLWrapper } from "drizzle-orm";
 import { InstitucionesWithRelations } from "@/repositories/institucione-repository";
 import { datosInstitucionales } from "@/schema/datos-institucionales";
 import { cuestionarios } from "@/schema/cuestionarios";
+import { carreras } from "@/schema/carreras";
 
 interface SearchParams {
     region?: string;
@@ -13,6 +14,7 @@ interface SearchParams {
     municipalityType?: string; // Nuevo parámetro
     institutionName?: string;
     year?: string; // Nuevo parámetro
+    careerType?: string;
 }
 
 export type InstitucionesBusqueda = Awaited<
@@ -76,7 +78,7 @@ export async function buscarSuperior(params: SearchParams) {
                     whereConditions.push(eq(cuestionarios.año, parseInt(params.year)));
                 }
 
-                const cuestionario = await db.query.cuestionarios.findMany({
+                let cuestionario = await db.query.cuestionarios.findMany({
                     where: and(...whereConditions),
                     with: {
                         carrera: {
@@ -92,6 +94,20 @@ export async function buscarSuperior(params: SearchParams) {
                         },
                     },
                 });
+
+                // Filtrar por tipo de carrera
+                if (params.careerType) {
+                    cuestionario = cuestionario.filter(c => {
+                        const clave = c.carrera?.carrera?.clave || ''
+                        switch (params.careerType) {
+                            case 'carrera': return clave.startsWith('4') || clave.startsWith('5')
+                            case 'especialidad': return clave.startsWith('6')
+                            case 'maestria': return clave.startsWith('7')
+                            case 'doctorado': return clave.startsWith('8')
+                            default: return true
+                        }
+                    })
+                }
 
                 // Return null if no data is found for the selected year
                 if (params.year && (datosInst.length === 0 && cuestionario.length === 0)) {

@@ -42,9 +42,9 @@ interface FilterOptions {
     regions: Option[]
     municipalities: Option[]
     institutionTypes: Option[]
-    careers?: Option[]
     modalities?: Option[]
     institutions?: Option[]
+
 }
 
 interface TotalViewProps {
@@ -77,6 +77,7 @@ function TotalsCard({ totals, title }: TotalViewProps) {
 const convertToCSV = (data: InstitucionesBusqueda, categoriasCuestionario: string[], categoriasGenerales: string[]) => {
     const headers = [
         'Año',
+        'Clave Carrera',
         'Nombre Carrera',
         'REVOE',
         'Número REVOE',
@@ -100,6 +101,7 @@ const convertToCSV = (data: InstitucionesBusqueda, categoriasCuestionario: strin
                 return institution.cuestionario.map(cuestionario => {
                     const basicInfo = [
                         cuestionario.año,
+                        cuestionario.carrera?.carrera?.clave || '',
                         cuestionario.carrera?.carrera?.descripcion || '',
                         cuestionario.carrera?.nombreRevoe || '',
                         cuestionario.carrera?.numeroRevoe || '',
@@ -236,6 +238,13 @@ export function FiltrosSuperior({ filterOptions }: { filterOptions: FilterOption
 
     const [filteredMunicipalities, setFilteredMunicipalities] = React.useState(filterOptions.municipalities);
 
+    const careers = [
+        { value: 'carrera', label: 'Carrera (Clave 4-5)' },
+        { value: 'especialidad', label: 'Especialidad (Clave 6)' },
+        { value: 'maestria', label: 'Maestría (Clave 7)' },
+        { value: 'doctorado', label: 'Doctorado (Clave 8)' },
+    ]
+
     const [currentPage, setCurrentPage] = React.useState(1);
     const itemsPerPage = 5;
 
@@ -281,7 +290,8 @@ export function FiltrosSuperior({ filterOptions }: { filterOptions: FilterOption
                     institutionType: selectedInstitutionType || undefined,
                     municipalityType: selectedMunicipality || undefined,
                     institutionName: nombreInstitucion || undefined,
-                    year: selectedYear || undefined
+                    year: selectedYear || undefined,
+                    careerType: selectedCareer || undefined
                 })
                 setResults(institutions)
 
@@ -441,6 +451,7 @@ export function FiltrosSuperior({ filterOptions }: { filterOptions: FilterOption
                             <TableHeader>
                                 <TableRow>
                                     <TableHead>Año</TableHead>
+                                    <TableHead>Clave de Carrera</TableHead>
                                     <TableHead className="w-[200px]">Nombre Carrera</TableHead>
                                     <TableHead>REVOE</TableHead>
                                     <TableHead>Número REVOE</TableHead>
@@ -468,6 +479,7 @@ export function FiltrosSuperior({ filterOptions }: { filterOptions: FilterOption
                                         institution.cuestionario.map(cuestionario => (
                                             <TableRow key={`${institution.id}-${cuestionario.id}`}>
                                                 <TableCell>{cuestionario.año}</TableCell>
+                                                <TableCell>{cuestionario.carrera?.carrera?.clave}</TableCell>
                                                 <TableCell className="font-medium">{cuestionario.carrera?.carrera?.descripcion}</TableCell>
                                                 <TableCell>{cuestionario.carrera?.nombreRevoe}</TableCell>
                                                 <TableCell>{cuestionario.carrera?.numeroRevoe}</TableCell>
@@ -664,15 +676,15 @@ export function FiltrosSuperior({ filterOptions }: { filterOptions: FilterOption
                         />
                     </div>
 
-                    {/* <div className="space-y-2">
-                        <label className="text-sm font-medium">Carrera Específica</label>
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium">Tipo de Carrera</label>
                         <ComboboxFilter
-                            options={filterOptions.careers}
-                            placeholder="Seleccionar carrera"
+                            options={careers}
+                            placeholder="Seleccionar tipo"
                             value={selectedCareer}
                             onChange={setSelectedCareer}
                         />
-                    </div> */}
+                    </div> *
                     {/* 
                     <div className="space-y-2">
                         <label className="text-sm font-medium">Modalidad Carrera</label>
