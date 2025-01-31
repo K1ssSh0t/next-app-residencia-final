@@ -42,6 +42,8 @@ export default async function Page(props: {
                     modalidad: true,
                 },
             },
+            user: true,
+            preguntas: true,
         },
     });
 

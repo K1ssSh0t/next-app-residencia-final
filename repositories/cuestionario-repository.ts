@@ -30,6 +30,8 @@ export async function getCuestionariosWithRelations({
           modalidad: true,
         },
       },
+      user: true,
+      preguntas: true,
     },
   });
 }

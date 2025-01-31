@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { UsersWithRelations } from "@/repositories/user-repository";
+import { InstitucionWithRelations } from "@/repositories/optener-institucion-query";
 import { Badge } from "@/components/ui/badge";
 import { instituciones } from "@/schema/instituciones";
 import { cuestionarios } from "@/schema/cuestionarios";
@@ -29,7 +30,7 @@ type UserWithProgress = {
   correoContacto: string | null;
   nombreContacto: string | null;
   progressStatus: 'sin empezar' | 'en progreso' | 'terminado';
-
+  institucion: any | null;
 };
 
 
@@ -135,6 +136,7 @@ export async function UserTable({ userList }: { userList: UsersWithRelations }) 
       return {
         ...user,
         progressStatus,
+        institucion: institucion[0],
       };
     })
   );
@@ -162,6 +164,7 @@ export async function UserTable({ userList }: { userList: UsersWithRelations }) 
           {/* <TableHead>Email Verified</TableHead> */}
           {/* <TableHead>Image</TableHead> */}
           <TableHead>Rol</TableHead>
+          <TableHead>Institución</TableHead>
           <TableHead>Nivel Educativo</TableHead>
           {/* <TableHead>Password</TableHead> */}
           <TableHead>Correo de Contacto</TableHead>
@@ -182,6 +185,7 @@ export async function UserTable({ userList }: { userList: UsersWithRelations }) 
               {/* <TableCell>{user.emailVerified?.toLocaleString()}</TableCell> */}
               {/* <TableCell>{user.image}</TableCell> */}
               <TableCell>{user.role == "admin" ? "Administrador" : user.role == "operador" ? "Operador" : user.role == "consultor" ? "Consultor" : "Usuario"}</TableCell>
+              <TableCell>{user.role == "admin" || user.role == "operador" || user.role == "consultor" ? "No aplica" : user.institucion?.nombre}</TableCell>
               <TableCell>{user.role == "admin" || user.role == "operador" || user.role == "consultor" ? "No aplica" :
                 user.nivelEducativo ? "Superior" : "Media Superior"}</TableCell>
               {/* <TableCell>{user.password}</TableCell> */}

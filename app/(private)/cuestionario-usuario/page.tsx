@@ -102,6 +102,8 @@ export default async function Page(props: {
                     carrera: true,
                 }
             },
+            preguntas: true,
+            user: true
         },
         limit: pageSize,
         offset: pageIndex * pageSize,

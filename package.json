@@ -10,7 +10,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "studio": "drizzle-kit studio"
+    "studio": "drizzle-kit studio",
+    "seed": "npx tsx scripts/insertar-regiones.ts && npx tsx scripts/insertar-municipios.ts && npx tsx scripts/insertar-modalidades.ts && npx tsx scripts/insertar-tipo-bachilleres.ts && npx tsx scripts/insertar-tipo-instituciones.ts && npx tsx scripts/insertar-categorias-personas.ts && npx tsx scripts/insertar-categorias-generales.ts"
   },
   "dependencies": {
     "@auth/drizzle-adapter": "^1.7.4",

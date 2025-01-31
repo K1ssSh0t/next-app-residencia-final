@@ -8,6 +8,7 @@ import { parseSearchParams } from "@/lib/search-params-utils";
 import { categoriaPersonas } from "@/schema/categoria-personas";
 import { CategoriaPersonaTable } from "@/components/admin/categoria-personas/categoria-persona-table";
 import { getCategoriaPersonasWithRelations } from "@/repositories/categoria-persona-repository";
+import { QuestionnairePreview } from "@/components/admin/categoria-personas/questionnaire-preview";
 
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
@@ -24,6 +25,8 @@ export default async function Page(props: {
     search: search,
   });
 
+  const categoriasTotal = await db.query.categoriaPersonas.findMany();
+
   return (
     <div className="flex flex-col gap-5">
       <h1 className="text-xl font-bold">Indicadores</h1>
@@ -31,7 +34,15 @@ export default async function Page(props: {
         <div>
           <SearchInput placeholder="Search Categoria Personas" />
         </div>
-        <div className="text-right mr-2">
+        <div className="flex gap-2 text-right mr-2">
+          <QuestionnairePreview
+            categoriaPersonaList={categoriasTotal}
+            level="medioSuperior"
+          />
+          <QuestionnairePreview
+            categoriaPersonaList={categoriasTotal}
+            level="superior"
+          />
           <Link href="/admin/categoria-personas/new">
             <Button>
               <PlusIcon className="mr-2" /> Nuevo Indicador

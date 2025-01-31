@@ -187,7 +187,7 @@ export default async function Page(props: {
                   </div>
                   {(miInstitucion.nivelEducativo || (miInstitucion.tipoBachilleres?.descripcion == "Tecnologico")) &&
                     <div>
-                      <span className="text-muted-foreground">{miInstitucion.nivelEducativo ? "Número de Carreras:" : "Formación Educativa:"}</span>
+                      <span className="text-muted-foreground">{miInstitucion.nivelEducativo ? "Número de Carreras, Posgrados y Doctorados:" : "Formación Educativa:"}</span>
                       <p className="font-medium">{miInstitucion.numeroCarreras}</p>
                     </div>}
                   {miInstitucion && (
