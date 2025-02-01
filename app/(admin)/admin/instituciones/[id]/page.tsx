@@ -45,7 +45,9 @@ export default async function Page(props: { params: Params }) {
                     modalidad: true,
                     carrera: true,
                 }
-            }
+            },
+            user: true,
+            preguntas: true,
         },
 
         where: eq(cuestionarios.usersId, `${institucion.usersId}`),
