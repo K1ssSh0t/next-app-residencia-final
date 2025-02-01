@@ -1,7 +1,6 @@
 import { eq } from "drizzle-orm";
 import { openConnection } from "./sdb";
 import { users } from "@/schema/users";
-import { db } from "@/lib/db";
 
 async function main() {
   const { sdb, closeConnection } = await openConnection();
@@ -15,8 +14,8 @@ async function main() {
   if (!user) {
     throw new Error("user not found " + email);
   }
-
-  await db.update(users).set({ role: "admin" }).where(eq(users.email, email));
+  //cambie db por sdb
+  await sdb.update(users).set({ role: "admin" }).where(eq(users.email, email));
 
   console.log("granted admin role to user " + email);
 

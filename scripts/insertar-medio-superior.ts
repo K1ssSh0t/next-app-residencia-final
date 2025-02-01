@@ -3,6 +3,8 @@ import { openConnection } from "./sdb";
 import fs from "fs";
 import path from "path";
 import { parse } from "csv-parse/sync";
+import { especialidades } from "@/schema/especialidades";
+import { especialidadesListas } from "@/schema/especialidades-listas";
 
 async function main() {
   const { sdb, closeConnection } = await openConnection();
@@ -30,15 +32,17 @@ async function main() {
       }));
 
     // Insert records into the database
-    console.log("records", records);
+    // console.log("records", records);
     if (records.length > 0) {
-      await sdb.insert(carreras).values(records);
-      console.log(`Inserted ${records.length} carreras into the database`);
+      await sdb.insert(especialidadesListas).values(records);
+      console.log(
+        `Inserted ${records.length} especialidades into the database`
+      );
     } else {
       console.log("No records to insert");
     }
   } catch (error) {
-    console.error("Error inserting carreras:", error);
+    console.error("Error inserting especialidades:", error);
   } finally {
     await closeConnection();
   }

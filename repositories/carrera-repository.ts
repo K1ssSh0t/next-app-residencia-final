@@ -22,8 +22,8 @@ export async function getCarrerasWithRelations({
   return await db.query.carreras.findMany({
     limit: limit,
     offset: offset,
-    where: search ? like(carreras.id, `%${search}%`) : undefined,
-    with: undefined
+    where: search ? like(carreras.descripcion, `%${search}%`) : undefined,
+    with: undefined,
   });
 }
 

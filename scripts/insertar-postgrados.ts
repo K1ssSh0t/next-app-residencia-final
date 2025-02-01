@@ -30,7 +30,7 @@ async function main() {
       }));
 
     // Insert records into the database
-    console.log("records", records);
+    //console.log("records", records);
     if (records.length > 0) {
       await sdb.insert(carreras).values(records);
       console.log(`Inserted ${records.length} carreras into the database`);
@@ -38,7 +38,7 @@ async function main() {
       console.log("No records to insert");
     }
   } catch (error) {
-    console.error("Error inserting carreras:", error);
+    console.error("Error inserting postgrados:", error);
   } finally {
     await closeConnection();
   }
