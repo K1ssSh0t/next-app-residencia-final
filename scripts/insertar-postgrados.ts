@@ -9,7 +9,7 @@ async function main() {
 
   try {
     // Read the CSV file
-    const csvPath = path.join(__dirname, "SUPERIOR.csv");
+    const csvPath = path.join(__dirname, "POSTGRADO.csv");
     const fileContent = fs.readFileSync(csvPath, { encoding: "utf-8" });
 
     // Parse the CSV file synchronously

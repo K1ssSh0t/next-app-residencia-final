@@ -1,4 +1,11 @@
 descripcion,nivel aplicado
-Docentes,ambos
-Administrativos,superior
-Directivos,medioSuperior
+ALUMNOS CON DISCAPACIDAD,ambos
+ALUMNOS REPROBADOS, medioSuperior
+ALUMNOS CON BECAS,ambos
+ALUMNOS DE NUEVO INGRESO,ambos
+EGRESADOS,ambos
+ALUMNOS DE SEGUNDO AÑO,medioSuperior
+ALUMNOS DE TERCER AÑO,medioSuperior
+TITULADOS,superior
+OBTENCIÓN DE GRADO ACADEMICO,superior
+MATRICULA TOTAL,ambos

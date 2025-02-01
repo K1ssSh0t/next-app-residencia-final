@@ -10,6 +10,7 @@ async function main() {
       { descripcion: "Directivos General" },
       { descripcion: "Administrativos General" },
       { descripcion: "Docentes General" },
+      { descripcion: "Monto Asignado a Infraestructura" },
     ];
 
     // Verificar existencia previa
