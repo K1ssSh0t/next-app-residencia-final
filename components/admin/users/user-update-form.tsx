@@ -1,6 +1,6 @@
 "use client";
 
-import { startTransition, useActionState, useEffect, useState } from "react";
+import { startTransition, useActionState, useEffect, useRef, useState } from "react";
 import { updateUser, UpdateUserState } from "@/actions/admin/users/update-user";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 
 import { User } from "@/schema/users";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Eye, EyeOff } from "lucide-react"
 
 export function UserUpdateForm({
   user,
@@ -18,6 +19,38 @@ export function UserUpdateForm({
   const initialState: UpdateUserState = {};
   const [state, dispatch] = useActionState(updateUser, initialState);
   const [selectedRole, setSelectedRole] = useState<string | undefined>();
+
+  const [showPassword, setShowPassword] = useState(false)
+  const [password, setPassword] = useState("");
+
+  // 2. Declara una referencia para el input "Nombre de Usuario":
+  const emailRef = useRef<HTMLInputElement>(null);
+
+  // Función para generar una contraseña aleatoria
+  const generateRandomPassword = (length = 10) => {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let pass = "";
+    for (let i = 0; i < length; i++) {
+      pass += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return pass;
+  };
+
+
+  // 4. Crea la función para copiar las credenciales:
+  const copyCredentials = () => {
+    const email = emailRef.current?.value || "";
+    const pwd = password;
+    const textToCopy = `Nombre de usuario: ${email}\nContraseña: ${pwd}`;
+    navigator.clipboard.writeText(textToCopy)
+      .then(() => {
+        alert("Credenciales copiadas al portapapeles!");
+      })
+      .catch(() => {
+        alert("Error al copiar las credenciales");
+      });
+  };
+
 
   useEffect(() => {
     setSelectedRole(user.role)
@@ -57,7 +90,7 @@ export function UserUpdateForm({
         </div>
         <div>
           <Label htmlFor="email">Nombre de usuario *</Label>
-          <Input name="email" defaultValue={user.email ?? ""} required />
+          <Input name="email" defaultValue={user.email ?? ""} required ref={emailRef} />
           {state.errors?.email?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}
@@ -124,15 +157,44 @@ export function UserUpdateForm({
           ))}
         </div>
         <div>
-          <Label htmlFor="password">Password *</Label>
-          <Input name="password" type="password" defaultValue={""} required />
+          <Label htmlFor="password">Contraseña *</Label>
+          <div className="flex w-full items-center space-x-2">
+            <Input
+              name="password"
+              type={showPassword ? "text" : "password"}
+              id="password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="flex-1"
+            />
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setPassword(generateRandomPassword(10))}
+            >
+              Generar
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+            </Button>
+          </div>
           {state.errors?.password?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}
         </div>
-        <div>
-          <Button type="submit">Submit</Button>
+        <div className="flex flex-row justify-between gap-2">
+          <Button type="submit">Enviar</Button>
+          <Button type="button" onClick={copyCredentials}>
+            Copiar Credenciales
+          </Button>
         </div>
+
+
         <FormAlert state={state} />
       </form>
     </div>

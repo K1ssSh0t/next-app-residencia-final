@@ -684,7 +684,7 @@ export function FiltrosSuperior({ filterOptions }: { filterOptions: FilterOption
                             value={selectedCareer}
                             onChange={setSelectedCareer}
                         />
-                    </div> *
+                    </div>
                     {/* 
                     <div className="space-y-2">
                         <label className="text-sm font-medium">Modalidad Carrera</label>
