@@ -7,10 +7,11 @@ async function main() {
   try {
     // Datos requeridos (manteniendo formato y mayúsculas exactas)
     const categorias = [
-      { descripcion: "Directivos General" },
-      { descripcion: "Administrativos General" },
-      { descripcion: "Docentes General" },
-      { descripcion: "Monto Asignado a Infraestructura" },
+      //CONVIERTE EL TEXTO EN MAYÚSCULAS
+      { descripcion: "DIRECTIVOS GENERAL" },
+      { descripcion: "ADMINISTRATIVOS GENERAL" },
+      { descripcion: "DOCENTES GENERAL" },
+      { descripcion: "MONTO ASIGNADO A INFRAESTRUCTURA GENERAL" },
     ];
 
     // Verificar existencia previa
