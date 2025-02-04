@@ -45,6 +45,13 @@ export async function UserTable({ userList }: { userList: UsersWithRelations }) 
   const userProgress: UserWithProgress[] = await Promise.all(
     userList.map(async (user) => {
       const institucion = await db.select().from(instituciones).where(eq(instituciones.usersId, user.id)).limit(1);
+      const instituciondata = await db.query.instituciones.findFirst({
+        where: eq(instituciones.usersId, user.id),
+        with: {
+          tipoBachilleres: true,
+        }
+      }
+      );
       let progressStatus: 'sin empezar' | 'en progreso' | 'terminado' = 'sin empezar';
 
       if (institucion.length > 0) {
@@ -85,18 +92,23 @@ export async function UserTable({ userList }: { userList: UsersWithRelations }) 
                   .from(preguntas)
                   .where(eq(preguntas.cuestionariosId, cuestionarioId));
 
-                // Verificar especialidades
-                const especialidadesCount = await db
-                  .select({ count: count() })
-                  .from(especialidades)
-                  .where(eq(especialidades.cuestionarioId, cuestionarioId));
-
+                // Solo verificar especialidades si no es bachiller general
                 const tieneTodasLasPreguntas = preguntasCount[0].count === categoriasAplicables.length;
-                const tieneTodasLasEspecialidades = especialidadesCount[0].count === institucion[0].numeroCarreras;
+                let tieneEspecialidadesCompletas = true;
 
-                if (tieneTodasLasPreguntas && tieneTodasLasEspecialidades) {
+                if (instituciondata?.tipoBachilleres?.descripcion !== 'General') {
+                  // Verificar especialidades solo si no es bachiller general
+                  const especialidadesCount = await db
+                    .select({ count: count() })
+                    .from(especialidades)
+                    .where(eq(especialidades.cuestionarioId, cuestionarioId));
+
+                  tieneEspecialidadesCompletas = especialidadesCount[0].count === institucion[0].numeroCarreras;
+                }
+
+                if (tieneTodasLasPreguntas && tieneEspecialidadesCompletas) {
                   progressStatus = 'terminado';
-                } else if (preguntasCount[0].count > 0 || especialidadesCount[0].count > 0) {
+                } else if (preguntasCount[0].count > 0) {
                   progressStatus = 'en progreso';
                 }
               } else if (cuestionariosResult.length > 1) {
