@@ -13,6 +13,15 @@ import { TipoInstituciones } from "@/schema/tipo-instituciones";
 import { TipoBachilleres } from "@/schema/tipo-bachilleres";
 import { Region } from "@/schema/regions";
 import { Municipio } from "@/schema/municipios";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+
+import { Info } from "lucide-react";
+
 
 
 function RequiredLabel({ children }: { children: React.ReactNode }) {
@@ -127,7 +136,25 @@ export function InstitucioneUpdateForm({
           </div>
 
           {showNumeroCarreras && <div className="space-y-2">
-            <Label>{nivelEducativo ? "Número de Carreras" : "Formacion Educativa"}</Label>
+            <div className="flex items-center gap-2">
+
+
+              <Label>{nivelEducativo ? "Número de Carreras" : "Formacion Educativa"}</Label>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Info className="h-4 w-4 text-destructive cursor-help" />
+                  </TooltipTrigger>
+                  <TooltipContent className="max-w-xs">
+                    <p>
+                      Por favor, considere sumar la cantidad de carreras totales de la institución, postgrados, doctorados y maestrias para determinar el número que colocará.
+                      <br />
+                      Para Media Superior solo coloque su cantidad de Formaciones Educativas.
+                    </p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </div>
             <Input
               name="numeroCarreras"
               type="number"

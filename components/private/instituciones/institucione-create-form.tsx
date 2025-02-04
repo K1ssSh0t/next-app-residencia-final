@@ -13,6 +13,15 @@ import { TipoBachilleres } from "@/schema/tipo-bachilleres";
 import { Region } from "@/schema/regions";
 import { Municipio } from "@/schema/municipios";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+
+import { Info } from "lucide-react";
+
 
 function RequiredLabel({ children }: { children: React.ReactNode }) {
   return (
@@ -118,7 +127,26 @@ export function InstitucioneCreateForm({
             </div>
             {showNumeroCarreras &&
               <div className="space-y-2">
-                <RequiredLabel>{nivelEducativo ? "Número de Carreras, Postgrados y Doctorados" : "Formacion Educativa"}</RequiredLabel>
+
+                <div className="flex items-center gap-2">
+
+
+                  <RequiredLabel>{nivelEducativo ? "Número de Carreras, Postgrados y Doctorados" : "Formacion Educativa"}</RequiredLabel>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Info className="h-4 w-4 text-destructive cursor-help" />
+                      </TooltipTrigger>
+                      <TooltipContent className="max-w-xs">
+                        <p>
+                          Por favor, considere sumar la cantidad de carreras totales de la institución, postgrados, doctorados y maestrias para determinar el número que colocará.
+                          <br />
+                          Para Media Superior solo coloque su cantidad de Formaciones Educativas.
+                        </p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
                 <Input name="numeroCarreras" type="number" required={showNumeroCarreras} min={0} placeholder={nivelEducativo ? "Ingresa el Número de Carreras" : "Ingresa la Formación Educativa"} />
                 {state.errors?.numeroCarreras?.map((error) => (
                   <p className="text-destructive text-sm" key={error}>{error}</p>
