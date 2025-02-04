@@ -15,6 +15,7 @@ import { cuestionarios } from "@/schema/cuestionarios";
 
 const insertInstitucioneSchema = createInsertSchema(instituciones).extend({
   nivelEducativo: z.boolean(),
+  numeroCarreras: z.number().optional(),
 });
 
 export interface CreateInstitucioneState extends BaseActionState {
@@ -44,6 +45,8 @@ export async function createInstitucione(
       throw new Error("unauthenticated");
     }
 
+    const numeroCarrerasValue = formData.get("numeroCarreras") as string;
+
     const validatedFields = insertInstitucioneSchema.safeParse({
       nombre: formData.get("nombre") as string,
       regionId: formData.get("region") as string,
@@ -54,7 +57,9 @@ export async function createInstitucione(
       nivelEducativo: formData.get("nivelEducativo") === "true",
       claveInstitucion: formData.get("claveInstitucion") as string,
       claveCentroTrabajo: formData.get("claveCentroTrabajo") as string,
-      numeroCarreras: parseInt(formData.get("numeroCarreras") as string),
+      numeroCarreras: numeroCarrerasValue
+        ? parseInt(numeroCarrerasValue)
+        : undefined,
     });
 
     if (!validatedFields.success) {

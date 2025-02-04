@@ -83,7 +83,7 @@ export async function CuestionarioTable({ cuestionarioList }: { cuestionarioList
                     }
                   </Button>
                 </Link>
-                {estadoCuestionario?.estadoCuestionario && (
+                {estadoCuestionario?.estadoCuestionario && cuestionario.user.nivelEducativo && (
                   <Link href={`/carrera-instituciones/${cuestionario.carrerasId}/edit`}>
                     <Button size="icon" variant="outline">
                       <PencilIcon />

@@ -7,21 +7,24 @@ import { Label } from "@/components/ui/label";
 import { FormAlert } from "@/components/form-alert";
 import { Input } from "@/components/ui/input";
 import { GenericCombobox } from "@/components/generic-combobox";
+import { AsyncSearchCombobox } from "@/components/async-search-combobox";
 
-import { Carrera } from "@/schema/carreras";
 import { Modalidad } from "@/schema/modalidads";
 
 export function CarreraInstitucionCreateForm({
-  carreraList,
   modalidadeList,
   idInstitucion,
 }: {
-  carreraList: Carrera[];
   modalidadeList: Modalidad[];
   idInstitucion: string;
 }) {
   const initialState: CreateCarreraInstitucionState = {};
   const [state, dispatch] = useActionState(createCarreraInstitucion, initialState);
+
+  async function searchCarreras(query: string) {
+    const response = await fetch(`/api/carreras/search?q=${query}`);
+    return response.json();
+  }
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -44,15 +47,16 @@ export function CarreraInstitucionCreateForm({
         </div>
         <div className="flex flex-col gap-2">
           <Label htmlFor="carrerasId">Carrera *</Label>
-          <GenericCombobox
-            list={carreraList}
+          <AsyncSearchCombobox
+            onSearch={searchCarreras}
             name="carrerasId"
             valueField="id"
-            searchPlaceholder="Search Carreras..."
-            selectPlaceholder="Select Carrera..."
-            emptyText="No carrera found"
+            searchPlaceholder="Buscar carreras..."
+            selectPlaceholder="Seleccionar carrera..."
+            emptyText="No se encontraron carreras"
+            minSearchLength={3}
             keywordFields={["id", "descripcion"]}
-            template={(item) => <div aria-required id="carrerasId">{item.descripcion}</div>}
+            template={(item) => <div>{item.descripcion}</div>}
           />
           {state.errors?.carrerasId?.map((error) => (
             <p className="text-red-500" key={error}>

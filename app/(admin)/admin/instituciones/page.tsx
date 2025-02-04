@@ -65,11 +65,11 @@ export default async function Page(props: {
                     <SearchInput placeholder="Search Instituciones" />
                 </div>
                 <div className="text-right mr-2">
-                    <Link href="/instituciones/new">
+                    {/* <Link href="/instituciones/new">
                         <Button>
                             <PlusIcon className="mr-2" /> New
                         </Button>
-                    </Link>
+                    </Link> */}
                 </div>
             </div>
             <Tabs defaultValue="medio-superior" className="w-full">

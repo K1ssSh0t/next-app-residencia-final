@@ -11,6 +11,7 @@ import { GenericCombobox } from "@/components/generic-combobox";
 import { CarreraInstitucion } from "@/schema/carrera-institucions";
 import { Carrera } from "@/schema/carreras";
 import { Modalidad } from "@/schema/modalidads";
+import { AsyncSearchCombobox } from "@/components/async-search-combobox";
 
 export function CarreraInstitucionUpdateForm({
   carreraInstitucion,
@@ -23,6 +24,16 @@ export function CarreraInstitucionUpdateForm({
 }) {
   const initialState: UpdateCarreraInstitucionState = {};
   const [state, dispatch] = useActionState(updateCarreraInstitucion, initialState);
+
+  async function searchCarreras(query: string) {
+    const response = await fetch(`/api/carreras/search?q=${query}`);
+    return response.json();
+  }
+
+  async function searchDefaultCarreras(query: string) {
+    const response = await fetch(`/api/carreras/default-search?q=${query}`);
+    return response.json();
+  }
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -46,13 +57,15 @@ export function CarreraInstitucionUpdateForm({
         </div>
         <div className="flex flex-col gap-2">
           <Label htmlFor="carrerasId">Carrera *</Label>
-          <GenericCombobox
-            list={carreraList}
+          <AsyncSearchCombobox
+            onSearch={searchCarreras}
+            onDefaultValue={searchDefaultCarreras}
             name="carrerasId"
             valueField="id"
             defaultValue={carreraInstitucion.carrerasId}
             searchPlaceholder="Search Carreras..."
             selectPlaceholder="Select Carrera..."
+            minSearchLength={3}
             emptyText="No carrera found"
             keywordFields={["id", "descripcion"]}
             template={(item) => <div aria-required id="carrerasId" >{item.descripcion}</div>}

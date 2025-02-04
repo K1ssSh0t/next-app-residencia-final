@@ -24,9 +24,9 @@ export default async function Page(props: { searchParams: SearchParams }) {
       <div className="absolute left-8 -top-6">
         <Breadcrumb>
           <BreadcrumbList>
-            <BreadcrumbItem>
+            {/* <BreadcrumbItem>
               <BreadcrumbLink href="/admin/datos-institucionales">Datos Institucionales</BreadcrumbLink>
-            </BreadcrumbItem>
+            </BreadcrumbItem> */}
             <BreadcrumbSeparator />
             <BreadcrumbItem>
               <BreadcrumbPage>Nuevo</BreadcrumbPage>

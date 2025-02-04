@@ -119,7 +119,7 @@ export function InstitucioneCreateForm({
             {showNumeroCarreras &&
               <div className="space-y-2">
                 <RequiredLabel>{nivelEducativo ? "Número de Carreras, Postgrados y Doctorados" : "Formacion Educativa"}</RequiredLabel>
-                <Input name="numeroCarreras" type="number" required min={0} placeholder={nivelEducativo ? "Ingresa el Número de Carreras" : "Ingresa la Formación Educativa"} />
+                <Input name="numeroCarreras" type="number" required={showNumeroCarreras} min={0} placeholder={nivelEducativo ? "Ingresa el Número de Carreras" : "Ingresa la Formación Educativa"} />
                 {state.errors?.numeroCarreras?.map((error) => (
                   <p className="text-destructive text-sm" key={error}>{error}</p>
                 ))}

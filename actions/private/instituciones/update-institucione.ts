@@ -14,6 +14,7 @@ const updateInstitucioneSchema = createSelectSchema(instituciones)
   .required({ id: true })
   .extend({
     nivelEducativo: z.boolean(),
+    numeroCarreras: z.number().optional(),
   });
 
 export interface UpdateInstitucioneState extends BaseActionState {
@@ -43,6 +44,8 @@ export async function updateInstitucione(
       throw new Error("unauthenticated");
     }
 
+    const numeroCarrerasValue = formData.get("numeroCarreras") as string;
+
     const validatedFields = updateInstitucioneSchema.safeParse({
       id: formData.get("id") as string,
       nombre: formData.get("nombre") as string,
@@ -54,7 +57,9 @@ export async function updateInstitucione(
       nivelEducativo: formData.get("nivelEducativo") === "true",
       claveInstitucion: formData.get("claveInstitucion") as string,
       claveCentroTrabajo: formData.get("claveCentroTrabajo") as string,
-      numeroCarreras: parseInt(formData.get("numeroCarreras") as string),
+      numeroCarreras: numeroCarrerasValue
+        ? parseInt(numeroCarrerasValue)
+        : undefined,
     });
 
     if (!validatedFields.success) {

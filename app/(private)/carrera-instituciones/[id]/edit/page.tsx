@@ -46,7 +46,7 @@ export default async function Page(props: { params: Params }) {
           </BreadcrumbList>
         </Breadcrumb>
       </div>
-      <div className="pt-5 w-2/5">
+      <div className="pt-5 w-3/5">
         <CarreraInstitucionUpdateForm
           carreraInstitucion={carreraInstitucion}
           carreraList={carreraList}

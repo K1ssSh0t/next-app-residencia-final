@@ -38,7 +38,6 @@ export default async function Page(props: {
       </div>
       <div className="pt-5 w-1/2">
         <CarreraInstitucionCreateForm
-          carreraList={carreraList}
           modalidadeList={modalidadeList}
           idInstitucion={idInstitucion as string}
         />
