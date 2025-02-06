@@ -18,7 +18,9 @@ interface QuestionnairePreviewProps {
 }
 
 export function QuestionnairePreview({ categoriaPersonaList, level }: QuestionnairePreviewProps) {
-    const filteredCategories = categoriaPersonaList.filter(cat => cat.nivelAplicado === level || cat.nivelAplicado === 'ambos');
+    const filteredCategories = categoriaPersonaList.filter(cat =>
+        (cat.nivelAplicado === level || cat.nivelAplicado === 'ambos') && cat.activo
+    );
 
     return (
         <Dialog>

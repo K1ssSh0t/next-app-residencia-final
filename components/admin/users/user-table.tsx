@@ -40,7 +40,8 @@ export async function UserTable({ userList }: { userList: UsersWithRelations }) 
   // Obtener todas las categorías de personas una sola vez
   const allCategorias = await db
     .select()
-    .from(categoriaPersonas);
+    .from(categoriaPersonas)
+    .where(eq(categoriaPersonas.activo, true));  // Only select active categories
 
   const userProgress: UserWithProgress[] = await Promise.all(
     userList.map(async (user) => {
@@ -68,7 +69,8 @@ export async function UserTable({ userList }: { userList: UsersWithRelations }) 
           // Determinar nivel y categorías aplicables
           const nivelInstitucional = institucion[0].nivelEducativo ? 'superior' : 'medioSuperior';
           const categoriasAplicables = allCategorias.filter(cat =>
-            cat.nivelAplicado === nivelInstitucional || cat.nivelAplicado === 'ambos'
+            (cat.nivelAplicado === nivelInstitucional || cat.nivelAplicado === 'ambos') &&
+            cat.activo === true
           );
 
           const cuestionariosResult = await db
