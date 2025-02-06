@@ -48,9 +48,9 @@ const items = [
   { title: "Regiones", url: "/admin/regiones", icon: Table2Icon },
   { title: "Municipios", url: "/admin/municipios", icon: Table2Icon },
   { title: "Categorias Generales", url: "/admin/categorias-generales", icon: Table2Icon },
-  { title: "Consultas Y Reportes", url: "/admin/consultas", icon: Table2Icon },
-    { title: "Especialidades Listas", url: "/admin/especialidades-listas", icon: Table2Icon },
-// [CODE_MARK admin-sidebar-items]
+  { title: "Consultas", url: "/admin/consultas", icon: Table2Icon },
+  { title: "Especialidades Listas", url: "/admin/especialidades-listas", icon: Table2Icon },
+  // [CODE_MARK admin-sidebar-items]
 ];
 
 export function AdminSidebar({ user }: { user: User }) {

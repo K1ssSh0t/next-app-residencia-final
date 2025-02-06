@@ -15,6 +15,7 @@ export interface CreateCategoriasGeneraleState extends BaseActionState {
   errors?: {
     id?: string[];
     descripcion?: string[];
+    activo?: string[];
   };
 }
 
@@ -33,9 +34,9 @@ export async function createCategoriasGenerale(
       throw new Error("unauthorized");
     }
 
-
     const validatedFields = insertCategoriasGeneraleSchema.safeParse({
       descripcion: formData.get("descripcion") as string,
+      activo: formData.get("activo") === "on",
     });
 
     if (!validatedFields.success) {
@@ -46,13 +47,13 @@ export async function createCategoriasGenerale(
     }
 
     await db.insert(categoriasGenerales).values(validatedFields.data);
-    
+
     revalidatePath("/admin/categorias-generales");
   } catch (error) {
     console.error(error);
     return {
       status: "error",
-    }
+    };
   }
 
   redirect("/admin/categorias-generales");

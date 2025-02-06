@@ -1,0 +1,1 @@
+ALTER TABLE "categorias_generales" ADD COLUMN "activo" boolean DEFAULT true;

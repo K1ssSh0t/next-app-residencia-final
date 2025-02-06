@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { pgTable, text, timestamp } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, boolean } from "drizzle-orm/pg-core";
 import { createId } from "@paralleldrive/cuid2";
 
 export type CategoriaPersona = typeof categoriaPersonas.$inferSelect;
@@ -10,6 +10,7 @@ export const categoriaPersonas = pgTable("categoria_personas", {
     .$defaultFn(() => createId()),
   descripcion: text(),
   nivelAplicado: text(),
+  activo: boolean().default(true),
   createdAt: timestamp().notNull().defaultNow(),
   updatedAt: timestamp()
     .notNull()

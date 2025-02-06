@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { FormAlert } from "@/components/form-alert";
 import { Input } from "@/components/ui/input";
-
+import { Checkbox } from "@/components/ui/checkbox";
 
 export function CategoriasGeneraleCreateForm() {
   const initialState: CreateCategoriasGeneraleState = {};
@@ -15,6 +15,7 @@ export function CategoriasGeneraleCreateForm() {
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
+    console.log("formData", formData);
     startTransition(() => dispatch(formData));
   }
 
@@ -28,6 +29,13 @@ export function CategoriasGeneraleCreateForm() {
           <Label htmlFor="descripcion">Descripcion *</Label>
           <Input name="descripcion" required id="descripcion" />
           {state.errors?.descripcion?.map((error) => (
+            <p className="text-red-500" key={error}>{error}</p>
+          ))}
+        </div>
+        <div className="flex items-center space-x-2">
+          <Checkbox id="activo" name="activo" defaultChecked />
+          <Label htmlFor="activo">Activo</Label>
+          {state.errors?.activo?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}
         </div>

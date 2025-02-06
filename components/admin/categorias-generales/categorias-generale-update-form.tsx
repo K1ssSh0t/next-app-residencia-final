@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { FormAlert } from "@/components/form-alert";
 import { Input } from "@/components/ui/input";
-
+import { Checkbox } from "@/components/ui/checkbox";
 import { CategoriasGenerales } from "@/schema/categorias-generales";
 
 export function CategoriasGeneraleUpdateForm({
@@ -34,6 +34,13 @@ export function CategoriasGeneraleUpdateForm({
           <Label htmlFor="descripcion">Descripcion *</Label>
           <Input name="descripcion" defaultValue={categoriasGenerales.descripcion ?? ""} required id="descripcion" />
           {state.errors?.descripcion?.map((error) => (
+            <p className="text-red-500" key={error}>{error}</p>
+          ))}
+        </div>
+        <div className="flex items-center space-x-2 p-4 border rounded-md shadow">
+          <Checkbox id="activo" name="activo" defaultChecked={categoriasGenerales.activo ?? false} />
+          <Label htmlFor="activo">Activo</Label>
+          {state.errors?.activo?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}
         </div>

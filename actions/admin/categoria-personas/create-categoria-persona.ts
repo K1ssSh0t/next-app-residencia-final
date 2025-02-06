@@ -15,6 +15,7 @@ export interface CreateCategoriaPersonaState extends BaseActionState {
     id?: string[];
     descripcion?: string[];
     nivelAplicado?: string[];
+    activo?: string[];
   };
 }
 
@@ -36,6 +37,7 @@ export async function createCategoriaPersona(
     const validatedFields = insertCategoriaPersonaSchema.safeParse({
       descripcion: formData.get("descripcion") as string,
       nivelAplicado: formData.get("nivelAplicado") as string,
+      activo: formData.get("activo") === "on",
     });
 
     if (!validatedFields.success) {

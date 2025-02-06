@@ -17,6 +17,7 @@ export interface UpdateCategoriaPersonaState extends BaseActionState {
     id?: string[];
     descripcion?: string[];
     nivelAplicado?: string[];
+    activo?: string[];
   };
 }
 
@@ -39,6 +40,7 @@ export async function updateCategoriaPersona(
       id: formData.get("id") as string,
       descripcion: formData.get("descripcion") as string,
       nivelAplicado: formData.get("nivelAplicado") as string,
+      activo: formData.get("activo") === "on",
     });
 
     if (!validatedFields.success) {

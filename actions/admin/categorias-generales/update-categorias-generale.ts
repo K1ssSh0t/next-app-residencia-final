@@ -9,12 +9,15 @@ import { BaseActionState } from "@/lib/types";
 import { auth } from "@/lib/auth";
 import { isAdmin } from "@/services/authorization-service";
 
-const updateCategoriasGeneraleSchema = createSelectSchema(categoriasGenerales).partial().required({ id: true });
+const updateCategoriasGeneraleSchema = createSelectSchema(categoriasGenerales)
+  .partial()
+  .required({ id: true });
 
 export interface UpdateCategoriasGeneraleState extends BaseActionState {
   errors?: {
     id?: string[];
     descripcion?: string[];
+    activo?: string[];
   };
 }
 
@@ -33,10 +36,10 @@ export async function updateCategoriasGenerale(
       throw new Error("unauthorized");
     }
 
-
     const validatedFields = updateCategoriasGeneraleSchema.safeParse({
       id: formData.get("id") as string,
       descripcion: formData.get("descripcion") as string,
+      activo: formData.get("activo") === "on",
     });
 
     if (!validatedFields.success) {
@@ -53,7 +56,9 @@ export async function updateCategoriasGenerale(
 
     revalidatePath("/admin/categorias-generales");
     revalidatePath("/admin/categorias-generales/" + validatedFields.data.id);
-    revalidatePath("/admin/categorias-generales/" + validatedFields.data.id + "/edit");
+    revalidatePath(
+      "/admin/categorias-generales/" + validatedFields.data.id + "/edit"
+    );
 
     return {
       status: "success",
@@ -62,6 +67,6 @@ export async function updateCategoriasGenerale(
     console.error(error);
     return {
       status: "error",
-    }
+    };
   }
 }

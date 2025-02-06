@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { FormAlert } from "@/components/form-alert";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
 
 
 export function CategoriaPersonaCreateForm() {
@@ -45,6 +46,13 @@ export function CategoriaPersonaCreateForm() {
             </SelectContent>
           </Select>
           {state.errors?.nivelAplicado?.map((error) => (
+            <p className="text-red-500" key={error}>{error}</p>
+          ))}
+        </div>
+        <div className="flex items-center space-x-2 p-4 border rounded-md shadow">
+          <Checkbox id="activo" name="activo" defaultChecked />
+          <Label htmlFor="activo">Activo</Label>
+          {state.errors?.activo?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}
         </div>

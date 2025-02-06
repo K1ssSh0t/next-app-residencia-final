@@ -18,6 +18,7 @@ export function CategoriasGeneraleTable({ categoriasGeneraleList }: { categorias
         <TableRow>
           <TableHead>Id</TableHead>
           <TableHead>Descripcion</TableHead>
+          <TableHead>Estado en el Cuestionario</TableHead>
           <TableHead></TableHead>
         </TableRow>
       </TableHeader>
@@ -26,6 +27,7 @@ export function CategoriasGeneraleTable({ categoriasGeneraleList }: { categorias
           <TableRow key={categoriasGenerales.id}>
             <TableCell>{categoriasGenerales.id}</TableCell>
             <TableCell>{categoriasGenerales.descripcion}</TableCell>
+            <TableCell>{categoriasGenerales.activo ? "Activo" : "Inactivo"}</TableCell>
             <TableCell className="justify-end flex gap-2">
               {/* [CODE_MARK table-actions] */}
               <Link href={`/admin/categorias-generales/${categoriasGenerales.id}`}>

@@ -7,3 +7,7 @@ export function isAdmin(session: Session) {
 export function isOperador(session: Session) {
   return session?.user?.role === "operador";
 }
+
+export function isUser(session: Session) {
+  return session?.user?.role === "consultor";
+}

@@ -19,6 +19,13 @@
             "name": "postgres",
             "database": "postgres",
             "username": "postgres"
+        },
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "driver": "PostgreSQL",
+            "name": "postgres3",
+            "connectString": "postgres://postgres:mypassword@localhost:5433/postgres"
         }
     ]
 }

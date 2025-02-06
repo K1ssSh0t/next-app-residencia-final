@@ -19,6 +19,7 @@ export function CategoriaPersonaTable({ categoriaPersonaList }: { categoriaPerso
           {/* <TableHead>Id</TableHead> */}
           <TableHead>Descripcion</TableHead>
           <TableHead>Nivel Aplicable</TableHead>
+          <TableHead>Estado en el Cuestionario</TableHead>
           <TableHead></TableHead>
         </TableRow>
       </TableHeader>
@@ -28,6 +29,7 @@ export function CategoriaPersonaTable({ categoriaPersonaList }: { categoriaPerso
             {/* <TableCell>{categoriaPersona.id}</TableCell> */}
             <TableCell>{categoriaPersona.descripcion}</TableCell>
             <TableCell className="capitalize">{categoriaPersona.nivelAplicado}</TableCell>
+            <TableCell>{categoriaPersona.activo ? "Activo" : "Inactivo"}</TableCell>
             <TableCell className="justify-end flex gap-2">
               {/* [CODE_MARK table-actions] */}
               <Link href={`/admin/categoria-personas/${categoriaPersona.id}`}>

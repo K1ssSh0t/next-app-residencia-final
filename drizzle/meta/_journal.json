@@ -225,6 +225,20 @@
       "when": 1737603605518,
       "tag": "0031_early_dazzler",
       "breakpoints": true
+    },
+    {
+      "idx": 32,
+      "version": "7",
+      "when": 1738810841338,
+      "tag": "0032_bizarre_korath",
+      "breakpoints": true
+    },
+    {
+      "idx": 33,
+      "version": "7",
+      "when": 1738811795186,
+      "tag": "0033_thankful_cyclops",
+      "breakpoints": true
     }
   ]
 }
