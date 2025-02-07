@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { getCuestionarioWithRelations } from "@/repositories/cuestionario-repository";
 import { db } from "@/lib/db";
-import { eq, or } from "drizzle-orm";
+import { eq, or, and } from "drizzle-orm";
 import { preguntas } from "@/schema/preguntas";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -24,12 +24,16 @@ export default async function Page(props: { params: Params }) {
   const user = cuestionario.user;
 
   const applicableNivel = user?.nivelEducativo ? "superior" : "medioSuperior";
-  // Obtener todas las categorías
+  // Obtener todas las categorías con filtro adicional activo
   const categoriasList = await db.select().from(categoriaPersonas).where(
-    or(
-      eq(categoriaPersonas.nivelAplicado, applicableNivel),
-      eq(categoriaPersonas.nivelAplicado, "ambos")
-    ));
+    and(
+      or(
+        eq(categoriaPersonas.nivelAplicado, applicableNivel),
+        eq(categoriaPersonas.nivelAplicado, "ambos")
+      ),
+      eq(categoriaPersonas.activo, true)
+    )
+  );
 
   // Obtener las preguntas del cuestionario
   const preguntasList = await db.query.preguntas.findMany({

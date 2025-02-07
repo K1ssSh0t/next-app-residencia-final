@@ -20,6 +20,7 @@ import { especialidades } from "@/schema/especialidades";
 import { datosInstitucionales } from "@/schema/datos-institucionales";
 import { categoriaPersonas } from "@/schema/categoria-personas";
 import { preguntas } from "@/schema/preguntas";
+import { categoriasGenerales } from "@/schema/categorias-generales";
 
 type UserWithProgress = {
   id: string;
@@ -56,11 +57,26 @@ export async function UserTable({ userList }: { userList: UsersWithRelations }) 
       let progressStatus: 'sin empezar' | 'en progreso' | 'terminado' = 'sin empezar';
 
       if (institucion.length > 0) {
+        // const hasDatosInstitucionales = await db
+        //   .select({ count: count() })
+        //   .from(datosInstitucionales)
+        //   .where(
+        //     sql`${datosInstitucionales.institucionesId} = ${institucion[0].id} AND ${datosInstitucionales.anio} = ${currentYear}`
+        //   );
+
+        // Código modificado en user-table.tsx
         const hasDatosInstitucionales = await db
           .select({ count: count() })
           .from(datosInstitucionales)
           .where(
-            sql`${datosInstitucionales.institucionesId} = ${institucion[0].id} AND ${datosInstitucionales.anio} = ${currentYear}`
+            sql`${datosInstitucionales.institucionesId} = ${institucion[0].id} 
+          AND ${datosInstitucionales.anio} = ${currentYear}
+          AND EXISTS (
+            SELECT 1 
+            FROM ${categoriasGenerales} 
+            WHERE ${categoriasGenerales.id} = ${datosInstitucionales.categoriasGeneralesId} 
+            AND ${categoriasGenerales.activo} = ${true}
+          )`
           );
 
         if (hasDatosInstitucionales[0].count === 0) {

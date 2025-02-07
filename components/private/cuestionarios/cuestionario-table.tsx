@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { CuestionariosWithRelations, CuestionarioWithRelations } from "@/repositories/cuestionario-repository";
 import { db } from "@/lib/db";
 import { categoriaPersonas } from "@/schema/categoria-personas";
-import { eq, or } from "drizzle-orm";
+import { eq, or, and } from "drizzle-orm";
 
 export async function CuestionarioTable({ cuestionarioList }: { cuestionarioList: CuestionariosWithRelations }) {
   const estadoCuestionario = await db.query.helpers.findFirst();
@@ -22,11 +22,14 @@ export async function CuestionarioTable({ cuestionarioList }: { cuestionarioList
   const questionnaireData = await Promise.all(cuestionarioList.map(async (cuestionario) => {
     const applicableNivel = cuestionario.user?.nivelEducativo ? "superior" : "medioSuperior";
 
-    // Get required categories count
+    // Get required categories count with additional activo filter
     const requiredCategories = await db.select().from(categoriaPersonas).where(
-      or(
-        eq(categoriaPersonas.nivelAplicado, applicableNivel),
-        eq(categoriaPersonas.nivelAplicado, "ambos")
+      and(
+        or(
+          eq(categoriaPersonas.nivelAplicado, applicableNivel),
+          eq(categoriaPersonas.nivelAplicado, "ambos")
+        ),
+        eq(categoriaPersonas.activo, true)
       )
     );
 

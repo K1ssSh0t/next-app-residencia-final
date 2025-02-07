@@ -9,12 +9,16 @@ import {
 } from "@/components/ui/breadcrumb";
 // import { DatosInstitucionaleCreateForm } from "@/components/private/datos-institucionales/datos-institucionale-create-form";
 import { DatosInstitucionaleCreateForm } from "./datos-generales-create-new-form";
+import { categoriasGenerales } from "@/schema/categorias-generales";
+import { eq } from "drizzle-orm";
 
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
 
 export default async function Page(props: { searchParams: SearchParams }) {
-  const categoriasGeneraleList = await db.query.categoriasGenerales.findMany();
+  const categoriasGeneraleList = await db.query.categoriasGenerales.findMany({
+    where: eq(categoriasGenerales.activo, true)
+  });
 
   const searchParams = await props.searchParams;
   const { idInstitucion } = searchParams
