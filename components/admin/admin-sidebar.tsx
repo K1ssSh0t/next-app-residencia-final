@@ -48,8 +48,9 @@ const items = [
   { title: "Regiones", url: "/admin/regiones", icon: Table2Icon },
   { title: "Municipios", url: "/admin/municipios", icon: Table2Icon },
   { title: "Categorias Generales", url: "/admin/categorias-generales", icon: Table2Icon },
-  { title: "Consultas", url: "/admin/consultas", icon: Table2Icon },
+
   { title: "Especialidades Listas", url: "/admin/especialidades-listas", icon: Table2Icon },
+  { title: "Consultas", url: "/admin/consultas", icon: Table2Icon },
   // [CODE_MARK admin-sidebar-items]
 ];
 
@@ -103,12 +104,12 @@ export function AdminSidebar({ user }: { user: User }) {
             side="top"
             className="w-[--radix-popper-anchor-width]"
           >
-            <Link href="/admin/settings">
+            {/* <Link href="/admin/settings">
               <DropdownMenuItem>
                 <SettingsIcon />
                 Settings
               </DropdownMenuItem>
-            </Link>
+            </Link> */}
             <Link href="/signout">
               <DropdownMenuItem>
                 <LogOutIcon />

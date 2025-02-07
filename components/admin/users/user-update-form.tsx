@@ -163,7 +163,7 @@ export function UserUpdateForm({
               name="password"
               type={showPassword ? "text" : "password"}
               id="password"
-              required
+
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="flex-1"

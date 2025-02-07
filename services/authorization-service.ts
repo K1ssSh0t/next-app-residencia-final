@@ -8,6 +8,6 @@ export function isOperador(session: Session) {
   return session?.user?.role === "operador";
 }
 
-export function isUser(session: Session) {
+export function isConsultor(session: Session) {
   return session?.user?.role === "consultor";
 }

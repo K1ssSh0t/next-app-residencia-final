@@ -5,6 +5,8 @@ import { AdminSidebar } from "@/components/admin/admin-sidebar";
 import { db } from "@/lib/db";
 import { eq } from "drizzle-orm";
 import { users } from "@/schema/users";
+import { isAdmin, isConsultor, isOperador } from "@/services/authorization-service";
+import { ConsultorSidebar } from "@/components/admin/consultor-sidebar";
 
 export default async function Layout({
   children,
@@ -17,7 +19,7 @@ export default async function Layout({
     redirect("/admin-login?error=unauthenticated");
   }
 
-  if (session?.user?.role !== "admin") {
+  if (!(isConsultor(session) || isOperador(session) || isAdmin(session))) {
     redirect("/admin-login?error=unauthorized");
   }
 
@@ -29,10 +31,12 @@ export default async function Layout({
     redirect("/admin-login");
   }
 
+  const consultor = isConsultor(session);
+
   return (
     <div>
       <SidebarProvider>
-        <AdminSidebar user={user} />
+        {consultor ? <ConsultorSidebar user={user} /> : <AdminSidebar user={user} />}
         <main className="p-5 w-full">
           <SidebarTrigger />
           {children}
