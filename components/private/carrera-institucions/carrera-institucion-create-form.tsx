@@ -64,13 +64,13 @@ export function CarreraInstitucionCreateForm({
             </p>
           ))}
         </div>
-        <div>
+        {/* <div>
           <Label htmlFor="nombreRevoe">Nombre Revoe *</Label>
           <Input name="nombreRevoe" required id="nombreRevoe" />
           {state.errors?.nombreRevoe?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}
-        </div>
+        </div> */}
         <div>
           <Label htmlFor="planDeEstudio">Plan De Estudio *</Label>
           <Input name="planDeEstudio" required id="planDeEstudio" />

@@ -30,12 +30,18 @@ export function DatosInstitucionalesUpdateForm({
 
         const updatedDatosInstitucionales = categoriasGeneraleList.map(categoria => {
             const existingData = datosInstitucionales.find(d => d.categoriasGeneralesId === categoria.id);
+            const isMontoInfraestructura = categoria.descripcion === 'MONTO ASIGNADO A INFRAESTRUCTURA GENERAL';
+
             return {
                 id: existingData?.id,
                 institucionesId: idInstitucion,
                 categoriasGeneralesId: categoria.id,
-                cantidadHombres: parseInt(formData.get(`cantidadHombres_${categoria.id}`) as string) || 0,
-                cantidadMujeres: parseInt(formData.get(`cantidadMujeres_${categoria.id}`) as string) || 0
+                cantidadHombres: isMontoInfraestructura ?
+                    parseInt(formData.get(`cantidadHombres_${categoria.id}`) as string) || 0 :
+                    parseInt(formData.get(`cantidadHombres_${categoria.id}`) as string) || 0,
+                cantidadMujeres: isMontoInfraestructura ?
+                    0 : // Set cantidadMujeres to 0 for "MONTO ASIGNADO A INFRAESTRUCTURA GENERAL"
+                    parseInt(formData.get(`cantidadMujeres_${categoria.id}`) as string) || 0
             };
         });
 
@@ -57,14 +63,18 @@ export function DatosInstitucionalesUpdateForm({
 
                 {categoriasGeneraleList.map((categoria) => {
                     const existingData = datosInstitucionales.find(d => d.categoriasGeneralesId === categoria.id);
+                    const isMontoInfraestructura = categoria.descripcion === 'MONTO ASIGNADO A INFRAESTRUCTURA GENERAL';
+
                     return (
                         <div key={categoria.id} className="border p-4 rounded-md">
                             <h3 className="text-lg font-semibold mb-2">{categoria.descripcion}</h3>
                             <input type="hidden" name={`categoriasGeneralesId`} value={categoria.id} />
                             {existingData && <input type="hidden" name={`id_${categoria.id}`} value={existingData.id} />}
-                            <div className="grid grid-cols-2 gap-4">
+
+                            {isMontoInfraestructura ? (
+                                // Render single input for "MONTO ASIGNADO A INFRAESTRUCTURA GENERAL"
                                 <div>
-                                    <Label htmlFor={`cantidadHombres_${categoria.id}`}>Cantidad Hombres</Label>
+                                    <Label htmlFor={`cantidadHombres_${categoria.id}`}>Monto</Label>
                                     <Input
                                         id={`cantidadHombres_${categoria.id}`}
                                         name={`cantidadHombres_${categoria.id}`}
@@ -73,17 +83,31 @@ export function DatosInstitucionalesUpdateForm({
                                         defaultValue={existingData?.cantidadHombres || 0}
                                     />
                                 </div>
-                                <div>
-                                    <Label htmlFor={`cantidadMujeres_${categoria.id}`}>Cantidad Mujeres</Label>
-                                    <Input
-                                        id={`cantidadMujeres_${categoria.id}`}
-                                        name={`cantidadMujeres_${categoria.id}`}
-                                        type="number"
-                                        min="0"
-                                        defaultValue={existingData?.cantidadMujeres || 0}
-                                    />
+                            ) : (
+                                // Render standard two inputs
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <Label htmlFor={`cantidadHombres_${categoria.id}`}>Cantidad Hombres</Label>
+                                        <Input
+                                            id={`cantidadHombres_${categoria.id}`}
+                                            name={`cantidadHombres_${categoria.id}`}
+                                            type="number"
+                                            min="0"
+                                            defaultValue={existingData?.cantidadHombres || 0}
+                                        />
+                                    </div>
+                                    <div>
+                                        <Label htmlFor={`cantidadMujeres_${categoria.id}`}>Cantidad Mujeres</Label>
+                                        <Input
+                                            id={`cantidadMujeres_${categoria.id}`}
+                                            name={`cantidadMujeres_${categoria.id}`}
+                                            type="number"
+                                            min="0"
+                                            defaultValue={existingData?.cantidadMujeres || 0}
+                                        />
+                                    </div>
                                 </div>
-                            </div>
+                            )}
                         </div>
                     );
                 })}

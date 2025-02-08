@@ -9,6 +9,7 @@ import { FormAlert } from "@/components/form-alert";
 import { Input } from "@/components/ui/input";
 import { CategoriasGenerales } from "@/schema/categorias-generales";
 import { DatosInstitucionales } from "@/schema/datos-institucionales";
+import CurrencyInput from "@/components/currency-input";
 
 export function DatosInstitucionalesUpdateForm({
     categoriasGeneraleList,
@@ -31,13 +32,28 @@ export function DatosInstitucionalesUpdateForm({
 
         const datosToProcess = categoriasGeneraleList.map(categoria => {
             const existingData = datosInstitucionales.find(d => d.categoriasGeneralesId === categoria.id);
+            const isMontoInfraestructura = categoria.descripcion === 'MONTO ASIGNADO A INFRAESTRUCTURA GENERAL';
+
+            let cantidadHombres = 0;
+
+            if (isMontoInfraestructura) {
+                let montoValue = (formData.get(`cantidadHombres_${categoria.id}`) as string) || '0.00';
+                // Remove commas from the montoValue string
+                montoValue = montoValue.replace(/,/g, '');
+                console.log(montoValue)
+                cantidadHombres = parseFloat(montoValue);
+            } else {
+                cantidadHombres = parseInt(formData.get(`cantidadHombres_${categoria.id}`) as string) || 0;
+            }
 
             return {
                 existingData,
                 institucionesId: idInstitucion,
                 categoriasGeneralesId: categoria.id,
-                cantidadHombres: parseInt(formData.get(`cantidadHombres_${categoria.id}`) as string) || 0,
-                cantidadMujeres: parseInt(formData.get(`cantidadMujeres_${categoria.id}`) as string) || 0,
+                cantidadHombres: cantidadHombres,
+                cantidadMujeres: isMontoInfraestructura ?
+                    0 : // Set cantidadMujeres to 0 for "MONTO ASIGNADO A INFRAESTRUCTURA GENERAL"
+                    parseInt(formData.get(`cantidadMujeres_${categoria.id}`) as string) || 0,
             };
         });
 
@@ -71,33 +87,51 @@ export function DatosInstitucionalesUpdateForm({
 
                 {categoriasGeneraleList.map((categoria) => {
                     const existingData = datosInstitucionales.find(d => d.categoriasGeneralesId === categoria.id);
+                    const isMontoInfraestructura = categoria.descripcion === 'MONTO ASIGNADO A INFRAESTRUCTURA GENERAL';
                     return (
                         <div key={categoria.id} className="border p-4 rounded-md">
                             <h3 className="text-lg font-semibold mb-2">{categoria.descripcion}</h3>
                             <input type="hidden" name={`categoriasGeneralesId`} value={categoria.id} />
                             {existingData && <input type="hidden" name={`id_${categoria.id}`} value={existingData.id} />}
-                            <div className="grid grid-cols-2 gap-4">
+                            {isMontoInfraestructura ? (
+                                // Render single input for "MONTO ASIGNADO A INFRAESTRUCTURA GENERAL"
                                 <div>
-                                    <Label htmlFor={`cantidadHombres_${categoria.id}`}>Cantidad Hombres</Label>
-                                    <Input
+                                    <Label htmlFor={`cantidadHombres_${categoria.id}`}>Monto</Label>
+                                    <CurrencyInput
                                         id={`cantidadHombres_${categoria.id}`}
                                         name={`cantidadHombres_${categoria.id}`}
-                                        type="number"
-                                        min="0"
                                         defaultValue={existingData?.cantidadHombres || 0}
+                                        onChange={(value) => {
+                                            // Handle the change if needed
+                                            console.log(`New value for ${categoria.descripcion}:`, value);
+                                        }}
                                     />
                                 </div>
-                                <div>
-                                    <Label htmlFor={`cantidadMujeres_${categoria.id}`}>Cantidad Mujeres</Label>
-                                    <Input
-                                        id={`cantidadMujeres_${categoria.id}`}
-                                        name={`cantidadMujeres_${categoria.id}`}
-                                        type="number"
-                                        min="0"
-                                        defaultValue={existingData?.cantidadMujeres || 0}
-                                    />
+                            ) : (
+                                // Render standard two inputs
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <Label htmlFor={`cantidadHombres_${categoria.id}`}>Cantidad Hombres</Label>
+                                        <Input
+                                            id={`cantidadHombres_${categoria.id}`}
+                                            name={`cantidadHombres_${categoria.id}`}
+                                            type="number"
+                                            min="0"
+                                            defaultValue={existingData?.cantidadHombres || 0}
+                                        />
+                                    </div>
+                                    <div>
+                                        <Label htmlFor={`cantidadMujeres_${categoria.id}`}>Cantidad Mujeres</Label>
+                                        <Input
+                                            id={`cantidadMujeres_${categoria.id}`}
+                                            name={`cantidadMujeres_${categoria.id}`}
+                                            type="number"
+                                            min="0"
+                                            defaultValue={existingData?.cantidadMujeres || 0}
+                                        />
+                                    </div>
                                 </div>
-                            </div>
+                            )}
                         </div>
                     );
                 })}

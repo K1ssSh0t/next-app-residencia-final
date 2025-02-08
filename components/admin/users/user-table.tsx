@@ -214,7 +214,7 @@ export async function UserTable({ userList }: { userList: UsersWithRelations }) 
               <TableCell>{user.email}</TableCell>
               {/* <TableCell>{user.emailVerified?.toLocaleString()}</TableCell> */}
               {/* <TableCell>{user.image}</TableCell> */}
-              <TableCell>{user.role == "admin" ? "Administrador" : user.role == "operador" ? "Operador" : user.role == "consultor" ? "Consultor" : "Usuario"}</TableCell>
+              <TableCell>{user.role == "admin" ? "Administrador" : user.role == "operador" ? "Operador" : user.role == "consultor" ? "Consultor" : "Usuario de Institución"}</TableCell>
               <TableCell>{user.role == "admin" || user.role == "operador" || user.role == "consultor" ? "No aplica" : user.institucion?.nombre}</TableCell>
               <TableCell>{user.role == "admin" || user.role == "operador" || user.role == "consultor" ? "No aplica" :
                 user.nivelEducativo ? "Superior" : "Media Superior"}</TableCell>

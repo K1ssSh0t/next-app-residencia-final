@@ -11,12 +11,15 @@ import {
 import { DatosInstitucionalesUpdateForm } from "./datos-generales-update-new-form";
 import { and, eq } from "drizzle-orm";
 import { datosInstitucionales } from "@/schema/datos-institucionales";
+import { categoriasGenerales } from "@/schema/categorias-generales";
 
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
 
 export default async function Page(props: { searchParams: SearchParams }) {
-  const categoriasGeneraleList = await db.query.categoriasGenerales.findMany();
+  const categoriasGeneraleList = await db.query.categoriasGenerales.findMany({
+    where: eq(categoriasGenerales.activo, true)
+  });
 
   const searchParams = await props.searchParams;
   const { idInstitucion, anio } = searchParams
