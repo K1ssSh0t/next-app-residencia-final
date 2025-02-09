@@ -106,6 +106,8 @@ export function DatosInstitucionalesUpdateForm({
                                             name={`cantidadHombres_${categoria.id}`}
                                             type="number"
                                             min="0"
+                                            step={1}
+                                            inputMode="numeric"
                                             defaultValue={existingData?.cantidadHombres || 0}
                                         />
                                     </div>
@@ -116,6 +118,8 @@ export function DatosInstitucionalesUpdateForm({
                                             name={`cantidadMujeres_${categoria.id}`}
                                             type="number"
                                             min="0"
+                                            step={1}
+                                            inputMode="numeric"
                                             defaultValue={existingData?.cantidadMujeres || 0}
                                         />
                                     </div>

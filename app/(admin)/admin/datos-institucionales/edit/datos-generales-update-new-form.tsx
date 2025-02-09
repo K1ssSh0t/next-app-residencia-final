@@ -97,7 +97,7 @@ export function DatosInstitucionalesUpdateForm({
                             {isMontoInfraestructura ? (
                                 // Render single input for "MONTO ASIGNADO A INFRAESTRUCTURA GENERAL"
                                 <div>
-                                    <Label htmlFor={`cantidadHombres_${categoria.id}`}>Monto</Label>
+                                    <Label htmlFor={`cantidadHombres_${categoria.id}`}>Monto en pesos</Label>
                                     <DecimalInput
                                         id={`cantidadHombres_${categoria.id}`}
                                         name={`cantidadHombres_${categoria.id}`}
@@ -120,6 +120,8 @@ export function DatosInstitucionalesUpdateForm({
                                             name={`cantidadHombres_${categoria.id}`}
                                             type="number"
                                             min="0"
+                                            step={1}
+                                            inputMode="numeric"
                                             defaultValue={existingData?.cantidadHombres || 0}
                                         />
                                     </div>
@@ -130,6 +132,8 @@ export function DatosInstitucionalesUpdateForm({
                                             name={`cantidadMujeres_${categoria.id}`}
                                             type="number"
                                             min="0"
+                                            step={1}
+                                            inputMode="numeric"
                                             defaultValue={existingData?.cantidadMujeres || 0}
                                         />
                                     </div>

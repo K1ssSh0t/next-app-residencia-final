@@ -100,6 +100,8 @@ export function DatosInstitucionaleCreateForm({
                                             name={`cantidadHombres_${categoria.id}`}
                                             type="number"
                                             min="0"
+                                            step={1}
+                                            inputMode="numeric"
                                         />
 
                                     </div>
@@ -110,6 +112,8 @@ export function DatosInstitucionaleCreateForm({
                                             name={`cantidadMujeres_${categoria.id}`}
                                             type="number"
                                             min="0"
+                                            step={1}
+                                            inputMode="numeric"
                                         />
 
                                     </div>

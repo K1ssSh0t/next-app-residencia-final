@@ -47,14 +47,17 @@ export default function DecimalInput({
     return (
         <div className="grid w-full max-w-sm items-center gap-1.5">
             {label && <Label htmlFor="decimal">{label}</Label>}
-            <Input
-                type="text"
-                inputMode="decimal"
-                pattern={`^\\d{0,${precision - scale}}(\\.\\d{0,${scale}})?$`}
-                value={inputValue} // Use the state value
-                onChange={handleChange}
-                {...props}
-            />
+            <div className="flex items-center gap-2">
+                <p>{"$"}</p>
+                <Input
+                    type="text"
+                    inputMode="decimal"
+                    pattern={`^\\d{0,${precision - scale}}(\\.\\d{0,${scale}})?$`}
+                    value={inputValue} // Use the state value
+                    onChange={handleChange}
+                    {...props}
+                />
+            </div>
             {error && <p className="text-sm text-destructive">{error}</p>}
         </div>
     )

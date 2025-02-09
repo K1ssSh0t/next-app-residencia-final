@@ -56,7 +56,11 @@ const convertToCSV = (data: InstitucionesBusqueda, categories: string[], pregunt
         'Tipo de Bachiller',
         'Región',
         'Municipio',
-        ...categories.map(c => `${c}_Hombres,${c}_Mujeres,${c}_Total`),
+        ...categories.map(c =>
+            c === "MONTO ASIGNADO A INFRAESTRUCTURA GENERAL" ?
+                `${c}_Total` :
+                `${c}_Hombres,${c}_Mujeres,${c}_Total`
+        ),
         ...preguntaCategories.map(c => `${c}_Hombres,${c}_Mujeres,${c}_Total`),
         ...especialidadesList.map(e => `${e}_Hombres,${e}_Mujeres,${e}_Total`)
     ].join(',');
@@ -75,7 +79,9 @@ const convertToCSV = (data: InstitucionesBusqueda, categories: string[], pregunt
 
         const categoryData = categories.map(category => {
             const total = totals[category] || { hombres: 0, mujeres: 0, total: 0 };
-            return `${total.hombres},${total.mujeres},${total.total}`;
+            return category === "MONTO ASIGNADO A INFRAESTRUCTURA GENERAL" ?
+                `${total.total}` :
+                `${total.hombres},${total.mujeres},${total.total}`;
         });
 
         const preguntasData = preguntaCategories.map(category => {
@@ -532,11 +538,17 @@ export function FiltrosMedioSuperior({ filterOptions }: { filterOptions: FilterO
                                                 {categoriasGenerales.map(category => (
                                                     <TableCell key={`${institution.id}-${category}`}>
                                                         {totals[category] ? (
-                                                            <div className="text-sm">
-                                                                H: {totals[category].hombres}<br />
-                                                                M: {totals[category].mujeres}<br />
-                                                                T: {totals[category].total}
-                                                            </div>
+                                                            category === "MONTO ASIGNADO A INFRAESTRUCTURA GENERAL" ? (
+                                                                <div className="text-sm">
+                                                                    Total: {totals[category].total}
+                                                                </div>
+                                                            ) : (
+                                                                <div className="text-sm">
+                                                                    H: {totals[category].hombres}
+                                                                    <br />M: {totals[category].mujeres}
+                                                                    <br />T: {totals[category].total}
+                                                                </div>
+                                                            )
                                                         ) : ''}
 
                                                     </TableCell>
@@ -580,11 +592,17 @@ export function FiltrosMedioSuperior({ filterOptions }: { filterOptions: FilterO
                                             return (
                                                 <TableCell key={`total-${category}`}>
                                                     {overallTotals[category] ? (
-                                                        <div className="text-sm">
-                                                            H: {overallTotals[category].hombres}<br />
-                                                            M: {overallTotals[category].mujeres}<br />
-                                                            T: {overallTotals[category].total}
-                                                        </div>
+                                                        category === "MONTO ASIGNADO A INFRAESTRUCTURA GENERAL" ? (
+                                                            <div className="text-sm">
+                                                                Total: {overallTotals[category].total}
+                                                            </div>
+                                                        ) : (
+                                                            <div className="text-sm">
+                                                                H: {overallTotals[category].hombres}
+                                                                <br />M: {overallTotals[category].mujeres}
+                                                                <br />T: {overallTotals[category].total}
+                                                            </div>
+                                                        )
                                                     ) : '-'}
                                                 </TableCell>
                                             );

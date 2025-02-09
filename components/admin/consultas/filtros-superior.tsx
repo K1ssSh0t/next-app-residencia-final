@@ -87,7 +87,11 @@ const convertToCSV = (data: InstitucionesBusqueda, categoriasCuestionario: strin
         'Región',
         'Municipio',
         ...categoriasCuestionario.map(c => `${c}_Hombres,${c}_Mujeres,${c}_Total`),
-        ...categoriasGenerales.map(c => `${c}_Hombres,${c}_Mujeres,${c}_Total`)
+        ...categoriasGenerales.map(c =>
+            c === "MONTO ASIGNADO A INFRAESTRUCTURA GENERAL" ?
+                `${c}_Total` :
+                `${c}_Hombres,${c}_Mujeres,${c}_Total`
+        )
     ].join(',');
 
     const rows = data
@@ -96,7 +100,6 @@ const convertToCSV = (data: InstitucionesBusqueda, categoriasCuestionario: strin
             (institution.cuestionario && institution.cuestionario.length > 0)
         )
         .flatMap(institution => {
-            // Si tiene cuestionarios, crear una fila por cada uno
             if (institution.cuestionario && institution.cuestionario.length > 0) {
                 return institution.cuestionario.map(cuestionario => {
                     const basicInfo = [
@@ -128,13 +131,14 @@ const convertToCSV = (data: InstitucionesBusqueda, categoriasCuestionario: strin
                         );
                         const h = Number(dato?.cantidadHombres || 0);
                         const m = Number(dato?.cantidadMujeres || 0);
-                        return `${h},${m},${Number(h) + Number(m)}`;
+                        return category === "MONTO ASIGNADO A INFRAESTRUCTURA GENERAL" ?
+                            `${Number(h) + Number(m)}` :
+                            `${h},${m},${h + m}`;
                     });
 
                     return [...basicInfo, ...cuestionarioData, ...datosInstitucionales].join(',');
                 });
             } else {
-                // Si solo tiene datos institucionales, crear una única fila con el año de los datos institucionales
                 const año = institution.datosInstitucionales?.[0]?.anio || '-';
                 const basicInfo = [
                     año, // Usar el año de datos institucionales
@@ -156,7 +160,9 @@ const convertToCSV = (data: InstitucionesBusqueda, categoriasCuestionario: strin
                     );
                     const h = dato?.cantidadHombres || 0;
                     const m = dato?.cantidadMujeres || 0;
-                    return `${h},${m},${Number(h) + Number(m)}`;
+                    return category === "MONTO ASIGNADO A INFRAESTRUCTURA GENERAL" ?
+                        `${Number(h) + Number(m)}` :
+                        `${h},${m},${Number(h) + Number(m)}`;
                 });
 
                 return [[...basicInfo, ...cuestionarioData, ...datosInstitucionales].join(',')];
@@ -494,11 +500,17 @@ export function FiltrosSuperior({ filterOptions }: { filterOptions: FilterOption
                                                         {institution.datosInstitucionales?.filter(
                                                             dato => dato.categoriasGenerales?.descripcion === category
                                                         ).map(dato => (
-                                                            <div key={dato.id} className="text-sm">
-                                                                H: {Number(dato.cantidadHombres!)} <br />
-                                                                M: {dato.cantidadMujeres!} <br />
-                                                                T: {Number(dato.cantidadHombres!) + Number(dato.cantidadMujeres!)}
-                                                            </div>
+                                                            category === "MONTO ASIGNADO A INFRAESTRUCTURA GENERAL" ? (
+                                                                <div key={dato.id} className="text-sm">
+                                                                    Total: {Number(dato.cantidadHombres!) + Number(dato.cantidadMujeres!)}
+                                                                </div>
+                                                            ) : (
+                                                                <div key={dato.id} className="text-sm">
+                                                                    H: {Number(dato.cantidadHombres!)}
+                                                                    <br />M: {dato.cantidadMujeres!}
+                                                                    <br />T: {Number(dato.cantidadHombres!) + Number(dato.cantidadMujeres!)}
+                                                                </div>
+                                                            )
                                                         ))}
                                                     </TableCell>
                                                 ))}
@@ -537,11 +549,17 @@ export function FiltrosSuperior({ filterOptions }: { filterOptions: FilterOption
                                                         {institution.datosInstitucionales?.filter(
                                                             dato => dato.categoriasGenerales?.descripcion === category
                                                         ).map(dato => (
-                                                            <div key={dato.id} className="text-sm">
-                                                                H: {Number(dato.cantidadHombres!)} <br />
-                                                                M: {dato.cantidadMujeres!} <br />
-                                                                T: {Number(dato.cantidadHombres!) + Number(dato.cantidadMujeres!)}
-                                                            </div>
+                                                            category === "MONTO ASIGNADO A INFRAESTRUCTURA GENERAL" ? (
+                                                                <div key={dato.id} className="text-sm">
+                                                                    Total: {Number(dato.cantidadHombres!) + Number(dato.cantidadMujeres!)}
+                                                                </div>
+                                                            ) : (
+                                                                <div key={dato.id} className="text-sm">
+                                                                    H: {Number(dato.cantidadHombres!)}
+                                                                    <br />M: {dato.cantidadMujeres!}
+                                                                    <br />T: {Number(dato.cantidadHombres!) + Number(dato.cantidadMujeres!)}
+                                                                </div>
+                                                            )
                                                         ))}
                                                     </TableCell>
                                                 ))}
@@ -560,11 +578,17 @@ export function FiltrosSuperior({ filterOptions }: { filterOptions: FilterOption
                                         return (
                                             <TableCell key={`total-${category}`}>
                                                 {overallTotals[category] ? (
-                                                    <div className="text-sm">
-                                                        H: {overallTotals[category].hombres}<br />
-                                                        M: {overallTotals[category].mujeres}<br />
-                                                        T: {overallTotals[category].total}
-                                                    </div>
+                                                    category === "MONTO ASIGNADO A INFRAESTRUCTURA GENERAL" ? (
+                                                        <div className="text-sm">
+                                                            Total: {overallTotals[category].total}
+                                                        </div>
+                                                    ) : (
+                                                        <div className="text-sm">
+                                                            H: {overallTotals[category].hombres}
+                                                            <br />M: {overallTotals[category].mujeres}
+                                                            <br />T: {overallTotals[category].total}
+                                                        </div>
+                                                    )
                                                 ) : '-'}
                                             </TableCell>
                                         );
