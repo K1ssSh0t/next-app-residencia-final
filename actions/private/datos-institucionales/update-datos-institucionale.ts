@@ -8,7 +8,9 @@ import { createSelectSchema } from "drizzle-zod";
 import { BaseActionState } from "@/lib/types";
 import { auth } from "@/lib/auth";
 
-const updateDatosInstitucionaleSchema = createSelectSchema(datosInstitucionales).partial().required({ id: true });
+const updateDatosInstitucionaleSchema = createSelectSchema(datosInstitucionales)
+  .partial()
+  .required({ id: true });
 
 export interface UpdateDatosInstitucionaleState extends BaseActionState {
   errors?: {
@@ -31,13 +33,11 @@ export async function updateDatosInstitucionale(
       throw new Error("unauthenticated");
     }
 
-
-
     const validatedFields = updateDatosInstitucionaleSchema.safeParse({
       id: formData.get("id") as string,
       institucionesId: formData.get("institucionesId") as string,
       categoriasGeneralesId: formData.get("categoriasGeneralesId") as string,
-      cantidadHombres: parseInt(formData.get("cantidadHombres") as string),
+      cantidadHombres: formData.get("cantidadHombres") as string,
       cantidadMujeres: parseInt(formData.get("cantidadMujeres") as string),
     });
 
@@ -55,7 +55,9 @@ export async function updateDatosInstitucionale(
 
     revalidatePath("/datos-institucionales");
     revalidatePath("/datos-institucionales/" + validatedFields.data.id);
-    revalidatePath("/datos-institucionales/" + validatedFields.data.id + "/edit");
+    revalidatePath(
+      "/datos-institucionales/" + validatedFields.data.id + "/edit"
+    );
 
     return {
       status: "success",
@@ -64,6 +66,6 @@ export async function updateDatosInstitucionale(
     console.error(error);
     return {
       status: "error",
-    }
+    };
   }
 }

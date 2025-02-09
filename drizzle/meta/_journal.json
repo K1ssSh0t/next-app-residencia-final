@@ -239,6 +239,20 @@
       "when": 1738811795186,
       "tag": "0033_thankful_cyclops",
       "breakpoints": true
+    },
+    {
+      "idx": 34,
+      "version": "7",
+      "when": 1739060422549,
+      "tag": "0034_dusty_riptide",
+      "breakpoints": true
+    },
+    {
+      "idx": 35,
+      "version": "7",
+      "when": 1739060510848,
+      "tag": "0035_jittery_rafael_vega",
+      "breakpoints": true
     }
   ]
 }

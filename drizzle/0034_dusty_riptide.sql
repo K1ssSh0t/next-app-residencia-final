@@ -1,0 +1,1 @@
+ALTER TABLE "datos_institucionales" ALTER COLUMN "cantidad_hombres" SET DATA TYPE numeric;

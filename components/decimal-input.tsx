@@ -9,7 +9,7 @@ interface DecimalInputProps extends React.InputHTMLAttributes<HTMLInputElement> 
     precision?: number
     scale?: number
     error?: string
-    defaultValue?: number
+    defaultValue?: string
 }
 
 export default function DecimalInput({
@@ -17,7 +17,7 @@ export default function DecimalInput({
     precision = 10,
     scale = 2,
     error,
-    defaultValue = 0,
+    defaultValue = '0.00',
     value,
     onChange,
     ...props

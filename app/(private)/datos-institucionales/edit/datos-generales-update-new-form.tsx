@@ -87,7 +87,7 @@ export function DatosInstitucionalesUpdateForm({
                                     <DecimalInput
                                         id={`cantidadHombres_${categoria.id}`}
                                         name={`cantidadHombres_${categoria.id}`}
-                                        defaultValue={existingData?.cantidadHombres || 0}
+                                        defaultValue={existingData?.cantidadHombres || '0.00'}
                                         onChange={(value) => {
                                             // Handle the change if needed
                                             console.log(`New value for ${categoria.descripcion}:`, value.target.value);

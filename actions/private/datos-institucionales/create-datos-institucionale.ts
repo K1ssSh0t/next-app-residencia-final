@@ -35,7 +35,7 @@ export async function createDatosInstitucionale(
     const validatedFields = insertDatosInstitucionaleSchema.safeParse({
       institucionesId: formData.get("institucionesId") as string,
       categoriasGeneralesId: formData.get("categoriasGeneralesId") as string,
-      cantidadHombres: parseInt(formData.get("cantidadHombres") as string),
+      cantidadHombres: formData.get("cantidadHombres") as string,
       cantidadMujeres: parseInt(formData.get("cantidadMujeres") as string),
     });
 
