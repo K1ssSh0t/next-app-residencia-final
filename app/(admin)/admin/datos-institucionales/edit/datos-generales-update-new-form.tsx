@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { CategoriasGenerales } from "@/schema/categorias-generales";
 import { DatosInstitucionales } from "@/schema/datos-institucionales";
 import CurrencyInput from "@/components/currency-input";
+import DecimalInput from "@/components/decimal-input";
 
 export function DatosInstitucionalesUpdateForm({
     categoriasGeneraleList,
@@ -39,7 +40,7 @@ export function DatosInstitucionalesUpdateForm({
             if (isMontoInfraestructura) {
                 let montoValue = (formData.get(`cantidadHombres_${categoria.id}`) as string) || '0.00';
                 // Remove commas from the montoValue string
-                montoValue = montoValue.replace(/,/g, '');
+                // montoValue = montoValue.replace(/,/g, '');
                 console.log(montoValue)
                 cantidadHombres = parseFloat(montoValue);
             } else {
@@ -97,14 +98,16 @@ export function DatosInstitucionalesUpdateForm({
                                 // Render single input for "MONTO ASIGNADO A INFRAESTRUCTURA GENERAL"
                                 <div>
                                     <Label htmlFor={`cantidadHombres_${categoria.id}`}>Monto</Label>
-                                    <CurrencyInput
+                                    <DecimalInput
                                         id={`cantidadHombres_${categoria.id}`}
                                         name={`cantidadHombres_${categoria.id}`}
                                         defaultValue={existingData?.cantidadHombres || 0}
                                         onChange={(value) => {
                                             // Handle the change if needed
-                                            console.log(`New value for ${categoria.descripcion}:`, value);
+                                            console.log(`New value for ${categoria.descripcion}:`, value.target.value);
                                         }}
+                                        precision={20}
+                                        scale={2}
                                     />
                                 </div>
                             ) : (

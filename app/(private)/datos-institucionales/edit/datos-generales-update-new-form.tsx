@@ -8,7 +8,7 @@ import { FormAlert } from "@/components/form-alert";
 import { Input } from "@/components/ui/input";
 import { CategoriasGenerales } from "@/schema/categorias-generales";
 import { DatosInstitucionales } from "@/schema/datos-institucionales";
-
+import DecimalInput from "@/components/decimal-input";
 
 //TODO: AGREGAR UN INDEX PARA QUE SEA UNICO LA INSTITUCION CON LA CATEGORIA
 // Y TAMBIEN QUE SI NO EXISTE QUE LO CREEE , CHECAR EN V0 LA RESPUESTA
@@ -32,13 +32,22 @@ export function DatosInstitucionalesUpdateForm({
             const existingData = datosInstitucionales.find(d => d.categoriasGeneralesId === categoria.id);
             const isMontoInfraestructura = categoria.descripcion === 'MONTO ASIGNADO A INFRAESTRUCTURA GENERAL';
 
+            let cantidadHombres = 0;
+
+            if (isMontoInfraestructura) {
+                let montoValue = (formData.get(`cantidadHombres_${categoria.id}`) as string) || '0.00';
+                // Remove commas from the montoValue string
+                // montoValue = montoValue.replace(/,/g, '');
+                console.log(montoValue)
+                cantidadHombres = parseFloat(montoValue);
+            } else {
+                cantidadHombres = parseInt(formData.get(`cantidadHombres_${categoria.id}`) as string) || 0;
+            }
             return {
                 id: existingData?.id,
                 institucionesId: idInstitucion,
                 categoriasGeneralesId: categoria.id,
-                cantidadHombres: isMontoInfraestructura ?
-                    parseInt(formData.get(`cantidadHombres_${categoria.id}`) as string) || 0 :
-                    parseInt(formData.get(`cantidadHombres_${categoria.id}`) as string) || 0,
+                cantidadHombres: cantidadHombres,
                 cantidadMujeres: isMontoInfraestructura ?
                     0 : // Set cantidadMujeres to 0 for "MONTO ASIGNADO A INFRAESTRUCTURA GENERAL"
                     parseInt(formData.get(`cantidadMujeres_${categoria.id}`) as string) || 0
@@ -75,12 +84,16 @@ export function DatosInstitucionalesUpdateForm({
                                 // Render single input for "MONTO ASIGNADO A INFRAESTRUCTURA GENERAL"
                                 <div>
                                     <Label htmlFor={`cantidadHombres_${categoria.id}`}>Monto</Label>
-                                    <Input
+                                    <DecimalInput
                                         id={`cantidadHombres_${categoria.id}`}
                                         name={`cantidadHombres_${categoria.id}`}
-                                        type="number"
-                                        min="0"
                                         defaultValue={existingData?.cantidadHombres || 0}
+                                        onChange={(value) => {
+                                            // Handle the change if needed
+                                            console.log(`New value for ${categoria.descripcion}:`, value.target.value);
+                                        }}
+                                        precision={20}
+                                        scale={2}
                                     />
                                 </div>
                             ) : (
