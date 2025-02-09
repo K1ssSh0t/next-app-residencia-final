@@ -116,18 +116,19 @@ const convertToCSV = (data: InstitucionesBusqueda, categoriasCuestionario: strin
                         const pregunta = cuestionario.preguntas.find(
                             p => p.categoriaPersona?.descripcion === category
                         );
-                        const h = pregunta?.cantidadHombres || 0;
-                        const m = pregunta?.cantidadMujeres || 0;
-                        return `${h},${m},${h + m}`;
+                        const h = Number(pregunta?.cantidadHombres || 0);
+                        const m = Number(pregunta?.cantidadMujeres || 0);
+                        const total = Number(h) + Number(m);
+                        return `${h},${m},${total}`;
                     });
 
                     const datosInstitucionales = categoriasGenerales.map(category => {
                         const dato = institution.datosInstitucionales?.find(
                             d => d.categoriasGenerales?.descripcion === category
                         );
-                        const h = dato?.cantidadHombres || 0;
-                        const m = dato?.cantidadMujeres || 0;
-                        return `${h},${m},${h + m}`;
+                        const h = Number(dato?.cantidadHombres || 0);
+                        const m = Number(dato?.cantidadMujeres || 0);
+                        return `${h},${m},${Number(h) + Number(m)}`;
                     });
 
                     return [...basicInfo, ...cuestionarioData, ...datosInstitucionales].join(',');
@@ -155,7 +156,7 @@ const convertToCSV = (data: InstitucionesBusqueda, categoriasCuestionario: strin
                     );
                     const h = dato?.cantidadHombres || 0;
                     const m = dato?.cantidadMujeres || 0;
-                    return `${h},${m},${h + m}`;
+                    return `${h},${m},${Number(h) + Number(m)}`;
                 });
 
                 return [[...basicInfo, ...cuestionarioData, ...datosInstitucionales].join(',')];
@@ -354,9 +355,9 @@ export function FiltrosSuperior({ filterOptions }: { filterOptions: FilterOption
             if (!totals[categoria]) {
                 totals[categoria] = { hombres: 0, mujeres: 0, total: 0 }
             }
-            totals[categoria].hombres += dato.cantidadHombres || 0
+            totals[categoria].hombres += Number(dato.cantidadHombres || 0)
             totals[categoria].mujeres += dato.cantidadMujeres || 0
-            totals[categoria].total += (dato.cantidadHombres || 0) + (dato.cantidadMujeres || 0)
+            totals[categoria].total += Number(dato.cantidadHombres || 0) + Number(dato.cantidadMujeres || 0)
         })
 
         return totals
@@ -372,9 +373,9 @@ export function FiltrosSuperior({ filterOptions }: { filterOptions: FilterOption
                 if (!overallTotals[categoria]) {
                     overallTotals[categoria] = { hombres: 0, mujeres: 0, total: 0 };
                 }
-                overallTotals[categoria].hombres += dato.cantidadHombres || 0;
-                overallTotals[categoria].mujeres += dato.cantidadMujeres || 0;
-                overallTotals[categoria].total += (dato.cantidadHombres || 0) + (dato.cantidadMujeres || 0);
+                overallTotals[categoria].hombres += Number(dato.cantidadHombres || 0);
+                overallTotals[categoria].mujeres += Number(dato.cantidadMujeres || 0);
+                overallTotals[categoria].total += Number(dato.cantidadHombres || 0) + Number(dato.cantidadMujeres || 0);
             });
             institution.cuestionario?.forEach((cuestionario) => {
                 cuestionario?.preguntas.forEach(pregunta => {
@@ -494,9 +495,9 @@ export function FiltrosSuperior({ filterOptions }: { filterOptions: FilterOption
                                                             dato => dato.categoriasGenerales?.descripcion === category
                                                         ).map(dato => (
                                                             <div key={dato.id} className="text-sm">
-                                                                H: {dato.cantidadHombres!} <br />
+                                                                H: {Number(dato.cantidadHombres!)} <br />
                                                                 M: {dato.cantidadMujeres!} <br />
-                                                                T: {dato.cantidadHombres! + dato.cantidadMujeres!}
+                                                                T: {Number(dato.cantidadHombres!) + Number(dato.cantidadMujeres!)}
                                                             </div>
                                                         ))}
                                                     </TableCell>
@@ -537,9 +538,9 @@ export function FiltrosSuperior({ filterOptions }: { filterOptions: FilterOption
                                                             dato => dato.categoriasGenerales?.descripcion === category
                                                         ).map(dato => (
                                                             <div key={dato.id} className="text-sm">
-                                                                H: {dato.cantidadHombres!} <br />
+                                                                H: {Number(dato.cantidadHombres!)} <br />
                                                                 M: {dato.cantidadMujeres!} <br />
-                                                                T: {dato.cantidadHombres! + dato.cantidadMujeres!}
+                                                                T: {Number(dato.cantidadHombres!) + Number(dato.cantidadMujeres!)}
                                                             </div>
                                                         ))}
                                                     </TableCell>
@@ -553,7 +554,7 @@ export function FiltrosSuperior({ filterOptions }: { filterOptions: FilterOption
                                 ))}
                                 <TableRow>
                                     <TableCell className="font-medium">Totales</TableCell>
-                                    <TableCell colSpan={8}></TableCell>
+                                    <TableCell colSpan={9}></TableCell>
                                     {categoriasGenerales.map(category => {
                                         const overallTotals = calculateOverallTotals(results);
                                         return (

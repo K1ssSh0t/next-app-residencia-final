@@ -110,9 +110,9 @@ const calculateTotals = (institution: InstitucionesBusqueda[0]) => {
         if (!totals[categoria]) {
             totals[categoria] = { hombres: 0, mujeres: 0, total: 0 }
         }
-        totals[categoria].hombres += dato.cantidadHombres || 0
+        totals[categoria].hombres += Number(dato.cantidadHombres) || 0
         totals[categoria].mujeres += dato.cantidadMujeres || 0
-        totals[categoria].total += (dato.cantidadHombres || 0) + (dato.cantidadMujeres || 0)
+        totals[categoria].total += (Number(dato.cantidadHombres) || 0) + (Number(dato.cantidadMujeres) || 0)
     })
 
     return totals
@@ -302,9 +302,9 @@ export function FiltrosMedioSuperior({ filterOptions }: { filterOptions: FilterO
                 if (!overallTotals[categoria]) {
                     overallTotals[categoria] = { hombres: 0, mujeres: 0, total: 0 };
                 }
-                overallTotals[categoria].hombres += dato.cantidadHombres || 0;
+                overallTotals[categoria].hombres += Number(dato.cantidadHombres) || 0;
                 overallTotals[categoria].mujeres += dato.cantidadMujeres || 0;
-                overallTotals[categoria].total += (dato.cantidadHombres || 0) + (dato.cantidadMujeres || 0);
+                overallTotals[categoria].total += Number(dato.cantidadHombres || 0) + Number(dato.cantidadMujeres || 0);
             });
 
             institution.cuestionariosData?.preguntas.forEach(pregunta => {
