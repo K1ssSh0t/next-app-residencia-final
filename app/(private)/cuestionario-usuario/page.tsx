@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { DivideCircle, PlusIcon, UserIcon, UsersIcon } from "lucide-react";
+import { CircleDollarSign, CurrencyIcon, DivideCircle, PlusIcon, UserIcon, UsersIcon } from "lucide-react";
 import { db } from "@/lib/db";
 import { Button } from "@/components/ui/button";
 import { instituciones } from "@/schema/instituciones";
@@ -262,16 +262,27 @@ export default async function Page(props: {
                                             {dato?.categoriasGenerales?.descripcion || "Categoría"}
                                         </h3>
                                         <div className="flex justify-around items-center">
-                                            <div className="text-center px-2">
-                                                <UserIcon className="h-3 w-3 text-pink-500 mx-auto mb-0.5" />
-                                                <p className="text-xs text-muted-foreground">Mujeres</p>
-                                                <p className="font-semibold text-sm text-pink-600">{dato?.cantidadMujeres || "0"}</p>
-                                            </div>
-                                            <div className="text-center px-2">
-                                                <UsersIcon className="h-3 w-3 text-blue-500 mx-auto mb-0.5" />
-                                                <p className="text-xs text-muted-foreground">Hombres</p>
-                                                <p className="font-semibold text-sm text-blue-600">{dato?.cantidadHombres || "0"}</p>
-                                            </div>
+                                            {dato?.categoriasGenerales?.descripcion === 'MONTO ASIGNADO A INFRAESTRUCTURA GENERAL' ? (
+                                                <div className="text-center px-2">
+                                                    <CircleDollarSign className="h-3 w-3 text-blue-500 mx-auto mb-0.5" />
+
+                                                    <p className="text-xs text-muted-foreground">Monto asignado</p>
+                                                    <p className="font-semibold text-sm text-blue-600">{Number(dato?.cantidadHombres).toFixed(2) || "0.00"}</p>
+                                                </div>
+                                            ) : (
+                                                <>
+                                                    <div className="text-center px-2">
+                                                        <UserIcon className="h-3 w-3 text-pink-500 mx-auto mb-0.5" />
+                                                        <p className="text-xs text-muted-foreground">Mujeres</p>
+                                                        <p className="font-semibold text-sm text-pink-600">{Number(dato?.cantidadMujeres).toFixed(0) || "0"}</p>
+                                                    </div>
+                                                    <div className="text-center px-2">
+                                                        <UsersIcon className="h-3 w-3 text-blue-500 mx-auto mb-0.5" />
+                                                        <p className="text-xs text-muted-foreground">Hombres</p>
+                                                        <p className="font-semibold text-sm text-blue-600">{Number(dato?.cantidadHombres).toFixed(0) || "0"}</p>
+                                                    </div>
+                                                </>
+                                            )}
                                         </div>
                                     </div>
                                 ))}
