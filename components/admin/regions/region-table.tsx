@@ -15,9 +15,9 @@ export function RegionTable({ regionList }: { regionList: RegionsWithRelations }
   return (
     <Table>
       <TableHeader>
-        <TableRow>
-          <TableHead>Id</TableHead>
-          <TableHead>Nombre</TableHead>
+        <TableRow className=" text-xl font-extrabold text-black text-opacity-100">
+          <TableHead className=" text-zinc-950 text-opacity-100 font-bold">Id</TableHead>
+          <TableHead className=" text-zinc-950 text-opacity-100 font-bold">Nombre</TableHead>
           <TableHead></TableHead>
         </TableRow>
       </TableHeader>

@@ -13,9 +13,9 @@ export function NavBar() {
                 <Link
                     href="/admin/consultas"
                     className={cn(
-                        "text-sm font-medium transition-colors hover:text-primary",
+                        "text-sm font-medium transition-colors",
                         pathname === "/admin/consultas"
-                            ? "text-primary font-bold border-b-2 border-primary pb-1"
+                            ? "text-white  border-b-2 border-primary bg-primary pb-1 rounded-sm p-2"
                             : "text-muted-foreground"
                     )}
                 >
@@ -24,9 +24,9 @@ export function NavBar() {
                 <Link
                     href="/admin/consultas/medio-superior"
                     className={cn(
-                        "text-sm font-medium transition-colors hover:text-primary",
+                        "text-sm font-medium transition-colors",
                         pathname === "/admin/consultas/medio-superior"
-                            ? "text-primary font-bold border-b-2 border-primary pb-1"
+                            ? "text-white border-b-2 border-primary pb- bg-primary pb-1 rounded-sm p-2"
                             : "text-muted-foreground"
                     )}
                 >

@@ -38,7 +38,7 @@ export default async function Layout({
       <SidebarProvider>
         {consultor ? <ConsultorSidebar user={user} /> : <AdminSidebar user={user} />}
         <main className="p-5 w-full">
-          <SidebarTrigger />
+          <SidebarTrigger title="Ocultar Barra de Navegación" />
           {children}
         </main>
       </SidebarProvider>

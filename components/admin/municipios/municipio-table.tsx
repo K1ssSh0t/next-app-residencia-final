@@ -15,10 +15,10 @@ export function MunicipioTable({ municipioList }: { municipioList: MunicipiosWit
   return (
     <Table>
       <TableHeader>
-        <TableRow>
+        <TableRow className=" bg-[#631233] text-white text-lg font-bold">
           <TableHead>Id</TableHead>
-          <TableHead>Nombre</TableHead>
-          <TableHead>Region</TableHead>
+          <TableHead className=" text-lg text-white">Nombre</TableHead>
+          <TableHead className=" text-lg text-white">Region</TableHead>
           <TableHead></TableHead>
         </TableRow>
       </TableHeader>

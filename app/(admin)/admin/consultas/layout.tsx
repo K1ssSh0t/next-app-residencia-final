@@ -15,7 +15,7 @@ export default async function Layout({
                 <Breadcrumb>
                     <BreadcrumbList>
                         <BreadcrumbItem>
-                            <BreadcrumbPage>Consultas</BreadcrumbPage>
+                            <BreadcrumbPage className=" font-bold">Consultas</BreadcrumbPage>
                         </BreadcrumbItem>
                     </BreadcrumbList>
                 </Breadcrumb>
