@@ -15,10 +15,10 @@ export function EspecialidadesListaTable({ especialidadesListaList }: { especial
   return (
     <Table>
       <TableHeader>
-        <TableRow>
+        <TableRow className=" bg-[#631233] text-white text-lg font-bold">
           <TableHead>Id</TableHead>
-          <TableHead>Descripcion</TableHead>
-          <TableHead>Clave</TableHead>
+          <TableHead className=" text-lg text-white">Descripción</TableHead>
+          <TableHead className=" text-lg text-white">Clave</TableHead>
           <TableHead></TableHead>
         </TableRow>
       </TableHeader>

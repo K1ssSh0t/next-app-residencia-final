@@ -187,19 +187,19 @@ export async function UserTable({ userList }: { userList: UsersWithRelations }) 
   return (
     <Table>
       <TableHeader>
-        <TableRow>
+      <TableRow className=" bg-[#631233] text-white text-lg font-bold">
           {/* <TableHead>Id</TableHead> */}
           {/* <TableHead>Name</TableHead> */}
-          <TableHead>Nombre de Usuario</TableHead>
+          <TableHead className=" text-lg text-white">Nombre de Usuario</TableHead>
           {/* <TableHead>Email Verified</TableHead> */}
           {/* <TableHead>Image</TableHead> */}
-          <TableHead>Rol</TableHead>
-          <TableHead>Institución</TableHead>
-          <TableHead>Nivel Educativo</TableHead>
+          <TableHead className=" text-lg text-white">Rol</TableHead>
+          <TableHead className=" text-lg text-white">Institución</TableHead>
+          <TableHead className=" text-lg text-white">Nivel Educativo</TableHead>
           {/* <TableHead>Password</TableHead> */}
-          <TableHead>Correo de Contacto</TableHead>
-          <TableHead>Nombre del Responsable</TableHead>
-          <TableHead>Progreso</TableHead>
+          <TableHead className=" text-lg text-white">Correo de Contacto</TableHead>
+          <TableHead className=" text-lg text-white">Nombre del Responsable</TableHead>
+          <TableHead className=" text-lg text-white">Progreso</TableHead>
           <TableHead className=" sr-only">Acciones</TableHead>
         </TableRow>
       </TableHeader>

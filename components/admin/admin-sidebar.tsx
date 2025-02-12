@@ -35,7 +35,7 @@ import { ModeToggle } from "../mode-toggle";
 
 const items = [
   { title: "Inicio", url: "/", icon: HomeIcon },
-  { title: "Administracion", url: "/admin", icon: GaugeIcon },
+  { title: "Administración", url: "/admin", icon: GaugeIcon },
   { title: "Usuarios", url: "/admin/users", icon: Table2Icon },
   { title: "Carreras", url: "/admin/carreras", icon: Table2Icon },
   { title: "Indicadores", url: "/admin/categoria-personas", icon: Table2Icon },

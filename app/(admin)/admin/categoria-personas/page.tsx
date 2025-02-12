@@ -32,7 +32,7 @@ export default async function Page(props: {
       <h1 className="text-xl font-bold">Indicadores</h1>
       <div className="flex justify-between">
         <div>
-          <SearchInput placeholder="Search Categoria Personas" />
+          <SearchInput placeholder="Buscar Categoria Personas" />
         </div>
         <div className="flex gap-2 text-right mr-2">
           <QuestionnairePreview

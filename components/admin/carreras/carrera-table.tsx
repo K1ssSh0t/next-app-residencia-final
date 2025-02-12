@@ -15,9 +15,9 @@ export function CarreraTable({ carreraList }: { carreraList: CarrerasWithRelatio
   return (
     <Table>
       <TableHeader>
-        <TableRow>
-          <TableHead>Clave</TableHead>
-          <TableHead>Descripcion</TableHead>
+        <TableRow className=" bg-[#631233] text-white text-lg font-bold">
+          <TableHead className=" text-lg text-white">Clave</TableHead>
+          <TableHead className=" text-lg text-white">Descripción</TableHead>
           <TableHead></TableHead>
         </TableRow>
       </TableHeader>

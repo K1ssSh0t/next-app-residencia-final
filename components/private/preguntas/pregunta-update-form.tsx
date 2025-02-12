@@ -41,9 +41,9 @@ export function PreguntaUpdateForm({
             name="categoriaPersonasId"
             valueField="id"
             defaultValue={ pregunta.categoriaPersonasId }
-            searchPlaceholder="Search Categoria Personas..."
-            selectPlaceholder="Select Categoria Persona..."
-            emptyText="No categoriaPersona found"
+            searchPlaceholder="Buscar Categoria Personas..."
+            selectPlaceholder="Selecionar Categoria Persona..."
+            emptyText="No se encontró ninguna categoría de Persona"
             keywordFields={["id"]}
             template={(item) => <div>{item.id}</div>}
           />

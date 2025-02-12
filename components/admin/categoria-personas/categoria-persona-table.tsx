@@ -15,11 +15,11 @@ export function CategoriaPersonaTable({ categoriaPersonaList }: { categoriaPerso
   return (
     <Table>
       <TableHeader>
-        <TableRow>
+        <TableRow className=" bg-[#631233] text-white text-lg font-bold" >
           {/* <TableHead>Id</TableHead> */}
-          <TableHead>Descripcion</TableHead>
-          <TableHead>Nivel Aplicable</TableHead>
-          <TableHead>Estado en el Cuestionario</TableHead>
+          <TableHead className=" text-lg text-white">Descripción</TableHead>
+          <TableHead className=" text-lg text-white">Nivel Aplicable</TableHead>
+          <TableHead className=" text-lg text-white">Estado en el Cuestionario</TableHead>
           <TableHead></TableHead>
         </TableRow>
       </TableHeader>

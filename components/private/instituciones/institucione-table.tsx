@@ -15,18 +15,18 @@ export function InstitucioneTable({ institucioneList }: { institucioneList: Inst
   return (
     <Table>
       <TableHeader>
-        <TableRow>
-          <TableHead>Usuario</TableHead>
-          <TableHead>Clave de Institucion</TableHead>
-          <TableHead>Clave de Centro de Trabajo</TableHead>
-          <TableHead>Nombre</TableHead>
-          <TableHead>Region</TableHead>
-          <TableHead>Municipio</TableHead>
+        <TableRow className=" bg-[#631233] text-white text-lg font-bold">
+          <TableHead className=" text-lg text-white">Usuario</TableHead>
+          <TableHead className=" text-lg text-white">Clave de Institucion</TableHead>
+          <TableHead className=" text-lg text-white">Clave de Centro de Trabajo</TableHead>
+          <TableHead className=" text-lg text-white">Nombre</TableHead>
+          <TableHead className=" text-lg text-white">Region</TableHead>
+          <TableHead className=" text-lg text-white">Municipio</TableHead>
 
-          <TableHead>Tipo Instituciones</TableHead>
-          <TableHead>Tipo Bachilleres</TableHead>
+          <TableHead className=" text-lg text-white">Tipo Instituciones</TableHead>
+          <TableHead className=" text-lg text-white">Tipo Bachilleres</TableHead>
 
-          <TableHead>Nivel Educativo</TableHead>
+          <TableHead className=" text-lg text-white">Nivel Educativo</TableHead>
           <TableHead></TableHead>
         </TableRow>
       </TableHeader>

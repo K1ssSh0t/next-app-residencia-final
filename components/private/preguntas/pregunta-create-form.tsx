@@ -37,9 +37,9 @@ export function PreguntaCreateForm({
             list={categoriaPersonaList}
             name="categoriaPersonasId"
             valueField="id"
-            searchPlaceholder="Search Categoria Personas..."
-            selectPlaceholder="Select Categoria Persona..."
-            emptyText="No categoriaPersona found"
+            searchPlaceholder="Buscar Categoria Personas..."
+            selectPlaceholder="Selecionar Categoria Persona..."
+            emptyText="No se encontró ninguna categoría de Persona"
             keywordFields={["id", "descripcion"]}
             template={(item) => <div>{item.descripcion}</div>}
           />

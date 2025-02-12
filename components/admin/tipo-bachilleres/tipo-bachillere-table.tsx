@@ -15,9 +15,9 @@ export function TipoBachillereTable({ tipoBachillereList }: { tipoBachillereList
   return (
     <Table>
       <TableHeader>
-        <TableRow>
+        <TableRow className=" bg-[#631233] text-white text-lg font-bold">
           <TableHead>Id</TableHead>
-          <TableHead>Descripcion</TableHead>
+          <TableHead className=" text-lg text-white">Descripción</TableHead>
           <TableHead></TableHead>
         </TableRow>
       </TableHeader>
