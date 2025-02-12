@@ -34,7 +34,7 @@ export default async function Page(props: {
       <h1 className="text-xl font-bold">Usuarios</h1>
       <div className="flex justify-between">
         <div>
-          <SearchInput placeholder="Search Users" />
+          <SearchInput placeholder="Buscar Usuarios" />
         </div>
         <div className="text-right mr-2">
           <Link href="/admin/users/new">

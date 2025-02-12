@@ -29,7 +29,7 @@ export default async function Page(props: {
       <h1 className="text-xl font-bold">Tipos de  Instituciones</h1>
       <div className="flex justify-between">
         <div>
-          <SearchInput placeholder="Search Tipo Instituciones" />
+          <SearchInput placeholder="Buscar Tipo Instituciones" />
         </div>
         <div className="text-right mr-2">
           <Link href="/admin/tipo-instituciones/new">

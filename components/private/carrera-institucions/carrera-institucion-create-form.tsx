@@ -84,9 +84,9 @@ export function CarreraInstitucionCreateForm({
             list={modalidadeList}
             name="modalidadesId"
             valueField="id"
-            searchPlaceholder="Search Modalidades..."
-            selectPlaceholder="Select modalidad..."
-            emptyText="No modalidad found"
+            searchPlaceholder="Buscar Modalidades..."
+            selectPlaceholder="Seleccionar modalidad..."
+            emptyText="No se encontró modalidad"
             keywordFields={["id", "descripcion"]}
             template={(item) => <div aria-required id="modalidadesId">{item.descripcion}</div>}
           />

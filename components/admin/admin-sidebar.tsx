@@ -34,8 +34,8 @@ import GoBackButton from "../go-back-button";
 import { ModeToggle } from "../mode-toggle";
 
 const items = [
-  { title: "Home", url: "/", icon: HomeIcon },
-  { title: "Admin", url: "/admin", icon: GaugeIcon },
+  { title: "Inicio", url: "/", icon: HomeIcon },
+  { title: "Administracion", url: "/admin", icon: GaugeIcon },
   { title: "Usuarios", url: "/admin/users", icon: Table2Icon },
   { title: "Carreras", url: "/admin/carreras", icon: Table2Icon },
   { title: "Indicadores", url: "/admin/categoria-personas", icon: Table2Icon },
@@ -49,7 +49,7 @@ const items = [
   { title: "Municipios", url: "/admin/municipios", icon: Table2Icon },
   { title: "Categorias Generales", url: "/admin/categorias-generales", icon: Table2Icon },
 
-  { title: "Especialidades Listas", url: "/admin/especialidades-listas", icon: Table2Icon },
+  { title: "Catalogo Especialidades", url: "/admin/especialidades-listas", icon: Table2Icon },
   { title: "Consultas", url: "/admin/consultas", icon: Table2Icon },
   // [CODE_MARK admin-sidebar-items]
 ];

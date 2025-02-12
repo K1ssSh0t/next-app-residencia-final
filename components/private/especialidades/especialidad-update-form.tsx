@@ -41,7 +41,7 @@ export function EspecialidadUpdateForm({
             defaultValue={especialidad.nombreEspecialidad ?? ""}
             searchPlaceholder="Buscar Especialidad..."
             selectPlaceholder="Seleccionar Especialidad..."
-            emptyText="No carrera found"
+            emptyText="No se encontró carrera"
             keywordFields={["id", "descripcion"]}
             template={(item) => <div  >{item.descripcion}</div>}
           />

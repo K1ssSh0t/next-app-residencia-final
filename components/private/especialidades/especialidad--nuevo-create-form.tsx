@@ -31,9 +31,9 @@ export function EspecialidadCreateForm({ cuestionarioId, listaCarreras }: { cues
                         name="nombreEspecialidad"
                         valueField="id"
 
-                        searchPlaceholder="Search Carreras..."
-                        selectPlaceholder="Select Carrera..."
-                        emptyText="No carrera found"
+                        searchPlaceholder="Buscar Carreras..."
+                        selectPlaceholder=" Buscar Carrera..."
+                        emptyText="No se encontró carrera"
                         keywordFields={["id", "descripcion"]}
                         template={(item) => <div aria-required id="carrerasId" >{item.descripcion}</div>}
                     />

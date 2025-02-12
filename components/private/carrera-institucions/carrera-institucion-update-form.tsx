@@ -63,10 +63,10 @@ export function CarreraInstitucionUpdateForm({
             name="carrerasId"
             valueField="id"
             defaultValue={carreraInstitucion.carrerasId}
-            searchPlaceholder="Search Carreras..."
-            selectPlaceholder="Select Carrera..."
+            searchPlaceholder="Buscar Carreras..."
+            selectPlaceholder="Buscar Carrera..."
             minSearchLength={3}
-            emptyText="No carrera found"
+            emptyText="No se encontró carrera"
             keywordFields={["id", "descripcion"]}
             template={(item) => <div aria-required id="carrerasId" >{item.descripcion}</div>}
           />
@@ -97,9 +97,9 @@ export function CarreraInstitucionUpdateForm({
             name="modalidadesId"
             valueField="id"
             defaultValue={carreraInstitucion.modalidadesId}
-            searchPlaceholder="Search Modalidades..."
-            selectPlaceholder="Select modalidad..."
-            emptyText="No modalidad found"
+            searchPlaceholder="Buscar Modalidades..."
+            selectPlaceholder="Seleccionar modalidad..."
+            emptyText="No se encontró modalidad"
             keywordFields={["id", "descripcion"]}
             template={(item) => <div aria-required id="modalidadesId">{item.descripcion}</div>}
           />

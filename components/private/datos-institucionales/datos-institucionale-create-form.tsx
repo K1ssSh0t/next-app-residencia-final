@@ -40,9 +40,9 @@ export function DatosInstitucionaleCreateForm({
             list={categoriasGeneraleList}
             name="categoriasGeneralesId"
             valueField="id"
-            searchPlaceholder="Search Categorias Generales..."
-            selectPlaceholder="Select Categorias Generale..."
-            emptyText="No categoriasGenerales found"
+            searchPlaceholder="Buscar Categorias Generales..."
+            selectPlaceholder="Selecionar Categorias Generale..."
+            emptyText="No se encontraron categorías generales"
             keywordFields={["id", "descripcion"]}
             template={(item) => <div>{item.descripcion}</div>}
           />

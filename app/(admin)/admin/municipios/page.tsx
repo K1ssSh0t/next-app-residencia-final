@@ -43,7 +43,7 @@ export default async function Page(props: {
       </div>
       <div className="flex justify-between pt-5 mb-5">
         <div>
-          <SearchInput placeholder="Search Municipios" />
+          <SearchInput placeholder="Buscar Municipios" />
         </div>
         <div className="text-right mr-2">
           <Link href="/admin/municipios/new">

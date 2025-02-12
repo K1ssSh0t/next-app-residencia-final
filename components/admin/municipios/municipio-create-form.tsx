@@ -42,9 +42,9 @@ export function MunicipioCreateForm({
             list={regionList}
             name="regionId"
             valueField="id"
-            searchPlaceholder="Search Regions..."
-            selectPlaceholder="Select Region..."
-            emptyText="No region found"
+            searchPlaceholder="Buscar Region..."
+            selectPlaceholder="Seleccionar Region..."
+            emptyText="No se encontró ninguna región"
             keywordFields={["id", "nombre"]}
             template={(item) => <div aria-required="true" id="regionId">{item.nombre}</div>}
 

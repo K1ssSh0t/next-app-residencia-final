@@ -29,7 +29,7 @@ export default async function Page(props: {
       <h1 className="text-xl font-bold">Carreras</h1>
       <div className="flex justify-between">
         <div>
-          <SearchInput placeholder="Search Carreras" />
+          <SearchInput placeholder="Buscar Carreras" />
         </div>
         <div className="text-right mr-2">
           <Link href="/admin/carreras/new">

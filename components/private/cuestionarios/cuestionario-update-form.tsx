@@ -49,8 +49,8 @@ export function CuestionarioUpdateForm({
             name="carrerasId"
             valueField="id"
             defaultValue={cuestionario.carrerasId}
-            searchPlaceholder="Search Carreras..."
-            selectPlaceholder="Select Carrera..."
+            searchPlaceholder="Buscar Carreras..."
+            selectPlaceholder="Buscar Carrera..."
             emptyText="No carrera found"
             keywordFields={["id"]}
             template={(item) => <div>{item.nombreRevoe}</div>}

@@ -41,9 +41,9 @@ export function CuestionarioCreateForm({
             list={carreraList}
             name="carrerasId"
             valueField="id"
-            searchPlaceholder="Search Carreras..."
-            selectPlaceholder="Select Carrera..."
-            emptyText="No carrera found"
+            searchPlaceholder="Buscar Carreras..."
+            selectPlaceholder="Seleccionar Carrera..."
+            emptyText="No se encontró carrera"
             keywordFields={["id", "nombreRevoe"]}
             template={(item) => <div>{item.nombreRevoe}</div>}
           />
