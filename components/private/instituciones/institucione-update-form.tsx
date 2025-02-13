@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/tooltip"
 
 import { Info } from "lucide-react";
+import { Modalidad } from "@/schema/modalidads";
 
 
 
@@ -41,6 +42,7 @@ export function InstitucioneUpdateForm({
   nivelEducativo,
   regionList,
   municipioList,
+  modalidadList,
 }: {
   institucion: Institucion;
   tipoInstitucioneList: TipoInstituciones[];
@@ -48,6 +50,7 @@ export function InstitucioneUpdateForm({
   nivelEducativo: boolean;
   regionList: Region[];
   municipioList: Municipio[];
+  modalidadList: Modalidad[];
 }) {
   const initialState: UpdateInstitucioneState = {};
   const [state, dispatch] = useActionState(updateInstitucione, initialState);
@@ -134,6 +137,27 @@ export function InstitucioneUpdateForm({
               <p className="text-destructive text-sm" key={error}>{error}</p>
             ))}
           </div>
+          {
+            !nivelEducativo && <div className="space-y-2">
+              <Label>Modalidad</Label>
+              <GenericCombobox
+                list={modalidadList}
+                name="modalidadesId"
+                valueField="id"
+                defaultValue={institucion.modalidadesId}
+                searchPlaceholder="Buscar Modalidad..."
+                selectPlaceholder="Seleccionar Modalidad..."
+                emptyText="No se encontró la modalidad"
+                keywordFields={["id", "descripcion"]}
+                template={(item) => <div aria-required id="modalidadesId">{item.descripcion}</div>}
+              />
+
+              {
+                state.errors?.modalidadesId?.map((error) => (
+                  <p className="text-destructive text-sm" key={error}>{error}</p>
+                ))}
+            </div>
+          }
 
           {showNumeroCarreras && <div className="space-y-2">
             <div className="flex items-center gap-2">

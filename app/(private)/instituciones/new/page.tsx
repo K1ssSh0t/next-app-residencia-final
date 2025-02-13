@@ -16,6 +16,7 @@ export default async function Page() {
 
   const regionList = await db.query.regiones.findMany();
   const municipioList = await db.query.municipios.findMany();
+  const modalidadList = await db.query.modalidades.findMany();
 
 
   return (
@@ -25,7 +26,7 @@ export default async function Page() {
         tipoInstitucioneList={tipoInstitucioneList}
         tipoBachillereList={tipoBachillereList}
         nivelEducativo={usuario?.nivelEducativo as boolean}
-
+      modalidadList={modalidadList}
         regionList={regionList}
         municipioList={municipioList}
       />

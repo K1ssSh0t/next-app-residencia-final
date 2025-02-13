@@ -30,6 +30,7 @@ export interface UpdateInstitucioneState extends BaseActionState {
     claveInstitucion?: string[];
     claveCentroTrabajo?: string[];
     numeroCarreras?: string[];
+    modalidadesId?: string[];
   };
 }
 
@@ -56,6 +57,7 @@ export async function updateInstitucione(
       usersId: formData.get("usersId") as string,
       nivelEducativo: formData.get("nivelEducativo") === "true",
       claveInstitucion: formData.get("claveInstitucion") as string,
+      modalidadesId: formData.get("modalidadesId") as string,
       claveCentroTrabajo: formData.get("claveCentroTrabajo") as string,
       numeroCarreras: numeroCarrerasValue
         ? parseInt(numeroCarrerasValue)

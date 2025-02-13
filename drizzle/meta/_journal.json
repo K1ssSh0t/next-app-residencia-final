@@ -253,6 +253,13 @@
       "when": 1739060510848,
       "tag": "0035_jittery_rafael_vega",
       "breakpoints": true
+    },
+    {
+      "idx": 36,
+      "version": "7",
+      "when": 1739406475283,
+      "tag": "0036_motionless_rawhide_kid",
+      "breakpoints": true
     }
   ]
 }

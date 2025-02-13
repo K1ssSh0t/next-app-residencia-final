@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/tooltip"
 
 import { Info } from "lucide-react";
+import { Modalidad } from "@/schema/modalidads";
 
 
 function RequiredLabel({ children }: { children: React.ReactNode }) {
@@ -38,12 +39,14 @@ export function InstitucioneCreateForm({
   nivelEducativo,
   regionList,
   municipioList,
+  modalidadList
 }: {
   tipoInstitucioneList: TipoInstituciones[];
   tipoBachillereList: TipoBachilleres[];
   nivelEducativo: boolean;
   regionList: Region[];
   municipioList: Municipio[];
+  modalidadList: Modalidad[];
 }) {
   const initialState: CreateInstitucioneState = {};
   const [state, dispatch] = useActionState(createInstitucione, initialState);
@@ -125,6 +128,26 @@ export function InstitucioneCreateForm({
                 <p className="text-destructive text-sm" key={error}>{error}</p>
               ))}
             </div>
+            {
+              !nivelEducativo &&
+              <div className="space-y-2">
+                <Label htmlFor="tipoBachilleresId">Modalidad*</Label>
+                <GenericCombobox
+                  name="modalidadesId"
+                  list={modalidadList}
+                  valueField="id"
+                  searchPlaceholder="Buscar Modalidad..."
+                  selectPlaceholder="Seleccionar Modalidad..."
+                  emptyText="No se encontró la modalidad"
+                  keywordFields={["id", "descripcion"]}
+                  template={(item) => <div aria-required id="modalidadesId">{item.descripcion}</div>}
+                />
+                {state.errors?.modalidadesId?.map((error) => (
+                  <p className="text-destructive text-sm" key={error}>{error}</p>
+                ))}
+              </div>
+            }
+
             {showNumeroCarreras &&
               <div className="space-y-2">
 

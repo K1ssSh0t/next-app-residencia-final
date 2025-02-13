@@ -12,6 +12,7 @@ import { carreraInstituciones } from "@/schema/carrera-institucions";
 import { eq } from "drizzle-orm";
 import { carreras } from "@/schema/carreras";
 import { cuestionarios } from "@/schema/cuestionarios";
+import { modalidades } from "@/schema/modalidads";
 
 const insertInstitucioneSchema = createInsertSchema(instituciones).extend({
   nivelEducativo: z.boolean(),
@@ -31,6 +32,7 @@ export interface CreateInstitucioneState extends BaseActionState {
     claveInstitucion?: string[];
     claveCentroTrabajo?: string[];
     numeroCarreras?: string[];
+    modalidadesId?: string[];
   };
 }
 
@@ -56,6 +58,7 @@ export async function createInstitucione(
       usersId: session?.user?.id as string,
       nivelEducativo: formData.get("nivelEducativo") === "true",
       claveInstitucion: formData.get("claveInstitucion") as string,
+      modalidadesId: formData.get("modalidadesId") as string,
       claveCentroTrabajo: formData.get("claveCentroTrabajo") as string,
       numeroCarreras: numeroCarrerasValue
         ? parseInt(numeroCarrerasValue)

@@ -27,6 +27,7 @@ export default async function Page(props: { params: Params }) {
 
   const regionList = await db.query.regiones.findMany();
   const municipioList = await db.query.municipios.findMany();
+  const modalidadList = await db.query.modalidades.findMany();
 
 
 
@@ -43,7 +44,7 @@ export default async function Page(props: { params: Params }) {
             tipoInstitucioneList={tipoInstitucioneList}
             tipoBachillereList={tipoBachillereList}
             nivelEducativo={institucion.nivelEducativo as boolean}
-
+            modalidadList={modalidadList}
             regionList={regionList}
             municipioList={municipioList}
           />

@@ -38,6 +38,7 @@ export default async function Page(props: {
         tipoInstituciones: true,
         municipio: true,
         region: true,
+        modalidad: true,
 
 
       },
@@ -176,10 +177,13 @@ export default async function Page(props: {
                     <p className="font-medium">{miInstitucion.tipoInstituciones?.descripcion}</p>
                   </div>
                   {!usuario?.nivelEducativo && (
-                    <div>
+                    <><div>
                       <span className="text-muted-foreground">Tipo Bachiller:</span>
                       <p className="font-medium">{miInstitucion.tipoBachilleres?.descripcion}</p>
-                    </div>
+                    </div><div>
+                        <span className="text-muted-foreground">Modalidad:</span>
+                        <p className="font-medium">{miInstitucion.modalidad?.descripcion}</p>
+                      </div></>
                   )}
                   <div>
                     <span className="text-muted-foreground">Nivel Educativo:</span>
