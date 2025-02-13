@@ -37,7 +37,7 @@ export default async function Page(props: { params: Params }) {
         </Breadcrumb>
       </div>
       <div className="pt-5">
-        <p><strong>Descripcion:</strong> {modalidad.descripcion}</p>
+        <p><strong>Descripción:</strong> {modalidad.descripcion}</p>
       </div>
     </div>
   );

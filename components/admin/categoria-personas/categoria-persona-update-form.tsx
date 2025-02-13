@@ -35,7 +35,7 @@ export function CategoriaPersonaUpdateForm({
           <p><strong>Id:</strong> {categoriaPersona.id}</p>
         </div>
         <div>
-          <Label htmlFor="descripcion">Descripcion</Label>
+          <Label htmlFor="descripcion">Descripción</Label>
           <Input name="descripcion" defaultValue={categoriaPersona.descripcion ?? ""} id="descripcion" required />
           {state.errors?.descripcion?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>

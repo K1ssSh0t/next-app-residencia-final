@@ -26,7 +26,7 @@ export function CategoriasGeneraleCreateForm() {
       </div>
       <form action={dispatch} onSubmit={handleSubmit} className="flex flex-col gap-2">
         <div>
-          <Label htmlFor="descripcion">Descripcion *</Label>
+          <Label htmlFor="descripcion">Descripción *</Label>
           <Input name="descripcion" required id="descripcion" />
           {state.errors?.descripcion?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>

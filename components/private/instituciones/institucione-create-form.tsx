@@ -101,12 +101,24 @@ export function InstitucioneCreateForm({
       </CardHeader>
       <CardContent>
         <div className="mb-4 p-4 bg-yellow-100 border border-yellow-400 rounded">
-          <p className="text-yellow-700">Los campos que son requeridos son marcados con un asterisco (*)</p>
+          <p className="text-yellow-700">Los campos que son requeridos son marcados con un asterisco (<span className="text-red-500">*</span>)</p>
         </div>
         <form action={dispatch} onSubmit={handleSubmit} className="flex flex-col gap-2">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <Label htmlFor="nombre">Nombre *</Label>
+          <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <Label htmlFor="nombre">Nombre <span className="text-red-500">*</span></Label>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Info className="h-4 w-4 text-destructive cursor-help" />
+                    </TooltipTrigger>
+                    <TooltipContent className="max-w-xs">
+                      <p>Por favor, para ingresar el nombre tome en cuenta las indicaciones de su administrador.</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </div>
               <Input name="nombre" required placeholder="Ingresa el Nombre de la Institución" id="nombre" />
               {state.errors?.nombre?.map((error) => (
                 <p className="text-destructive text-sm" key={error}>{error}</p>
@@ -114,7 +126,7 @@ export function InstitucioneCreateForm({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="claveInstitucion">Clave de Institución *</Label>
+              <Label htmlFor="claveInstitucion">Clave de Institución <span className="text-red-500">*</span></Label>
               <Input name="claveInstitucion" required placeholder="Ingresa la Clave de la Institución" id="claveInstitucion" />
               {state.errors?.claveInstitucion?.map((error) => (
                 <p className="text-destructive text-sm" key={error}>{error}</p>
@@ -122,7 +134,7 @@ export function InstitucioneCreateForm({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="claveCentroTrabajo">Clave de Centro de Trabajo *</Label>
+              <Label htmlFor="claveCentroTrabajo">Clave de Centro de Trabajo <span className="text-red-500">*</span></Label>
               <Input name="claveCentroTrabajo" required placeholder="Ingresa la Clave del Centro de Trabajo" id="claveCentroTrabajo" />
               {state.errors?.claveCentroTrabajo?.map((error) => (
                 <p className="text-destructive text-sm" key={error}>{error}</p>
@@ -131,7 +143,7 @@ export function InstitucioneCreateForm({
             {
               !nivelEducativo &&
               <div className="space-y-2">
-                <Label htmlFor="tipoBachilleresId">Modalidad*</Label>
+                <Label htmlFor="tipoBachilleresId">Modalidad <span className="text-red-500">*</span></Label>
                 <GenericCombobox
                   name="modalidadesId"
                   list={modalidadList}
@@ -177,7 +189,7 @@ export function InstitucioneCreateForm({
               </div>}
 
             <div className="space-y-2">
-              <Label htmlFor="region">Región *</Label>
+              <Label htmlFor="region">Región <span className="text-red-500">*</span></Label>
               <GenericCombobox
 
                 list={regionList}
@@ -196,7 +208,7 @@ export function InstitucioneCreateForm({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="municipio">Municipio *</Label>
+              <Label htmlFor="municipio">Municipio <span className="text-red-500">*</span></Label>
               <GenericCombobox
 
                 list={filteredMunicipios}
@@ -214,7 +226,7 @@ export function InstitucioneCreateForm({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="tipoInstitucionesId">Tipo de Institución *</Label>
+              <Label htmlFor="tipoInstitucionesId">Tipo de Institución <span className="text-red-500">*</span></Label>
               <GenericCombobox
 
                 list={tipoInstitucioneList}
@@ -233,7 +245,7 @@ export function InstitucioneCreateForm({
 
             {!nivelEducativo && (
               <div className="space-y-2">
-                <Label>Tipo de Bachiller *</Label>
+                <Label>Tipo de Bachiller <span className="text-red-500">*</span></Label>
                 <GenericCombobox
                   list={tipoBachillereList}
                   name="tipoBachilleresId"

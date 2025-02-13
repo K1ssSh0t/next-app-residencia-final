@@ -19,7 +19,7 @@ export default async function Page(props: { params: Params }) {
       <div>
         <p><strong>Id:</strong> {carrera.id}</p>
         <p><strong>Clave:</strong> {carrera.clave}</p>
-        <p><strong>Descripcion:</strong> {carrera.descripcion}</p>
+        <p><strong>Descripción:</strong> {carrera.descripcion}</p>
       </div>
     </div>
   );

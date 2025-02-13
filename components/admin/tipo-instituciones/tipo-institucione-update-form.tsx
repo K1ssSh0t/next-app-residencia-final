@@ -34,7 +34,7 @@ export function TipoInstitucioneUpdateForm({
           <p><strong>Id:</strong> {tipoInstitucione.id}</p>
         </div>
         <div>
-          <Label htmlFor="descripcion">Descripcion *</Label>
+          <Label htmlFor="descripcion">Descripción *</Label>
           <Input name="descripcion" defaultValue={tipoInstitucione.descripcion ?? ""} required id="descripcion" />
           {state.errors?.descripcion?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>

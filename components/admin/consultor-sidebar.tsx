@@ -34,7 +34,7 @@ import GoBackButton from "../go-back-button";
 import { ModeToggle } from "../mode-toggle";
 
 const items = [
-    { title: "Home", url: "/", icon: HomeIcon },
+    { title: "Inicio", url: "/", icon: HomeIcon },
     { title: "Consultas", url: "/admin/consultas", icon: Table2Icon },
 
 ];

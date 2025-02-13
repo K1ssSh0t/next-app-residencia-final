@@ -28,7 +28,7 @@ export function EspecialidadesListaUpdateForm({
       <form action={dispatch} onSubmit={handleSubmit} className="flex flex-col gap-2">
         <input type="hidden" name="id" value={ especialidadesLista.id } />
         <div>
-          <Label>Descripcion</Label>
+          <Label>Descripción</Label>
           <Input name="descripcion" defaultValue={ especialidadesLista.descripcion ?? "" } />
           {state.errors?.descripcion?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>

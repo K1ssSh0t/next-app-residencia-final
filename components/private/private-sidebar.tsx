@@ -35,7 +35,7 @@ import { ModeToggle } from "../mode-toggle";
 import { title } from "process";
 
 const items = [
-  { title: "Home", url: "/", icon: HomeIcon },
+  { title: "Inicio", url: "/", icon: HomeIcon },
   // { title: "Dashboard", "url": "/dashboard", icon: LayoutDashboardIcon },
   { title: "Datos de la Institucion", url: "/instituciones", icon: Table2Icon },
   { title: "Cuestionarios", url: "/cuestionario-usuario", icon: Table2Icon },

@@ -18,7 +18,7 @@ export default async function Page(props: { params: Params }) {
       <h1 className="text-xl font-bold mb-6">Categoria Personas</h1>
       <div>
         <p><strong>Id:</strong> { categoriaPersona.id }</p>
-        <p><strong>Descripcion:</strong> { categoriaPersona.descripcion }</p>
+        <p><strong>Descripción:</strong> { categoriaPersona.descripcion }</p>
       </div>
     </div>
   );
