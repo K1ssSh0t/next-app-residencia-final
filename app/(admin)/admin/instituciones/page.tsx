@@ -46,6 +46,7 @@ export default async function Page(props: {
             region: true,
             municipio: true,
             user: true,
+            modalidad: true,
 
         },
     });

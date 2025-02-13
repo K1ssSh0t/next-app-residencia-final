@@ -29,6 +29,7 @@ export async function getInstitucionesWithRelations({
       municipio: true,
       region: true,
       user: true,
+      modalidad: true,
     },
   });
 }

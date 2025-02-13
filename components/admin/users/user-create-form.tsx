@@ -28,8 +28,8 @@ const userCreateSchema = z
         errorMap: () => ({ message: "Selecciona un nivel educativo válido" }),
       })
       .optional(),
-    correoContacto: z.string().email("Correo inválido"),
-    nombreContacto: z.string(),
+    correoContacto: z.string().optional().or(z.string().email("El correo debe tener un formato valido")),
+    nombreContacto: z.string().optional(),
     password: z.string().min(5, "La contraseña debe ser de por lo menos 5 caracteres"),
   })
   .refine(
@@ -139,8 +139,8 @@ export function UserCreateForm() {
           {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
         </div>
         <div>
-          <Label htmlFor="correoContacto">Correo de Contacto *</Label>
-          <Input name="correoContacto" id="correoContacto" required />
+          <Label htmlFor="correoContacto">Correo de Contacto </Label>
+          <Input name="correoContacto" id="correoContacto" type="email" />
           {state.errors?.correoContacto?.map((error) => (
             <p className="text-red-500" key={error}>
               {error}
@@ -151,8 +151,8 @@ export function UserCreateForm() {
           )}
         </div>
         <div>
-          <Label htmlFor="nombreContacto">Nombre del Responsable *</Label>
-          <Input name="nombreContacto" id="nombreContacto" required />
+          <Label htmlFor="nombreContacto">Nombre del Responsable </Label>
+          <Input name="nombreContacto" id="nombreContacto" />
           {state.errors?.nombreContacto?.map((error) => (
             <p className="text-red-500" key={error}>
               {error}

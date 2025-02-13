@@ -218,6 +218,53 @@ export default async function Page(props: {
           )} */}
         </Card>
 
+        <Card className="md:col-span-3">
+          <CardHeader className="pb-1 px-3 pt-3">
+            <CardTitle> Datos de Cotacto</CardTitle>
+          </CardHeader>
+          <CardContent className="px-3 py-2">
+
+            {usuario?.correoContacto && usuario?.nombreContacto ? (
+              <div className="grid gap-2 text-sm">
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-3 gap-y-1.5">
+                  <div>
+                    <span className="text-muted-foreground">Nombre de Contacto:</span>
+                    <p className="font-medium">{usuario?.nombreContacto}</p>
+                  </div>
+                  <div>
+                    <span className="text-muted-foreground">Correo de Contacto:</span>
+                    <p className="font-medium"> {usuario?.correoContacto}</p>
+                  </div>
+                </div>
+                <CardFooter className="px-3">
+                  <Link href="/datos-contacto" className={isCuestionarioActivo ? "" : "pointer-events-none"}>
+                    <Button size="sm" disabled={!isCuestionarioActivo}>
+                      <PlusIcon className="mr-2 h-4 w-4" /> Editar
+                    </Button>
+                  </Link>
+                </CardFooter>
+              </div>
+            ) : (
+              <div className="text-center space-y-4">
+                <p className="text-muted-foreground">No tienes datos</p>
+                <Link href={{
+                  pathname: "/datos-contacto",
+                  query: { idInstitucion: miInstitucion?.id }
+
+                }}
+                  className={isCuestionarioActivo ? "" : "pointer-events-none"}>
+                  <Button size="sm" disabled={!isCuestionarioActivo}>
+                    <PlusIcon className="mr-2 h-4 w-4" /> Rellenar Datos
+                  </Button>
+                </Link>
+              </div>
+            )
+            }
+
+          </CardContent>
+        </Card>
+
         {/* <Card className="md:col-span-1">
           <CardHeader className="pb-1 px-3 pt-3">
             <CardTitle>Datos Generales</CardTitle>
