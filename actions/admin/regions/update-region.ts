@@ -7,7 +7,7 @@ import { revalidatePath } from "next/cache";
 import { createSelectSchema } from "drizzle-zod";
 import { BaseActionState } from "@/lib/types";
 import { auth } from "@/lib/auth";
-import { isAdmin } from "@/services/authorization-service";
+import { isAdmin, isConsultor, isUser } from "@/services/authorization-service";
 
 const updateRegionSchema = createSelectSchema(regiones)
   .partial()
@@ -22,7 +22,7 @@ export interface UpdateRegionState extends BaseActionState {
 
 export async function updateRegion(
   prevState: UpdateRegionState,
-  formData: FormData
+  formData: FormData,
 ): Promise<UpdateRegionState> {
   try {
     const session = await auth();
@@ -31,7 +31,7 @@ export async function updateRegion(
       throw new Error("unauthenticated");
     }
 
-    if (!isAdmin(session)) {
+    if (isUser(session) || isConsultor(session)) {
       throw new Error("unauthorized");
     }
 

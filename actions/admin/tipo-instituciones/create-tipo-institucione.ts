@@ -7,6 +7,7 @@ import { revalidatePath } from "next/cache";
 import { createInsertSchema } from "drizzle-zod";
 import { BaseActionState } from "@/lib/types";
 import { auth } from "@/lib/auth";
+import { isUser, isConsultor } from "@/services/authorization-service";
 
 const insertTipoInstitucioneSchema = createInsertSchema(tipoInstituciones);
 
@@ -19,7 +20,7 @@ export interface CreateTipoInstitucioneState extends BaseActionState {
 
 export async function createTipoInstitucione(
   prevState: CreateTipoInstitucioneState,
-  formData: FormData
+  formData: FormData,
 ): Promise<CreateTipoInstitucioneState> {
   try {
     const session = await auth();
@@ -28,10 +29,9 @@ export async function createTipoInstitucione(
       throw new Error("unauthenticated");
     }
 
-    if (session?.user?.role !== "admin") {
+    if (isUser(session) || isConsultor(session)) {
       throw new Error("unauthorized");
     }
-
 
     const validatedFields = insertTipoInstitucioneSchema.safeParse({
       descripcion: formData.get("descripcion") as string,
@@ -45,13 +45,13 @@ export async function createTipoInstitucione(
     }
 
     await db.insert(tipoInstituciones).values(validatedFields.data);
-    
+
     revalidatePath("/admin/tipo-instituciones");
   } catch (error) {
     console.error(error);
     return {
       status: "error",
-    }
+    };
   }
 
   redirect("/admin/tipo-instituciones");

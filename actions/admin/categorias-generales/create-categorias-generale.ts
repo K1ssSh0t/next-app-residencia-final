@@ -7,7 +7,7 @@ import { revalidatePath } from "next/cache";
 import { createInsertSchema } from "drizzle-zod";
 import { BaseActionState } from "@/lib/types";
 import { auth } from "@/lib/auth";
-import { isAdmin } from "@/services/authorization-service";
+import { isAdmin, isConsultor, isUser } from "@/services/authorization-service";
 
 const insertCategoriasGeneraleSchema = createInsertSchema(categoriasGenerales);
 
@@ -21,7 +21,7 @@ export interface CreateCategoriasGeneraleState extends BaseActionState {
 
 export async function createCategoriasGenerale(
   prevState: CreateCategoriasGeneraleState,
-  formData: FormData
+  formData: FormData,
 ): Promise<CreateCategoriasGeneraleState> {
   try {
     const session = await auth();
@@ -30,7 +30,7 @@ export async function createCategoriasGenerale(
       throw new Error("unauthenticated");
     }
 
-    if (!isAdmin(session)) {
+    if (isUser(session) || isConsultor(session)) {
       throw new Error("unauthorized");
     }
 

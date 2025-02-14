@@ -7,6 +7,7 @@ import { revalidatePath } from "next/cache";
 import { createSelectSchema } from "drizzle-zod";
 import { BaseActionState } from "@/lib/types";
 import { auth } from "@/lib/auth";
+import { isUser, isConsultor } from "@/services/authorization-service";
 
 const updateHelperSchema = createSelectSchema(helpers)
   .partial()
@@ -21,7 +22,7 @@ export interface UpdateHelperState extends BaseActionState {
 
 export async function updateHelper(
   prevState: UpdateHelperState,
-  formData: FormData
+  formData: FormData,
 ): Promise<UpdateHelperState> {
   try {
     const session = await auth();
@@ -30,7 +31,7 @@ export async function updateHelper(
       throw new Error("unauthenticated");
     }
 
-    if (session?.user?.role !== "admin") {
+    if (isUser(session) || isConsultor(session)) {
       throw new Error("unauthorized");
     }
 

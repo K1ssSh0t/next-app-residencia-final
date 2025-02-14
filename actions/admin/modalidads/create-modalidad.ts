@@ -7,7 +7,7 @@ import { revalidatePath } from "next/cache";
 import { createInsertSchema } from "drizzle-zod";
 import { BaseActionState } from "@/lib/types";
 import { auth } from "@/lib/auth";
-import { isAdmin } from "@/services/authorization-service";
+import { isAdmin, isConsultor, isUser } from "@/services/authorization-service";
 
 const insertModalidadSchema = createInsertSchema(modalidades);
 
@@ -20,7 +20,7 @@ export interface CreateModalidadState extends BaseActionState {
 
 export async function createModalidad(
   prevState: CreateModalidadState,
-  formData: FormData
+  formData: FormData,
 ): Promise<CreateModalidadState> {
   try {
     const session = await auth();
@@ -29,7 +29,7 @@ export async function createModalidad(
       throw new Error("unauthenticated");
     }
 
-    if (!isAdmin(session)) {
+    if (isUser(session) || isConsultor(session)) {
       throw new Error("unauthorized");
     }
 

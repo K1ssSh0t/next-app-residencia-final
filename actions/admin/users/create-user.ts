@@ -9,6 +9,7 @@ import { BaseActionState } from "@/lib/types";
 import { auth } from "@/lib/auth";
 import bcrypt from "bcrypt";
 import { z } from "zod";
+import { isConsultor, isUser } from "@/services/authorization-service";
 
 const insertUserSchema = createInsertSchema(users).extend({
   nivelEducativo: z.boolean(),
@@ -31,7 +32,7 @@ export interface CreateUserState extends BaseActionState {
 
 export async function createUser(
   prevState: CreateUserState,
-  formData: FormData
+  formData: FormData,
 ): Promise<CreateUserState> {
   try {
     const session = await auth();
@@ -39,8 +40,10 @@ export async function createUser(
     if (!session?.user?.id) {
       throw new Error("unauthenticated");
     }
-
-    if (session?.user?.role !== "admin") {
+    // Este codigo verifica si el usuario autenticado es un usuario regular o un consultor
+    // Si cumple cualquiera de esas condiciones, arroja un error de "unauthorized"
+    // Es decir, solo permite continuar si el usuario tiene rol de administrador o consultor
+    if (isUser(session) || isConsultor(session)) {
       throw new Error("unauthorized");
     }
 

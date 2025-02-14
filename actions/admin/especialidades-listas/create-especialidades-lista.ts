@@ -7,9 +7,10 @@ import { revalidatePath } from "next/cache";
 import { createInsertSchema } from "drizzle-zod";
 import { BaseActionState } from "@/lib/types";
 import { auth } from "@/lib/auth";
-import { isAdmin } from "@/services/authorization-service";
+import { isAdmin, isConsultor, isUser } from "@/services/authorization-service";
 
-const insertEspecialidadesListaSchema = createInsertSchema(especialidadesListas);
+const insertEspecialidadesListaSchema =
+  createInsertSchema(especialidadesListas);
 
 export interface CreateEspecialidadesListaState extends BaseActionState {
   errors?: {
@@ -21,7 +22,7 @@ export interface CreateEspecialidadesListaState extends BaseActionState {
 
 export async function createEspecialidadesLista(
   prevState: CreateEspecialidadesListaState,
-  formData: FormData
+  formData: FormData,
 ): Promise<CreateEspecialidadesListaState> {
   try {
     const session = await auth();
@@ -30,10 +31,9 @@ export async function createEspecialidadesLista(
       throw new Error("unauthenticated");
     }
 
-    if (!isAdmin(session)) {
+    if (isUser(session) || isConsultor(session)) {
       throw new Error("unauthorized");
     }
-
 
     const validatedFields = insertEspecialidadesListaSchema.safeParse({
       descripcion: formData.get("descripcion") as string,
@@ -48,13 +48,13 @@ export async function createEspecialidadesLista(
     }
 
     await db.insert(especialidadesListas).values(validatedFields.data);
-    
+
     revalidatePath("/admin/especialidades-listas");
   } catch (error) {
     console.error(error);
     return {
       status: "error",
-    }
+    };
   }
 
   redirect("/admin/especialidades-listas");

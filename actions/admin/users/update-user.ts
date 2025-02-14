@@ -9,6 +9,7 @@ import { BaseActionState } from "@/lib/types";
 import { auth } from "@/lib/auth";
 import bcrypt from "bcrypt";
 import { z } from "zod";
+import { isConsultor, isUser } from "@/services/authorization-service";
 
 const updateUserSchema = createSelectSchema(users)
   .partial()
@@ -34,7 +35,7 @@ export interface UpdateUserState extends BaseActionState {
 
 export async function updateUser(
   prevState: UpdateUserState,
-  formData: FormData
+  formData: FormData,
 ): Promise<UpdateUserState> {
   try {
     const session = await auth();
@@ -43,7 +44,7 @@ export async function updateUser(
       throw new Error("unauthenticated");
     }
 
-    if (session?.user?.role !== "admin") {
+    if (isUser(session) || isConsultor(session)) {
       throw new Error("unauthorized");
     }
 

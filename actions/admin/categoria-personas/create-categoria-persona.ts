@@ -7,6 +7,7 @@ import { revalidatePath } from "next/cache";
 import { createInsertSchema } from "drizzle-zod";
 import { BaseActionState } from "@/lib/types";
 import { auth } from "@/lib/auth";
+import { isUser, isConsultor } from "@/services/authorization-service";
 
 const insertCategoriaPersonaSchema = createInsertSchema(categoriaPersonas);
 
@@ -21,7 +22,7 @@ export interface CreateCategoriaPersonaState extends BaseActionState {
 
 export async function createCategoriaPersona(
   prevState: CreateCategoriaPersonaState,
-  formData: FormData
+  formData: FormData,
 ): Promise<CreateCategoriaPersonaState> {
   try {
     const session = await auth();
@@ -30,7 +31,7 @@ export async function createCategoriaPersona(
       throw new Error("unauthenticated");
     }
 
-    if (session?.user?.role !== "admin") {
+    if (isUser(session) || isConsultor(session)) {
       throw new Error("unauthorized");
     }
 

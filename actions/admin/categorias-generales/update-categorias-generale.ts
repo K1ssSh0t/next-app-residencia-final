@@ -7,7 +7,7 @@ import { revalidatePath } from "next/cache";
 import { createSelectSchema } from "drizzle-zod";
 import { BaseActionState } from "@/lib/types";
 import { auth } from "@/lib/auth";
-import { isAdmin } from "@/services/authorization-service";
+import { isAdmin, isConsultor, isUser } from "@/services/authorization-service";
 
 const updateCategoriasGeneraleSchema = createSelectSchema(categoriasGenerales)
   .partial()
@@ -23,7 +23,7 @@ export interface UpdateCategoriasGeneraleState extends BaseActionState {
 
 export async function updateCategoriasGenerale(
   prevState: UpdateCategoriasGeneraleState,
-  formData: FormData
+  formData: FormData,
 ): Promise<UpdateCategoriasGeneraleState> {
   try {
     const session = await auth();
@@ -32,7 +32,7 @@ export async function updateCategoriasGenerale(
       throw new Error("unauthenticated");
     }
 
-    if (!isAdmin(session)) {
+    if (isUser(session) || isConsultor(session)) {
       throw new Error("unauthorized");
     }
 
@@ -57,7 +57,7 @@ export async function updateCategoriasGenerale(
     revalidatePath("/admin/categorias-generales");
     revalidatePath("/admin/categorias-generales/" + validatedFields.data.id);
     revalidatePath(
-      "/admin/categorias-generales/" + validatedFields.data.id + "/edit"
+      "/admin/categorias-generales/" + validatedFields.data.id + "/edit",
     );
 
     return {

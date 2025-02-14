@@ -11,3 +11,7 @@ export function isOperador(session: Session) {
 export function isConsultor(session: Session) {
   return session?.user?.role === "consultor";
 }
+
+export function isUser(session: Session) {
+  return session?.user?.role === "user";
+}

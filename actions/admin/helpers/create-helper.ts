@@ -7,6 +7,7 @@ import { revalidatePath } from "next/cache";
 import { createInsertSchema } from "drizzle-zod";
 import { BaseActionState } from "@/lib/types";
 import { auth } from "@/lib/auth";
+import { isUser, isConsultor } from "@/services/authorization-service";
 
 const insertHelperSchema = createInsertSchema(helpers);
 
@@ -19,7 +20,7 @@ export interface CreateHelperState extends BaseActionState {
 
 export async function createHelper(
   prevState: CreateHelperState,
-  formData: FormData
+  formData: FormData,
 ): Promise<CreateHelperState> {
   try {
     const session = await auth();
@@ -28,10 +29,9 @@ export async function createHelper(
       throw new Error("unauthenticated");
     }
 
-    if (session?.user?.role !== "admin") {
+    if (isUser(session) || isConsultor(session)) {
       throw new Error("unauthorized");
     }
-
 
     const validatedFields = insertHelperSchema.safeParse({
       estadoCuestionario: !!formData.get("estadoCuestionario"),
@@ -45,13 +45,13 @@ export async function createHelper(
     }
 
     await db.insert(helpers).values(validatedFields.data);
-    
+
     revalidatePath("/admin/helpers");
   } catch (error) {
     console.error(error);
     return {
       status: "error",
-    }
+    };
   }
 
   redirect("/admin/helpers");

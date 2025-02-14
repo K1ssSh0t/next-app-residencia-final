@@ -7,9 +7,11 @@ import { revalidatePath } from "next/cache";
 import { createSelectSchema } from "drizzle-zod";
 import { BaseActionState } from "@/lib/types";
 import { auth } from "@/lib/auth";
-import { isAdmin } from "@/services/authorization-service";
+import { isAdmin, isConsultor, isUser } from "@/services/authorization-service";
 
-const updateMunicipioSchema = createSelectSchema(municipios).partial().required({ id: true });
+const updateMunicipioSchema = createSelectSchema(municipios)
+  .partial()
+  .required({ id: true });
 
 export interface UpdateMunicipioState extends BaseActionState {
   errors?: {
@@ -21,7 +23,7 @@ export interface UpdateMunicipioState extends BaseActionState {
 
 export async function updateMunicipio(
   prevState: UpdateMunicipioState,
-  formData: FormData
+  formData: FormData,
 ): Promise<UpdateMunicipioState> {
   try {
     const session = await auth();
@@ -30,10 +32,9 @@ export async function updateMunicipio(
       throw new Error("unauthenticated");
     }
 
-    if (!isAdmin(session)) {
+    if (isUser(session) || isConsultor(session)) {
       throw new Error("unauthorized");
     }
-
 
     const validatedFields = updateMunicipioSchema.safeParse({
       id: formData.get("id") as string,
@@ -64,6 +65,6 @@ export async function updateMunicipio(
     console.error(error);
     return {
       status: "error",
-    }
+    };
   }
 }

@@ -7,7 +7,7 @@ import { revalidatePath } from "next/cache";
 import { createInsertSchema } from "drizzle-zod";
 import { BaseActionState } from "@/lib/types";
 import { auth } from "@/lib/auth";
-import { isAdmin } from "@/services/authorization-service";
+import { isAdmin, isConsultor, isUser } from "@/services/authorization-service";
 
 const insertRegionSchema = createInsertSchema(regiones);
 
@@ -20,7 +20,7 @@ export interface CreateRegionState extends BaseActionState {
 
 export async function createRegion(
   prevState: CreateRegionState,
-  formData: FormData
+  formData: FormData,
 ): Promise<CreateRegionState> {
   try {
     const session = await auth();
@@ -29,7 +29,7 @@ export async function createRegion(
       throw new Error("unauthenticated");
     }
 
-    if (!isAdmin(session)) {
+    if (isUser(session) || isConsultor(session)) {
       throw new Error("unauthorized");
     }
 

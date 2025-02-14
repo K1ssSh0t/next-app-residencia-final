@@ -7,8 +7,11 @@ import { revalidatePath } from "next/cache";
 import { createSelectSchema } from "drizzle-zod";
 import { BaseActionState } from "@/lib/types";
 import { auth } from "@/lib/auth";
+import { isUser, isConsultor } from "@/services/authorization-service";
 
-const updateTipoInstitucioneSchema = createSelectSchema(tipoInstituciones).partial().required({ id: true });
+const updateTipoInstitucioneSchema = createSelectSchema(tipoInstituciones)
+  .partial()
+  .required({ id: true });
 
 export interface UpdateTipoInstitucioneState extends BaseActionState {
   errors?: {
@@ -19,7 +22,7 @@ export interface UpdateTipoInstitucioneState extends BaseActionState {
 
 export async function updateTipoInstitucione(
   prevState: UpdateTipoInstitucioneState,
-  formData: FormData
+  formData: FormData,
 ): Promise<UpdateTipoInstitucioneState> {
   try {
     const session = await auth();
@@ -28,10 +31,9 @@ export async function updateTipoInstitucione(
       throw new Error("unauthenticated");
     }
 
-    if (session?.user?.role !== "admin") {
+    if (isUser(session) || isConsultor(session)) {
       throw new Error("unauthorized");
     }
-
 
     const validatedFields = updateTipoInstitucioneSchema.safeParse({
       id: formData.get("id") as string,
@@ -52,7 +54,9 @@ export async function updateTipoInstitucione(
 
     revalidatePath("/admin/tipo-instituciones");
     revalidatePath("/admin/tipo-instituciones/" + validatedFields.data.id);
-    revalidatePath("/admin/tipo-instituciones/" + validatedFields.data.id + "/edit");
+    revalidatePath(
+      "/admin/tipo-instituciones/" + validatedFields.data.id + "/edit",
+    );
 
     return {
       status: "success",
@@ -61,6 +65,6 @@ export async function updateTipoInstitucione(
     console.error(error);
     return {
       status: "error",
-    }
+    };
   }
 }

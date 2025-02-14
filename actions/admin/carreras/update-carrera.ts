@@ -7,6 +7,7 @@ import { revalidatePath } from "next/cache";
 import { createSelectSchema } from "drizzle-zod";
 import { BaseActionState } from "@/lib/types";
 import { auth } from "@/lib/auth";
+import { isUser, isConsultor } from "@/services/authorization-service";
 
 const updateCarreraSchema = createSelectSchema(carreras)
   .partial()
@@ -22,7 +23,7 @@ export interface UpdateCarreraState extends BaseActionState {
 
 export async function updateCarrera(
   prevState: UpdateCarreraState,
-  formData: FormData
+  formData: FormData,
 ): Promise<UpdateCarreraState> {
   try {
     const session = await auth();
@@ -31,7 +32,7 @@ export async function updateCarrera(
       throw new Error("unauthenticated");
     }
 
-    if (session?.user?.role !== "admin") {
+    if (isUser(session) || isConsultor(session)) {
       throw new Error("unauthorized");
     }
 

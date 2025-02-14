@@ -7,9 +7,11 @@ import { revalidatePath } from "next/cache";
 import { createSelectSchema } from "drizzle-zod";
 import { BaseActionState } from "@/lib/types";
 import { auth } from "@/lib/auth";
-import { isAdmin } from "@/services/authorization-service";
+import { isAdmin, isConsultor, isUser } from "@/services/authorization-service";
 
-const updateEspecialidadesListaSchema = createSelectSchema(especialidadesListas).partial().required({ id: true });
+const updateEspecialidadesListaSchema = createSelectSchema(especialidadesListas)
+  .partial()
+  .required({ id: true });
 
 export interface UpdateEspecialidadesListaState extends BaseActionState {
   errors?: {
@@ -21,7 +23,7 @@ export interface UpdateEspecialidadesListaState extends BaseActionState {
 
 export async function updateEspecialidadesLista(
   prevState: UpdateEspecialidadesListaState,
-  formData: FormData
+  formData: FormData,
 ): Promise<UpdateEspecialidadesListaState> {
   try {
     const session = await auth();
@@ -30,10 +32,9 @@ export async function updateEspecialidadesLista(
       throw new Error("unauthenticated");
     }
 
-    if (!isAdmin(session)) {
+    if (isUser(session) || isConsultor(session)) {
       throw new Error("unauthorized");
     }
-
 
     const validatedFields = updateEspecialidadesListaSchema.safeParse({
       id: formData.get("id") as string,
@@ -55,7 +56,9 @@ export async function updateEspecialidadesLista(
 
     revalidatePath("/admin/especialidades-listas");
     revalidatePath("/admin/especialidades-listas/" + validatedFields.data.id);
-    revalidatePath("/admin/especialidades-listas/" + validatedFields.data.id + "/edit");
+    revalidatePath(
+      "/admin/especialidades-listas/" + validatedFields.data.id + "/edit",
+    );
 
     return {
       status: "success",
@@ -64,6 +67,6 @@ export async function updateEspecialidadesLista(
     console.error(error);
     return {
       status: "error",
-    }
+    };
   }
 }

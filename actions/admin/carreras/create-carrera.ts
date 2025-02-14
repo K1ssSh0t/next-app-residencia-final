@@ -7,6 +7,7 @@ import { revalidatePath } from "next/cache";
 import { createInsertSchema } from "drizzle-zod";
 import { BaseActionState } from "@/lib/types";
 import { auth } from "@/lib/auth";
+import { isUser, isConsultor } from "@/services/authorization-service";
 
 const insertCarreraSchema = createInsertSchema(carreras);
 
@@ -20,7 +21,7 @@ export interface CreateCarreraState extends BaseActionState {
 
 export async function createCarrera(
   prevState: CreateCarreraState,
-  formData: FormData
+  formData: FormData,
 ): Promise<CreateCarreraState> {
   try {
     const session = await auth();
@@ -29,7 +30,7 @@ export async function createCarrera(
       throw new Error("unauthenticated");
     }
 
-    if (session?.user?.role !== "admin") {
+    if (isUser(session) || isConsultor(session)) {
       throw new Error("unauthorized");
     }
 

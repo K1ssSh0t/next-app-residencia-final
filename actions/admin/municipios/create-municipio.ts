@@ -7,7 +7,7 @@ import { revalidatePath } from "next/cache";
 import { createInsertSchema } from "drizzle-zod";
 import { BaseActionState } from "@/lib/types";
 import { auth } from "@/lib/auth";
-import { isAdmin } from "@/services/authorization-service";
+import { isAdmin, isConsultor, isUser } from "@/services/authorization-service";
 
 const insertMunicipioSchema = createInsertSchema(municipios);
 
@@ -21,7 +21,7 @@ export interface CreateMunicipioState extends BaseActionState {
 
 export async function createMunicipio(
   prevState: CreateMunicipioState,
-  formData: FormData
+  formData: FormData,
 ): Promise<CreateMunicipioState> {
   try {
     const session = await auth();
@@ -30,10 +30,9 @@ export async function createMunicipio(
       throw new Error("unauthenticated");
     }
 
-    if (!isAdmin(session)) {
+    if (isUser(session) || isConsultor(session)) {
       throw new Error("unauthorized");
     }
-
 
     const validatedFields = insertMunicipioSchema.safeParse({
       nombre: formData.get("nombre") as string,
@@ -48,13 +47,13 @@ export async function createMunicipio(
     }
 
     await db.insert(municipios).values(validatedFields.data);
-    
+
     revalidatePath("/admin/municipios");
   } catch (error) {
     console.error(error);
     return {
       status: "error",
-    }
+    };
   }
 
   redirect("/admin/municipios");
