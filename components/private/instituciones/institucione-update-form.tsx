@@ -22,7 +22,7 @@ import {
 
 import { Info } from "lucide-react";
 import { Modalidad } from "@/schema/modalidads";
-
+import Swal from "sweetalert2";
 
 
 function RequiredLabel({ children }: { children: React.ReactNode }) {
@@ -90,7 +90,29 @@ export function InstitucioneUpdateForm({
       formData.delete('tipoBachilleresId');
     }
 
-    startTransition(() => dispatch(formData));
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "Se actualizará la información de la institución.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#631233",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, actualizar",
+      cancelButtonText: "Cancelar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        startTransition(() => dispatch(formData));
+        Swal.fire({
+          title: "Actualizado",
+          text: "La institución se ha actualizado correctamente.",
+          icon: "success",
+          confirmButtonColor: "#631233",
+          timer: 2000, 
+          timerProgressBar: true
+        });
+      }
+    });
+    //startTransition(() => dispatch(formData));
   }
 
   function handleRegionChange(value: string) {

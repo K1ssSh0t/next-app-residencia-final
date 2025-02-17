@@ -22,7 +22,7 @@ import {
 
 import { Info } from "lucide-react";
 import { Modalidad } from "@/schema/modalidads";
-
+import Swal from "sweetalert2";
 
 function RequiredLabel({ children }: { children: React.ReactNode }) {
   return (
@@ -81,7 +81,15 @@ export function InstitucioneCreateForm({
     if (nivelEducativo) {
       formData.delete('tipoBachilleresId');
     }
-
+    Swal.fire({
+      title: "Guardado",
+      text: "Se han guardado los datos.",
+      icon: "success",
+      confirmButtonColor: "#631233",
+      timer: 2000, 
+      timerProgressBar: true
+      
+    });
     startTransition(() => dispatch(formData));
   }
 
