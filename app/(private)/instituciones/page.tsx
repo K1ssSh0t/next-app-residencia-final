@@ -220,7 +220,7 @@ export default async function Page(props: {
 
         <Card className="md:col-span-3">
           <CardHeader className="pb-1 px-3 pt-3">
-            <CardTitle> Datos de Cotacto</CardTitle>
+            <CardTitle> Datos de Contacto</CardTitle>
           </CardHeader>
           <CardContent className="px-3 py-2">
 

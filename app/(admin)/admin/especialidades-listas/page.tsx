@@ -36,7 +36,7 @@ export default async function Page(props: {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbPage>Especialidades Listas</BreadcrumbPage>
+              <BreadcrumbPage className="text-xl font-bold"> Catalogo Especialidades</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
@@ -54,7 +54,7 @@ export default async function Page(props: {
         </div>
       </div>
       <div className="mb-5">
-        <EspecialidadesListaTable especialidadesListaList={ especialidadesListaList } />
+        <EspecialidadesListaTable especialidadesListaList={especialidadesListaList} />
       </div>
       <div>
         <Pagination page={page} pageSize={pageSize} totalPages={totalPages} />

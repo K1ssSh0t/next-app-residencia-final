@@ -40,7 +40,7 @@ export default function Page(props: {
         error = "No autorizado";
         break;
       default:
-        error = "Error de inicio de sesion";
+        error = "Error de inicio de sesión";
         break;
     }
   }
@@ -68,7 +68,7 @@ export default function Page(props: {
       if (result.success) {
         toast({
           title: 'Exito',
-          description: 'Has iniciado sesion.',
+          description: 'Has iniciado sesión.',
           variant: 'success',
           duration: 3000,
         })
@@ -108,7 +108,7 @@ export default function Page(props: {
   return (
     <div className="flex min-h-screen justify-center items-center">
       <div className="flex flex-col gap-2 items-center border rounded p-5 max-w-xs">
-        <div className='text-xl font-bold text-center'>Iniciar sesion como Administrador</div>
+        <div className='text-xl font-bold text-center'>Iniciar sesión como Administrador</div>
         <form
           className="flex flex-col gap-2 items-center w-full"
           onSubmit={handleSubmit}

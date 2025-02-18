@@ -20,7 +20,7 @@ export function InstitucioneTable({ institucioneList }: { institucioneList: Inst
           <TableHead className=" text-lg text-white">Clave de Institucion</TableHead>
           <TableHead className=" text-lg text-white">Clave de Centro de Trabajo</TableHead>
           <TableHead className=" text-lg text-white">Nombre</TableHead>
-          <TableHead className=" text-lg text-white">Region</TableHead>
+          <TableHead className=" text-lg text-white">Región</TableHead>
           <TableHead className=" text-lg text-white">Municipio</TableHead>
           <TableHead className=" text-lg text-white">Modalidad</TableHead>
           <TableHead className=" text-lg text-white">Tipo Instituciones</TableHead>

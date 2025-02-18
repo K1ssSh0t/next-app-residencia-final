@@ -17,28 +17,28 @@ export function TipoInstitucioneTable({ tipoInstitucioneList }: { tipoInstitucio
       <TableHeader>
         <TableRow className=" bg-[#631233] text-white text-lg font-bold">
           <TableHead>Id</TableHead>
-          <TableHead className=" text-lg text-white">Descripcion</TableHead>
+          <TableHead className=" text-lg text-white">Descripción</TableHead>
           <TableHead></TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        { tipoInstitucioneList.map((tipoInstitucione) => (
-          <TableRow key={ tipoInstitucione.id }>
-            <TableCell>{ tipoInstitucione.id }</TableCell>
-            <TableCell>{ tipoInstitucione.descripcion }</TableCell>
+        {tipoInstitucioneList.map((tipoInstitucione) => (
+          <TableRow key={tipoInstitucione.id}>
+            <TableCell>{tipoInstitucione.id}</TableCell>
+            <TableCell>{tipoInstitucione.descripcion}</TableCell>
             <TableCell className="justify-end flex gap-2">
               {/* [CODE_MARK table-actions] */}
-              <Link href={`/admin/tipo-instituciones/${ tipoInstitucione.id }`}>
+              <Link href={`/admin/tipo-instituciones/${tipoInstitucione.id}`}>
                 <Button size="icon" variant="outline">
                   <EyeIcon />
                 </Button>
               </Link>
-              <Link href={`/admin/tipo-instituciones/${ tipoInstitucione.id }/edit`}>
+              <Link href={`/admin/tipo-instituciones/${tipoInstitucione.id}/edit`}>
                 <Button size="icon" variant="outline">
                   <PencilIcon />
                 </Button>
               </Link>
-              <Link href={`/admin/tipo-instituciones/${ tipoInstitucione.id }/delete`}>
+              <Link href={`/admin/tipo-instituciones/${tipoInstitucione.id}/delete`}>
                 <Button size="icon" variant="outline">
                   <TrashIcon />
                 </Button>

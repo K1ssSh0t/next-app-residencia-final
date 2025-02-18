@@ -18,7 +18,7 @@ export function MunicipioTable({ municipioList }: { municipioList: MunicipiosWit
         <TableRow className=" bg-[#631233] text-white text-lg font-bold">
           <TableHead>Id</TableHead>
           <TableHead className=" text-lg text-white">Nombre</TableHead>
-          <TableHead className=" text-lg text-white">Region</TableHead>
+          <TableHead className=" text-lg text-white">Región</TableHead>
           <TableHead></TableHead>
         </TableRow>
       </TableHeader>

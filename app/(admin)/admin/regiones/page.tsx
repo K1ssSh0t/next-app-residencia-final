@@ -36,7 +36,7 @@ export default async function Page(props: {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbPage className="font-extrabold text-xl text-black">Regiones</BreadcrumbPage>
+              <BreadcrumbPage className="font-bold text-xl text-black">Regiones</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
