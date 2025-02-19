@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/select";
 import { z } from "zod";
 import { Eye, EyeOff } from "lucide-react";
+import Swal from "sweetalert2";
 
 // Define Zod schema for form validation
 const userCreateSchema = z
@@ -97,6 +98,15 @@ export function UserCreateForm() {
       formData.set("nivelEducativo", nivelEducativo === "true" ? "true" : "false");
 
       startTransition(() => dispatch(formData));
+          Swal.fire({
+            title: "Guardado",
+            text: "Se han guardado los datos.",
+            icon: "success",
+            confirmButtonColor: "#631233",
+            timer: 2000, 
+            timerProgressBar: true
+            
+          });
     } catch (error) {
       if (error instanceof z.ZodError) {
         // Manejo de errores de validación
@@ -259,7 +269,7 @@ export function UserCreateForm() {
           </Button>
         </div>
 
-        <FormAlert state={state} />
+ {/*<FormAlert state={state} />*/}
       </form>
     </div>
   );

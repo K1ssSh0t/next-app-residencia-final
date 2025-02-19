@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { User } from "@/schema/users";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Eye, EyeOff } from "lucide-react"
+import Swal from "sweetalert2";
 
 export function UserUpdateForm({
   user,
@@ -67,8 +68,16 @@ export function UserUpdateForm({
     const nivelEducativo = formData.get('nivelEducativo');
     formData.set('nivelEducativo', nivelEducativo === 'true' ? 'true' : 'false');
 
-
     startTransition(() => dispatch(formData));
+          Swal.fire({
+            title: "Guardado",
+            text: "Se han guardado los datos.",
+            icon: "success",
+            confirmButtonColor: "#631233",
+            timer: 2000, 
+            timerProgressBar: true
+            
+          });
   }
 
   return (
@@ -195,7 +204,7 @@ export function UserUpdateForm({
         </div>
 
 
-        <FormAlert state={state} />
+        {/*<FormAlert state={state} />*/}
       </form>
     </div>
   );

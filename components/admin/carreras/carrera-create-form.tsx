@@ -39,9 +39,9 @@ export function CarreraCreateForm() {
           ))}
         </div>
         <div>
-          <Button type="submit">Submit</Button>
+          <Button type="submit">Enviar</Button>
         </div>
-        <FormAlert state={state} />
+        {/*<FormAlert state={state} />*/}
       </form>
     </div>
   );
