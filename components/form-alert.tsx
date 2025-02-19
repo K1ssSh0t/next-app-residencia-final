@@ -12,7 +12,7 @@ export function FormAlert({ state }: { state: BaseActionState }) {
               <CheckIcon color="green" />
               <AlertTitle>Success</AlertTitle>
               <AlertDescription>
-                {state.message ?? "Request completed successfully."}
+                {state.message ?? "Solicitud completa exitosamente."}
               </AlertDescription>
             </Alert>
           )}
@@ -30,7 +30,7 @@ export function FormAlert({ state }: { state: BaseActionState }) {
               <TriangleAlertIcon color="red" />
               <AlertTitle>Server Error</AlertTitle>
               <AlertDescription>
-                {state.message ?? "Something went wrong."}
+                {state.message ?? "Completa los campos."}
               </AlertDescription>
             </Alert>
           )}

@@ -1,4 +1,4 @@
-import { eq, like } from "drizzle-orm";
+import { eq, ilike, like } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { categoriaPersonas } from "@/schema/categoria-personas";
 
@@ -22,7 +22,7 @@ export async function getCategoriaPersonasWithRelations({
   return await db.query.categoriaPersonas.findMany({
     limit: limit,
     offset: offset,
-    where: search ? like(categoriaPersonas.id, `%${search}%`) : undefined,
+    where: search ? ilike(categoriaPersonas.descripcion, `%${search}%`) : undefined,
     with: undefined
   });
 }
