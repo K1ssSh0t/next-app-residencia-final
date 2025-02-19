@@ -13,7 +13,6 @@ import { Label } from "@/components/ui/label";
 import { FormAlert } from "@/components/form-alert";
 import { Input } from "@/components/ui/input";
 import Swal from "sweetalert2";
-<<<<<<< HEAD
 
 import { User } from "@/schema/users";
 import {
@@ -25,13 +24,6 @@ import {
 } from "@/components/ui/select";
 import { Eye, EyeOff } from "lucide-react";
 
-=======
-
-import { User } from "@/schema/users";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Eye, EyeOff } from "lucide-react"
-
->>>>>>> 17a59fa (Guardando cambios antes del pull)
 export function UserUpdateForm({ user }: { user: User }) {
   const initialState: UpdateUserState = {};
   const [state, dispatch] = useActionState(updateUser, initialState);
