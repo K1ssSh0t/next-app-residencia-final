@@ -31,17 +31,17 @@ export function CategoriasGeneraleTable({ categoriasGeneraleList }: { categorias
             <TableCell className="justify-end flex gap-2">
               {/* [CODE_MARK table-actions] */}
               <Link href={`/admin/categorias-generales/${categoriasGenerales.id}`}>
-                <Button size="icon" variant="outline">
+                <Button size="icon" variant="outline" title="Ver Detalles">
                   <EyeIcon />
                 </Button>
               </Link>
               <Link href={`/admin/categorias-generales/${categoriasGenerales.id}/edit`}>
-                <Button size="icon" variant="outline">
+                <Button size="icon" variant="outline" title="Editar">
                   <PencilIcon />
                 </Button>
               </Link>
               <Link href={`/admin/categorias-generales/${categoriasGenerales.id}/delete`}>
-                <Button size="icon" variant="outline">
+                <Button size="icon" variant="outline" title="Eliminar">
                   <TrashIcon />
                 </Button>
               </Link>

@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { GenericCombobox } from "@/components/generic-combobox";
 
 import { Region } from "@/schema/regions";
+import Swal from "sweetalert2";
 
 export function MunicipioCreateForm({
   regionList,
@@ -22,6 +23,15 @@ export function MunicipioCreateForm({
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
     startTransition(() => dispatch(formData));
+    Swal.fire({
+      title: "Guardado",
+      text: "Se han guardado los datos.",
+      icon: "success",
+      confirmButtonColor: "#631233",
+      timer: 2000, 
+      timerProgressBar: true
+      
+    });
   }
 
   return (
@@ -56,7 +66,7 @@ export function MunicipioCreateForm({
           ))}
         </div>
         <div>
-          <Button type="submit">Submit</Button>
+          <Button type="submit">Enviar</Button>
         </div>
         <FormAlert state={state} />
       </form>

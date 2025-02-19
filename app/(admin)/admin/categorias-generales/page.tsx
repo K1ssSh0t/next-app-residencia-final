@@ -36,14 +36,14 @@ export default async function Page(props: {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbPage className="font-bold text-xl">Categorias Generales</BreadcrumbPage>
+              <BreadcrumbPage className="font-bold text-xl">Categorías Generales</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
       </div>
       <div className="flex justify-between pt-5 mb-5">
         <div>
-          <SearchInput placeholder="Buscar Categorias Generales" />
+          <SearchInput placeholder="Buscar Categorías Generales" />
         </div>
         <div className="text-right mr-2">
           <Link href="/admin/categorias-generales/new">

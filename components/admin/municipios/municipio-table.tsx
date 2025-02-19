@@ -31,17 +31,17 @@ export function MunicipioTable({ municipioList }: { municipioList: MunicipiosWit
             <TableCell className="justify-end flex gap-2">
               {/* [CODE_MARK table-actions] */}
               <Link href={`/admin/municipios/${municipio.id}`}>
-                <Button size="icon" variant="outline">
+                <Button size="icon" variant="outline" title="Ver Detalles">
                   <EyeIcon />
                 </Button>
               </Link>
               <Link href={`/admin/municipios/${municipio.id}/edit`}>
-                <Button size="icon" variant="outline">
+                <Button size="icon" variant="outline" title="Editar">
                   <PencilIcon />
                 </Button>
               </Link>
               <Link href={`/admin/municipios/${municipio.id}/delete`}>
-                <Button size="icon" variant="outline">
+                <Button size="icon" variant="outline" title="Eliminar">
                   <TrashIcon />
                 </Button>
               </Link>

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { FormAlert } from "@/components/form-alert";
 import { Input } from "@/components/ui/input";
+import Swal from "sweetalert2";
 
 
 export function RegionCreateForm() {
@@ -16,6 +17,15 @@ export function RegionCreateForm() {
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
     startTransition(() => dispatch(formData));
+    Swal.fire({
+      title: "Guardado",
+      text: "Se han guardado los datos.",
+      icon: "success",
+      confirmButtonColor: "#631233",
+      timer: 2000, 
+      timerProgressBar: true
+      
+    });
   }
 
   return (
@@ -31,7 +41,7 @@ export function RegionCreateForm() {
           ))}
         </div>
         <div>
-          <Button type="submit">Submit</Button>
+          <Button type="submit">Enviar</Button>
         </div>
         <FormAlert state={state} />
       </form>

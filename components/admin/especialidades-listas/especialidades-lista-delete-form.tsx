@@ -16,7 +16,7 @@ export function EspecialidadesListaDeleteForm({ especialidadesLista }: { especia
         <input type="hidden" name="id" value={ especialidadesLista.id} />
         <div>
           <Button type="submit" variant="destructive">
-            Delete
+            Borrar
           </Button>
         </div>
         <FormAlert state={state} />

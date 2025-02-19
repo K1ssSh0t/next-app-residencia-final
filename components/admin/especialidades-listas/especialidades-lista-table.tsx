@@ -31,17 +31,17 @@ export function EspecialidadesListaTable({ especialidadesListaList }: { especial
             <TableCell className="justify-end flex gap-2">
               {/* [CODE_MARK table-actions] */}
               <Link href={`/admin/especialidades-listas/${ especialidadesLista.id }`}>
-                <Button size="icon" variant="outline">
+                <Button size="icon" variant="outline" title="Ver Detalles">
                   <EyeIcon />
                 </Button>
               </Link>
               <Link href={`/admin/especialidades-listas/${ especialidadesLista.id }/edit`}>
-                <Button size="icon" variant="outline">
+                <Button size="icon" variant="outline" title="Editar">
                   <PencilIcon />
                 </Button>
               </Link>
               <Link href={`/admin/especialidades-listas/${ especialidadesLista.id }/delete`}>
-                <Button size="icon" variant="outline">
+                <Button size="icon" variant="outline" title="Eliminar">
                   <TrashIcon />
                 </Button>
               </Link>

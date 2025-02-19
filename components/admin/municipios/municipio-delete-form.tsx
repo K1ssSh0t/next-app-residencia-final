@@ -16,7 +16,7 @@ export function MunicipioDeleteForm({ municipio }: { municipio: Municipio }) {
         <input type="hidden" name="id" value={ municipio.id} />
         <div>
           <Button type="submit" variant="destructive">
-            Delete
+            Borrar
           </Button>
         </div>
         <FormAlert state={state} />

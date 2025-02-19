@@ -16,7 +16,7 @@ export function RegionDeleteForm({ region }: { region: Region }) {
         <input type="hidden" name="id" value={ region.id} />
         <div>
           <Button type="submit" variant="destructive">
-            Delete
+            Borrar
           </Button>
         </div>
         <FormAlert state={state} />

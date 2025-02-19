@@ -10,6 +10,7 @@ import { GenericCombobox } from "@/components/generic-combobox";
 
 import { Municipio } from "@/schema/municipios";
 import { Region } from "@/schema/regions";
+import Swal from "sweetalert2";
 
 export function MunicipioUpdateForm({
   municipio,
@@ -24,7 +25,29 @@ export function MunicipioUpdateForm({
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
-    startTransition(() => dispatch(formData));
+
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "Se actualizará el Municipio actual. Esto afectara a los registros anteriores",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#631233",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, actualizar",
+      cancelButtonText: "Cancelar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        startTransition(() => dispatch(formData));
+        Swal.fire({
+          title: "Actualizado",
+          text: "El municipio se ha actualizado correctamente.",
+          icon: "success",
+          confirmButtonColor: "#631233",
+          timer: 2000, 
+          timerProgressBar: true
+        });
+      }
+    });
   }
 
   return (
@@ -61,7 +84,7 @@ export function MunicipioUpdateForm({
           ))}
         </div>
         <div>
-          <Button type="submit">Submit</Button>
+          <Button type="submit">Enviar</Button>
         </div>
         <FormAlert state={state} />
       </form>

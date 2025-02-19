@@ -16,7 +16,7 @@ export function CategoriasGeneraleDeleteForm({ categoriasGenerales }: { categori
         <input type="hidden" name="id" value={categoriasGenerales.id} />
         <div>
           <Button type="submit" variant="destructive">
-            Delete
+            Borrar
           </Button>
         </div>
         <FormAlert state={state} />
