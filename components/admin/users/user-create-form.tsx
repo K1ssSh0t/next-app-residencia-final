@@ -29,9 +29,14 @@ const userCreateSchema = z
         errorMap: () => ({ message: "Selecciona un nivel educativo válido" }),
       })
       .optional(),
-    correoContacto: z.string().optional().or(z.string().email("El correo debe tener un formato valido")),
+    correoContacto: z
+      .string()
+      .optional()
+      .or(z.string().email("El correo debe tener un formato valido")),
     nombreContacto: z.string().optional(),
-    password: z.string().min(5, "La contraseña debe ser de por lo menos 5 caracteres"),
+    password: z
+      .string()
+      .min(5, "La contraseña debe ser de por lo menos 5 caracteres"),
   })
   .refine(
     (data) => {
@@ -43,7 +48,7 @@ const userCreateSchema = z
     {
       message: "Nivel educativo es requerido para el rol de usuario",
       path: ["nivelEducativo"],
-    }
+    },
   );
 
 export function UserCreateForm() {
@@ -59,13 +64,31 @@ export function UserCreateForm() {
   const emailRef = useRef<HTMLInputElement>(null);
 
   // Función para generar una contraseña aleatoria
-  const generateRandomPassword = (length = 10) => {
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    let pass = "";
-    for (let i = 0; i < length; i++) {
-      pass += chars.charAt(Math.floor(Math.random() * chars.length));
+  const generateRandomPassword = () => {
+    const length = 15;
+    const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const lower = "abcdefghijklmnopqrstuvwxyz";
+    const numbers = "0123456789";
+    const special = "!@#$%^&*()_+-=[]{}|;:,.<>?";
+
+    // Asegurar al menos uno de cada tipo
+    let pass =
+      upper.charAt(Math.floor(Math.random() * upper.length)) +
+      lower.charAt(Math.floor(Math.random() * lower.length)) +
+      numbers.charAt(Math.floor(Math.random() * numbers.length)) +
+      special.charAt(Math.floor(Math.random() * special.length));
+
+    // Caracteres restantes aleatorios de todos los tipos
+    const allChars = upper + lower + numbers + special;
+    for (let i = pass.length; i < length; i++) {
+      pass += allChars.charAt(Math.floor(Math.random() * allChars.length));
     }
-    return pass;
+
+    // Mezclar la contraseña final
+    return pass
+      .split("")
+      .sort(() => Math.random() - 0.5)
+      .join("");
   };
 
   // 4. Crea la función para copiar las credenciales:
@@ -73,7 +96,8 @@ export function UserCreateForm() {
     const email = emailRef.current?.value || "";
     const pwd = password;
     const textToCopy = `Nombre de usuario: ${email}\nContraseña: ${pwd}`;
-    navigator.clipboard.writeText(textToCopy)
+    navigator.clipboard
+      .writeText(textToCopy)
       .then(() => {
         alert("Credenciales copiadas al portapapeles!");
       })
@@ -95,7 +119,10 @@ export function UserCreateForm() {
 
       // Convertir 'nivelEducativo' a boolean antes de despachar
       const nivelEducativo = formData.get("nivelEducativo");
-      formData.set("nivelEducativo", nivelEducativo === "true" ? "true" : "false");
+      formData.set(
+        "nivelEducativo",
+        nivelEducativo === "true" ? "true" : "false",
+      );
 
       startTransition(() => dispatch(formData));
           Swal.fire({
@@ -128,7 +155,11 @@ export function UserCreateForm() {
           Los campos de correo electrónico, rol y contraseña son requeridos.
         </p>
       </div>
-      <form action={dispatch} onSubmit={handleSubmit} className="flex flex-col gap-2">
+      <form
+        action={dispatch}
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-2"
+      >
         <div className="hidden">
           <Label>Name</Label>
           <Input name="name" />
@@ -146,7 +177,9 @@ export function UserCreateForm() {
               {error}
             </p>
           ))}
-          {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+          {errors.email && (
+            <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+          )}
         </div>
         <div>
           <Label htmlFor="correoContacto">Correo de Contacto </Label>
@@ -183,7 +216,11 @@ export function UserCreateForm() {
         </div>
         <div>
           <Label htmlFor="role">Rol *</Label>
-          <Select name="role" required onValueChange={(value) => setSelectedRole(value)}>
+          <Select
+            name="role"
+            required
+            onValueChange={(value) => setSelectedRole(value)}
+          >
             <SelectTrigger className="w-full">
               <SelectValue placeholder="Selecciona un rol" />
             </SelectTrigger>
@@ -199,7 +236,9 @@ export function UserCreateForm() {
               {error}
             </p>
           ))}
-          {errors.role && <p className="text-red-500 text-sm mt-1">{errors.role}</p>}
+          {errors.role && (
+            <p className="text-red-500 text-sm mt-1">{errors.role}</p>
+          )}
         </div>
         <div>
           <Label htmlFor="nivelEducativo">Nivel Educativo</Label>
@@ -235,13 +274,14 @@ export function UserCreateForm() {
               id="password"
               required
               value={password}
+              minLength={8}
               onChange={(e) => setPassword(e.target.value)}
               className="flex-1"
             />
             <Button
               type="button"
               variant="outline"
-              onClick={() => setPassword(generateRandomPassword(10))}
+              onClick={() => setPassword(generateRandomPassword())}
             >
               Generar
             </Button>
@@ -250,7 +290,11 @@ export function UserCreateForm() {
               variant="outline"
               onClick={() => setShowPassword(!showPassword)}
             >
-              {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+              {showPassword ? (
+                <EyeOff className="h-4 w-4" />
+              ) : (
+                <Eye className="h-4 w-4" />
+              )}
             </Button>
           </div>
           {state.errors?.password?.map((error) => (
