@@ -47,7 +47,7 @@ export function InstitucioneTable({ institucioneList }: { institucioneList: Inst
             <TableCell className="justify-end flex gap-2">
               {/* [CODE_MARK table-actions] */}
               <Link href={`/admin/instituciones/${institucione.id}`}>
-                <Button size="icon" variant="outline">
+                <Button size="icon" variant="outline" title="Ver Detalles">
                   <EyeIcon />
                 </Button>
               </Link>

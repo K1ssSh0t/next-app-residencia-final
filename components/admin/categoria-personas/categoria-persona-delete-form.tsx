@@ -19,7 +19,7 @@ export function CategoriaPersonaDeleteForm({ categoriaPersona }: { categoriaPers
         </div>
         <div>
           <Button type="submit" variant="destructive">
-            Delete
+            Borrar
           </Button>
         </div>
         <FormAlert state={state} />

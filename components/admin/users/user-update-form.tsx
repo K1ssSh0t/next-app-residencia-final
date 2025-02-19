@@ -276,7 +276,7 @@ export function UserUpdateForm({ user }: { user: User }) {
             Copiar Credenciales
           </Button>
         </div>
-        <FormAlert state={state} />
+        {/*<FormAlert state={state} />*/}
       </form>
     </div>
   );

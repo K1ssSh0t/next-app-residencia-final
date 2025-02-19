@@ -19,7 +19,7 @@ export function TipoInstitucioneDeleteForm({ tipoInstitucione }: { tipoInstituci
         </div>
         <div>
           <Button type="submit" variant="destructive">
-            Delete
+            Borrar
           </Button>
         </div>
         <FormAlert state={state} />

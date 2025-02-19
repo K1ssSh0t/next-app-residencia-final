@@ -29,17 +29,17 @@ export function ModalidadTable({ modalidadList }: { modalidadList: ModalidadsWit
             <TableCell className="justify-end flex gap-2">
               {/* [CODE_MARK table-actions] */}
               <Link href={`/admin/modalidades/${modalidad.id}`}>
-                <Button size="icon" variant="outline">
+                <Button size="icon" variant="outline" title="Ver Detalles">
                   <EyeIcon />
                 </Button>
               </Link>
               <Link href={`/admin/modalidades/${modalidad.id}/edit`}>
-                <Button size="icon" variant="outline">
+                <Button size="icon" variant="outline" title="Editar">
                   <PencilIcon />
                 </Button>
               </Link>
               <Link href={`/admin/modalidades/${modalidad.id}/delete`}>
-                <Button size="icon" variant="outline">
+                <Button size="icon" variant="outline" title="Eliminar">
                   <TrashIcon />
                 </Button>
               </Link>

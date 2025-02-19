@@ -8,7 +8,7 @@ import { FormAlert } from "@/components/form-alert";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
-
+import Swal from "sweetalert2";
 
 export function CategoriaPersonaCreateForm() {
   const initialState: CreateCategoriaPersonaState = {};
@@ -18,6 +18,15 @@ export function CategoriaPersonaCreateForm() {
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
     startTransition(() => dispatch(formData));
+    Swal.fire({
+      title: "Guardado",
+      text: "Se han guardado los datos.",
+      icon: "success",
+      confirmButtonColor: "#631233",
+      timer: 2000, 
+      timerProgressBar: true
+      
+    });
   }
 
   return (

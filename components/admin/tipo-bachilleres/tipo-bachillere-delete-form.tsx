@@ -19,7 +19,7 @@ export function TipoBachillereDeleteForm({ tipoBachillere }: { tipoBachillere: T
         </div>
         <div>
           <Button type="submit" variant="destructive">
-            Delete
+            Borrar
           </Button>
         </div>
         <FormAlert state={state} />

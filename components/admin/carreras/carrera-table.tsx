@@ -29,17 +29,17 @@ export function CarreraTable({ carreraList }: { carreraList: CarrerasWithRelatio
             <TableCell className="justify-end flex gap-2">
               {/* [CODE_MARK table-actions] */}
               <Link href={`/admin/carreras/${carrera.id}`}>
-                <Button size="icon" variant="outline">
+                <Button size="icon" variant="outline" title="Ver Detalles">
                   <EyeIcon />
                 </Button>
               </Link>
               <Link href={`/admin/carreras/${carrera.id}/edit`}>
-                <Button size="icon" variant="outline">
+                <Button size="icon" variant="outline" title="Editar">
                   <PencilIcon />
                 </Button>
               </Link>
-              <Link href={`/admin/carreras/${carrera.id}/delete`}>
-                <Button size="icon" variant="outline">
+              <Link href={`/admin/carreras/${carrera.id}/delete`} >
+                <Button size="icon" variant="outline" title="Eliminar">
                   <TrashIcon />
                 </Button>
               </Link>
