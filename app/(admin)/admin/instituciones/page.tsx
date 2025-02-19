@@ -75,8 +75,8 @@ export default async function Page(props: {
             </div>
             <Tabs defaultValue="medio-superior" className="w-full">
                 <TabsList className="grid w-full grid-cols-2">
-                    <TabsTrigger value="medio-superior">Medio Superior</TabsTrigger>
-                    <TabsTrigger value="superior">Superior</TabsTrigger>
+                    <TabsTrigger value="medio-superior"className=" text-md text-white font-bold">Medio Superior</TabsTrigger>
+                    <TabsTrigger value="superior"className=" text-md text-white font-bold">Superior</TabsTrigger>
                 </TabsList>
                 <TabsContent value="medio-superior">
                     <InstitucioneTable institucioneList={medioSuperiorInstituciones} />

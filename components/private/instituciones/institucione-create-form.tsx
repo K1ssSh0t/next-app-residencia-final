@@ -81,6 +81,7 @@ export function InstitucioneCreateForm({
     if (nivelEducativo) {
       formData.delete('tipoBachilleresId');
     }
+    startTransition(() => dispatch(formData));
     Swal.fire({
       title: "Guardado",
       text: "Se han guardado los datos.",
@@ -90,7 +91,7 @@ export function InstitucioneCreateForm({
       timerProgressBar: true
       
     });
-    startTransition(() => dispatch(formData));
+    
   }
 
   function handleRegionChange(value: string) {

@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { FormAlert } from "@/components/form-alert";
 import { Input } from "@/components/ui/input";
+import Swal from "sweetalert2";
 
 import { User } from "@/schema/users";
 import {
@@ -93,6 +94,15 @@ export function UserUpdateForm({ user }: { user: User }) {
     );
 
     startTransition(() => dispatch(formData));
+          Swal.fire({
+            title: "Guardado",
+            text: "Se han guardado los datos.",
+            icon: "success",
+            confirmButtonColor: "#631233",
+            timer: 2000, 
+            timerProgressBar: true
+            
+          });
   }
 
   return (
@@ -266,7 +276,6 @@ export function UserUpdateForm({ user }: { user: User }) {
             Copiar Credenciales
           </Button>
         </div>
-
         <FormAlert state={state} />
       </form>
     </div>
