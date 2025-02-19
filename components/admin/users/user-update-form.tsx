@@ -15,8 +15,14 @@ import { Input } from "@/components/ui/input";
 import Swal from "sweetalert2";
 
 import { User } from "@/schema/users";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Eye, EyeOff } from "lucide-react"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Eye, EyeOff } from "lucide-react";
 
 export function UserUpdateForm({ user }: { user: User }) {
   const initialState: UpdateUserState = {};
@@ -81,9 +87,11 @@ export function UserUpdateForm({ user }: { user: User }) {
     const formData = new FormData(event.target as HTMLFormElement);
 
     // Convert 'nivelEducativo' to boolean before dispatching
-    const nivelEducativo = formData.get('nivelEducativo');
-    formData.set('nivelEducativo', nivelEducativo === 'true' ? 'true' : 'false');
-
+    const nivelEducativo = formData.get("nivelEducativo");
+    formData.set(
+      "nivelEducativo",
+      nivelEducativo === "true" ? "true" : "false",
+    );
 
     startTransition(() => dispatch(formData));
           Swal.fire({
@@ -268,8 +276,7 @@ export function UserUpdateForm({ user }: { user: User }) {
             Copiar Credenciales
           </Button>
         </div>
-
-        {/*<FormAlert state={state} />*/}
+        <FormAlert state={state} />
       </form>
     </div>
   );
