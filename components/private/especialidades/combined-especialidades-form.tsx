@@ -14,6 +14,7 @@ import {
 } from "@/actions/private/especialidades/update-especialidades-multiples";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
 
 export function CombinedEspecialidadesForm({
   existingEspecialidades,
@@ -110,11 +111,14 @@ export function CombinedEspecialidadesForm({
       const resultado = await updateEspecialidadesMultiples({}, formData);
 
       if (resultado.message) {
-        toast({
-          title: "Éxito",
-          description: resultado.message,
-          variant: "success",
-        });
+        Swal.fire({
+          title: "Guardado",
+          text: "Se han guardado los datos.",
+          icon: "success",
+          confirmButtonColor: "#631233",
+          timer: 2000,
+          timerProgressBar: true
+      });
         router.refresh();
       } else if (resultado?.status === "error") {
         toast({

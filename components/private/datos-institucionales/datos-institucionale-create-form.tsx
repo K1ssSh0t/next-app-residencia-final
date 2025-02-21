@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { GenericCombobox } from "@/components/generic-combobox";
 
 import { CategoriasGenerales } from "@/schema/categorias-generales";
+import Swal from "sweetalert2";
 
 export function DatosInstitucionaleCreateForm({
   categoriasGeneraleList,
@@ -22,6 +23,14 @@ export function DatosInstitucionaleCreateForm({
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
     startTransition(() => dispatch(formData));
+    Swal.fire({
+      title: "Guardado",
+      text: "Se han guardado los datos.",
+      icon: "success",
+      confirmButtonColor: "#631233",
+      timer: 2000,
+      timerProgressBar: true
+  });
   }
 
   return (
@@ -67,7 +76,7 @@ export function DatosInstitucionaleCreateForm({
           ))}
         </div>
         <div>
-          <Button type="submit">Submit</Button>
+          <Button type="submit">Enviar</Button>
         </div>
         <FormAlert state={state} />
       </form>

@@ -16,7 +16,7 @@ export function DatosInstitucionaleDeleteForm({ datosInstitucionale }: { datosIn
         <input type="hidden" name="id" value={ datosInstitucionale.id} />
         <div>
           <Button type="submit" variant="destructive">
-            Delete
+            Borrar
           </Button>
         </div>
         <FormAlert state={state} />

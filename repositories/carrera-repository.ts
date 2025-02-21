@@ -1,4 +1,4 @@
-import { eq, like } from "drizzle-orm";
+import { eq, ilike, like, or } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { carreras } from "@/schema/carreras";
 
@@ -22,8 +22,11 @@ export async function getCarrerasWithRelations({
   return await db.query.carreras.findMany({
     limit: limit,
     offset: offset,
-    where: search ? like(carreras.descripcion, `%${search}%`) : undefined,
-    with: undefined,
+    where: search ? 
+    or(
+      ilike(carreras.descripcion, `%${search}%`),
+      ilike(carreras.clave, `%${search}%`)
+    ) : undefined,
   });
 }
 

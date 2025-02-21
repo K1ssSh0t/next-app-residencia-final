@@ -13,6 +13,7 @@ import { GenericCombobox } from "@/components/generic-combobox";
 import { AsyncSearchCombobox } from "@/components/async-search-combobox";
 
 import { Modalidad } from "@/schema/modalidads";
+import Swal from "sweetalert2";
 
 export function CarreraInstitucionCreateForm({
   modalidadeList,
@@ -36,6 +37,14 @@ export function CarreraInstitucionCreateForm({
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
     startTransition(() => dispatch(formData));
+    Swal.fire({
+      title: "Guardado",
+      text: "Se han guardado los datos.",
+      icon: "success",
+      confirmButtonColor: "#631233",
+      timer: 2000,
+      timerProgressBar: true
+    });
   }
 
   return (

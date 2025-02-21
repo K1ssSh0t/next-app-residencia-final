@@ -12,6 +12,7 @@ import { updatePregunta, UpdatePreguntaState } from '@/actions/private/preguntas
 import { createPregunta, CreatePreguntaState } from '@/actions/private/preguntas/create-pregunta'
 //import { useFormState } from 'react-dom'
 import { toast, useToast } from "@/hooks/use-toast"
+import Swal from 'sweetalert2'
 
 interface PreguntaFormProps {
     preguntaList: PreguntasWithRelations
@@ -120,17 +121,23 @@ export default function PreguntaForm({ preguntaList, categoriasList, cuestionari
                     }
                 }
 
-                toast({
-                    title: "Cambios guardados",
-                    description: "Los cambios se han guardado correctamente.",
-                })
+                Swal.fire({
+                    title: "Guardado",
+                    text: "Se han guardado los datos.",
+                    icon: "success",
+                    confirmButtonColor: "#631233",
+                    timer: 2000,
+                    timerProgressBar: true
+                });
             } catch (error) {
                 console.error('Error al guardar los cambios:', error)
-                toast({
+                
+                Swal.fire({
                     title: "Error",
-                    description: "Hubo un problema al guardar los cambios.",
-                    variant: "destructive",
-                })
+                    text: "Hubo un problema al guardar los cambios.",
+                    icon: "error",
+                    confirmButtonColor: "#631233"
+                });
             }
         })
     }

@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { UpdateUserState } from "@/actions/private/user/update-user";
 import { updateUserContact } from "@/actions/private/user/update-user";
 import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
 
 export function ContactForm({ initialData }: { initialData: { nombreContacto?: string, correoContacto?: string, userid?: string } }) {
     const initialState: UpdateUserState = {};
@@ -18,6 +19,16 @@ export function ContactForm({ initialData }: { initialData: { nombreContacto?: s
         event.preventDefault();
         const formData = new FormData(event.target as HTMLFormElement);
         startTransition(() => dispatch(formData));
+
+        Swal.fire({
+            title: "Guardado",
+            text: "Se han guardado los datos.",
+            icon: "success",
+            confirmButtonColor: "#631233",
+            timer: 2000,
+            timerProgressBar: true
+        });
+        
         console.log(state);
 
         // if (state.status === "success") {
