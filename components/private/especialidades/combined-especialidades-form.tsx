@@ -37,16 +37,31 @@ export function CombinedEspecialidadesForm({
     const errors: { [key: string]: string } = {};
     let isValid = true;
 
+    const selectedEspecialidadIds: string[] = [];
+
+    // Helper function to check for duplicates
+    const checkDuplicate = (id: string, fieldName: string): boolean => {
+      if (selectedEspecialidadIds.includes(id)) {
+        errors[fieldName] = "Especialidad ya seleccionada";
+        return true;
+      }
+      selectedEspecialidadIds.push(id);
+      return false;
+    };
+
     // Validate existing especialidades
-    existingEspecialidades.forEach((_, index) => {
-      const nombreEsp = formData.get(`nombreEspecialidad-${index}`);
+    existingEspecialidades.forEach((especialidad, index) => {
+      const nombreEsp = formData.get(`nombreEspecialidad-${index}`) as string;
       const hombres = formData.get(`hombres-${index}`);
       const mujeres = formData.get(`mujeres-${index}`);
 
       if (!nombreEsp) {
         errors[`nombreEspecialidad-${index}`] = "El nombre es requerido";
         isValid = false;
+      } else if (checkDuplicate(nombreEsp, `nombreEspecialidad-${index}`)) {
+        isValid = false;
       }
+
       if (!hombres || isNaN(Number(hombres))) {
         errors[`hombres-${index}`] = "Cantidad válida requerida";
         isValid = false;
@@ -62,7 +77,7 @@ export function CombinedEspecialidadesForm({
     let newEntriesCount = 0;
 
     for (let i = 0; i < remainingSlots; i++) {
-      const nombreEsp = formData.get(`new-nombreEspecialidad-${i}`);
+      const nombreEsp = formData.get(`new-nombreEspecialidad-${i}`) as string;
       const hombres = formData.get(`new-hombres-${i}`);
       const mujeres = formData.get(`new-mujeres-${i}`);
 
@@ -71,7 +86,10 @@ export function CombinedEspecialidadesForm({
         if (!nombreEsp) {
           errors[`new-nombreEspecialidad-${i}`] = "El nombre es requerido";
           isValid = false;
+        } else if (checkDuplicate(nombreEsp, `new-nombreEspecialidad-${i}`)) {
+          isValid = false;
         }
+
         if (!hombres || isNaN(Number(hombres))) {
           errors[`new-hombres-${i}`] = "Cantidad válida requerida";
           isValid = false;
@@ -117,8 +135,8 @@ export function CombinedEspecialidadesForm({
           icon: "success",
           confirmButtonColor: "#631233",
           timer: 2000,
-          timerProgressBar: true
-      });
+          timerProgressBar: true,
+        });
         router.refresh();
       } else if (resultado?.status === "error") {
         toast({
@@ -217,14 +235,39 @@ export function CombinedEspecialidadesForm({
               keywordFields={["id", "descripcion"]}
               template={(item) => <div>{item.descripcion}</div>}
             />
+            {formErrors[`new-nombreEspecialidad-${index}`] && (
+              <p className="text-sm text-red-500">
+                {formErrors[`new-nombreEspecialidad-${index}`]}
+              </p>
+            )}
           </div>
           <div className="w-[150px]">
             <Label>Hombres</Label>
-            <Input name={`new-hombres-${index}`} type="number" min="0" />
+            <Input
+              name={`new-hombres-${index}`}
+              type="number"
+              min="0"
+              required
+            />
+            {formErrors[`new-hombres-${index}`] && (
+              <p className="text-sm text-red-500">
+                {formErrors[`new-hombres-${index}`]}
+              </p>
+            )}
           </div>
           <div className="w-[150px]">
             <Label>Mujeres</Label>
-            <Input name={`new-mujeres-${index}`} type="number" min="0" />
+            <Input
+              name={`new-mujeres-${index}`}
+              type="number"
+              min="0"
+              required
+            />
+            {formErrors[`new-mujeres-${index}`] && (
+              <p className="text-sm text-red-500">
+                {formErrors[`new-mujeres-${index}`]}
+              </p>
+            )}
           </div>
           <input
             type="hidden"
