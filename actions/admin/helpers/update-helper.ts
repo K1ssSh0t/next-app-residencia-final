@@ -55,6 +55,7 @@ export async function updateHelper(
     revalidatePath("/admin/helpers");
     revalidatePath("/admin/helpers/" + validatedFields.data.id);
     revalidatePath("/admin/helpers/" + validatedFields.data.id + "/edit");
+    revalidatePath("/admin");
 
     return {
       status: "success",
