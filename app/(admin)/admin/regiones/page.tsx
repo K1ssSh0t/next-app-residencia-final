@@ -43,15 +43,16 @@ export default async function Page(props: {
       </div>
       <div className="flex justify-between pt-5 mb-5">
         <div>
-          <SearchInput placeholder="Buscar Regions" />
+          <SearchInput placeholder="Buscar Regiones" />
         </div>
-        <div className="text-right mr-2">
+        {/*Boton de Agregar Municipio No visible por considerar que no hay Regiones nuevas en el estado Oaxaca recurrentemente */}
+        {/*<div className="text-right mr-2">
           <Link href="/admin/regiones/new">
             <Button>
               <PlusIcon className="mr-2" /> Agregar
             </Button>
           </Link>
-        </div>
+        </div>*/}
       </div>
       <div className="mb-5">
         <RegionTable regionList={regionList} />

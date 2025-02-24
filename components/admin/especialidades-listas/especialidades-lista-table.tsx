@@ -16,7 +16,8 @@ export function EspecialidadesListaTable({ especialidadesListaList }: { especial
     <Table>
       <TableHeader>
         <TableRow className=" bg-[#631233] text-white text-lg font-bold">
-          <TableHead>Id</TableHead>
+          {/*Ocultado campo id usado dentro del sistema*/}
+          {/*<TableHead>Id</TableHead>*/}
           <TableHead className=" text-lg text-white">Descripción</TableHead>
           <TableHead className=" text-lg text-white">Clave</TableHead>
           <TableHead></TableHead>
@@ -25,7 +26,8 @@ export function EspecialidadesListaTable({ especialidadesListaList }: { especial
       <TableBody>
         { especialidadesListaList.map((especialidadesLista) => (
           <TableRow key={ especialidadesLista.id }>
-            <TableCell>{ especialidadesLista.id }</TableCell>
+            {/*Ocultado campo id usado dentro del sistema*/}
+            {/*<TableCell>{ especialidadesLista.id }</TableCell>*/}
             <TableCell>{ especialidadesLista.descripcion }</TableCell>
             <TableCell>{ especialidadesLista.clave }</TableCell>
             <TableCell className="justify-end flex gap-2">

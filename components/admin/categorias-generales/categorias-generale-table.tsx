@@ -16,7 +16,8 @@ export function CategoriasGeneraleTable({ categoriasGeneraleList }: { categorias
     <Table>
       <TableHeader>
         <TableRow className=" bg-[#631233] text-white text-lg font-bold">
-          <TableHead>Id</TableHead>
+          {/*Ocultado campo id usado dentro del sistema*/}
+          {/*<TableHead>Id</TableHead>*/}
           <TableHead className=" text-lg text-white">Descripción</TableHead>
           <TableHead className=" text-lg text-white">Estado en el Cuestionario</TableHead>
           <TableHead></TableHead>
@@ -25,7 +26,8 @@ export function CategoriasGeneraleTable({ categoriasGeneraleList }: { categorias
       <TableBody>
         {categoriasGeneraleList.map((categoriasGenerales) => (
           <TableRow key={categoriasGenerales.id}>
-            <TableCell>{categoriasGenerales.id}</TableCell>
+            {/*Ocultado campo id usado dentro del sistema*/}
+            {/*<TableCell>{categoriasGenerales.id}</TableCell>*/}
             <TableCell>{categoriasGenerales.descripcion}</TableCell>
             <TableCell>{categoriasGenerales.activo ? "Activo" : "Inactivo"}</TableCell>
             <TableCell className="justify-end flex gap-2">

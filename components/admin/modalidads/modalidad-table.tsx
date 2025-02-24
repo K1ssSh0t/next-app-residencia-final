@@ -16,7 +16,8 @@ export function ModalidadTable({ modalidadList }: { modalidadList: ModalidadsWit
     <Table>
       <TableHeader>
         <TableRow className=" bg-[#631233] text-white text-lg font-bold">
-          <TableHead>Id</TableHead>
+          {/*Ocultado campo id usado dentro del sistema*/}
+          {/*<TableHead>Id</TableHead>*/}
           <TableHead className=" text-lg text-white">Descripción</TableHead>
           <TableHead></TableHead>
         </TableRow>
@@ -24,7 +25,8 @@ export function ModalidadTable({ modalidadList }: { modalidadList: ModalidadsWit
       <TableBody>
         {modalidadList.map((modalidad) => (
           <TableRow key={modalidad.id}>
-            <TableCell>{modalidad.id}</TableCell>
+            {/*Ocultado campo id usado dentro del sistema*/}
+            {/*<TableCell>{modalidad.id}</TableCell>*/}
             <TableCell>{modalidad.descripcion}</TableCell>
             <TableCell className="justify-end flex gap-2">
               {/* [CODE_MARK table-actions] */}

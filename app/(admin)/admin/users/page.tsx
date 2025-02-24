@@ -49,7 +49,7 @@ export default async function Page(props: {
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="personal"><b>PERSONAL</b></TabsTrigger>
           <TabsTrigger value="medio-superior"><b>MEDIO SUPERIOR</b></TabsTrigger>
-          <TabsTrigger value="superior"><b>MEDIO SUPERIOR</b></TabsTrigger>
+          <TabsTrigger value="superior"><b>SUPERIOR</b></TabsTrigger>
         </TabsList>
         <TabsContent value="personal">
           <UserTable userList={personalUsers} />

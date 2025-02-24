@@ -45,13 +45,14 @@ export default async function Page(props: {
         <div>
           <SearchInput placeholder="Buscar Municipios" />
         </div>
-        <div className="text-right mr-2">
+        {/*Boton de Agregar Municipio No visible por considerar que no hay municipios nuevos en el estado Oaxaca recurrentemente */}
+        {/*<div className="text-right mr-2">
           <Link href="/admin/municipios/new">
             <Button>
               <PlusIcon className="mr-2" /> Agregar
             </Button>
           </Link>
-        </div>
+        </div>*/}
       </div>
       <div className="mb-5">
         <MunicipioTable municipioList={municipioList} />

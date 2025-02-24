@@ -16,7 +16,8 @@ export function TipoBachillereTable({ tipoBachillereList }: { tipoBachillereList
     <Table>
       <TableHeader>
         <TableRow className=" bg-[#631233] text-white text-lg font-bold">
-          <TableHead>Id</TableHead>
+          {/*Ocultado campo id usado dentro del sistema*/}
+          {/*<TableHead>Id</TableHead>*/}
           <TableHead className=" text-lg text-white">Descripción</TableHead>
           <TableHead></TableHead>
         </TableRow>
@@ -24,7 +25,8 @@ export function TipoBachillereTable({ tipoBachillereList }: { tipoBachillereList
       <TableBody>
         { tipoBachillereList.map((tipoBachillere) => (
           <TableRow key={ tipoBachillere.id }>
-            <TableCell>{ tipoBachillere.id }</TableCell>
+            {/*Ocultado campo id usado dentro del sistema*/}
+            {/*<TableCell>{ tipoBachillere.id }</TableCell>*/}
             <TableCell>{ tipoBachillere.descripcion }</TableCell>
             <TableCell className="justify-end flex gap-2">
               {/* [CODE_MARK table-actions] */}
