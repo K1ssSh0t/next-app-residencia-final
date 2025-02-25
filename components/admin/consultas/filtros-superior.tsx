@@ -9,6 +9,7 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  ResponsiveContainer,
 } from "recharts";
 
 interface TotalsCardProps {
@@ -116,22 +117,26 @@ function TotalsCard({ totals, title, showChart }: TotalsCardProps) {
           </Button>
         </div>
         {displayChart ? (
-          <BarChart width={700} height={500} data={modifiedData}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis
-              dataKey="name"
-              angle={-40}
-              textAnchor="end"
-              height={200}
-              tickMargin={1}
-            />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="Hombres" fill="#8884d8" />
-            <Bar dataKey="Mujeres" fill="#82ca9d" />
-            <Bar dataKey="Total" fill="#ffc658" />
-          </BarChart>
+          <div className="w-full h-[500px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart width={700} height={500} data={modifiedData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis
+                  dataKey="name"
+                  angle={-40}
+                  textAnchor="end"
+                  height={200}
+                  tickMargin={1}
+                />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="Hombres" fill="#8884d8" />
+                <Bar dataKey="Mujeres" fill="#82ca9d" />
+                <Bar dataKey="Total" fill="#ffc658" />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {Object.entries(totals).map(([category, data]) => (
@@ -566,20 +571,29 @@ export function FiltrosSuperior({
 
     return (
       <div className="mt-8 space-y-4">
-        <div className="flex justify-between items-center">
-          <h3 className="text-lg font-medium">Resultados</h3>
-          <div className="space-x-2">
+        <div className="flex flex-col sm:flex-row justify-between items-center">
+          <h3 className="text-lg font-medium mb-2 sm:mb-0">Resultados</h3>
+          <div className="space-x-2 flex flex-wrap gap-2 justify-end w-full sm:w-auto">
             <Button
               onClick={() => setShowDetailedView(!showDetailedView)}
               variant="outline"
+              className="w-full sm:w-auto ml-2"
             >
               {showDetailedView ? "Ver Solo Totales" : "Ver Tabla Detallada"}
             </Button>
-            <Button onClick={handleExportFiltered} variant="outline">
+            <Button
+              onClick={handleExportFiltered}
+              variant="outline"
+              className="w-full sm:w-auto"
+            >
               <Download className="mr-2 h-4 w-4" />
               Exportar Filtrados
             </Button>
-            <Button onClick={handleExportAll} variant="outline">
+            <Button
+              onClick={handleExportAll}
+              variant="outline"
+              className="w-full sm:w-auto"
+            >
               <Download className="mr-2 h-4 w-4" />
               Exportar Todos
             </Button>
