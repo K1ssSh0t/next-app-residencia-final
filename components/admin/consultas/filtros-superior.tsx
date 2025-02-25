@@ -166,7 +166,7 @@ const convertToCSV = (
     "Año",
     "Clave Carrera",
     "Nombre Carrera",
-    "REVOE",
+    //
     "Número REVOE",
     "Institución",
     "Tipo de Institución",
@@ -197,7 +197,7 @@ const convertToCSV = (
             cuestionario.año,
             cuestionario.carrera?.carrera?.clave || "",
             cuestionario.carrera?.carrera?.descripcion || "",
-            cuestionario.carrera?.nombreRevoe || "",
+            //cuestionario.carrera?.nombreRevoe || "",
             cuestionario.carrera?.numeroRevoe || "",
             institution.nombre || "",
             institution.tipoInstituciones?.descripcion || "",
@@ -238,7 +238,7 @@ const convertToCSV = (
         const basicInfo = [
           año, // Usar el año de datos institucionales
           "-", // carrera
-          "-", // REVOE
+          //"-", // REVOE
           "-", // número REVOE
           institution.nombre || "",
           institution.tipoInstituciones?.descripcion || "",
@@ -594,7 +594,7 @@ export function FiltrosSuperior({
                   <TableHead>Año</TableHead>
                   <TableHead>Clave de Carrera</TableHead>
                   <TableHead className="w-[200px]">Nombre Carrera</TableHead>
-                  <TableHead>REVOE</TableHead>
+                  {/*<TableHead>REVOE</TableHead>*/}
                   <TableHead>Número REVOE</TableHead>
                   <TableHead>Institución</TableHead>
                   <TableHead>Tipo de Institución</TableHead>
@@ -623,9 +623,9 @@ export function FiltrosSuperior({
                           <TableCell className="font-medium">
                             {cuestionario.carrera?.carrera?.descripcion}
                           </TableCell>
-                          <TableCell>
+                          {/*<TableCell>
                             {cuestionario.carrera?.nombreRevoe}
-                          </TableCell>
+                          </TableCell>*/}
                           <TableCell>
                             {cuestionario.carrera?.numeroRevoe}
                           </TableCell>
@@ -746,7 +746,7 @@ export function FiltrosSuperior({
                 )}
                 <TableRow>
                   <TableCell className="font-medium">Totales</TableCell>
-                  <TableCell colSpan={9}></TableCell>
+                  <TableCell colSpan={8}></TableCell>
                   {categoriasGenerales.map((category) => {
                     const overallTotals = calculateOverallTotals(results);
                     return (
