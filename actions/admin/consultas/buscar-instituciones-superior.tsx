@@ -136,6 +136,12 @@ export async function buscarSuperior(params: SearchParams) {
         ) {
           return null;
         }
+        if (
+          datosInst.length === 0 &&
+          cuestionario.length === 0
+        ) {
+          return null;
+        }
 
         return {
           ...institution,
