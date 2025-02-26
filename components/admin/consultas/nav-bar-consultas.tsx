@@ -16,7 +16,7 @@ export function NavBar() {
                         "text-sm font-medium transition-colors",
                         pathname === "/admin/consultas"
                             ? "text-white  border-b-2 border-primary bg-primary pb-1 rounded-sm p-2"
-                            : "text-muted-foreground"
+                            : "text-muted-foreground hover:bg-gray-200 border border-gray-300 rounded-md p-2"
                     )}
                 >
                     Buscar Superior
@@ -27,7 +27,7 @@ export function NavBar() {
                         "text-sm font-medium transition-colors",
                         pathname === "/admin/consultas/medio-superior"
                             ? "text-white border-b-2 border-primary pb- bg-primary pb-1 rounded-sm p-2"
-                            : "text-muted-foreground"
+                            : "text-muted-foreground hover:bg-gray-200 border border-gray-300 rounded-md p-2"
                     )}
                 >
                     Buscar Medio Superior
