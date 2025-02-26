@@ -90,6 +90,15 @@ export function CarreraInstitucionUpdateForm({
             <p className="text-red-500" key={error}>{error}</p>
           ))}
         </div>
+        <div>
+          <Label htmlFor="claveCentroTrabajo">Clave de Centro de Trabajo *</Label>
+          <Input name="claveCentroTrabajo" required id="claveCentroTrabajo" />
+          {state.errors?.claveCentroTrabajo?.map((error) => (
+            <p className="text-red-500" key={error}>
+              {error}
+            </p>
+          ))}
+        </div>
         <div className="flex flex-col gap-2">
           <Label htmlFor="modalidadesId">Modalidad *</Label>
           <GenericCombobox

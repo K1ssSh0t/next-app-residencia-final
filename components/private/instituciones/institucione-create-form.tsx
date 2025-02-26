@@ -87,11 +87,11 @@ export function InstitucioneCreateForm({
       text: "Se han guardado los datos.",
       icon: "success",
       confirmButtonColor: "#631233",
-      timer: 2000, 
+      timer: 2000,
       timerProgressBar: true
-      
+
     });
-    
+
   }
 
   function handleRegionChange(value: string) {
@@ -114,7 +114,7 @@ export function InstitucioneCreateForm({
         </div>
         <form action={dispatch} onSubmit={handleSubmit} className="flex flex-col gap-2">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="space-y-2">
+            <div className="space-y-2">
               <div className="flex items-center gap-2">
                 <Label htmlFor="nombre">Nombre <span className="text-red-500">*</span></Label>
                 <TooltipProvider>
@@ -142,13 +142,15 @@ export function InstitucioneCreateForm({
               ))}
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="claveCentroTrabajo">Clave de Centro de Trabajo <span className="text-red-500">*</span></Label>
-              <Input name="claveCentroTrabajo" required placeholder="Ingresa la Clave del Centro de Trabajo" id="claveCentroTrabajo" />
-              {state.errors?.claveCentroTrabajo?.map((error) => (
-                <p className="text-destructive text-sm" key={error}>{error}</p>
-              ))}
-            </div>
+            {!nivelEducativo && (
+              <div className="space-y-2">
+                <Label htmlFor="claveCentroTrabajo">Clave de Centro de Trabajo <span className="text-red-500">*</span></Label>
+                <Input name="claveCentroTrabajo" required placeholder="Ingresa la Clave del Centro de Trabajo" id="claveCentroTrabajo" />
+                {state.errors?.claveCentroTrabajo?.map((error) => (
+                  <p className="text-destructive text-sm" key={error}>{error}</p>
+                ))}
+              </div>
+            )}
             {
               !nivelEducativo &&
               <div className="space-y-2">

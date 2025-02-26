@@ -21,6 +21,7 @@ export interface UpdateCarreraInstitucionState extends BaseActionState {
     planDeEstudio?: string[];
     modalidadesId?: string[];
     numeroRevoe?: string[];
+    claveCentroTrabajo?: string[];
   };
 }
 
@@ -43,6 +44,7 @@ export async function updateCarreraInstitucion(
       planDeEstudio: formData.get("planDeEstudio") as string,
       modalidadesId: formData.get("modalidadesId") as string,
       numeroRevoe: formData.get("numeroRevoe") as string,
+      claveCentroTrabajo: formData.get("claveCentroTrabajo") as string,
     });
 
     if (!validatedFields.success) {

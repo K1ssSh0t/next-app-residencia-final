@@ -610,9 +610,12 @@ export function FiltrosSuperior({
                   <TableHead className="w-[200px]">Nombre Carrera</TableHead>
                   {/*<TableHead>REVOE</TableHead>*/}
                   <TableHead>Número REVOE</TableHead>
+                  <TableHead>Modalidad</TableHead>
+                  <TableHead>Clave Centro de Trabajo</TableHead>
+                  <TableHead>Clave Institución</TableHead>
                   <TableHead>Institución</TableHead>
                   <TableHead>Tipo de Institución</TableHead>
-                  <TableHead>Modalidad</TableHead>
+
                   <TableHead>Región</TableHead>
                   <TableHead>Municipio</TableHead>
                   {categoriasGenerales.map((category) => (
@@ -627,147 +630,155 @@ export function FiltrosSuperior({
                 {paginatedInstitutions?.map((institution) =>
                   // Si tiene cuestionarios, mostrar una fila por cada uno
                   institution.cuestionario &&
-                  institution.cuestionario.length > 0
+                    institution.cuestionario.length > 0
                     ? institution.cuestionario.map((cuestionario) => (
-                        <TableRow key={`${institution.id}-${cuestionario.id}`}>
-                          <TableCell>{cuestionario.año}</TableCell>
-                          <TableCell>
-                            {cuestionario.carrera?.carrera?.clave}
-                          </TableCell>
-                          <TableCell className="font-medium">
-                            {cuestionario.carrera?.carrera?.descripcion}
-                          </TableCell>
-                          {/*<TableCell>
+                      <TableRow key={`${institution.id}-${cuestionario.id}`}>
+                        <TableCell>{cuestionario.año}</TableCell>
+                        <TableCell>
+                          {cuestionario.carrera?.carrera?.clave}
+                        </TableCell>
+                        <TableCell className="font-medium">
+                          {cuestionario.carrera?.carrera?.descripcion}
+                        </TableCell>
+                        {/*<TableCell>
                             {cuestionario.carrera?.nombreRevoe}
                           </TableCell>*/}
-                          <TableCell>
-                            {cuestionario.carrera?.numeroRevoe}
-                          </TableCell>
-                          <TableCell>{institution.nombre}</TableCell>
-                          <TableCell>
-                            {institution.tipoInstituciones?.descripcion}
-                          </TableCell>
-                          <TableCell>
-                            {cuestionario.carrera?.modalidad?.descripcion}
-                          </TableCell>
-                          <TableCell>{institution.region?.nombre}</TableCell>
-                          <TableCell>{institution.municipio?.nombre}</TableCell>
-                          {categoriasGenerales.map((category) => (
-                            <TableCell key={`${institution.id}-${category}`}>
-                              {institution.datosInstitucionales
-                                ?.filter(
-                                  (dato) =>
-                                    dato.categoriasGenerales?.descripcion ===
-                                    category,
-                                )
-                                .map((dato) =>
-                                  category ===
+                        <TableCell>
+                          {cuestionario.carrera?.numeroRevoe}
+                        </TableCell>
+                        <TableCell>
+                          {cuestionario.carrera?.modalidad?.descripcion}
+                        </TableCell>
+                        <TableCell>{institution.claveCentroTrabajo}</TableCell>
+                        <TableCell>
+                          {institution.claveInstitucion}
+                        </TableCell>
+                        <TableCell>{institution.nombre}</TableCell>
+                        <TableCell>
+                          {institution.tipoInstituciones?.descripcion}
+                        </TableCell>
+
+                        <TableCell>{institution.region?.nombre}</TableCell>
+                        <TableCell>{institution.municipio?.nombre}</TableCell>
+                        {categoriasGenerales.map((category) => (
+                          <TableCell key={`${institution.id}-${category}`}>
+                            {institution.datosInstitucionales
+                              ?.filter(
+                                (dato) =>
+                                  dato.categoriasGenerales?.descripcion ===
+                                  category,
+                              )
+                              .map((dato) =>
+                                category ===
                                   "MONTO ASIGNADO A INFRAESTRUCTURA GENERAL" ? (
-                                    <div key={dato.id} className="text-sm">
-                                      Total:{" "}
-                                      {Number(dato.cantidadHombres!) +
-                                        Number(dato.cantidadMujeres!)}
-                                    </div>
-                                  ) : (
-                                    <div key={dato.id} className="text-sm">
-                                      H: {Number(dato.cantidadHombres!)}
-                                      <br />
-                                      M: {dato.cantidadMujeres!}
-                                      <br />
-                                      T:{" "}
-                                      {Number(dato.cantidadHombres!) +
-                                        Number(dato.cantidadMujeres!)}
-                                    </div>
-                                  ),
-                                )}
-                            </TableCell>
-                          ))}
-                          {categoriasCuestionario.map((category) => (
-                            <TableCell key={`${cuestionario.id}-${category}`}>
-                              {cuestionario.preguntas
-                                .filter(
-                                  (pregunta) =>
-                                    pregunta.categoriaPersona?.descripcion ===
-                                    category,
-                                )
-                                .map((pregunta) => (
-                                  <div key={pregunta.id} className="text-sm">
-                                    H: {pregunta.cantidadHombres!} <br />
-                                    M: {pregunta.cantidadMujeres!} <br />
-                                    T:{" "}
-                                    {pregunta.cantidadHombres! +
-                                      pregunta.cantidadMujeres!}
+                                  <div key={dato.id} className="text-sm">
+                                    Total:{" "}
+                                    {Number(dato.cantidadHombres!) +
+                                      Number(dato.cantidadMujeres!)}
                                   </div>
-                                ))}
-                            </TableCell>
-                          ))}
-                        </TableRow>
-                      ))
+                                ) : (
+                                  <div key={dato.id} className="text-sm">
+                                    H: {Number(dato.cantidadHombres!)}
+                                    <br />
+                                    M: {dato.cantidadMujeres!}
+                                    <br />
+                                    T:{" "}
+                                    {Number(dato.cantidadHombres!) +
+                                      Number(dato.cantidadMujeres!)}
+                                  </div>
+                                ),
+                              )}
+                          </TableCell>
+                        ))}
+                        {categoriasCuestionario.map((category) => (
+                          <TableCell key={`${cuestionario.id}-${category}`}>
+                            {cuestionario.preguntas
+                              .filter(
+                                (pregunta) =>
+                                  pregunta.categoriaPersona?.descripcion ===
+                                  category,
+                              )
+                              .map((pregunta) => (
+                                <div key={pregunta.id} className="text-sm">
+                                  H: {pregunta.cantidadHombres!} <br />
+                                  M: {pregunta.cantidadMujeres!} <br />
+                                  T:{" "}
+                                  {pregunta.cantidadHombres! +
+                                    pregunta.cantidadMujeres!}
+                                </div>
+                              ))}
+                          </TableCell>
+                        ))}
+                      </TableRow>
+                    ))
                     : // Si no tiene cuestionarios pero sí datos institucionales, mostrar una fila con el año
-                      institution.datosInstitucionales &&
-                      institution.datosInstitucionales.length > 0 && (
-                        <TableRow key={institution.id}>
-                          <TableCell>
-                            {institution.datosInstitucionales[0]?.anio || "-"}
-                          </TableCell>
-                          <TableCell>-</TableCell>
-                          <TableCell>-</TableCell>
-                          <TableCell>-</TableCell>
-                          <TableCell>{institution.nombre}</TableCell>
-                          <TableCell>
-                            {institution.tipoInstituciones?.descripcion}
-                          </TableCell>
-                          <TableCell>-</TableCell>
-                          <TableCell>{institution.region?.nombre}</TableCell>
-                          <TableCell>{institution.municipio?.nombre}</TableCell>
-                          {categoriasGenerales.map((category) => (
-                            <TableCell key={`${institution.id}-${category}`}>
-                              {institution.datosInstitucionales
-                                ?.filter(
-                                  (dato) =>
-                                    dato.categoriasGenerales?.descripcion ===
-                                    category,
-                                )
-                                .map((dato) =>
-                                  category ===
+                    institution.datosInstitucionales &&
+                    institution.datosInstitucionales.length > 0 && (
+                      <TableRow key={institution.id}>
+                        <TableCell>
+                          {institution.datosInstitucionales[0]?.anio || "-"}
+                        </TableCell>
+                        <TableCell>-</TableCell>
+                        <TableCell>-</TableCell>
+                        <TableCell>-</TableCell>
+                        <TableCell>-</TableCell>
+                        <TableCell>-</TableCell>
+                        <TableCell>{institution.claveInstitucion}</TableCell>
+                        <TableCell>{institution.nombre}</TableCell>
+                        <TableCell>
+                          {institution.tipoInstituciones?.descripcion}
+                        </TableCell>
+
+                        <TableCell>{institution.region?.nombre}</TableCell>
+                        <TableCell>{institution.municipio?.nombre}</TableCell>
+                        {categoriasGenerales.map((category) => (
+                          <TableCell key={`${institution.id}-${category}`}>
+                            {institution.datosInstitucionales
+                              ?.filter(
+                                (dato) =>
+                                  dato.categoriasGenerales?.descripcion ===
+                                  category,
+                              )
+                              .map((dato) =>
+                                category ===
                                   "MONTO ASIGNADO A INFRAESTRUCTURA GENERAL" ? (
-                                    <div key={dato.id} className="text-sm">
-                                      Total:{" "}
-                                      {Number(dato.cantidadHombres!) +
-                                        Number(dato.cantidadMujeres!)}
-                                    </div>
-                                  ) : (
-                                    <div key={dato.id} className="text-sm">
-                                      H: {Number(dato.cantidadHombres!)}
-                                      <br />
-                                      M: {dato.cantidadMujeres!}
-                                      <br />
-                                      T:{" "}
-                                      {Number(dato.cantidadHombres!) +
-                                        Number(dato.cantidadMujeres!)}
-                                    </div>
-                                  ),
-                                )}
-                            </TableCell>
-                          ))}
-                          {categoriasCuestionario.map((category) => (
-                            <TableCell key={`${institution.id}-${category}`}>
-                              -
-                            </TableCell>
-                          ))}
-                        </TableRow>
-                      ),
+                                  <div key={dato.id} className="text-sm">
+                                    Total:{" "}
+                                    {Number(dato.cantidadHombres!) +
+                                      Number(dato.cantidadMujeres!)}
+                                  </div>
+                                ) : (
+                                  <div key={dato.id} className="text-sm">
+                                    H: {Number(dato.cantidadHombres!)}
+                                    <br />
+                                    M: {dato.cantidadMujeres!}
+                                    <br />
+                                    T:{" "}
+                                    {Number(dato.cantidadHombres!) +
+                                      Number(dato.cantidadMujeres!)}
+                                  </div>
+                                ),
+                              )}
+                          </TableCell>
+                        ))}
+                        {categoriasCuestionario.map((category) => (
+                          <TableCell key={`${institution.id}-${category}`}>
+                            -
+                          </TableCell>
+                        ))}
+                      </TableRow>
+                    ),
                 )}
                 <TableRow>
                   <TableCell className="font-medium">Totales</TableCell>
-                  <TableCell colSpan={8}></TableCell>
+                  <TableCell colSpan={10}></TableCell>
                   {categoriasGenerales.map((category) => {
                     const overallTotals = calculateOverallTotals(results);
                     return (
                       <TableCell key={`total-${category}`}>
                         {overallTotals[category] ? (
                           category ===
-                          "MONTO ASIGNADO A INFRAESTRUCTURA GENERAL" ? (
+                            "MONTO ASIGNADO A INFRAESTRUCTURA GENERAL" ? (
                             <div className="text-sm">
                               Total: {overallTotals[category].total}
                             </div>

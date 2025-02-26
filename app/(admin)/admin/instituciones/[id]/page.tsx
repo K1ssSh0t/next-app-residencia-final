@@ -110,14 +110,7 @@ export default async function Page(props: { params: Params }) {
                                             {institucion.claveInstitucion}
                                         </p>
                                     </div>
-                                    <div>
-                                        <span className="text-muted-foreground">
-                                            Clave Centro Trabajo:
-                                        </span>
-                                        <p className="font-medium">
-                                            {institucion.claveCentroTrabajo}
-                                        </p>
-                                    </div>
+
                                     <div>
                                         <span className="text-muted-foreground">Región:</span>
                                         <p className="font-medium">{institucion.region?.nombre}</p>
@@ -150,6 +143,14 @@ export default async function Page(props: { params: Params }) {
                                                 <span>Modalidad:</span>
                                                 <p className="font-medium">
                                                     {institucion.modalidad?.descripcion}
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <span className="text-muted-foreground">
+                                                    Clave Centro Trabajo:
+                                                </span>
+                                                <p className="font-medium">
+                                                    {institucion.claveCentroTrabajo}
                                                 </p>
                                             </div>
                                         </>

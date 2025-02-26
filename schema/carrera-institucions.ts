@@ -15,6 +15,7 @@ export const carreraInstituciones = pgTable("carrera_instituciones", {
   institucionesId: text().references(() => instituciones.id),
   carrerasId: text().references(() => carreras.id),
   nombreRevoe: text(),
+  claveCentroTrabajo: text(),
   planDeEstudio: text(),
   modalidadesId: text().references(() => modalidades.id),
   numeroRevoe: text(),

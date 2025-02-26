@@ -70,8 +70,11 @@ const convertToCSV = (
   const headers = [
     "Año",
     "Nombre",
+    "Clave de la Institución",
+    "Clave de Centro de Trabajo",
     "Tipo de Institución",
     "Tipo de Bachiller",
+    "Modalidad",
     "Región",
     "Municipio",
     ...categories.map((c) =>
@@ -89,8 +92,11 @@ const convertToCSV = (
     const basicInfo = [
       institution.cuestionariosData?.año || "",
       institution.nombre,
+      institution.claveInstitucion || "",
+      institution.claveCentroTrabajo || "",
       institution.tipoInstituciones?.descripcion || "",
       institution.tipoBachilleres?.descripcion || "",
+      institution.modalidad?.descripcion || "",
       institution.region?.nombre || "",
       institution.municipio?.nombre || "",
     ];
@@ -640,8 +646,11 @@ export function FiltrosMedioSuperior({
                   <TableRow>
                     <TableHead>Año</TableHead>
                     <TableHead className="w-[200px]">Nombre</TableHead>
+                    <TableHead>Clave de Institución</TableHead>
+                    <TableHead>Clave de Centro de Trabajo</TableHead>
                     <TableHead>Tipo de Institución</TableHead>
                     <TableHead>Tipo de Bachiller</TableHead>
+                    <TableHead>Modalidad</TableHead>
                     <TableHead>Región</TableHead>
                     <TableHead>Municipio</TableHead>
 
@@ -667,19 +676,24 @@ export function FiltrosMedioSuperior({
                         <TableCell className="font-medium">
                           {institution.nombre}
                         </TableCell>
+                        <TableCell>{institution.claveInstitucion}</TableCell>
+                        <TableCell>
+                          {institution.claveCentroTrabajo || "No Aplica"}
+                        </TableCell>
                         <TableCell>
                           {institution.tipoInstituciones?.descripcion}
                         </TableCell>
                         <TableCell>
                           {institution.tipoBachilleres?.descripcion}
                         </TableCell>
+                        <TableCell>{institution.modalidad.descripcion}</TableCell>
                         <TableCell>{institution.region?.nombre}</TableCell>
                         <TableCell>{institution.municipio?.nombre}</TableCell>
                         {categoriasGenerales.map((category) => (
                           <TableCell key={`${institution.id}-${category}`}>
                             {totals[category] ? (
                               category ===
-                              "MONTO ASIGNADO A INFRAESTRUCTURA GENERAL" ? (
+                                "MONTO ASIGNADO A INFRAESTRUCTURA GENERAL" ? (
                                 <div className="text-sm">
                                   Total: {totals[category].total}
                                 </div>
@@ -748,14 +762,14 @@ export function FiltrosMedioSuperior({
                   })}
                   <TableRow>
                     <TableCell className="font-medium">Totales</TableCell>
-                    <TableCell colSpan={5}></TableCell>
+                    <TableCell colSpan={8}></TableCell>
                     {categoriasGenerales.map((category) => {
                       const overallTotals = calculateOverallTotals(results);
                       return (
                         <TableCell key={`total-${category}`}>
                           {overallTotals[category] ? (
                             category ===
-                            "MONTO ASIGNADO A INFRAESTRUCTURA GENERAL" ? (
+                              "MONTO ASIGNADO A INFRAESTRUCTURA GENERAL" ? (
                               <div className="text-sm">
                                 Total: {overallTotals[category].total}
                               </div>

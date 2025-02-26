@@ -35,7 +35,7 @@ export function InstitucioneTable({ institucioneList }: { institucioneList: Inst
           <TableRow key={institucione.id}>
             <TableCell>{institucione.user?.email}</TableCell>
             <TableCell>{institucione.claveInstitucion}</TableCell>
-            <TableCell>{institucione.claveCentroTrabajo}</TableCell>
+            <TableCell>{!institucione.nivelEducativo ? institucione.claveCentroTrabajo : "No Aplica"}</TableCell>
             <TableCell>{institucione.nombre}</TableCell>
             <TableCell>{institucione.region?.nombre}</TableCell>
             <TableCell>{institucione.municipio?.nombre}</TableCell>

@@ -107,7 +107,7 @@ export function InstitucioneUpdateForm({
           text: "La institución se ha actualizado correctamente.",
           icon: "success",
           confirmButtonColor: "#631233",
-          timer: 2000, 
+          timer: 2000,
           timerProgressBar: true
         });
       }
@@ -152,13 +152,16 @@ export function InstitucioneUpdateForm({
             ))}
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="claveCentroTrabajo">Clave de Centro de Trabajo *</Label>
-            <Input name="claveCentroTrabajo" defaultValue={institucion.claveCentroTrabajo ?? ""} required id="claveCentroTrabajo" />
-            {state.errors?.claveCentroTrabajo?.map((error) => (
-              <p className="text-destructive text-sm" key={error}>{error}</p>
-            ))}
-          </div>
+
+          {!nivelEducativo && (
+            <div className="space-y-2">
+              <Label htmlFor="claveCentroTrabajo">Clave de Centro de Trabajo *</Label>
+              <Input name="claveCentroTrabajo" defaultValue={institucion.claveCentroTrabajo ?? ""} required id="claveCentroTrabajo" />
+              {state.errors?.claveCentroTrabajo?.map((error) => (
+                <p className="text-destructive text-sm" key={error}>{error}</p>
+              ))}
+            </div>
+          )}
           {
             !nivelEducativo && <div className="space-y-2">
               <Label>Modalidad</Label>

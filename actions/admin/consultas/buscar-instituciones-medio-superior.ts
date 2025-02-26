@@ -42,25 +42,25 @@ export async function buscarMedioSuperior(params: SearchParams) {
 
     if (params.institutionType) {
       whereClause.push(
-        like(instituciones.tipoInstitucionesId, params.institutionType),
+        like(instituciones.tipoInstitucionesId, params.institutionType)
       );
     }
 
     if (params.municipalityType) {
       whereClause.push(
-        like(instituciones.municipioId, params.municipalityType),
+        like(instituciones.municipioId, params.municipalityType)
       );
     }
 
     if (params.tipoBachillerato) {
       whereClause.push(
-        like(instituciones.tipoBachilleresId, params.tipoBachillerato),
+        like(instituciones.tipoBachilleresId, params.tipoBachillerato)
       );
     }
 
     if (params.institutionName) {
       whereClause.push(
-        ilike(instituciones.nombre, `%${params.institutionName}%`),
+        ilike(instituciones.nombre, `%${params.institutionName}%`)
       );
     }
 
@@ -72,6 +72,7 @@ export async function buscarMedioSuperior(params: SearchParams) {
         tipoBachilleres: true,
         municipio: true,
         user: true,
+        modalidad: true,
       },
     });
 
@@ -83,7 +84,7 @@ export async function buscarMedioSuperior(params: SearchParams) {
         ];
         if (params.year) {
           datosInstConditions.push(
-            eq(datosInstitucionales.anio, parseInt(params.year)),
+            eq(datosInstitucionales.anio, parseInt(params.year))
           );
         }
 
@@ -125,13 +126,13 @@ export async function buscarMedioSuperior(params: SearchParams) {
           datosInstitucionales: datosInst,
           cuestionariosData,
         };
-      }),
+      })
     );
 
     // Filtrar las instituciones que son null (no tienen datos para el año seleccionado)
     const filteredInstitutions = institutionsWithData.filter(
       (institution): institution is NonNullable<typeof institution> =>
-        institution !== null,
+        institution !== null
     );
 
     return filteredInstitutions;

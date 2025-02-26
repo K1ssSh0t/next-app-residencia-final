@@ -160,10 +160,7 @@ export default async function Page(props: {
                   <span className="text-muted-foreground">Clave Institución:</span>
                   <p className="font-medium">{miInstitucion.claveInstitucion}</p>
                 </div>
-                  <div>
-                    <span className="text-muted-foreground">Clave Centro Trabajo:</span>
-                    <p className="font-medium">{miInstitucion.claveCentroTrabajo}</p>
-                  </div>
+
                   <div>
                     <span className="text-muted-foreground">Región:</span>
                     <p className="font-medium">{miInstitucion.region?.nombre}</p>
@@ -183,6 +180,10 @@ export default async function Page(props: {
                     </div><div>
                         <span className="text-muted-foreground">Modalidad:</span>
                         <p className="font-medium">{miInstitucion.modalidad?.descripcion}</p>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground">Clave Centro Trabajo:</span>
+                        <p className="font-medium">{miInstitucion.claveCentroTrabajo}</p>
                       </div></>
                   )}
                   <div>

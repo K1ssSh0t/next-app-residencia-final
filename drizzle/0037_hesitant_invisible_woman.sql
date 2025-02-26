@@ -1,0 +1,1 @@
+ALTER TABLE "carrera_instituciones" ADD COLUMN "clave_centro_trabajo" text;
