@@ -221,12 +221,20 @@ function TotalsCard({ totals, title, showChart }: TotalViewProps) {
                 <h4 className="font-medium mb-2">{category}</h4>
                 <div className="space-y-1 text-sm">
                   {category === "MONTO ASIGNADO A INFRAESTRUCTURA GENERAL" ? (
-                    <p className="font-semibold">Total: {data.total}</p>
+                    <p className="font-semibold">
+                      Total: <span className="font-bold text-lg">{data.total}</span>
+                    </p>
                   ) : (
                     <>
-                      <p>Hombres: {data.hombres}</p>
-                      <p>Mujeres: {data.mujeres}</p>
-                      <p className="font-semibold">Total: {data.total}</p>
+                      <p>
+                        Hombres: <span className="font-bold text-lg">{data.hombres}</span>
+                      </p>
+                      <p>
+                        Mujeres: <span className="font-bold text-lg">{data.mujeres}</span>
+                      </p>
+                      <p className="font-semibold">
+                        Total: <span className="font-bold text-lg">{data.total}</span>
+                      </p>
                     </>
                   )}
                 </div>
