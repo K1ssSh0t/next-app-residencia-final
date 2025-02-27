@@ -17,10 +17,12 @@ export async function Header() {
             </Link>
           </div>
           <MobileMenu>
-            <Link href="/dashboard" className="text-base font-medium text-foreground hover:text-foreground-alt">
-              Dashboard
-            </Link>
-            {user?.role !== "user" && (
+            {(!user || user?.role === "user") && (
+              <Link href="/cuestionario-usuario" className="text-base font-medium text-foreground hover:text-foreground-alt">
+                Ir a Cuestionarios
+              </Link>
+            )}
+            {user?.role != "user" && (
               <Link href="/admin" className="text-base font-medium text-foreground hover:text-foreground-alt">
                 Admin
               </Link>
@@ -39,10 +41,12 @@ export async function Header() {
             </div>
           </MobileMenu>
           <nav className="hidden md:flex space-x-10">
-            <Link href="/dashboard" className="text-base font-medium text-foreground hover:text-foreground-alt">
-              Ir a Cuestionarios
-            </Link>
-            {user?.role !== "user" && (
+            {(!user || user?.role === "user") && (
+              <Link href="/cuestionario-usuario" className="text-base font-medium text-foreground hover:text-foreground-alt">
+                Ir a Cuestionarios
+              </Link>
+            )}
+            {user?.role != "user" && (
               <Link href="/admin" className="text-base font-medium text-foreground hover:text-foreground-alt">
                 Admin
               </Link>

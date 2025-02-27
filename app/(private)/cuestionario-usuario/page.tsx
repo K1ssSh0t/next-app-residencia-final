@@ -29,6 +29,7 @@ export default async function Page(props: {
     const count = await db.$count(cuestionarios);
     const totalPages = Math.ceil(count / pageSize);
     //TODO: HACER QUE SEGUN EL TIPO DE NIVEL RESTRINGIR QUE CAMPOS PUEDE LLENAR
+    //TODO: REDIRIGIR AL ADMIN SI ENTRA EN ESTA PAGINA
 
     const session = await auth();
 

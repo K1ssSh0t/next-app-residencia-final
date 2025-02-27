@@ -70,5 +70,5 @@ export async function createCarreraInstitucion(
     };
   }
 
-  redirect("/instituciones");
+  redirect("/cuestionario-usuario");
 }
