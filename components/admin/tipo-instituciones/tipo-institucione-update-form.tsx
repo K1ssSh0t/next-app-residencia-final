@@ -49,13 +49,14 @@ export function TipoInstitucioneUpdateForm({
   return (
     <div>
       <div className="mb-4 p-4 bg-yellow-100 border border-yellow-400 rounded">
-        <p className="text-yellow-700">Los campos de descripción y nivel aplicable son requeridos.</p>
+        <p className="text-yellow-700">El campo de descripción es requerido.</p>
       </div>
       <form action={dispatch} onSubmit={handleSubmit} className="flex flex-col gap-2">
         <input type="hidden" name="id" value={tipoInstitucione.id} />
-        <div>
+        {/*Label Oculto*/}
+        {/*<div>
           <p><strong>Id:</strong> {tipoInstitucione.id}</p>
-        </div>
+        </div>*/}
         <div>
           <Label htmlFor="descripcion">Descripción *</Label>
           <Input name="descripcion" defaultValue={tipoInstitucione.descripcion ?? ""} required id="descripcion" />

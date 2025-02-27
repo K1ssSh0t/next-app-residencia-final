@@ -43,7 +43,8 @@ export default async function Page(props: { params: Params }) {
           </BreadcrumbList>
         </Breadcrumb>
       </div>
-      <div className="pt-5">
+      <div className="pt-5 flex flex-col gap-5 w-full sm:w-4/5 md:w-3/5 lg:w-2/5">
+        <h1 className="text-xl font-bold">Editar Categoría General</h1>
         <CategoriasGeneraleUpdateForm
           categoriasGenerales={categoriasGenerales}
         />

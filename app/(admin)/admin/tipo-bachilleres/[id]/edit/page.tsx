@@ -16,7 +16,7 @@ export default async function Page(props: { params: Params }) {
 
   return (
     <div>
-      <h1 className="text-xl font-bold mb-6">Edit Tipo Bachillere</h1>
+      <h1 className="text-xl font-bold mb-6">Editar Tipo Bachiller</h1>
       <TipoBachillereUpdateForm 
         tipoBachillere={ tipoBachillere }
       />

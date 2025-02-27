@@ -39,7 +39,7 @@ export default async function Page(props: { params: Params }) {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>Delete</BreadcrumbPage>
+              <BreadcrumbPage>Eliminar</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>

@@ -30,11 +30,12 @@ export function TipoInstitucioneTable({ tipoInstitucioneList }: { tipoInstitucio
             <TableCell>{tipoInstitucione.descripcion}</TableCell>
             <TableCell className="justify-end flex gap-2">
               {/* [CODE_MARK table-actions] */}
-              <Link href={`/admin/tipo-instituciones/${tipoInstitucione.id}`}>
+              {/*Ocultado Ver Detalles por mostrarse los datos en la tabla*/}
+              {/*<Link href={`/admin/tipo-instituciones/${tipoInstitucione.id}`}>
                 <Button size="icon" variant="outline" title="Ver Detalles">
                   <EyeIcon />
                 </Button>
-              </Link>
+              </Link>*/}
               <Link href={`/admin/tipo-instituciones/${tipoInstitucione.id}/edit`}>
                 <Button size="icon" variant="outline" title="Editar">
                   <PencilIcon />

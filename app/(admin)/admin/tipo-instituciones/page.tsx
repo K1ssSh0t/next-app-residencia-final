@@ -28,9 +28,10 @@ export default async function Page(props: {
     <div className="flex flex-col gap-5">
       <h1 className="text-xl font-bold">Tipos de  Instituciones</h1>
       <div className="flex justify-between">
-        <div>
+        {/*Ocultado Busqueda por ser muy pocos los datos*/}
+        {/*<div>
           <SearchInput placeholder="Buscar Tipo Instituciones" />
-        </div>
+        </div>*/}
         <div className="text-right mr-2">
           <Link href="/admin/tipo-instituciones/new">
             <Button>

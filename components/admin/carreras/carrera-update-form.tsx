@@ -53,9 +53,10 @@ export function CarreraUpdateForm({
       </div>
       <form action={dispatch} onSubmit={handleSubmit} className="flex flex-col gap-2">
         <input type="hidden" name="id" value={carrera.id} />
-        <div>
+        {/*Label Oculto*/}
+        {/*<div>
           <p><strong>Id:</strong> {carrera.id}</p>
-        </div>
+        </div>*/}
         <div>
           <Label htmlFor="clave">Clave *</Label>
           <Input name="clave" defaultValue={carrera.clave ?? ""} required id="clave" />

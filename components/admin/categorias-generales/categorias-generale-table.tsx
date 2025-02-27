@@ -32,11 +32,12 @@ export function CategoriasGeneraleTable({ categoriasGeneraleList }: { categorias
             <TableCell>{categoriasGenerales.activo ? "Activo" : "Inactivo"}</TableCell>
             <TableCell className="justify-end flex gap-2">
               {/* [CODE_MARK table-actions] */}
-              <Link href={`/admin/categorias-generales/${categoriasGenerales.id}`}>
+              {/*Ocultado boton ver detalles por apreciarse los botones en la tabla*/}
+              {/*<Link href={`/admin/categorias-generales/${categoriasGenerales.id}`}>
                 <Button size="icon" variant="outline" title="Ver Detalles">
                   <EyeIcon />
                 </Button>
-              </Link>
+              </Link>*/}
               <Link href={`/admin/categorias-generales/${categoriasGenerales.id}/edit`}>
                 <Button size="icon" variant="outline" title="Editar">
                   <PencilIcon />

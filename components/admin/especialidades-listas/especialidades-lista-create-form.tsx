@@ -21,26 +21,29 @@ export function EspecialidadesListaCreateForm() {
       text: "Se han guardado los datos.",
       icon: "success",
       confirmButtonColor: "#631233",
-      timer: 2000, 
+      timer: 2000,
       timerProgressBar: true
-      
+
     });
   }
 
   return (
     <div>
+      <div className="mb-2 p-4 bg-yellow-100 border border-yellow-400 rounded">
+        <p className="text-yellow-700">Los campos de clave y descripción son requeridos.</p>
+      </div>
       <form action={dispatch} onSubmit={handleSubmit} className="flex flex-col gap-2">
         <div>
-          <Label>Descripción</Label>
-          <Input name="descripcion" />
-          {state.errors?.descripcion?.map((error) => (
+        <Label htmlFor="clave">Clave *</Label>
+        <Input name="clave" required id="clave" />
+          {state.errors?.clave?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}
         </div>
         <div>
-          <Label>Clave</Label>
-          <Input name="clave" />
-          {state.errors?.clave?.map((error) => (
+        <Label htmlFor="descripcion">Descripcion *</Label>
+        <Input name="descripcion" required id="descripcion" />
+          {state.errors?.descripcion?.map((error) => (
             <p className="text-red-500" key={error}>{error}</p>
           ))}
         </div>

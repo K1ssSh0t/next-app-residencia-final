@@ -28,11 +28,12 @@ export function CarreraTable({ carreraList }: { carreraList: CarrerasWithRelatio
             <TableCell>{carrera.descripcion}</TableCell>
             <TableCell className="justify-end flex gap-2">
               {/* [CODE_MARK table-actions] */}
-              <Link href={`/admin/carreras/${carrera.id}`}>
+              {/*Ocultado Ver Detalles por mostrarse los datos en la tabla*/}
+              {/*<Link href={`/admin/carreras/${carrera.id}`}>
                 <Button size="icon" variant="outline" title="Ver Detalles">
                   <EyeIcon />
                 </Button>
-              </Link>
+              </Link>*/}
               <Link href={`/admin/carreras/${carrera.id}/edit`}>
                 <Button size="icon" variant="outline" title="Editar">
                   <PencilIcon />

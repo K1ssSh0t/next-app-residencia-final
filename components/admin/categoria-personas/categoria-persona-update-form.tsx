@@ -54,9 +54,10 @@ export function CategoriaPersonaUpdateForm({
       </div>
       <form action={dispatch} onSubmit={handleSubmit} className="flex flex-col gap-2">
         <input type="hidden" name="id" value={categoriaPersona.id} />
-        <div>
+        {/*Label Oculto*/}
+        {/*<div>
           <p><strong>Id:</strong> {categoriaPersona.id}</p>
-        </div>
+        </div>*/}
         <div>
           <Label htmlFor="descripcion">Descripción</Label>
           <Input name="descripcion" defaultValue={categoriaPersona.descripcion ?? ""} id="descripcion" required />

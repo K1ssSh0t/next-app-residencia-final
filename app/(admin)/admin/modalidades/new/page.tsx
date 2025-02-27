@@ -9,14 +9,14 @@ import {
 import { ModalidadCreateForm } from "@/components/admin/modalidads/modalidad-create-form";
 
 export default async function Page() {
-
   return (
     <div className="relative">
+      {/* Breadcrumb */}
       <div className="absolute left-8 -top-6">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/admin/modalidades">Modalidades</BreadcrumbLink>
+            <BreadcrumbLink href="/admin/modalidades">Modalidades</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
@@ -25,10 +25,13 @@ export default async function Page() {
           </BreadcrumbList>
         </Breadcrumb>
       </div>
-      <div className="pt-5">
-        <ModalidadCreateForm
-        />
+
+      {/* Contenido principal */}
+      <div className="pt-5 flex flex-col gap-5 w-full sm:w-4/5 md:w-3/5 lg:w-2/5">
+        <h1 className="text-xl font-bold">Crear Modalidad</h1>
+        <ModalidadCreateForm />
       </div>
     </div>
   );
 }
+
