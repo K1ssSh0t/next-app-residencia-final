@@ -487,7 +487,7 @@ export function FiltrosMedioSuperior({
     }
   };
 
-  const [showDetailedView, setShowDetailedView] = React.useState(true);
+  const [showDetailedView, setShowDetailedView] = React.useState(false);
 
   return (
     <div className="w-full max-w-[95vw] mx-auto p-4">
@@ -624,7 +624,8 @@ export function FiltrosMedioSuperior({
               <Button
                 onClick={() => setShowDetailedView(!showDetailedView)}
                 variant="outline"
-                className="w-full sm:w-auto ml-2"
+                className="w-full sm:w-auto ml-2 hidden sm:block"
+
               >
                 {showDetailedView ? "Ver Solo Totales" : "Ver Tabla Detallada"}
               </Button>
