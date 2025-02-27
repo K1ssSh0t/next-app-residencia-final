@@ -47,7 +47,7 @@ export async function CuestionarioTable({ cuestionarioList }: { cuestionarioList
           {/* <TableHead>Id</TableHead> */}
           <TableHead>Año</TableHead>
           <TableHead>Carrera</TableHead>
-          <TableHead>Nombre Revoe</TableHead>
+          {/* <TableHead>Nombre Revoe</TableHead> */}
           <TableHead>Plan de Estudio</TableHead>
           <TableHead>Modalidad</TableHead>
           <TableHead>Numero Revoe</TableHead>
@@ -65,7 +65,7 @@ export async function CuestionarioTable({ cuestionarioList }: { cuestionarioList
               {/* <TableCell>{cuestionario.id}</TableCell> */}
               <TableCell>{cuestionario.año}</TableCell>
               <TableCell>{cuestionario.carrera?.carrera?.descripcion}</TableCell>
-              <TableCell>{cuestionario.carrera?.nombreRevoe}</TableCell>
+              {/* <TableCell>{cuestionario.carrera?.nombreRevoe}</TableCell> */}
               <TableCell>{cuestionario.carrera?.planDeEstudio}</TableCell>
               <TableCell>{cuestionario.carrera?.modalidad?.descripcion}</TableCell>
               <TableCell>{cuestionario.carrera?.numeroRevoe}</TableCell>

@@ -97,12 +97,12 @@ export function PrivateSidebar({ user }: { user: User }) {
             side="top"
             className="w-[--radix-popper-anchor-width]"
           >
-            <Link href="/profile">
+            {/* <Link href="/profile">
               <DropdownMenuItem>
                 <User2Icon />
                 Profile
               </DropdownMenuItem>
-            </Link>
+            </Link> */}
             <Link href="/signout">
               <DropdownMenuItem>
                 <LogOutIcon />

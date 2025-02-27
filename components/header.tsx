@@ -17,8 +17,8 @@ export async function Header() {
             </Link>
           </div>
           <MobileMenu>
-            <Link href="/dashboard" className="text-base font-medium text-foreground hover:text-foreground-alt">
-              Dashboard
+            <Link href="/cuestionario-usuario" className="text-base font-medium text-foreground hover:text-foreground-alt">
+              Ir a Cuestionarios
             </Link>
             {user?.role !== "user" && (
               <Link href="/admin" className="text-base font-medium text-foreground hover:text-foreground-alt">
@@ -39,7 +39,7 @@ export async function Header() {
             </div>
           </MobileMenu>
           <nav className="hidden md:flex space-x-10">
-            <Link href="/dashboard" className="text-base font-medium text-foreground hover:text-foreground-alt">
+            <Link href="/cuestionario-usuario" className="text-base font-medium text-foreground hover:text-foreground-alt">
               Ir a Cuestionarios
             </Link>
             {user?.role !== "user" && (
