@@ -92,7 +92,7 @@ export function CarreraInstitucionUpdateForm({
         </div>
         <div>
           <Label htmlFor="claveCentroTrabajo">Clave de Centro de Trabajo *</Label>
-          <Input name="claveCentroTrabajo" required id="claveCentroTrabajo" />
+          <Input name="claveCentroTrabajo" required id="claveCentroTrabajo" defaultValue={carreraInstitucion.claveCentroTrabajo ?? ""} />
           {state.errors?.claveCentroTrabajo?.map((error) => (
             <p className="text-red-500" key={error}>
               {error}

@@ -49,6 +49,13 @@ export async function createDatosInstitucionale(
     await db.insert(datosInstitucionales).values(validatedFields.data);
 
     revalidatePath("/datos-institucionales");
+
+    // revalidatePath(
+    //   `/datos-institucionales/new?idInstitucion=${formData.get(
+    //     "institucionesId"
+    //   )}`
+    // );
+    revalidatePath("/cuestionario-usuario");
     return {
       status: "success",
     };

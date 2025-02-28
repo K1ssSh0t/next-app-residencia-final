@@ -6,7 +6,7 @@ export const users = pgTable("users", {
     .primaryKey()
     .$defaultFn(() => createId()),
   name: text(),
-  email: text().notNull(),
+  email: text().notNull().unique(),
   emailVerified: timestamp({ mode: "date" }),
   nombreContacto: text(),
   correoContacto: text(),

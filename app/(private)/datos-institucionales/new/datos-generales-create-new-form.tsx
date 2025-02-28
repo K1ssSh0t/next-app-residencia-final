@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { CategoriasGenerales } from "@/schema/categorias-generales";
 import DecimalInput from "@/components/decimal-input";
 import { parse } from "path";
+import { useRouter } from "next/navigation";
 
 export function DatosInstitucionaleCreateForm({
     categoriasGeneraleList,
@@ -20,6 +21,7 @@ export function DatosInstitucionaleCreateForm({
     const initialState: CreateDatosInstitucionaleState = {};
     const [state, dispatch] = useActionState(createDatosInstitucionale, initialState);
 
+    const router = useRouter();
     function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         const formData = new FormData(event.target as HTMLFormElement);
@@ -60,6 +62,16 @@ export function DatosInstitucionaleCreateForm({
             startTransition(() => dispatch(formData));
         }
 
+        //router.refresh();
+
+        //router.back();
+        //router.refresh();
+        //if (state.status === 'success') router.push('/cuestionario-usuario');
+        setTimeout(() => {
+            // window.location.reload();
+            //router.back();
+            router.push('/cuestionario-usuario');
+        }, 3500);
         // startTransition(() => dispatch(new FormData(datosInstitucionales as HTMLFormElement )));
 
     }
@@ -123,7 +135,7 @@ export function DatosInstitucionaleCreateForm({
                     );
                 })}
 
-                <Button type="submit" className="mt-4">Enviar</Button>
+                <Button type="submit" className="mt-4" disabled={state.status === 'success'}>Enviar</Button>
                 <FormAlert state={state} />
             </form>
         </div>
