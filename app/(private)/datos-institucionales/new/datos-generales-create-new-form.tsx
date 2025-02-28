@@ -1,6 +1,6 @@
 "use client";
 
-import { startTransition, useActionState } from "react";
+import { startTransition, useActionState, useState } from "react";
 import { createDatosInstitucionale, CreateDatosInstitucionaleState } from "@/actions/private/datos-institucionales/create-datos-institucionale";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -20,10 +20,12 @@ export function DatosInstitucionaleCreateForm({
 }) {
     const initialState: CreateDatosInstitucionaleState = {};
     const [state, dispatch] = useActionState(createDatosInstitucionale, initialState);
+    const [loading, setLoading] = useState(false);
 
     const router = useRouter();
     function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
+        setLoading(true);
         const formData = new FormData(event.target as HTMLFormElement);
         // startTransition(() => dispatch(formData));
         const datosInstitucionales = categoriasGeneraleList.map(categoria => {
@@ -114,6 +116,7 @@ export function DatosInstitucionaleCreateForm({
                                             min="0"
                                             step={1}
                                             inputMode="numeric"
+                                            required
                                         />
 
                                     </div>
@@ -126,6 +129,7 @@ export function DatosInstitucionaleCreateForm({
                                             min="0"
                                             step={1}
                                             inputMode="numeric"
+                                            required
                                         />
 
                                     </div>
@@ -135,7 +139,12 @@ export function DatosInstitucionaleCreateForm({
                     );
                 })}
 
-                <Button type="submit" className="mt-4" disabled={state.status === 'success'}>Enviar</Button>
+                <Button type="submit" className="mt-4"
+
+                    // disabled={state.status === 'success'}
+                    disabled={loading}
+
+                >Enviar</Button>
                 <FormAlert state={state} />
             </form>
         </div>

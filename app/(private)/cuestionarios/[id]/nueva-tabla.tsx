@@ -13,6 +13,7 @@ import { createPregunta, CreatePreguntaState } from '@/actions/private/preguntas
 //import { useFormState } from 'react-dom'
 import { toast, useToast } from "@/hooks/use-toast"
 import Swal from 'sweetalert2'
+import { useRouter } from 'next/navigation'
 
 interface PreguntaFormProps {
     preguntaList: PreguntasWithRelations
@@ -31,6 +32,7 @@ interface FormValues {
 }
 
 export default function PreguntaForm({ preguntaList, categoriasList, cuestionarioId, estadoCuestionario }: PreguntaFormProps) {
+    const router = useRouter()
     const [formValues, setFormValues] = useState<FormValues>(() => {
         const initialValues: FormValues = {}
 
@@ -128,10 +130,13 @@ export default function PreguntaForm({ preguntaList, categoriasList, cuestionari
                     confirmButtonColor: "#631233",
                     timer: 2000,
                     timerProgressBar: true
+                }).then(() => {
+                    router.back()
+                    router.refresh()
                 });
             } catch (error) {
                 console.error('Error al guardar los cambios:', error)
-                
+
                 Swal.fire({
                     title: "Error",
                     text: "Hubo un problema al guardar los cambios.",
