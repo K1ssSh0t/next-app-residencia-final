@@ -28,9 +28,10 @@ export default async function Page(props: {
     <div className="flex flex-col gap-5">
       <h1 className="text-xl font-bold">Tipos de  Bachilleres</h1>
       <div className="flex justify-between">
-        <div>
+        {/*Ocultado busqueda de tipos bachiller por ser muy pocos datos*/}
+        {/*<div>
           <SearchInput placeholder="Buscar Tipo Bachilleres" />
-        </div>
+        </div>*/}
         <div className="text-right mr-2">
           <Link href="/admin/tipo-bachilleres/new">
             <Button>

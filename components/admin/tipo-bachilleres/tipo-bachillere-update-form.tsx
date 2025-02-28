@@ -53,9 +53,10 @@ export function TipoBachillereUpdateForm({
       </div>
       <form action={dispatch} onSubmit={handleSubmit} className="flex flex-col gap-2">
         <input type="hidden" name="id" value={tipoBachillere.id} />
-        <div>
+        {/*Label Oculto*/}
+        {/*<div>
           <p><strong>Id:</strong> {tipoBachillere.id}</p>
-        </div>
+        </div>*/}
         <div>
           <Label htmlFor="descripcion">Descripción *</Label>
           <Input name="descripcion" defaultValue={tipoBachillere.descripcion ?? ""} required id="descripcion" />

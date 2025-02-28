@@ -42,9 +42,10 @@ export default async function Page(props: {
         </Breadcrumb>
       </div>
       <div className="flex justify-between pt-5 mb-5">
-        <div>
+        {/*Ocultado Busqueda por ser muy pocos los datos*/}
+        {/*<div>
           <SearchInput placeholder="Buscar Modalidades" />
-        </div>
+        </div>*/}
         <div className="text-right mr-2">
           <Link href="/admin/modalidades/new">
             <Button>

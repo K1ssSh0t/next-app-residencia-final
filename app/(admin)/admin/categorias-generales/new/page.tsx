@@ -9,14 +9,14 @@ import {
 import { CategoriasGeneraleCreateForm } from "@/components/admin/categorias-generales/categorias-generale-create-form";
 
 export default async function Page() {
-
   return (
     <div className="relative">
+      {/* Breadcrumb */}
       <div className="absolute left-8 -top-6">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/admin/categorias-generales">Categorias Generales</BreadcrumbLink>
+            <BreadcrumbLink href="/admin/categorias-generales">Categorías Generales</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
@@ -25,10 +25,13 @@ export default async function Page() {
           </BreadcrumbList>
         </Breadcrumb>
       </div>
-      <div className="pt-5">
-        <CategoriasGeneraleCreateForm
-        />
+
+      {/* Contenido principal */}
+      <div className="pt-5 flex flex-col gap-5 w-full sm:w-4/5 md:w-3/5 lg:w-2/5">
+        <h1 className="text-xl font-bold">Crear Categoría General</h1>
+        <CategoriasGeneraleCreateForm />
       </div>
     </div>
   );
 }
+

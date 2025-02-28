@@ -27,7 +27,7 @@ export default async function Page(props: { params: Params }) {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/admin/especialidades-listas">Especialidades Listas</BreadcrumbLink>
+              <BreadcrumbLink href="/admin/especialidades-listas">Catalogo Especialidades</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
@@ -37,8 +37,8 @@ export default async function Page(props: { params: Params }) {
         </Breadcrumb>
       </div>
       <div className="pt-5">
-        <p><strong>Descripción:</strong> { especialidadesLista.descripcion }</p>
         <p><strong>Clave:</strong> { especialidadesLista.clave }</p>
+        <p><strong>Descripción:</strong> { especialidadesLista.descripcion }</p>
       </div>
     </div>
   );

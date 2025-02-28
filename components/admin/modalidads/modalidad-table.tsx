@@ -30,11 +30,12 @@ export function ModalidadTable({ modalidadList }: { modalidadList: ModalidadsWit
             <TableCell>{modalidad.descripcion}</TableCell>
             <TableCell className="justify-end flex gap-2">
               {/* [CODE_MARK table-actions] */}
-              <Link href={`/admin/modalidades/${modalidad.id}`}>
+              {/*Ocultado boton de ver detalles por mostrarse los datos en tabla*/}
+              {/*<Link href={`/admin/modalidades/${modalidad.id}`}>
                 <Button size="icon" variant="outline" title="Ver Detalles">
                   <EyeIcon />
                 </Button>
-              </Link>
+              </Link>*/}
               <Link href={`/admin/modalidades/${modalidad.id}/edit`}>
                 <Button size="icon" variant="outline" title="Editar">
                   <PencilIcon />

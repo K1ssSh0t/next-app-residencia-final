@@ -48,7 +48,7 @@ export default async function Page(props: {
         <div className="text-right mr-2">
           <Link href="/admin/especialidades-listas/new">
             <Button>
-              <PlusIcon className="mr-2" /> Agregar
+              <PlusIcon className="mr-2" /> Nueva Especialidad
             </Button>
           </Link>
         </div>

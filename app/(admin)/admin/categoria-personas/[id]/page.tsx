@@ -15,7 +15,7 @@ export default async function Page(props: { params: Params }) {
 
   return (
     <div>
-      <h1 className="text-xl font-bold mb-6">Categoria Personas</h1>
+      <h1 className="text-xl font-bold mb-6">Indicador</h1>
       <div>
         <p><strong>Id:</strong> { categoriaPersona.id }</p>
         <p><strong>Descripción:</strong> { categoriaPersona.descripcion }</p>
