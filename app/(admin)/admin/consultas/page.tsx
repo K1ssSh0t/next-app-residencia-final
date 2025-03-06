@@ -9,6 +9,7 @@ import { getRegionsWithRelations } from "@/repositories/region-repository";
 import { instituciones } from "@/schema/instituciones";
 import { municipios } from "@/schema/municipios";
 import { Suspense } from "react";
+import { eq } from "drizzle-orm";
 
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
@@ -24,11 +25,16 @@ export default async function Page(props: {
     const tipoInstituciones = await db.query.tipoInstituciones.findMany();
     const municipios = await db.query.municipios.findMany();
 
+    const institucionesData = await db.query.instituciones.findMany({
+        where: eq(instituciones.nivelEducativo, true)
+    });
+
     // Transformar regiones a formato value/label
     const regionesFormateadas = regiones.map(region => ({
         value: region.id,
         label: region.nombre
     }));
+
 
     // Transformar tipos de instituciones a formato value/label 
     const tiposInstitucionesFormateados = tipoInstituciones.map(tipo => ({
@@ -43,11 +49,17 @@ export default async function Page(props: {
         regionId: municipio.regionId
     }));
 
+    const institucionesFormateadas = institucionesData.map(institucion => ({
+        value: institucion.nombre as string,
+        label: institucion.nombre,
+    }));
+
     // Combinar ambos arrays en un solo objeto
     const datosFormateados = {
         regions: regionesFormateadas,
         institutionTypes: tiposInstitucionesFormateados,
-        municipalities: municipiosFormateados
+        municipalities: municipiosFormateados,
+        institutions: institucionesFormateadas
     };
 
     // export default function Page() {

@@ -306,9 +306,11 @@ export function ComboboxFilter({
           aria-expanded={open}
           className="w-full justify-between hover:bg-[#631233] hover:text-white"
         >
-          {value
-            ? options.find((option) => option.value === value)?.label
-            : placeholder}
+          <span className="block truncate">
+            {value
+              ? options.find((option) => option.value === value)?.label
+              : placeholder}
+          </span>
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -374,6 +376,7 @@ export function FiltrosSuperior({
   const [selectedInstitutionType, setSelectedInstitutionType] =
     React.useState("");
   const [nombreInstitucion, setNombreInstitucion] = React.useState("");
+  const [isInstitucionSelect, setIsInstitucionSelect] = React.useState(false);
   const [selectedYear, setSelectedYear] = React.useState("");
   const [selectedCareer, setSelectedCareer] = React.useState("");
   const [selectedModality, setSelectedModality] = React.useState("");
@@ -931,16 +934,33 @@ export function FiltrosSuperior({
             />
           </div>
 
-          <div className="space-y-2">
+          <div className="">
             <label htmlFor="" className="text-sm font-medium">
               Nombre de Institución
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setIsInstitucionSelect(!isInstitucionSelect)}
+                className="ml-2 mb-1"
+              >
+                {isInstitucionSelect ? "Campo de Texto" : "Selector"}
+              </Button>
             </label>
-            <input
-              type="text"
-              value={nombreInstitucion}
-              onChange={(e) => setNombreInstitucion(e.target.value)}
-              className="w-full border  rounded-md p-2"
-            />
+            {isInstitucionSelect ? (
+              <ComboboxFilter
+                options={filterOptions.institutions || []}
+                placeholder="Seleccionar institución"
+                value={nombreInstitucion}
+                onChange={setNombreInstitucion}
+              />
+            ) : (
+              <input
+                type="text"
+                value={nombreInstitucion}
+                onChange={(e) => setNombreInstitucion(e.target.value)}
+                className="w-full border rounded-md p-2"
+              />
+            )}
           </div>
 
           <div className="space-y-2">
