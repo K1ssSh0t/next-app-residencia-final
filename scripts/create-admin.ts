@@ -13,7 +13,7 @@ async function main() {
     .values({ email: email, password: hash, role: "admin" });
   console.log("created user " + email);
 
-  await sdb.insert(helpers).values({ estadoCuestionario: false });
+  await sdb.insert(helpers).values({ estadoCuestionario: true });
   await closeConnection();
 }
 

@@ -10,13 +10,19 @@ import {
 } from "@/components/ui/card";
 import { db } from "@/lib/db";
 import { getHelperWithRelations } from "@/repositories/helper-repository";
-
+import { isConsultor } from "@/services/authorization-service";
+import { auth } from "@/lib/auth";
+import { redirect } from "next/navigation";
 export default async function Page() {
   //const estadoCuestionario = await getHelperWithRelations("gmplxjm015yx484shzpagt3o");
 
   const estadoCuestionario = await db.query.helpers.findFirst();
 
-  // TODO:TIENE QUE HAVER UN DATO EN LA DB PARA QUE FUNCIONE
+  const session = await auth();
+
+  if (session && isConsultor(session)) {
+    redirect("/admin/consultas")
+  }
 
   return (
     <div className="container mx-auto py-8">

@@ -132,8 +132,8 @@ function TotalsCard({ totals, title, showChart }: TotalsCardProps) {
                 <Tooltip />
                 <Legend />
                 <Bar dataKey="Hombres" fill="#8884d8" />
-                <Bar dataKey="Mujeres" fill="#82ca9d" />
-                <Bar dataKey="Total" fill="#ffc658" />
+                <Bar dataKey="Mujeres" fill="#f15bb5" />
+                <Bar dataKey="Total" fill="#82ca9d" />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -318,13 +318,33 @@ export function ComboboxFilter({
             placeholder={`Buscar ${placeholder.toLowerCase()}...`}
           />
           <CommandEmpty>No se encontraron resultados.</CommandEmpty>
-          <CommandGroup>
+          {/* <CommandGroup>
             {options.map((option) => (
               <CommandItem
                 key={option.value}
                 value={option.value}
                 onSelect={(currentValue) => {
                   onChange(currentValue === value ? "" : currentValue);
+                  setOpen(false);
+                }}
+              >
+                <Check
+                  className={cn(
+                    "mr-2 h-4 w-4",
+                    value === option.value ? "opacity-100" : "opacity-0",
+                  )}
+                />
+                {option.label}
+              </CommandItem>
+            ))}
+          </CommandGroup> */}
+          <CommandGroup>
+            {options.map((option) => (
+              <CommandItem
+                key={option.value}
+                value={option.label ?? ''} // se filtra por label
+                onSelect={() => {
+                  onChange(option.value === value ? "" : option.value);
                   setOpen(false);
                 }}
               >
@@ -608,6 +628,8 @@ export function FiltrosSuperior({
             </Button>
           </div>
         </div>
+
+        <div><p className="italic">{"Nota: Los datos generales se toman en cuenta una vez por institución(Todos Los indicadores que tengan 'General')"}</p></div>
 
         {showDetailedView ? (
           <div className="rounded-md border">

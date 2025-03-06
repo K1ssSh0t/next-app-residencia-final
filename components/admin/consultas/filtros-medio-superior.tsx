@@ -209,8 +209,8 @@ function TotalsCard({ totals, title, showChart }: TotalViewProps) {
                 <Tooltip />
                 <Legend />
                 <Bar dataKey="Hombres" fill="#8884d8" />
-                <Bar dataKey="Mujeres" fill="#82ca9d" />
-                <Bar dataKey="Total" fill="#ffc658" />
+                <Bar dataKey="Mujeres" fill="#f15bb5" />
+                <Bar dataKey="Total" fill="#82ca9d" />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -270,7 +270,7 @@ export function ComboboxFilter({
           className="w-full justify-between"
         >
           {value
-            ? options.find((option) => option.value === value)?.label
+            ? options.find((option) => option.value == value)?.label //mejorar el filtro para buque correctamemnte el nombre 
             : placeholder}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
@@ -281,13 +281,33 @@ export function ComboboxFilter({
             placeholder={`Buscar ${placeholder.toLowerCase()}...`}
           />
           <CommandEmpty>No se encontraron resultados.</CommandEmpty>
-          <CommandGroup>
+          {/* <CommandGroup>
             {options.map((option) => (
               <CommandItem
                 key={option.value}
                 value={option.value}
                 onSelect={(currentValue) => {
                   onChange(currentValue === value ? "" : currentValue);
+                  setOpen(false);
+                }}
+              >
+                <Check
+                  className={cn(
+                    "mr-2 h-4 w-4",
+                    value === option.value ? "opacity-100" : "opacity-0",
+                  )}
+                />
+                {option.label}
+              </CommandItem>
+            ))}
+          </CommandGroup> */}
+          <CommandGroup>
+            {options.map((option) => (
+              <CommandItem
+                key={option.value}
+                value={option.label ?? ''} // se filtra por label
+                onSelect={() => {
+                  onChange(option.value === value ? "" : option.value);
                   setOpen(false);
                 }}
               >
@@ -695,7 +715,7 @@ export function FiltrosMedioSuperior({
                         <TableCell>
                           {institution.tipoBachilleres?.descripcion}
                         </TableCell>
-                        <TableCell>{institution.modalidad.descripcion}</TableCell>
+                        <TableCell>{institution.modalidad?.descripcion}</TableCell>
                         <TableCell>{institution.region?.nombre}</TableCell>
                         <TableCell>{institution.municipio?.nombre}</TableCell>
                         {categoriasGenerales.map((category) => (
