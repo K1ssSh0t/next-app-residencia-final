@@ -900,6 +900,11 @@ export function FiltrosMedioSuperior({
             </div>
           ) : (
             <div className="space-y-4">
+              {results.length === 1 && (
+                <h3 className="text-lg font-medium">
+                  Nombre de la Institución: {results[0].nombre}
+                </h3>
+              )}
               <TotalsCard
                 totals={Object.fromEntries(
                   categoriasPreguntas.map((category) => [

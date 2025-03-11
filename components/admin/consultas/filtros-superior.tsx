@@ -855,6 +855,11 @@ export function FiltrosSuperior({
           </div>
         ) : (
           <div className="space-y-4">
+            {results.length === 1 && (
+              <h3 className="text-lg font-medium">
+                Nombre de la Institución: {results[0].nombre}
+              </h3>
+            )}
             <TotalsCard
               totals={cuestionarioTotals}
               title="Totales por Categoría de Cuestionario"
