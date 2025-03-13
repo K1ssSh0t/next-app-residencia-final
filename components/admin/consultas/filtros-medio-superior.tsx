@@ -386,8 +386,8 @@ export function FiltrosMedioSuperior({
 
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 5 }, (_, i) => ({
-    value: String(currentYear - i),
-    label: String(currentYear - i),
+    value: String(2025 + i),
+    label: String(2025 + i),
   }));
 
   const handleSearch = () => {
@@ -559,7 +559,7 @@ export function FiltrosMedioSuperior({
               onChange={setSelectedBachilleratoType}
             />
           </div>
-
+          {/* 
           <div className="space-y-2">
             <label className="text-sm font-medium">Tipo Institución</label>
             <ComboboxFilter
@@ -568,7 +568,7 @@ export function FiltrosMedioSuperior({
               value={selectedInstitutionType}
               onChange={setSelectedInstitutionType}
             />
-          </div>
+          </div> */}
 
           <div className="">
             <label htmlFor="" className="text-sm font-medium">

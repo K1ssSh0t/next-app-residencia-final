@@ -4,7 +4,7 @@ import { db } from "@/lib/db";
 import { Button } from "@/components/ui/button";
 import { instituciones } from "@/schema/instituciones";
 import { auth } from "@/lib/auth";
-import { eq } from "drizzle-orm";
+import { eq, is } from "drizzle-orm";
 import { getUserWithRelations } from "@/repositories/user-repository";
 import { parseSearchParams } from "@/lib/search-params-utils";
 import { cuestionarios } from "@/schema/cuestionarios";
@@ -17,6 +17,8 @@ import { especialidades } from "@/schema/especialidades";
 import { EspecialidadCreateForm } from "@/components/private/especialidades/especialidad--nuevo-create-form";
 import { EspecialidadUpdateForm } from "@/components/private/especialidades/especialidad-update-form";
 import { AutoCreateButton } from "@/components/private/cuestionarios/auto-create-button";
+import { redirect } from "next/navigation";
+import { isConsultor, isUser } from "@/services/authorization-service";
 
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
@@ -32,6 +34,10 @@ export default async function Page(props: {
     //TODO: REDIRIGIR AL ADMIN SI ENTRA EN ESTA PAGINA
 
     const session = await auth();
+
+    if (session && !isUser(session)) {
+        redirect("/admin/consultas");
+    }
 
     const miInstitucion = await db.query.instituciones.findFirst(
         {

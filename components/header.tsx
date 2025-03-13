@@ -24,7 +24,7 @@ export async function Header() {
             )}
             {user?.role != "user" && (
               <Link href="/admin" className="text-base font-medium text-foreground hover:text-foreground-alt">
-                Admin
+                Usuario Personal
               </Link>
             )}
             {user?.id ? (
@@ -48,7 +48,7 @@ export async function Header() {
             )}
             {user?.role != "user" && (
               <Link href="/admin" className="text-base font-medium text-foreground hover:text-foreground-alt">
-                Admin
+                Usuario Personal
               </Link>
             )}
           </nav>

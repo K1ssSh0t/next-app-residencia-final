@@ -429,8 +429,8 @@ export function FiltrosSuperior({
 
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 5 }, (_, i) => ({
-    value: String(currentYear - i),
-    label: String(currentYear - i),
+    value: String(2025 + i),
+    label: String(2025 + i),
   }));
 
   const handleSearch = () => {
