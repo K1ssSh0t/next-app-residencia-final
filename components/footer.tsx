@@ -8,11 +8,11 @@ export function Footer() {
         <div className="grid md:grid-cols-4 gap-8">
           <div>
             <Image
-              src="/placeholder.svg?height=100&width=200"
+              src="/LOGO.jpg"
               alt="Gobierno de México"
               width={200}
               height={100}
-              className="mb-4"
+              className="mb-4 rounded-lg"
             />
           </div>
           <div>

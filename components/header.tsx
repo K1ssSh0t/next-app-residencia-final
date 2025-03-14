@@ -2,6 +2,7 @@ import { ModeToggle } from "@/components/mode-toggle";
 import { auth } from "@/lib/auth";
 import Link from "next/link";
 import { MobileMenu } from "@/components/mobile-menu";
+import Image from "next/image";
 
 export async function Header() {
   const session = await auth();
@@ -11,8 +12,20 @@ export async function Header() {
     <header className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4 md:justify-start md:space-x-10">
-          <div className="flex justify-start lg:w-0 lg:flex-1">
-            <Link href="/" className="font-bold text-foreground">
+          <div className="flex flex-col md:flex-row items-center md:justify-start">
+            <div className="flex-shrink-0">
+              <Image
+                src="/LOGO.jpg"
+                alt="Gobierno de México"
+                width={300}
+                height={200}
+                className="object-contain w-32 md:w-64"
+              />
+            </div>
+            <Link
+              href="/"
+              className="mt-2 md:mt-0 md:ml-4 font-bold text-foreground text-center md:text-left"
+            >
               {user?.email ? "Bienvenido" : "Inicia Sesión"}
             </Link>
           </div>
