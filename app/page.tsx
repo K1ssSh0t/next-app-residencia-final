@@ -11,16 +11,26 @@ export default function Page() {
 
       <main className="flex-grow">
         <section>
-          <div className="container flex flex-col gap-8 mx-auto px-6 py-16 text-center p-5 rounded">
+          <div className="container flex flex-col gap-8 mt-4 mx-auto px-6 py-16 text-center rounded bg-white/80 shadow-lg border border-[#672645]/20 backdrop-blur-sm max-w-4xl">
             {/* System Title */}
-            <div className="text-center mb-8">
-              <h2 className="text-2xl font-semibold text-[#672645] mb-2">
-                SISTEMA DE CAPTURA DE INFORMACIÓN ESTADÍSTICA EDUCATIVA DE MEDIA SUPERIOR Y SUPERIOR DEL ESTADO DE OAXACA
-              </h2>
-              <p className="text-gray-600">
-                Dirección General de Planeación,<br />
-                Programación y Estadística Educativa del Estado de Oaxaca
-              </p>
+            <div className="text-center">
+              <div className="inline-block mb-4 px-4 py-2 rounded-full">
+                <h2 className="text-3xl font-bold text-[#672645] tracking-tight">
+                  SISTEMA DE CAPTURA DE INFORMACIÓN ESTADÍSTICA EDUCATIVA
+                </h2>
+                <h3 className="text-2xl font-semibold text-[#672645]/90 mt-2">
+                  MEDIA SUPERIOR Y SUPERIOR DEL ESTADO DE OAXACA
+                </h3>
+              </div>
+              <div className="max-w-2xl mx-auto border-t border-[#672645]/20 pt-4">
+                <p className="text-gray-600 font-medium mb-3">
+                  Dirección de planeación, programación y evaluación
+                </p>
+                <p className="text-gray-700">
+                  Departamento de estadística, incorporación del tipo medio
+                  superior, <br /> superior y capacitación para el trabajo
+                </p>
+              </div>
             </div>
           </div>
         </section>
@@ -29,7 +39,7 @@ export default function Page() {
           <div
             className="absolute bg-contain bg-center opacity-15 inset-0 -z-10"
             style={{
-              backgroundImage: `url('/IMG00_Admin.png')`
+              backgroundImage: `url('/IMG00_Admin.png')`,
             }}
           ></div>
           {/* Important Notice */}
