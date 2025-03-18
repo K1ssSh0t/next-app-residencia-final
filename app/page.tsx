@@ -9,7 +9,7 @@ export default function Page() {
     <div className="flex flex-col min-h-screen">
       <Header />
 
-      <main className="flex-grow">
+      <main className="flex-grow pt-20">
         <section>
           <div className="container flex flex-col gap-8 mt-4 mx-auto px-6 py-16 text-center rounded bg-white/80 shadow-lg border border-[#672645]/20 backdrop-blur-sm max-w-4xl">
             {/* System Title */}
